@@ -1,0 +1,61 @@
+{
+    "id": 54020087,
+    "name": "关于重构IDU沙盒",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/1980aa2244e01ac96184d24f5194028f.jpg",
+    "xml": "print('''前阶段，IDU沙盒也开发得有一段时间了，平时开发时间不多，暑假可能会多些时间开发。\n感谢平时 [@黄羿杰 @实变函数 @吴宇航 @鱼翔浅底 @林林] 等人的建议贡献和交流制作。排序不分前后。\n\n对于我制作的2D部分，感谢实变函数的制作。不过，我认为代码是不清晰的，需要重构所有近1000行代码，花费较多时间。\n自dev版本之后，我将重构后的版本以α来代替，作为内测和公测版本。\n版本号对照\ndev0: V0.0.0\ndev1-16: V0.1.1-V0.1.16   (dev系列版本发布版本为dev13: V0.1.13)\n* 此处dev13的pre版本号实变函数封面标注错误，以V0.1.13.4为准。\nα1-??: V0.2.0-V0.2.??\nβ1: V0.3.0\nγ1: V0.4.0\n.\n.\n.\n正式版本: V1.0.0\n\n另外，暑假会经常使用??H?作为代号，意思是??年HolidayVersion第?更改。\n（如今年长假第一次更改为: 24H1）（怎么感觉一股微软味道（doge\n\n再解释本次重构的需要:\n1.重构将脱离pygame屏幕先制作底层脚本，用指令控制游戏变化，然后再显示图形界面。图形界面的操作会调用底层的指令。也就是GUI生于command.\n2.所有生物将会有一个基类。它拥有基础的重力、移动、生存方式等性质。之后的其他生物和player都是基于此类。\n3.需要优化存储地图的方式。一方面是为了更好的碰撞箱，一方面是为了节省运行时内存占用。\n4.规避某些重复杂乱代码（其实确实，有些如鼠标跟物品格子的交互，实在是分支多。要是摆脱学而思的编辑器用上python3.10的match会更清晰。\n5.写一些pygame小插件，整理。\n6.取消地图的玩家绑定功能，而提供玩家视角功能，一方面为多玩家做准备，一方面清晰了视角逻辑。\n7.去除一些不好的写法，比如在类的__init__里面直接list.append(self)之类，这让垃圾回收很不方便，还容易导致引用的错传、误传。\n（其实2d游戏能跑几百fps，时间上其实用不着怎么管控，之前一直弄到O(n)以下，想来是没有必要。）\n\n先写这么多，便是去重构了。多言却写于评论区。''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-09 14:49:07",
+    "modified_at": "2024-07-09 14:49:07",
+    "likes": 8,
+    "views": 113,
+    "comments": 23,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-06-28 23:59:19",
+    "updated_at": "2026-06-23 17:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 30,
+                "column": 26
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/6212b5766f70659c870a10ca0a225e68.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 3,
+    "favorites": 5,
+    "tags": "游戏 模拟 算法",
+    "xml_path": "823e64cbb561c3692a2bf4d8a7a95589",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54020087"
+}

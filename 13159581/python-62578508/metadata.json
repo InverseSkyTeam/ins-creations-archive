@@ -1,0 +1,61 @@
+{
+    "id": 62578508,
+    "name": "瞎搞了一个Phigros魔改（",
+    "category": 1,
+    "type": "normal",
+    "description": "简陋音游，但是AutoPlay（\n鸣谢：\n小轩的图片（note）\nccw的一些素材（找不到来源了）",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/8adcc1c486b6f530c234c3e01fbadf3b.jpg",
+    "xml": "import pygame\nimport tkinter as tk\nfrom PIL import Image, ImageTk\nimport random\nimport time\nimport os\n\nmusic_path = \"music/test.wav\"\nwith open('music/test Timer.txt', 'r', encoding='utf-8') as f:\n    song_chart = [float(i) for i in f.read().split('\\n') if i]\nwith open('music/test X.txt', 'r', encoding='utf-8') as f:\n    x_chart = [float(i) for i in f.read().split('\\n') if i]\n\nroot = tk.Tk()\nroot.attributes('-topmost', True)\nroot.attributes('-transparentcolor', '#f0f0f0')\nroot.attributes('-fullscreen', True)\nroot.overrideredirect(True)\ntk.Label(root, text='简陋音游 AutoPlay（雾', font=(\"kaiti\", 30)).pack()\ntk.Label(root, text='Esc 退出', font=(\"kaiti\", 20)).pack()\n\nos.environ['SDL_VIDEO_WINDOW_POS'] = '400,100'\npygame.init()\npygame.mixer.init()\n\nscreen = pygame.display.set_mode((500, 330), pygame.NOFRAME)\n\npygame.mixer.music.load(music_path)\npygame.mixer.music.play()\n\nblues = pygame.mixer.Sound('music/Blue.mp3')\nreds = pygame.mixer.Sound('music/Red.wav')\nyellows = pygame.mixer.Sound('music/Yellow.mp3')\n\ndef play_note(type: int):\n    if type == 1:\n        blues.play()\n    elif type == 7:\n        reds.play()\n    elif type == 13:\n        yellows.play()\n\nclass TapNoteTk:\n    def __init__(self, x, y, speed, image_num):\n        self.is_running = True\n        self.top = tk.Toplevel(root)\n        self.top.attributes('-topmost', True)\n        self.top.attributes('-transparentcolor', '#f0f0f0')\n        self.top.overrideredirect(True)\n        self.top.geometry(f'120x40+{400+int(x)}+{100+int(y)}')\n        self.image_num = image_num\n        self.speed = speed\n        self.image = Image.open(f'images/作者{self.image_num}.png')\n        self.image = self.image.rotate(90,expand=1)\n        self.tk_image = ImageTk.PhotoImage(self.image)\n        self.label = tk.Label(self.top, image=self.tk_image)\n        self.label.pack()\n    def update(self):\n        if self.is_running:\n            self.top.update()\n        self.top.geometry(f'120x40+{self.top.winfo_x()}+{self.top.winfo_y() - self.speed}')\n        if self.top.winfo_y() <= 400:\n            self.top.destroy()\n            self.is_running = False\n\nclass TapNote(pygame.sprite.Sprite):\n    def __init__(self, x, y, speed):\n        super().__init__()\n        self.image_num = random.choice([1,7,13])\n        self.image = pygame.image.load(f'images/作者{self.image_num}.png').convert_alpha()\n        self.image = pygame.transform.rotate(self.image, 90)\n        self.rect = self.image.get_rect()\n        self.rect.x = x\n        self.rect.y = y\n        self.speed = speed\n        self.tk_top = TapNoteTk(x, y, speed, self.image_num)\n\n    def update(self):\n        if self.rect.y <= 50:\n            self.kill()\n        self.rect.y -= self.speed\n        if self.tk_top.is_running:\n            self.tk_top.update()\n\n    def kill(self):\n        super().kill()\n        animations.add(ClickAnimation(self.rect.center))\n        play_note(self.image_num)\n\n\nclass ClickAnimation(pygame.sprite.Sprite):\n    def __init__(self, center):\n        super().__init__()\n        self.center = center\n        self.animation_id = 2\n        self.image = pygame.image.load(f'animations/perfect__img-{self.animation_id}.svg').convert_alpha()\n        self.rect = self.image.get_rect(center=center)\n\n    def update(self):\n        if self.animation_id < 24:\n            self.animation_id += 1\n            self.image = pygame.image.load(f'animations/perfect__img-{self.animation_id}.svg').convert_alpha()\n            self.rect = self.image.get_rect(center=self.center)\n        else:\n            self.kill()\n\n\nnotes = pygame.sprite.Group()\nanimations = pygame.sprite.Group()\n\nstart_time = time.time()\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_ESCAPE:\n                running = False\n\n    screen.fill((123, 123, 123))\n    pygame.draw.line(screen, (0, 100, 255), (25, 50), (475, 50))\n    pygame.draw.line(screen, (0, 100, 255), (25, 300), (475, 300))\n\n    elapsed_time = time.time() - start_time\n    for note_time in song_chart:\n        if elapsed_time >= note_time:\n            x = x_chart[song_chart.index(note_time)] + 240\n            speed = 10\n            note = TapNote(x, 700, speed)\n            notes.add(note)\n            song_chart.remove(note_time)\n            x_chart.remove(x - 240)\n\n    notes.update()\n    notes.draw(screen)\n    animations.update()\n    animations.draw(screen)\n\n    pygame.display.flip()\n    root.update()\n    clock.tick(60)\n\npygame.quit()\nroot.destroy()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-07-01 21:14:21",
+    "modified_at": "2025-07-01 21:14:21",
+    "likes": 2,
+    "views": 26,
+    "comments": 7,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-07-01 21:12:02",
+    "updated_at": "2026-06-17 18:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 7,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/2bac197e595e53310debe26ac2661c91.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "其他 模拟 游戏",
+    "xml_path": "45b43f3dd7459a8ec8743daf46da9182",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_62578508"
+}

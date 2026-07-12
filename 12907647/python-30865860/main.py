@@ -1,0 +1,7 @@
+print("关于小轩电脑预览版系列、小版本系列，有必要的都在同学的号发布")
+print("https://code.xueersi.com/space/66783654右键复制到他个人主页")
+print("https://code.xueersi.com/home/project/detail?lang=code&pid=30865850&version=offline&form=python&langType=python右键复制到小轩电脑AS预览版第一版")
+print("想先偷看预览版的，可以看看他（不必关注，也不必点赞），有的时候就会发一个")
+print("允许李俊鑫号标原创！")
+print("但毕竟是预览版，可能bug较多（记得吗，因为彩蛋0.11.3出了bug...所以AS预览版才是第一个拥有彩蛋的）")
+print("所以请在我本人的主页多提意见！！！然后，话说回来，现在支持选择性升级时复制文件保存到桌面了~用递归的算法算了老久……")

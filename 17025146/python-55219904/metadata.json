@@ -1,0 +1,73 @@
+{
+    "id": 55219904,
+    "name": "中缀表达式计算器",
+    "category": 1,
+    "type": "normal",
+    "description": "一切仿佛又回到了梦开始的地方。\n虽然还是四则运算，但它具有社区目前最先进的词法分析器、语法分析器最简洁快速的虚拟机，在此基础上可以很轻松地拓展成一个动态语言。",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from lex import *\n\nlexer = Lexer()\nlexer.ignore = [\" \"]\n\n@lexer.pattern(\"\\\\+\")\n@lexer.pattern(\"\\\\-\")\n@lexer.pattern(\"\\\\*\")\n@lexer.pattern(\"/\")\n@lexer.pattern(\"\\\\(\")\n@lexer.pattern(\"\\\\)\")\ndef symbol(lexer):\n    return (lexer.buffer, None)\n\n@lexer.pattern(\"[0-9](\\\\.[0-9][0-9]?)?\")\ndef number(lexer):\n    return (\"NUMBER\", int(lexer.buffer) if lexer.buffer.isdigit() else float(lexer.buffer))\n\n@lexer.eof()\ndef eof(lexer):\n    return (\"$\", None)\n\n@lexer.undefined\ndef undefined(lexer):\n    print(\"Undefined token:\", lexer.buffer)\n    print(\"Line: \" + str(lexer.line) + \", Column: \" + str(lexer.column))\n    exit(0)\n\nlexer.compile()\n\n\n\nfrom parse import *\n\nparser = Parser()\nterminals = [\n    \"NUMBER\", \"+\", \"-\", \"*\", \"/\", \"(\", \")\", \"$\"\n]\npriories = {\n    \"+\": (1, \"LEFT\"),\n    \"-\": (1, \"LEFT\"),\n    \"*\": (0, \"LEFT\"),\n    \"/\": (0, \"LEFT\")\n}\nparser.set_terminal(terminals)\nparser.set_priority(priories)\nparser.byte_code = []\n\n@parser.pattern(\"S'\", [\"S\"])\ndef S_(parser):\n    pass\n\n@parser.pattern(\"S\", [\"Expr\"])\ndef S(parser):\n    parser.byte_code.append((\"PRINT\", None))\n\n@parser.pattern(\"Expr\", [\"Expr\", \"+\", \"Expr\"])\ndef Expr_add(parser):\n    parser.byte_code.append((\"ADD\", None))\n\n@parser.pattern(\"Expr\", [\"Expr\", \"-\", \"Expr\"])\ndef Expr_sub(parser):\n    parser.byte_code.append((\"SUB\", None))\n\n@parser.pattern(\"Expr\", [\"Expr\", \"*\", \"Expr\"])\ndef Expr_mul(parser):\n    parser.byte_code.append((\"MUL\", None))\n\n@parser.pattern(\"Expr\", [\"Expr\", \"/\", \"Expr\"])\ndef Expr_div(parser):\n    parser.byte_code.append((\"DIV\", None))\n\n@parser.pattern(\"Expr\", [\"(\", \"Expr\", \")\"])\ndef Expr_group(parser):\n    pass\n\n@parser.pattern(\"Expr\", [\"NUMBER\"])\ndef Expr_num(parser):\n    parser.byte_code.append((\"LOAD_CONST\", parser.buffer[1]))\n\n@parser.error\ndef error(parser):\n    print(\"Syntax error: \" + parser.token[0])\n    print(\"Line: \" + str(parser.lexer.line) + \", Column: \" + str(parser.lexer.column))\n    exit(0)\n\nparser.compile()\n\n\nfrom qvm import *\nlexer.read('(1 + 2) * 3')\nparser.read(lexer)\nparser.parse()\nrun(parser.byte_code)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-06 23:11:10",
+    "modified_at": "2024-08-06 23:12:49",
+    "likes": 6,
+    "views": 34,
+    "comments": 83,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-06 23:09:13",
+    "updated_at": "2026-07-12 15:15:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 86,
+                "column": 16
+            },
+            "69794dca-275e-4a1b-6c63-8a47f72837ec": {
+                "row": 445,
+                "column": 45
+            },
+            "0a4950eb-de52-4bc5-681b-0bc9654ed5e6": {
+                "row": 242,
+                "column": 21
+            },
+            "c3f54674-f1d9-62b1-dcda-d273b86f7906": {
+                "row": 94,
+                "column": 16
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/5c9b26eb6223af51314601a216e6e3e7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "其他",
+    "xml_path": "15e11c774aed6b0df40635146645b0b9",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55219904"
+}

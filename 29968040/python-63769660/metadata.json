@@ -1,0 +1,65 @@
+{
+    "id": 63769660,
+    "name": "INS-3D新版渲染引擎简介",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"\"\"\n由于缺乏电脑，新版引擎使用cython编写，无法直接运行（需要手动编译）\n新引擎特性：\n1、完整的齐次空间裁剪（旧版仅支持 z-near 平面）\n2、质量更好的渲染，将扫描线算法和包围盒算法相结合，并以相对准确的方式处理重叠的边\n3、更稳定的渲染（旧版有严重的非法内存访问漏洞）\n4、参考了 PortableGL 的渲染代码，速度和兼容性提升\n\n引擎代码见改编（完整运行代码暂不展示，其实就是懒（）\n\"\"\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-08-13 22:17:34",
+    "modified_at": "2025-08-13 22:17:34",
+    "likes": 1,
+    "views": 24,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-08-13 22:11:59",
+    "updated_at": "2026-06-27 17:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 36
+            },
+            "9c47cfe3-65a6-073b-b246-3ba050194ddc": {
+                "row": 37,
+                "column": 1
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/283cb5f0931ff31790204e0aba901a95.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "1ed88083ac33c0b08660f98b1d50c242",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_63769660"
+}

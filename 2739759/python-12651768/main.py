@@ -1,0 +1,9 @@
+print("""我在C站第一个发布的作品：http://code.xueersi.com/home/project/detail?lang=scratch&pid=615842&version=3.0&langType=scratch
+我在C站第一个发布的python作品：http://code.xueersi.com/home/project/detail?lang=code&pid=3259696&version=offline&form=python&langType=python
+我在C站第一个发布的pygame作品:http://code.xueersi.com/home/project/detail?lang=code&pid=3259696&version=offline&form=python&langType=python
+我在C站第一个观看量过百作品:http://code.xueersi.com/home/project/detail?lang=code&pid=11964333&version=offline&form=python&langType=python
+我在C站第一个粉丝:http://code.xueersi.com/space/10021970
+我在C站第一个关注的人:https://code.xueersi.com/space/56906
+我在C站第一个发布的tkinter作品:https://code.xueersi.com/home/project/detail?lang=code&pid=5327734&version=offline&form=python&langType=python
+我在C站第一个发布的硬件作品:https://code.xueersi.com/home/project/detail?lang=code&pid=7844485&version=offline&form=python&langType=python
+一切都还历历在目……""")

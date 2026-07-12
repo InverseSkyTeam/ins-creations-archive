@@ -1,0 +1,13 @@
+Things(Basic):
+    plant_tree:
+          *
+         ***
+        **+**
+          +
+          +
+         +++
+    make_hill:
+           *
+          ***
+         *****
+        *******

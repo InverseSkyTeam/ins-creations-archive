@@ -1,0 +1,61 @@
+{
+    "id": 58931009,
+    "name": "Pygame中英文混合渲染",
+    "category": 1,
+    "type": "normal",
+    "description": "懒得改了，下载到本地运行吧\n自己这里测试FPS好像可以破百（300~500），反正比终端快多了，一个编辑器要什么帧率（",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import utils\nimport pygame\nimport time\n\n\ndef init(caption: str = \"TermEd\"):\n    utils.init()\n    ui = pygame.display.set_mode((800, 600), pygame.RESIZABLE)\n    pygame.display.set_caption(caption)\n    # print(*zip(utils.font_family, utils.font_shift))\n    return ui\n\n\ndef draw(ui: pygame.Surface, pos: utils.Pos, text: str, fg='black', bg='white'):\n    if not text:\n        return\n    tp = utils.pick_font(text[0])\n    cur_text = text[0]\n    for ch in text[1:]:\n        if (ch_tp := utils.pick_font(ch)) != tp:\n            if cur_text:\n                # print(cur_text, tp, len(cur_text))\n                ui.blit((surf := utils.font_instance[tp].render(cur_text, True, fg, bg)),\n                        (pos[0], pos[1] + utils.font_shift[tp]))\n            tp = ch_tp\n            cur_text = \"\"\n            pos = pos[0] + surf.get_width(), pos[1]\n        cur_text += ch\n    if cur_text:\n        ui.blit(utils.font_instance[tp].render(cur_text, True, fg, bg),\n                (pos[0], pos[1] + utils.font_shift[tp]))\n\n\ndef main():\n    ui = init()\n    dt = 0\n    clock = pygame.time.Clock()\n    FPS = 600\n    t = time.time()\n\n    while True:\n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                return\n            elif event.type == pygame.VIDEORESIZE:\n                ...\n\n        ui.fill(\"white\")\n\n        for i in range(ui.get_height() // (utils.max_size + utils.line_padding) - 1):\n            draw(ui, (0, i * (utils.max_size + utils.line_padding)), \"Hello, 世界！你好，world!\")\n        draw(ui, (0, ui.get_height() - (utils.max_size + utils.line_padding)),\n             \"FPS: \" + str(1 / (time.time() - t)))\n        t = time.time()\n\n        pygame.display.update()\n\n        dt = clock.tick(FPS)\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-19 13:53:00",
+    "modified_at": "2025-01-19 13:53:00",
+    "likes": 2,
+    "views": 30,
+    "comments": 18,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-19 13:49:58",
+    "updated_at": "2025-09-23 23:45:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 62,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/480953cbd304cd6f6a2da75adfaf8cd4.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "算法 模拟",
+    "xml_path": "999eb9ea6fee64058e8724cd71153392",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58931009"
+}

@@ -1,0 +1,61 @@
+{
+    "id": 56162147,
+    "name": "Parser Combinator",
+    "category": 1,
+    "type": "normal",
+    "description": "没有LR高级，但是简单灵活好用，未来打算把它拓展成一个PEG解析器，以期彻底取代手写递归下降",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from copy import deepcopy\n\nclass Token:\n    def __init__(self, token):\n        self.token = token\n\nclass Error:\n    def __init__(self, message=None):\n        self.message = message\n\nclass Env:\n    def __init__(self, text, pos=0, packrat=None):\n        self.text = text\n        self.pos = pos\n        self.packrat = packrat if packrat else {}\n        self.res = None\n\nclass Combinator:\n    def __add__(self, other):\n        return And([self, other])\n    def __or__(self, other):\n        return Or([self, other])\n    def many(self):\n        return Many(self)\n    def some(self):\n        return Some(self)\n\nclass Epsilon(Combinator):\n    def __init__(self):\n        pass\n\n    def parse(self, env):\n        env.pos += 1\n        return env\n\nclass Text(Combinator):\n    def __init__(self, text):\n        self.text = text\n    \n    def parse(self, env):\n        text, pos = env.text, env.pos\n        if pos >= len(text):\n            env.res = Error()\n            return env\n        for i in range(pos, len(self.text)):\n            if self.text[i] != text[i]:\n                env.res = Error()\n                return env\n        env.pos += len(self.text)\n        env.res = Token(self.text)\n        return env\n\nclass Or(Combinator):\n    def __init__(self, patterns):\n        self.patterns = patterns\n\n    def parse(self, env):\n        res = deepcopy(env)\n        for pattern in self.patterns:\n            res = pattern.parse(res)\n            if isinstance(res.res, Error):\n                res = deepcopy(env)\n                continue\n            else:\n                return res\n        env.res = Error()\n        return env\n\nclass And(Combinator):\n    def __init__(self, patterns):\n        self.patterns = patterns\n\n    def parse(self, env):\n        tree = []\n        res = env\n        for pattern in self.patterns:\n            res = pattern.parse(res)\n            if isinstance(res.res, Error):\n                return res\n            else:\n                tree.append(res.res)\n        res.res = tree\n        return res\n\nclass Many(Combinator):\n    def __init__(self, pattern):\n        self.pattern = pattern\n\n    def parse(self, env):\n        res = env\n        tree = []\n        while True:\n            res = self.pattern.parse(res)\n            if isinstance(res.res, Error):\n                break\n            else:\n                tree.append(res.res)\n        res.res = tree\n        return env\n\nclass Some(Combinator):\n    def __init__(self, pattern):\n        self.pattern = pattern\n\n    def parse(self, env):\n        res = deepcopy(env)\n        res = self.pattern.parse(res)\n        if isinstance(res.res, Error):\n            env.res = Error()\n            return env\n        tree = [res.res]\n        while True:\n            res = self.pattern.parse(res)\n            if isinstance(res.res, Error):\n                break\n            else:\n                tree.append(res.res)\n        res.res = tree\n        return res\n\nclass Fn(Combinator):\n    def __init__(self, fn):\n        self.fn = fn\n    \n    def parse(self, env):\n        if (env.pos, self.fn.__name__) in env.packrat:\n            env = env.packrat[(env.pos, self.fn.__name__)]\n            return env\n        res =  self.fn().parse(env)\n        env.packrat[(env.pos, self.fn.__name__)] = res\n        return res\n\ndef A():\n    return (Text(\"a\") + Fn(A)) | Text(\"a\")\n\nprint(Fn(A).parse(Env(\"aaa\")).res)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-15 22:01:03",
+    "modified_at": "2024-09-15 22:01:03",
+    "likes": 3,
+    "views": 39,
+    "comments": 93,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-15 21:59:54",
+    "updated_at": "2026-05-22 23:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 125,
+                "column": 54
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/1cef64c014f22b805bfcb3969ea1e498.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "e0d44911013d2913d12a27c939210b5c",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56162147"
+}

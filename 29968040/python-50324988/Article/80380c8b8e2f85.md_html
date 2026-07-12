@@ -1,0 +1,67 @@
+<html><head></head><body><h1>requests详解(1)</h1>
+<h1>前言</h1>
+<ul>
+<li>requests是Python中的一个网络请求库，可以用于实现调取api，获取网页源代码等功能</li>
+<li>requests一共有很多种请求方式，我今天介绍最常用的2种，他们分别是get、post请求</li>
+</ul>
+<hr />
+<h1>get请求</h1>
+<h3>get请求特点概述</h3>
+<ul>
+<li>get请求是 <strong>获取数据</strong>(不建议用get提交数据)</li>
+<li>请求的参数将以<code>?name:val</code>的形式呈现，<strong>不安全</strong></li>
+<li>请求的 <strong>数据量有限制</strong> ，一般是 <strong>8kb</strong></li>
+<li>速度快</li>
+</ul>
+<h3>get请求基本使用方法</h3>
+<ul>
+<li><p>参数讲解 第一个参数为请求网址，第二个是请求头，第三个是请求数据</p>
+<pre class="python"><code>response=requests.get(url,headers=head,params=params)</code></pre></li>
+<li><p>请求头的一般写法 这是应对一般的反爬虫网站的措施，请求头的数据量有限制</p>
+<pre class="python"><code>head = {
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11&quot;
+}</code></pre>
+<p>应用实例： <img src="https://jihulab.com/ZiXuanYuan/blogpic/-/raw/main/pictures/2022/09/3_19_49_23_get%E8%AF%B7%E6%B1%82web%E5%AE%9E%E4%BE%8B.png" /></p></li>
+<li><p>数据的格式 数据以字典的方式呈现，以下是数据格式的实例：</p>
+<pre class="python"><code>params = {
+    &#39;type&#39;: &#39;python&#39;,
+    &#39;code&#39;: &#39;print(1)&#39;,
+}</code></pre>
+<p>一般在网址上以?name1=val1&amp;name2=val2形式出现,有数据量限制</p></li>
+</ul>
+<hr />
+<h1>Post请求</h1>
+<h3>Post请求特点概述</h3>
+<ul>
+<li>post请求是 <strong>提交数据</strong></li>
+<li><strong>不限制</strong> 提交数据的 <strong>大小</strong></li>
+<li><strong>速度慢</strong> ,但是 <strong>安全</strong></li>
+</ul>
+<h3>Post请求方法</h3>
+<ul>
+<li>参数讲解： url为网址，headers请求头和上面的get请求一样，data是字典数据请求和get的params一样，json是json数据请求
+<ul>
+<li><p>方法一：</p>
+<pre class="python"><code>response=requests.post(url,headers=head,data=payload)</code></pre></li>
+<li><p>方法二：</p>
+<pre class="python"><code>response=requests.post(url,headers=head,json=payload)</code></pre>
+<hr /></li>
+</ul></li>
+</ul>
+<h1>其余的参数</h1>
+<ul>
+<li><code>requests.post/get(url,headers=head,timeout=second)</code>: 设置接口连接的最大时间,单位为秒（超过该时间会抛出超时错误）</li>
+<li><code>requests.post/get(url,headers=head,verify=False)</code> <code>verify=True</code>(默认): 检查SSL证书认证 <code>verify=False</code>(常用): 忽略SSl证书认证</li>
+</ul>
+<hr />
+<h1>其余的功能</h1>
+<ul>
+<li><code>res.status_code</code> 获取状态码</li>
+<li><code>res.request.headers</code> 获取请求头</li>
+<li><code>res.headers</code> 获取响应头</li>
+<li><code>res.content</code> 获取响应内容的二进制</li>
+<li><code>res.text</code> url对应的页面内容，也就是网页源代码</li>
+<li><code>res.apparent_encoding</code> 猜测编码</li>
+<li><code>res.json()</code> 返回json数据</li>
+</ul>
+</body></html>

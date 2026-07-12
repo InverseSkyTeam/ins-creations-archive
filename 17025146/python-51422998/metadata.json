@@ -1,0 +1,69 @@
+{
+    "id": 51422998,
+    "name": "QuickVM",
+    "category": 1,
+    "type": "normal",
+    "description": "随便瞎起的名字，但感觉比SuperFast好听",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import time\nimport copy\n\ndef run(code):\n    stack = []\n    temporary = []\n    scope = []\n    funpos = []\n    pos = 0\n    BINARY = {\n        \"ADD\": lambda a, b: a + b,\n        \"SUB\": lambda a, b: a - b,\n        \"MUL\": lambda a, b: a * b,\n        \"DIV\": lambda a, b: a / b,\n        \"MOD\": lambda a, b: a % b,\n        \"EQ\": lambda a, b: a == b,\n        \"NEQ\": lambda a, b: a != b,\n        \"GT\": lambda a, b: a > b,\n        \"LT\": lambda a, b: a < b,\n        \"GE\": lambda a, b: a >= b,\n        \"LE\": lambda a, b: a <= b,\n        \"RSH\": lambda a, b: a >> b,\n        \"LSH\": lambda a, b: a << b,\n        \"BITAND\": lambda a, b: a & b,\n        \"BITOR\": lambda a, b: a | b,\n        \"XOR\": lambda a, b: a ^ b,\n        \"AND\": lambda a, b: a and b,\n        \"OR\": lambda a, b: a or b,\n        \"GET_ITEM\": lambda a, b: a[b]\n    }\n    UNARY = {\n        \"NOT\": lambda a: not a,\n        \"BITNOT\": lambda a: ~a\n    }\n    while pos < len(code):\n        instruction, arg = code[pos]\n        if instruction == \"LOAD_CONST\":\n            stack.append(arg)\n        elif instruction == \"LOAD_VAR\":\n            value = scope[arg]\n            stack.append(value)\n        elif instruction == \"STORE\":\n            value = stack.pop()\n            scope.append(value)\n        elif instruction == \"SET_VAR\":\n            value = stack.pop()\n            scope[arg] = value\n        elif instruction in BINARY:\n            right = stack.pop()\n            left = stack.pop()\n            value = BINARY[instruction](left, right)\n            stack.append(value)\n        elif instruction in UNARY:\n            val = stack.pop()\n            value = UNARY[instruction](val)\n            stack.append(value)\n        elif instruction == \"JMP\":\n            pos = arg - 1\n        elif instruction == \"JZ\":\n            cond = stack.pop()\n            if not cond:\n                pos = arg - 1\n        elif instruction == \"JNZ\":\n            cond = stack.pop()\n            if cond:\n                pos = arg - 1\n        elif instruction == \"GOTO\": # GOTO和JMP的区别在于,GOTO是根据栈顶的值进行跳转而非参数\n            value = stack.pop()\n            pos = value - 1\n        elif instruction == \"QUIT\":\n            del scope[arg]\n        elif instruction == \"STAGE\":\n            value = stack.pop()\n            temporary.append(value)\n        elif instruction == \"LOAD_TEMP\":\n            value = temporary[arg]\n            stack.append(value)\n        elif instruction == \"SET_TEMP\":\n            value = stack.pop()\n            temporary[arg] = value\n        elif instruction == \"LIST\":\n            values = [stack.pop() for _ in range(arg)]\n            stack.append(values)\n        elif instruction == \"OBJECT\":\n            values = {stack.pop(): stack.pop() for _ in range(arg)}\n            stack.append(values)\n        elif instruction == \"SET_ITEM\":\n            value = stack.pop()\n            item = stack.pop()\n            obj = stack.pop()\n            new = copy.deepcopy(obj)\n            new[item] = value\n            stack.append(new)\n        elif instruction == \"PRINT\":\n            value = stack.pop()\n            print(value)\n        pos += 1\n    \ncode = [\n    (\"JMP\", 20),\n    (\"STORE\", None), # 存pos\n    (\"STORE\", None), # 存num\n    (\"LOAD_VAR\", -1),\n    (\"LOAD_CONST\", 1),\n    (\"EQ\", None),\n    (\"JZ\", 9),\n    (\"LOAD_CONST\", 1),\n    (\"JMP\", 16),\n    (\"LOAD_VAR\", -1),\n    (\"LOAD_CONST\", 1),\n    (\"SUB\", None),\n    (\"LOAD_CONST\", 14),\n    (\"JMP\", 1),\n    (\"LOAD_VAR\", -1),\n    (\"MUL\", None),\n    (\"QUIT\", -1),\n    (\"LOAD_VAR\", -1),\n    (\"QUIT\", -1),\n    (\"GOTO\", None),\n    (\"LOAD_CONST\", 100000),\n    (\"LOAD_CONST\", 23),\n    (\"JMP\", 1),\n    # (\"PRINT\", None),\n]\nt1 = time.time()\nrun(code)\nt2 = time.time()\ndelta_t1 = t2 - t1\nprint(delta_t1)\n\n# t1 = time.time()\n# num = 1\n# result = 1\n# while num <= 100000:\n#     result *= num\n#     num += 1\n# t2 = time.time()\n# delta_t2 = t2 - t1\n# print(delta_t2)\n# code = [\n#     (\"LOAD_CONST\", 1),\n#     (\"STORE\", None),\n#     (\"LOAD_CONST\", 1),\n#     (\"STORE\", None),\n#     (\"LOAD_VAR\", 0),\n#     (\"LOAD_CONST\", 100000),\n#     (\"LE\", None),\n#     (\"JZ\", 17),\n#     (\"LOAD_VAR\", 1),\n#     (\"LOAD_VAR\", 0),\n#     (\"MUL\", None),\n#     (\"SET_VAR\", 1),\n#     (\"LOAD_VAR\", 0),\n#     (\"LOAD_CONST\", 1),\n#     (\"ADD\", None),\n#     (\"SET_VAR\", 0),\n#     (\"JMP\", 4),\n#     (\"LOAD_VAR\", 1),\n#     # (\"PRINT\", None)\n# ]",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-16 21:10:09",
+    "modified_at": "2024-02-21 22:33:29",
+    "likes": 7,
+    "views": 107,
+    "comments": 253,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-11 20:07:14",
+    "updated_at": "2026-06-06 08:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "2b727214-283a-04ba-d36e-765032fb55cd": {
+                "row": 260,
+                "column": 35
+            },
+            "d96be9ba-31ab-7c43-3ac2-3ae19ad836c5": {
+                "row": 2481,
+                "column": 17
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 67,
+                "column": 31
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/bf54cccfd2b1344ed6cec48e7508c2ee.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "其他 算法",
+    "xml_path": "6951d99392983d9bdc2e15bab05435bd",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51422998"
+}

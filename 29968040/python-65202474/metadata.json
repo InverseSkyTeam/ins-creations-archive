@@ -1,0 +1,60 @@
+{
+    "id": 65202474,
+    "name": "金玉其外，败絮其中",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"\"\"卖柑者言\n【明】刘基\n    杭有卖果者，善藏柑，涉寒暑不溃。出之烨然，玉质而金色。置于市，贾十倍，人争鬻之。\n    予贸得其一，剖之，如有烟扑口鼻，视其中，则干若败絮。予怪而问之曰：“若所市于人者，将以实笾豆，奉祭祀，供宾客乎？将炫外以惑愚瞽也？甚矣哉，为欺也！”\n    卖者笑曰：“吾业是有年矣，吾赖是以食吾躯。吾售之，人取之，未尝有言，而独不足子所乎？世之为欺者不寡矣，而独我也乎？吾子未之思也。\n    今夫佩虎符、坐皋比者，洸洸乎干城之具也，果能授孙、吴之略耶？ 峨大冠、 拖长绅者，昂昂乎庙堂之器也，果能建伊、皋之业耶？盗起而不知御，民困而不知救，吏奸而不知禁，法斁而不知理，坐糜廪粟而不知耻。观其坐高堂，骑大马，醉醇醴而饫肥鲜者，孰不巍巍乎可畏，赫赫乎可象也？又何往而不金玉其外，败絮其中也哉？今子是之不察，而以察吾柑！”\n    予默然无以应。退而思其言，类东方生滑稽之流。岂其愤世疾邪者耶？而托于柑以讽耶？\"\"\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-11-06 22:32:41",
+    "modified_at": "2025-11-06 22:32:41",
+    "likes": 3,
+    "views": 41,
+    "comments": 1,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-11-06 22:32:29",
+    "updated_at": "2026-06-25 17:00:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 5
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "其他",
+    "xml_path": "579bcc12493dbb94c453b3bac6ecbf97",
+    "created_source": "reprint",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_65202474"
+}

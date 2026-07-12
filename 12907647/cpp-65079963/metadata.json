@@ -1,0 +1,60 @@
+{
+    "id": 65079963,
+    "name": "CSP第二轮rp++",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/3d7e4065499609abb876266bc49ee941.jpg",
+    "xml": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"    我的确是玩python的人，不过学校既然有个信竞队我就参加了。（我现在是我校信数双修）\" << endl;\n    cout << \"    所以重拾一下cpp\" << endl << endl;\n    cout << \"    一开始很多东西都忘了，几乎忘得只剩语法，不过我进度赶得还可以，一周多学掉了字符串结构体贪心二分搜索线性dp之类的\" << endl;\n    cout << \"    最近一个月的话，我学了点树状数组，线段树，字典树，并查集之类的数据结构，一点图论，dp学了个背包和区间和树形，都是新知识，很有用\" << endl;\n    cout << \"    可能是以前写过解释器了，思维有所提升，对这些结构的理解比较轻松吧。\" << endl;\n    cout << \"    我的话指针比较玩不懂，因为打oi不怎么用\" << endl << endl;\n    cout << \"    当时第一轮j/s都参加了。大家都说j比s还难，但是我不认为。我s的题目很多看不懂，算是瞎写写，j拿了82.5，s拿了59.5，都过了\" << endl;\n    cout << \"    这周末就要去第二轮了，好久没看C站就回来说两句话。\" << endl;\n    cout << \"    高一比较忙，住宿 + 单休。这两天我生病回来挂水，稍微发个作品表示一下。我生日那天还要去南京考j/s的第二轮。能否1=就看运气。毕竟是第一次打oi\" << endl;\n    cout << \"    如果真没过，明年还有一次机会，我信心比较充足\" << endl << endl;\n    cout << \"    另外说一句，高一九门课确实挺累的，作业忙不过来，心理压力也比较大，希望大家实在一点，不要想些有的没的，想做的事就去做吧。珍惜一下小学初中的时光。\" << endl;\n    cout << \"    祝大家在校的期中全都获得好成绩，打竞赛的都rp++, pts++;\" << endl << endl;\n    cout << \"    by 小轩（有思想的不定积分）\";\n    return 0;\n}",
+    "lang": "cpp",
+    "published": 1,
+    "published_at": "2025-10-30 17:09:53",
+    "modified_at": "2025-10-30 17:09:53",
+    "likes": 8,
+    "views": 103,
+    "comments": 68,
+    "version": "cpp",
+    "source": "xes_live",
+    "original_id": 1,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-10-30 17:08:40",
+    "updated_at": "2026-07-12 15:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 18,
+                "column": 1
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "其他",
+    "xml_path": "08e9e5687474159fd901db275edc64e3",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": null,
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CC_65079963"
+}

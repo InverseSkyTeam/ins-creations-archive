@@ -1,0 +1,43 @@
+[
+    {
+        "id": 187803,
+        "topic_id": "CP_4130872",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "36704584",
+        "reply_user_id": "2739759",
+        "content": "[吐舌]",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2020-08-17 21:30:29",
+        "comment_from": "topic",
+        "username": "林致远",
+        "user_avatar_path": "https://t.100tal.com/avatar/%E6%9E%97%E8%87%B4%E8%BF%9C",
+        "reply_username": "胡锦辉",
+        "emojis": [
+            {
+                "id": "[吐舌]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/吐舌.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            }
+        ],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

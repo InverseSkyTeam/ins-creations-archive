@@ -1,0 +1,60 @@
+{
+    "id": 55672310,
+    "name": "《黑暗森林》预告",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 79932748,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/50cf35ed18da77d4e7bc2d048f919e68.jpg",
+    "xml": "print('''最近逆天团队qq群里面流行玩一个下棋网站，有一个路墙棋让我们印象深刻。\nhttps://game.hullqin.cn/\n于是我有了灵感，打算开发一款游戏，暂定名字《黑暗森林》\n是多人回合制联机游戏，需要有python和websocket-client库，以及windows系统的电脑。\n游戏规则还在规划中。\n\nIDU小轩去开发吧。\n说不定黑暗森林有一天可以加入到IDU里（\n\n“宇宙就是一座黑暗森林，每个文明都是带枪的猎人，像幽灵般潜行于林间，轻轻拨开挡路的树枝，竭力不让脚步发出一点儿声音，连呼吸都小心翼翼。”\n“但黑暗森林中有一个叫人类的傻孩子，生了一堆火并在旁边高喊：我在这儿！我在这儿。”\n——刘慈欣《三体》''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-25 15:29:02",
+    "modified_at": "2024-08-25 15:29:02",
+    "likes": 6,
+    "views": 53,
+    "comments": 21,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-25 15:28:21",
+    "updated_at": "2026-07-10 16:55:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 11,
+                "column": 13
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "游戏 其他",
+    "xml_path": "cb60b58a69912d4dbae9b38b279bdc68",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "实变函数",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20240219/Talzd7_uMAZmfn2jyKhnnEIn6Q1480.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55672310"
+}

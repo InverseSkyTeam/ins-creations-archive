@@ -1,0 +1,73 @@
+{
+    "id": 67028322,
+    "name": "INS-Transition 让丝滑过渡变得不再繁琐",
+    "category": 1,
+    "type": "normal",
+    "description": "根据 CSS 规范，重写了INS-Animation，并更名为 INS-Transition\n支持 CSS transition 的大多数特性，包括反转缩短特性，让 Pygame 的过渡以 CSS 风格编写",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/e7d7c8e1473ceb343254cb8978577183.jpg",
+    "xml": "import pygame \nimport sys\nfrom INS_Transition import State, TransitionGroup, TransitionData, ease\n\n# 颜色常量（模拟 CSS 变量）\nTHEME_COLOR = pygame.Color(112, 192, 0)           # --theme-color\nTHEME_COLOR_ACTIVE = pygame.Color(97, 166, 0)     # --theme-color-active\nTRACK_OFF = pygame.Color(215, 215, 215)           # #d7d7d7\nTRACK_OFF_ACTIVE = pygame.Color(200, 200, 200)    # #c8c8c8\nTRACK_OFF_DARK = pygame.Color(68, 68, 68)         # #444\nTRACK_OFF_ACTIVE_DARK = pygame.Color(85, 85, 85)  # #555\n\ndef color_lerp(t, color1: pygame.Color, color2: pygame.Color):\n    \"\"\"颜色插值函数，用于过渡\"\"\"\n    return color1.lerp(color2, t)\n\nclass Switch:\n    def __init__(self, center):\n        self.center = center\n        self.dark = False\n        self.checked = False\n        self.active = False\n\n        # 轨道尺寸（36x20，滑块16x16，边距2px）\n        self.track_width = 36\n        self.track_height = 20\n        self.slider_size = 16\n        self.margin = 2\n        self.scale = 4\n\n        # 滑块过渡\n        self.slider_left_start = self.margin\n        self.slider_left_end = self.track_width - self.slider_size - self.margin\n        \n        self.slider_left = self.slider_left_start\n        default_slider_state = State.create(\n            slider_left=(self.slider_left_start, TransitionData('0.25s', ease))\n        )\n        checked_slider_state = State.create(\n            slider_left=(self.slider_left_end, TransitionData('0.25s', ease))\n        )\n        self.slider_transition = TransitionGroup(\n            self, default_slider_state,\n            checked=checked_slider_state\n        )\n        \n        # 轨道颜色过渡\n        self.track_color = TRACK_OFF  # 初始颜色\n        default_state = State.create(\n            track_color=(TRACK_OFF, TransitionData('0.25s', ease))\n        )\n        dark_default_state = State.create(\n            track_color=(TRACK_OFF_DARK, TransitionData('0.25s', ease))\n        )\n        default_active_state = State.create(\n            track_color=(TRACK_OFF_ACTIVE, TransitionData('0.25s', ease))\n        )\n        dark_default_active_state = State.create(\n            track_color=(TRACK_OFF_ACTIVE_DARK, TransitionData('0.25s', ease))\n        )\n        checked_state = State.create(\n            track_color=(THEME_COLOR, TransitionData('0.25s', ease))\n        )\n        checked_active_state = State.create(\n            track_color=(THEME_COLOR_ACTIVE, TransitionData('0.25s', ease))\n        )\n        self.track_transition = TransitionGroup(\n            self, default_state,\n            lerp_funcs={'track_color': color_lerp},\n            dark_default=dark_default_state,\n            default_active=default_active_state,\n            dark_default_active=dark_default_active_state,\n            checked=checked_state,\n            checked_active=checked_active_state\n        )\n\n    def _get_tracked_state_name(self):\n        \"\"\"获取轨道状态字符串\"\"\"\n        if self.checked:\n            return 'checked' + self.active * '_active'\n        return self.dark * 'dark_' + 'default' + self.active * '_active'\n\n    def _get_slider_state_name(self):\n        \"\"\"获取滑块状态字符串\"\"\"\n        return 'checked' if self.checked else 'default'\n    \n    def get_rect(self):\n        rect = pygame.Rect(0, 0, self.track_width, self.track_height)\n        rect.center = self.center\n        return rect.scale_by(self.scale)\n\n    def handle_event(self, event):\n        rect = self.get_rect()\n        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:\n            if rect.collidepoint(event.pos):\n                self.active = True\n                \n        elif event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.active:\n            self.checked = not self.checked\n            self.active = False\n\n        elif event.type == pygame.MOUSEMOTION and self.active:\n            # 如果按下后移出开关，清除 active 并恢复颜色\n            if not rect.collidepoint(event.pos):\n                self.active = False\n\n    def update(self):\n        self.slider_transition.set_state(self._get_slider_state_name())\n        self.track_transition.set_state(self._get_tracked_state_name())\n        self.slider_transition.update()\n        self.track_transition.update()\n\n    def render(self, surface):\n        # 轨道\n        track_rect = self.get_rect()\n        pygame.draw.rect(surface, self.track_color, track_rect, border_radius=10 * self.scale)\n\n        # 滑块\n        slider_x = track_rect.x + self.slider_left * self.scale\n        slider_y = track_rect.y + self.margin * self.scale\n        slider_size = self.slider_size * self.scale\n        \n        slider_center_pos = int(slider_x + slider_size/2), int(slider_y + slider_size/2)\n        pygame.draw.circle(screen, (255, 255, 255), slider_center_pos, slider_size//2)\n\n\nclass UI:\n    DEFAULT = pygame.Color(255, 255, 255)\n    DARK = pygame.Color(40, 40, 40)\n    def __init__(self):\n        self.dark = False\n        self.bg_color = UI.DEFAULT\n        \n        default_state = State.create(\n            bg_color=(UI.DEFAULT, TransitionData('0.25s', ease))\n        )\n        dark_state = State.create(\n            bg_color=(UI.DARK, TransitionData('0.25s', ease))\n        )\n        self.transition = TransitionGroup(\n            self, default_state,\n            lerp_funcs={'bg_color': color_lerp},\n            dark=dark_state\n        )\n        \n        self.switch = Switch((400, 200))\n        self.switch_dark = Switch((400, 400))\n    \n    def update(self):\n        self.dark = self.switch.dark = self.switch_dark.dark = self.switch_dark.checked\n        self.transition.set_state('dark' if self.dark else 'default')\n        self.switch.update()\n        self.switch_dark.update()\n        self.transition.update()\n    \n    def handle_event(self, event):\n        self.switch.handle_event(event)\n        self.switch_dark.handle_event(event)\n    \n    def render(self, surface):\n        surface.fill(self.bg_color)\n        self.switch.render(screen)\n        self.switch_dark.render(screen)\n\n\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\nclock = pygame.time.Clock()\nui = UI()\n\n# 主循环\nwhile True:\n    fps = str(round(clock.get_fps()))\n    pygame.display.set_caption(f'Switch Demo - FPS: {fps}')\n    \n    events = pygame.event.get()\n    for _event in events:\n        if _event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        ui.handle_event(_event)\n    \n    ui.update()\n    ui.render(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2026-02-16 20:53:19",
+    "modified_at": "2026-02-17 00:42:33",
+    "likes": 6,
+    "views": 57,
+    "comments": 3,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2026-02-16 15:53:12",
+    "updated_at": "2026-07-11 23:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 14
+            },
+            "98a15d36-c769-f39c-540c-8c7323942db4": {
+                "row": 8,
+                "column": 0
+            },
+            "7d2c2311-2f1c-0ad1-90d1-6ad63a0ad44a": {
+                "row": 55,
+                "column": 51
+            },
+            "e6509b7b-a12e-90bf-ae9d-dea3074f6b18": {
+                "row": 220,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/15d557ff13047af517174a0b4d3c4ade.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 4,
+    "tags": "动画 模拟 艺术 教程",
+    "xml_path": "141e1644cece86ecdf0441f93bd26e27",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_67028322"
+}

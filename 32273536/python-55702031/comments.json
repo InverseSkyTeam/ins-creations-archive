@@ -1,0 +1,35 @@
+[
+    {
+        "id": 5966371,
+        "topic_id": "CP_55702031",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "59258",
+        "reply_user_id": "32273536",
+        "content": "我相信未来的你也会成为编程领域的大佬，奋斗吧",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2024-08-28 16:15:30",
+        "comment_from": "topic",
+        "username": "智能艾克",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20210816/TallFDMU0qtnyXVOImbb1cCoLg1999.png",
+        "reply_username": "陈祺嘉",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

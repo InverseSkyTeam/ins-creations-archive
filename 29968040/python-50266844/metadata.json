@@ -1,0 +1,61 @@
+{
+    "id": 50266844,
+    "name": "关于我在平板里跑INSIDE Web这件事",
+    "category": 1,
+    "type": "normal",
+    "description": "qpython yyds!",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"进改编，看素材区\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-04 22:40:55",
+    "modified_at": "2024-01-04 22:54:26",
+    "likes": 6,
+    "views": 38,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-04 21:52:10",
+    "updated_at": "2026-02-02 21:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 15
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/b08aba36b0e27d432eb55518833416a4.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "f59427d97d25020f633f414821137621",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50266844"
+}

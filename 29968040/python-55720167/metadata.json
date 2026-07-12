@@ -1,0 +1,65 @@
+{
+    "id": 55720167,
+    "name": "pygame动画库 INS_Animation v0.0.1",
+    "category": 1,
+    "type": "normal",
+    "description": "演示程序是一个带hover的按钮，缓动函数使用的ease-in-out\n\n1、对于缓动函数\n    目前仅支持cubic-bezier()函数以及相应的常量\n    不支持linear()函数和steps()函数\n2、目前仅支持 css 的 transition，且每个transition只能处理一个变量\n\n",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport sys\nfrom INS_Animation import transition\n\n\npygame.init()\nw, h = 800, 600\nscreen = pygame.display.set_mode((w, h), pygame.RESIZABLE)\nclock = pygame.time.Clock()\n\n\nclass Button:\n    def __init__(self):\n        self.center = (400, 300)\n        self.w, self.h = 200, 100\n\n        self.is_hover = False\n\n        self.hover_transition_w = transition((self, 'w', self.w * 1.5), '0.1s', 'ease-in-out', '0s')\n        self.hover_transition_h = transition((self, 'h', self.h * 1.5), '0.1s', 'ease-in-out', '0s')\n\n        self.no_hover_transition_w = transition((self, 'w', self.w), '0.1s', 'ease-in-out', '0s')\n        self.no_hover_transition_h = transition((self, 'h', self.h), '0.1s', 'ease-in-out', '0s')\n\n    def get_rect(self):\n        rect = pygame.Rect(0, 0, round(self.w), round(self.h))\n        rect.center = self.center\n        return rect\n\n    def render(self, screen):\n        pygame.draw.rect(screen, (255, 0, 0), self.get_rect(), border_radius=20)\n\n        txt = pygame.font.SysFont('SimHei', round(self.w / 10)).render('这是一个按钮', True, (255, 255, 255))\n        screen.blit(txt, txt.get_rect(center=self.get_rect().center))\n\n    def handle_event(self):\n        mouse_pos = pygame.mouse.get_pos()\n        if self.get_rect().collidepoint(mouse_pos):\n            self.is_hover = True\n        else:\n            self.is_hover = False\n\n        if self.is_hover and not self.hover_transition_w.play:\n            self.no_hover_transition_w.stop()\n            self.no_hover_transition_h.stop()\n            self.hover_transition_w.start()\n            self.hover_transition_h.start()\n        elif not self.is_hover and not self.no_hover_transition_w.play:\n            self.hover_transition_w.stop()\n            self.hover_transition_h.stop()\n            self.no_hover_transition_w.start()\n            self.no_hover_transition_h.start()\n\n    def update(self):\n        self.hover_transition_w.update()\n        self.hover_transition_h.update()\n        self.no_hover_transition_w.update()\n        self.no_hover_transition_h.update()\n\n\nbutton = Button()\n\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.VIDEORESIZE:\n            w, h = screen.get_size()\n    button.handle_event()\n\n    screen.fill((255,)*3)\n    button.update()\n    button.render(screen)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-30 12:00:03",
+    "modified_at": "2024-08-30 12:00:03",
+    "likes": 5,
+    "views": 35,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-30 11:53:24",
+    "updated_at": "2025-10-05 23:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "ccf05e92-e237-d413-edb7-a91f8beba045": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 9,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/f12ddd3354e5ba5ee00f1aaa9bd3f881.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "游戏 教程 沙盒专区",
+    "xml_path": "ae72e2327c8a0a107c069d3f47dfc8c6",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55720167"
+}

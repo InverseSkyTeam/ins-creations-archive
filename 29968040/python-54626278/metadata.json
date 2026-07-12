@@ -1,0 +1,73 @@
+{
+    "id": 54626278,
+    "name": "你这3D太假了，那不妨开个光影？",
+    "category": 1,
+    "type": "normal",
+    "description": "左右键切换，O键开启正背面剔除\n标题中的光影实际上指Phong式着色器",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/7580ee73dfbddb2104306d522c354caf.jpg",
+    "xml": "\nimport zipfile, sys\nwith zipfile.ZipFile('./data.zip', 'r') as zip_ref:\n    zip_ref.extractall('.')\n\n\ndef get_py_path():\n    return sys.executable\n\n\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\n\nfrom render import render_model, gouraud_model, phong_model\nimport pygame\nimport sys\nimport numpy as np\n\npygame.init()\nscreen = pygame.display.set_mode((600, 600), pygame.RESIZABLE)\nclock = pygame.time.Clock()\nfont = pygame.font.SysFont('Arial', 11)\n\nmodel = gouraud_model.GourandModel(filename=\"data/african_head/african_head.obj\",\n                                   texture_filename=\"data/african_head/african_head_diffuse.tga\")\nmodel1 = gouraud_model.GourandModel(filename=\"data/african_head/african_head_eye_inner.obj\",\n                                    texture_filename=\"data/african_head/african_head_eye_inner_diffuse.tga\")\nmodel2 = phong_model.PhongModel(filename=\"data/african_head/african_head.obj\",\n                                diffuse_filename=\"data/african_head/african_head_diffuse.tga\",\n                                norm_filename=\"data/african_head/african_head_nm_tangent.tga\",\n                                spec_filename=\"data/african_head/african_head_spec.tga\")\nmodel3 = phong_model.PhongModel(filename=\"data/african_head/african_head_eye_inner.obj\",\n                                diffuse_filename=\"data/african_head/african_head_eye_inner_diffuse.tga\",\n                                norm_filename=\"data/african_head/african_head_eye_inner_nm_tangent.tga\",\n                                spec_filename=\"data/african_head/african_head_eye_inner_spec.tga\")\n\nmodels = [[model, model1], [model2, model3]]  # , [model4], [model5], [model6], [model7]]\nindex = 1\n\nangle_x = 0.0\nangle_y = 0.0\nscale = 1.0\nmouse_dragging = False\nO2 = False  # 是否开启背面剔除\ntx, ty, tz = 0, 0, 0\n\n\nFPS_list = []\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                mouse_dragging = True\n            if event.button == 4:\n                scale += 0.1 * scale\n                scale = min(scale, 10.0)\n            if event.button == 5:\n                scale -= 0.1 * scale\n                scale = max(0.1, scale)\n        if event.type == pygame.MOUSEMOTION:\n            if mouse_dragging:\n                angle_x += event.rel[1]/300\n                angle_y += (-event.rel[0])/100\n        if event.type == pygame.MOUSEBUTTONUP:\n            if event.button == 1:\n                mouse_dragging = False\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_o:\n                O2 = not O2\n            if event.key == pygame.K_LEFT:\n                index -= 1\n                index %= len(models)\n            if event.key == pygame.K_RIGHT:\n                index += 1\n                index %= len(models)\n    screen.fill((255, 255, 255))\n    z_buffer = np.full(screen.get_size(), np.inf, dtype=np.float64)\n    for _model in models[index]:\n        render_model(_model, screen, z_buffer, angle_x, angle_y, scale, tx, ty, tz, O2)\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-25 11:32:36",
+    "modified_at": "2024-07-25 14:09:06",
+    "likes": 5,
+    "views": 102,
+    "comments": 6,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-25 11:25:44",
+    "updated_at": "2026-06-29 16:05:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "11da3922-a891-4946-9278-9fb11b8d0d92": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 53,
+                "column": 0
+            },
+            "9fbc9313-f532-eb65-5995-195425ea7a55": {
+                "row": 243,
+                "column": 24
+            },
+            "481ad890-bec0-a912-8c0b-1e100f9a9748": {
+                "row": 190,
+                "column": 24
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/de9179c524378c31370bfd0b735f57ef.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 2,
+    "favorites": 5,
+    "tags": "游戏 沙盒专区 算法",
+    "xml_path": "fc1d991013d3d4b1da02ba9c3fbf35d6",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54626278"
+}

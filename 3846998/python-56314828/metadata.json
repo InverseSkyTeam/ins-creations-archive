@@ -1,0 +1,61 @@
+{
+    "id": 56314828,
+    "name": "函数绘图器",
+    "category": 1,
+    "type": "normal",
+    "description": "简单的、依赖计算的函数绘图器\n需pygame-ce\nhjkl移动视角\n-=缩小放大\n又：马上要去考CSP-S初赛了",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "\"\"\"\n除pygame-ce文档外几乎没有参考任何资料写成\n\"\"\"\n\nimport pygame\nimport os, sys\n\npygame.init()\npygame.font.init()\n\nscreen = pygame.display.set_mode((600, 400))\npygame.display.set_caption(\"fndrawer.py\")\ns_width = screen.get_width()\ns_height = screen.get_height()\nneed_quit = False\nclock = pygame.Clock()\ndt = 0\ncenter_x, center_y = 0, 0\nzoom = 1\nfont = pygame.font.SysFont(\"Consolas\", 15)\n\n\ndef render_font(text: str):\n    return font.render(text, True, \"black\")\n\n\ndef shift(x, y):\n    return (x - center_x) * zoom + s_width / 2, (-y - center_y) * zoom + s_height / 2\n\n\ndef coord_add(a, b):\n    return a[0] + b[0], a[1] + b[1]\n\n\nfuncs = [\n    lambda x: x,\n    lambda x: x * x,\n    lambda x: x + 1 / x,\n    lambda x: x * x * x,\n]\n\n\nwhile not need_quit:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            need_quit = True\n    \n    screen.fill(\"white\")\n\n    # pygame.draw.circle(screen, \"black\", (center_x, center_y), 10)\n    # pygame.draw.circle(screen, \"white\", (center_x, center_y), 9)\n\n    # x-axis\n    pygame.draw.line(screen, \"black\", shift(-200, 0), shift(200, 0))\n    pygame.draw.line(screen, \"black\", shift(200, 0), coord_add(shift(200, 0), (-5, 5)))\n    pygame.draw.line(screen, \"black\", shift(200, 0), coord_add(shift(200, 0), (-5, -5)))\n    screen.blit(render_font(\"x\"), coord_add(shift(200, 0), (5, -7.5)))\n    # y-axis\n    pygame.draw.line(screen, \"black\", shift(0, 150), shift(0, -150))\n    pygame.draw.line(screen, \"black\", shift(0, 150), coord_add(shift(0, 150), (-5, 5)))\n    pygame.draw.line(screen, \"black\", shift(0, 150), coord_add(shift(0, 150), (5, 5)))\n    screen.blit(render_font(\"y\"), coord_add(shift(0, 150), (-3.75, -20)))\n    # 0-point\n    screen.blit(render_font(\"0\"), coord_add(shift(0, 0), (-10, 2.5)))\n    # texts\n    mode_text = render_font(\"Zoom: %.2f, Center: (%.2f, %.2f)\"%(zoom, center_x, center_y))\n    screen.blit(mode_text, (5, 380))\n    # graphs\n    for f in funcs:\n        last = None\n        dx = 2\n        x = -2000\n        while x <= 2000:\n            try:\n                y = f(x / 100)\n                if last is not None:\n                    last_draw = last[0] / 10, last[1] * 10\n                    cur_draw = x / 10, y * 10\n                    # print(x)\n                    pygame.draw.line(screen, \"black\", shift(*last_draw), shift(*cur_draw))\n                last = x, y\n            except:\n                y = 0\n                last = None\n            x += dx\n\n    pygame.display.flip()\n\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_k]:\n        center_y -= 300 * dt / zoom\n    if keys[pygame.K_j]:\n        center_y += 300 * dt / zoom\n    if keys[pygame.K_h]:\n        center_x -= 300 * dt / zoom\n    if keys[pygame.K_l]:\n        center_x += 300 * dt / zoom\n    if keys[pygame.K_q]:\n        need_quit = True\n    if keys[pygame.K_MINUS]:\n        if zoom - dt * 3 > 0.5:\n            zoom -= dt * 3\n    if keys[pygame.K_EQUALS]:\n        zoom += dt * 3\n\n    dt = clock.tick(60) / 1000\n    # print(dt)\n    \npygame.quit()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-21 13:04:11",
+    "modified_at": "2024-09-21 13:04:11",
+    "likes": 5,
+    "views": 31,
+    "comments": 71,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-21 13:03:01",
+    "updated_at": "2025-08-22 16:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 109,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/1e7a2fdf90c4e5f8b56b3f5988d17bd4.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "47ca9d0ae6561584f06228418786de9c",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56314828"
+}

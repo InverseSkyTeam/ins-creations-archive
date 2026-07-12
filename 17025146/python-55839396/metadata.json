@@ -1,0 +1,61 @@
+{
+    "id": 55839396,
+    "name": "新正则",
+    "category": 1,
+    "type": "normal",
+    "description": "扔掉了原来的递归下降解析，换上中缀转后缀，用Thompson NFA替换掉DFA，这使得它不需要太多时间来生成表，因而更像一个正则引擎而不是lexer generator。",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "class NFA:\n    Id = 0\n    def __init__(self, next_1=None, next_2=None, edge=None):\n        self.id = NFA.Id\n        NFA.Id += 1\n        self.edge = (\"EPSILON\", None) if edge is None else edge\n        self.next_1 = next_1\n        self.next_2 = next_2\n        self.accepted = False\n        self.mark = None\n    def __hash__(self):\n        return hash(self.id)\n\nclass Pair:\n    def __init__(self, start, end):\n        self.start = start\n        self.end = end\n\ndef regex_to_suffix(text):\n    output = []\n    op_stack = []\n    op = {\n        \"^\": 1,\n        \"+\": 2,\n        \"*\": 2,\n        \"?\": 2,\n        \"=\": 3,\n        \"<=\": 3,\n        \"!\": 3,\n        \"<!\": 3,\n        \"|\": 4,\n    }\n    escape = {\n        \"n\": set(\"\\n\"),\n        \"t\": set(\"\\t\"),\n        \"r\": set(\"\\r\"),\n        \"f\": set(\"\\f\"),\n        \"v\": set(\"\\v\"),\n        \"s\": set(\"\\n\\t\\r\\f\\v\"),\n        \"d\": set(\"0123456789\"),\n        \"w\": set(\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_\"),\n    }\n    regex = list(text)\n    index = 0\n    while index < len(regex):\n        char = regex[index]\n        if index and regex[index-1] not in \"([|\\\\^\" and char not in op and char != \")\":\n            regex.insert(index, \"^\")\n            char = \"^\"\n        if char == \"(\":\n            op_stack.append(char)\n        elif char == \")\":\n            while op_stack[-1] != \"(\":\n                output.append(op_stack.pop())\n            op_stack.pop()\n        elif char in op:\n            while op_stack and op_stack[-1] != \"(\" and op[char] <= op[op_stack[-1]]:\n                output.append(op_stack.pop())\n            op_stack.append(char)\n        elif char == \"[\":\n            index += 1\n            char = regex[index]\n            is_opp = False\n            if char == \"^\":\n                is_opp = True\n                index += 1\n                char = regex[index]\n            chars = set()\n            while char != \"]\":\n                if char == \"\\\\\":\n                    index += 1\n                    char = regex[index]\n                    if char in escape:\n                        chars.add(escape[char])\n                    else:\n                        chars.add(char)\n                else:\n                    chars.add(char)\n                index += 1\n                char = regex[index]\n            if is_opp:\n                chars = (\"EXCEPT\", chars)\n            else:\n                chars = (\"IN\", chars)\n            output.append(chars)\n        else:\n            if char == \"\\\\\":\n                index += 1\n                char = regex[index]\n                if char in escape:\n                    output.append((\"IN\", escape[char]))\n                else:\n                    output.append((\"IN\", set(char)))\n            elif char == \".\":\n                output.append((\"ALL\", None))\n            else:\n                output.append((\"IN\", set(char)))\n        index += 1\n    while op_stack:\n        output.append(op_stack.pop())\n    return output\n\ndef suffix_to_nfa(expr):\n    stack = []\n    for char in expr:\n        if char == \"^\":\n            second, first = stack.pop(), stack.pop()\n            first.end.next_1 = second.start\n            stack.append(Pair(first.start, second.end))\n        elif char == \"*\":\n            pair = stack.pop()\n            end = NFA()\n            start = NFA(pair.start, end)\n            pair.end.next_1 = start\n            pair.end.next_2 = end\n            stack.append(Pair(start, end))\n        elif char == \"+\":\n            pair = stack.pop()\n            start = NFA(pair.start)\n            end = NFA()\n            pair.end.next_1 = start\n            pair.end.next_2 = end\n            stack.append(Pair(start, end))\n        elif char == \"?\":\n            pair = stack.pop()\n            end = NFA()\n            start = NFA(pair.start, end)\n            pair.end.next_1 = end\n            stack.append(Pair(start, end))\n        elif char == \"|\":\n            second, first = stack.pop(), stack.pop()\n            start = NFA()\n            end = NFA()\n            start.next_1 = first.start\n            start.next_2 = second.start\n            first.end.next_1 = end\n            second.end.next_1 = end\n            stack.append(Pair(start, end))\n        else:\n            end = NFA()\n            start = NFA(end, None, char)\n            stack.append(Pair(start, end))\n    pair = stack.pop()\n    pair.end.accepted = True\n    return pair\n\ndef closure(nfa_set):\n    output = set(nfa_set)\n    stack = list(nfa_set)\n    while stack:\n        current = stack.pop()\n        if current.edge[0] == \"EPSILON\":\n            if current.next_1 and current.next_1 not in output:\n                output.add(current.next_1)\n                stack.append(current.next_1)\n            if current.next_2 and current.next_2 not in output:\n                output.add(current.next_2)\n                stack.append(current.next_2)\n    return output\n\ndef match(pattern, text):\n    expr = regex_to_suffix(pattern)\n    nfa = suffix_to_nfa(expr).start\n    nfa_set = set()\n    nfa_set.add(nfa)\n    for char in text:\n        nfa_set = closure(nfa_set)\n        new_nfa_set = set()\n        for nfa in nfa_set:\n            if nfa.edge[0] == \"ALL\":\n                new_nfa_set.add(nfa.next_1)\n            elif nfa.edge[0] == \"IN\" and char in nfa.edge[1]:\n                new_nfa_set.add(nfa.next_1)\n            elif nfa.edge[0] == \"EXCEPT\" and char not in nfa.edge[1]:\n                new_nfa_set.add(nfa.next_1)\n        nfa_set = new_nfa_set\n    nfa_set = closure(nfa_set)\n    for nfa in nfa_set:\n        if nfa.accepted:\n            return True\n    return False\n    \nprint(match(\"a*b\", \"aaaab\"))",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-31 22:30:40",
+    "modified_at": "2024-08-31 22:30:40",
+    "likes": 4,
+    "views": 18,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-31 22:28:54",
+    "updated_at": "2025-10-05 20:15:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 182,
+                "column": 28
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/245fff86923b062b419d631eb0fa61b0.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "36d04f0b6e38fe36ad29e94b1f6c4959",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55839396"
+}

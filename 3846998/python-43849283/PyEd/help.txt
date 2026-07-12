@@ -1,0 +1,70 @@
+Python Editor帮助文档
+注意：
+1、此帮助文档不会随时更新
+2、此文档通过整理代码得来，所以内容较多且真正有用的不多
+
+PyEd原生功能：
+
+1、代码高亮
+    default主题
+2、基本模式
+    NORMAL
+    SELECT 选择
+    INSERT 可以插入
+3、编辑支持
+    有对
+        .py
+        .rain
+        .cpp
+        .c
+        .nl
+        .js
+        .txt
+    文件的编辑支持
+    打开其他类型的文件会报错
+4、通用键
+    上下左右键：移动光标
+    Home/End/PageUp/PageDown：移动光标
+    Ctrl-C 退出编辑
+    Ctrl-N 启动代码补全
+    Backspace 删除
+5、NORMAL模式快捷键
+    v 进入SELECT模式
+    p 粘贴
+    i 进入INSERT模式
+    z 撤回（可能有bug）
+    hjkl 左下上右
+    < 相当于Home
+    > 相当于End
+    f(字符) 向前寻找字符
+    F(字符) 向后寻找字符
+    r 运行
+    :(一段命令) 执行命令（下面会说明）
+6、命令
+    help 获取此帮助
+    size (x) (y) 设置编辑区域长宽（已经废弃，无法使用）
+    nu 显示行号
+    nonu 不显示行号
+    news 获取更新内容
+    w/write (文件名) 把编辑器中的内容写入文件（如果已经打开过文件可以不用写文件名）
+    o/open (文件名) 打开文件
+    tab (number) 设置tab大小
+    delay (number) 设置延迟
+    theme (name) 设置主题
+
+
+config.rain附加功能：
+
+1、代码高亮
+    多个主题，包括
+        lightpad
+        default+
+        vim
+        textmate
+2、快捷键
+    INSERT jk 相当于Esc
+    INSERT/NORMAL ss 保存
+3、基本配置
+    tab大小为4
+    延迟为0s
+    显示行号

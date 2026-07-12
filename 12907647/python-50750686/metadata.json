@@ -1,0 +1,61 @@
+{
+    "id": 50750686,
+    "name": "测试生命 dev-4 （seed=100）",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/c12da9f5943cbf868a64d4002dfac769.jpg",
+    "xml": "import random, math, pygame, sys, time\npygame.init()\n\nrandom.seed(100)\n\nWIDTH = 1000\nHEIGHT = 700\nHALFWIDTH = 500\nHALFHEIGHT = 350\n\ndef get_distance(p1,p2):\n    _x1, _y1 = p1\n    _x2, _y2 = p2\n    return math.sqrt((_x1-_x2)**2+(_y1-_y2)**2)\n\nscreen = pygame.display.set_mode((WIDTH,HEIGHT))\npygame.display.set_caption('至简宇宙OL')\n\nclass Life:\n    def __init__(self,size,hp,ab,speed,hlimit,intel):\n        self.size = round(size)\n        self.tothp = self.hp = round(hp,1)\n        self.intellect = round(intel)\n        self.live_time = 0\n        self.to_new_time = 0\n        self.new_time = random.randint(100,200)\n        self.attack_basic = round(ab)\n        self.speed = speed\n        self.target = None\n        self.locker = None\n        self.hunt_limit = hlimit\n        self.position = [random.randint(0,WIDTH-self.size),random.randint(0,HEIGHT-self.size)]\n        self.rect = pygame.Rect(self.position,(self.size,self.size))\n        print(self.get_power())\n    def __str__(self):\n        return f'Life(hp:{self.hp},size:{self.size},{self.position})'\n    def __bool__(self):\n        return self.hp > 0\n    \n    def get_power(self):\n        return round(self.hp * 0.4 + self.hunt_limit * 0.9 + self.size * 7 + self.speed * 15 + self.get_attack(),2)\n    def get_attack(self):\n        return self.attack_basic + self.hp / 20 + self.size / 5\n    def able_to_attack(self,target):\n        hunt_distance = get_distance(self.position, target.position)\n        hunt_radius = (self.speed - target.speed) * self.hunt_limit * 1.3 + 1\n        return (self.get_power() - target.get_power() > 50) and (hunt_distance < hunt_radius)\n    \n    def act(self,_range):\n        self.move()\n        self.hunt(_range)\n        self.keep(_range)\n    def show(self):\n        pygame.draw.rect(screen,(int(self.hp*255/self.tothp),int(self.hp*255/self.tothp),int(self.speed*255/15)),self.rect,0)\n    \n    def move(self):\n        if self.locker:\n            if abs(self.position[0] - self.locker.position[0]) < HALFWIDTH:\n                if self.position[0] < self.locker.position[0]: self.position[0] -= self.speed\n                else: self.position[0] += self.speed\n            else:\n                if self.position[0] < self.locker.position[0]: self.position[0] += self.speed\n                else: self.position[0] -= self.speed\n            if abs(self.position[1] - self.locker.position[1]) < HALFHEIGHT:\n                if self.position[1] < self.locker.position[1]: self.position[1] -= self.speed\n                else: self.position[1] += self.speed\n            else:\n                if self.position[1] < self.locker.position[1]: self.position[1] += self.speed\n                else: self.position[1] -= self.speed\n            return\n        if self.target:\n            if abs(self.position[0] - self.target.position[0]) < HALFWIDTH:\n                if self.position[0] < self.target.position[0] - self.target.size / 2: self.position[0] += self.speed\n                elif self.position[0] > self.target.position[0] + self.target.size / 2: self.position[0] -= self.speed\n            else:\n                if self.position[0] < self.target.position[0] - self.target.size / 2: self.position[0] -= self.speed\n                elif self.position[0] > self.target.position[0] + self.target.size / 2: self.position[0] += self.speed\n            if abs(self.position[1] - self.target.position[1]) < HALFHEIGHT:\n                if self.position[1] < self.target.position[1] - self.target.size / 2: self.position[1] += self.speed\n                elif self.position[1] > self.target.position[1] + self.target.size / 2: self.position[1] -= self.speed\n            else:\n                if self.position[1] < self.target.position[1] - self.target.size / 2: self.position[1] -= self.speed\n                elif self.position[1] > self.target.position[1] + self.target.size / 2: self.position[1] += self.speed\n            if self.rect.colliderect(self.target.rect):\n                print(self.size,self.tothp,self.speed,self.attack_basic)\n                if self.hp < self.tothp * 0.1:\n                    if self.hp < self.target.hp - 35:\n                        if random.randint(0,1):\n                            self.hp += 35\n                        else:\n                            self.hp = 1\n                    else:\n                        self.hp = self.tothp * random.randint(23,35) / 100 + 1\n                elif self.hp < self.tothp * 0.4:\n                    self.hp += random.randint(12,17)\n                elif self.hp < self.tothp * 0.6:\n                    if self.hp > self.target.hp:\n                        self.hp += random.randint(7,14)\n                    else:\n                        self.hp += random.randint(3,6)\n                elif self.hp < self.tothp * 0.9:\n                    self.hp += random.randint(8,11)\n                else:\n                    self.hp = self.tothp\n                self.target.hp = 0\n                self.target = None\n            return\n        self.position[0] += random.randint(-round(self.speed*100),round(self.speed*100)) / 100\n        self.position[1] += random.randint(-round(self.speed*100),round(self.speed*100)) / 100\n    \n    def hunt(self,hunt_range):\n        if self.target:\n            return\n        for target in hunt_range:\n            if target.locker:\n                continue\n            if self.able_to_attack(target):\n                self.target_by(target)\n                target.locked_by(self)\n                break\n    def locked_by(self,locker):\n        self.locker = locker\n    def target_by(self,target):\n        self.target = target\n    \n    def keep(self,new_range):\n        self.hp -= .4\n        self.live_time += 1\n        self.to_new_time += 1\n        if self.to_new_time == self.new_time:\n            self.new_time = random.randint(140,180)\n            self.to_new_time = 0\n            if random.randint(0,1):\n                self.create_new(new_range)\n        if (not self.target) and (self.target is not None):\n            self.target = None\n        if (not self.locker) and (self.locker is not None):\n            self.locker = None\n        if self.hp < 0:\n            self.hp = 0\n        elif self.hp > self.tothp:\n            self.hp = self.tothp\n        if self.position[0] < 0:\n            self.position[0] = WIDTH\n        elif self.position[0] > WIDTH:\n            self.position[0] = 0\n        if self.position[1] < 0:\n            self.position[1] = HEIGHT\n        elif self.position[1] > HEIGHT:\n            self.position[1] = 0\n        self.rect.centerx, self.rect.centery = round(self.position[0]), round(self.position[1])\n    def create_new(self,new_range):\n        new_attr = random.randint(1,10000)\n        if new_attr <= 1500:\n            new_range.append(Life(self.size,self.tothp,self.attack_basic,self.speed,self.hunt_limit,self.intellect,))\n        elif new_attr <= 8500:\n            new_range.append(Life(\n                max(min(self.size + random.randint(-2,2), 60), 3),\n                max(min(self.tothp + random.randint(-6,6), 1000), 15),\n                max(min(self.attack_basic + random.randint(-2,2), 500), 1),\n                self.speed,\n                max(min(self.hunt_limit + random.randint(-5,5), 600), 1),\n                self.intellect,\n            ))\n        elif new_attr <= 9500:\n            new_range.append(Life(\n                max(min(self.size * random.randint(9,16) / 10, 60), 3),\n                max(min(self.tothp * random.randint(7,18) / 10, 1000), 15),\n                max(min(self.attack_basic * random.randint(5,20) / 10, 500), 1),\n                max(min(self.speed * random.randint(9,12) / 10, 10), 0.5),\n                max(min(self.hunt_limit * random.randint(8,12) / 10, 600), 1),\n                self.intellect,\n            ))\n        elif new_attr <= 9900:\n            new_range.append(Life(\n                max(min(self.size + random.randint(-3,3), 60), 3),\n                max(min(self.tothp * random.randint(9,19) / 10, 1000), 15),\n                max(min(self.attack_basic * random.randint(9,19) / 10, 500), 1),\n                max(min(self.speed * random.randint(9,14) / 10, 12), 1),\n                max(min(self.hunt_limit * random.randint(8,11) / 10, 400), 20),\n                self.intellect,\n            ))\n        else:\n            new_range.append(Life(\n                max(min(self.size + random.randint(-3,3), 60), 3),\n                max(min(self.tothp * random.randint(12,20) / 10, 1000), 15),\n                max(min(self.attack_basic * random.randint(15,25) / 10, 500), 1),\n                max(min(self.speed * random.randint(14,18) / 10, 15), 1),\n                max(min(self.hunt_limit * random.randint(3,13) / 10, 200), 10),\n                self.intellect,\n            ))\n        self.hp -= 3\n\nl = Life(30,100,300,3,80,15)\nlives = [Life(10,100,10,1,100,10) for i in range(80)]\nlives.append(l)\n\nwhile True:\n    \n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((0,0,0))\n    \n    life = -1\n    while life < len(lives) - 1:\n        life += 1\n        if lives[life]:\n            lives[life].act(lives)\n            lives[life].show()\n        else:\n            lives.remove(lives[life])\n    \n    time.sleep(0)\n    pygame.display.update()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-30 13:28:31",
+    "modified_at": "2024-01-30 13:28:31",
+    "likes": 5,
+    "views": 47,
+    "comments": 6,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 50663661,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-30 11:40:52",
+    "updated_at": "2025-05-09 20:30:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 53,
+                "column": 64
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/19e1ac8d90aabac1287942a9aad28c7c.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "游戏 模拟 算法",
+    "xml_path": "be2aca852c70e777be21de953f740f13",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50750686"
+}

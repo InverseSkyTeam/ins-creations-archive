@@ -1,0 +1,101 @@
+{
+    "id": 58584632,
+    "name": "webpy物理引擎测试",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport my_game\nmy_game.my_main()",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-01-04 15:02:44",
+    "modified_at": "2025-01-04 15:05:37",
+    "likes": 6,
+    "views": 47,
+    "comments": 2,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 58583614,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-04 13:48:23",
+    "updated_at": "2026-07-01 09:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "fa8bbabc-87bb-8ffe-acaa-eab4160fcdf1": {
+                "row": 61,
+                "column": 7
+            },
+            "7c9c6081-ad5b-641d-a6d3-5cc309efafb4": {
+                "row": 343,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 13
+            },
+            "bac97d68-8617-78db-76d4-94b6c1b17306": {
+                "row": 30,
+                "column": 58
+            },
+            "a766f5dc-6d9c-17a2-e7d1-65b039a9d279": {
+                "row": 3,
+                "column": 21
+            },
+            "abf7325e-25e9-d246-9354-bf39758cce31": {
+                "row": 7,
+                "column": 0
+            },
+            "73815cf3-618a-47dd-f8f9-1100e196a348": {
+                "row": 22,
+                "column": 10
+            },
+            "616b533a-9b24-4e68-befe-7831b75570a2": {
+                "row": 213,
+                "column": 8
+            },
+            "ec440097-55bd-48fe-9066-a8677c3eeded": {
+                "row": 187,
+                "column": 30
+            },
+            "ef2a68bd-f2bb-df37-c840-e69640f05784": {
+                "row": 10,
+                "column": 16
+            },
+            "5f56a51b-eabb-94a1-b20b-51d914aa9705": {
+                "row": 4,
+                "column": 42
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9d160a98e0948e47dd9a1437b0238ef2.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "9e09fced4f1102602fc088eeec9035f0",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58584632"
+}

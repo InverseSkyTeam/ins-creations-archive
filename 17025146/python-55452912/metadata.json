@@ -1,0 +1,61 @@
+{
+    "id": 55452912,
+    "name": "Earley Recognizer",
+    "category": 1,
+    "type": "normal",
+    "description": "目前还只是Recognizer，只能判断输入字符串是否符合文法，无法构建语法树，实现异常简单，然而要改成可构建语法树的Parser很难。因此我考虑换CYK算法，尽管我不喜欢CYK必须先把CFG转成Chomsky范式这一点，但CYK的分析能力和Earley是一样的，而且CYK算法要简单许多。",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "class Product:\n    def __init__(self, name, body, function = None):\n        self.name = name\n        self.body = body\n        self.function = function\n    def __str__(self):\n        return f\"{self.name} -> {' '.join(self.body)}\"\n    __repr__ = __str__\n    def _eq__(self, other):\n        return self.name == other.name and self.body == other.body\n    def __hash__(self):\n        return hash((self.name, tuple(self.body)))\n\nclass Item:\n    STATUS = -1\n    def __init__(self, product, pos):\n        Item.STATUS += 1\n        self.status = Item.STATUS\n        self.product = product\n        self.pos = pos\n    def __str__(self):\n        return f\"{self.product.name} -> {' '.join(self.product.body[:self.pos])}·{' '.join(self.product.body[self.pos:])}\"\n    __repr__ = __str__\n    def __eq__(self, other):\n        return self.product == other.product and self.pos == other.pos\n    def __hash__(self):\n        return hash((self.product, self.pos))\n    \n_terminals = [\"a\", \"b\"]\npatterns = {\n    \"S\": [\n        Product(\"S\", [\"T\"]),\n        Product(\"S\", [\"A\", \"B\"]),\n    ],\n    \"T\": [\n        Product(\"T\", [\"a\", \"T\", \"b\"]),\n        Product(\"T\", [\"a\", \"b\"]),\n    ],\n    \"A\":[\n        Product(\"A\", [\"a\", \"A\"]),\n        Product(\"A\", [\"a\"]),\n    ],\n    \"B\":[\n        Product(\"B\", [\"b\", \"B\"]),\n        Product(\"B\", [\"b\"]),\n    ],\n}\n\ndef recognize(patterns, text):\n    I0 = [(Item(p, 0), 0) for p in patterns[\"S\"]]\n    for x, _k in I0:\n        if x.product.body[0] in patterns:\n            for y in patterns[x.product.body[0]]:\n                I0.append((Item(y, 0), 0))\n    I_list = [I0]\n    for i in range(len(text)):\n        c = text[i]\n        I = []\n        I_list.append(I)\n        for x, k in I_list[-2]:\n            if x.pos < len(x.product.body) and x.product.body[x.pos] == c:\n                    I.append((Item(x.product, x.pos+1), k))\n        for x, k in I:\n            if x.pos == len(x.product.body):\n                for s, n in I_list[k]:\n                    if s.pos < len(s.product.body) and s.product.body[s.pos] == x.product.name:\n                        I.append((Item(s.product, s.pos+1), n))            \n            elif x.product.body[x.pos] in patterns:\n                for y in patterns[x.product.body[x.pos]]:\n                    I.append((Item(y, 0), i+1))\n    for x, _k in I_list[-1]:\n        if x.product.name == \"S\" and x.pos == len(x.product.body):\n            return True\n    return False\n\nprint(recognize(patterns, \"aabb\"))",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-14 17:48:21",
+    "modified_at": "2024-08-14 17:48:21",
+    "likes": 3,
+    "views": 19,
+    "comments": 11,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-14 17:46:33",
+    "updated_at": "2025-08-24 21:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 75,
+                "column": 34
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/8d34ed328fea3346f5b974da9181f4f3.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "文法 自动机",
+    "xml_path": "64908381aab365fd84dcfff55938e889",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55452912"
+}

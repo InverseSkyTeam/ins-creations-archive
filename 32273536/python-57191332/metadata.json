@@ -1,0 +1,69 @@
+{
+    "id": 57191332,
+    "name": "[draft]static-k",
+    "category": 1,
+    "type": "normal",
+    "description": "基于lark写的parser，比手搓稍快一点\nlark不支持Python3.7，用了一点小技巧才让它勉强跑起来...\n目标静态，编译到C",
+    "user_id": 32273536,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from __future__ import annotations\nimport zipfile\nzipfile.ZipFile(\"./lark.zip\").extractall(\"./lark\")\nimport reprlib\nfrom typing import Optional\nimport lark\nimport enum\nfrom reprlib import repr\n\n\nclass Type:\n    def __init__(self) -> None:\n        raise NotImplementedError()\n\n\nclass Package:\n    def __init__(self, name: str, parent: Optional[Package] = None) -> None:\n        self.name = name\n        self.parent = parent\n\n    @property\n    def is_root_package(self) -> bool:\n        return self.parent is None\n\n\nclass PackageRef:\n    def __init__(self, paths: list[str]) -> None:\n        self.paths = paths\n        self.package = None\n\n    @property\n    def is_resolved(self) -> bool:\n        return self.package is not None\n\n    def mark_as_resolved(self, package: Package) -> None:\n        self.package = package\n\n\nclass IntType(Type):\n    def __init__(self, bits: int = 32) -> None:\n        self.bits = bits\n\n\nclass FloatType(Type):\n    def __init__(self, bits: int = 32) -> None:\n        self.bits = bits\n\n\nclass PointerType(Type):\n    def __init__(self, target: Type) -> None:\n        self.target = target\n\n\nclass TypeRef:\n    def __init__(self, ref_type: Optional[Type] = None) -> None:\n        self.ref_type = ref_type\n\n    @property\n    def resolved(self) -> bool:\n        return self.ref_type is not None\n\n    def mark_as_resolved(self, type_: Type) -> None:\n        self.ref_type = type_\n\n\nclass RawTypeRef(TypeRef):\n    def __init__(self, name: str, ref_type: Type | None = None) -> None:\n        super().__init__(ref_type)\n        self.name = name\n\n\nclass GenericTypeRef(TypeRef):\n    def __init__(\n        self,\n        original_type_ref: TypeRef,\n        generic_var_type_ref: list[TypeRef],\n        ref_type: Type | None = None,\n    ) -> None:\n        super().__init__(ref_type)\n        self.original_type_ref = original_type_ref\n        self.generic_vars = generic_var_type_ref\n\n\nclass PointerTypeRef(TypeRef):\n    def __init__(self, target_type: TypeRef, ref_type: Type | None = None) -> None:\n        super().__init__(ref_type)\n        self.target_type = target_type\n\n\nclass PackageDeclaration:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\n\nclass ImportDeclaration:\n    def __init__(self, path: PackageRef) -> None:\n        self.path = path\n\n\n@enum.unique\nclass FunctionAttribute(enum.Enum):\n    PUBLIC = enum.auto()\n    PRIVATE = enum.auto()\n    EXPORT = enum.auto()\n\n\n@enum.unique\nclass GlobalVarriableAttribute(enum.Enum):\n    PUBLIC = enum.auto()\n    PRIVATE = enum.auto()\n    EXPORT = enum.auto()\n\n\nclass FunctionParam:\n    def __init__(self, name: str, type_: TypeRef) -> None:\n        self.name = name\n        self.type = type_\n\n\nclass FunctionDeclaration:\n    def __init__(\n        self,\n        name: str,\n        params: list[FunctionParam],\n        return_type: TypeRef,\n        body: Optional[Block] = None,\n        attributes: Optional[set[FunctionAttribute]] = None,\n    ) -> None:\n        self.name = name\n        self.params = params\n        self.return_type = return_type\n        self.body = body\n        self.has_impl = body is not None\n        self.attributes = attributes\n\n\nclass GlobalVarriableDeclaration:\n    def __init__(\n        self,\n        name: str,\n        type_: TypeRef,\n        value: Optional[Expression] = None,\n        attributes: Optional[set[GlobalVarriableAttribute]] = None,\n    ) -> None:\n        self.name = name\n        self.type_ = type_\n        self.value = value\n        self.has_value = value is not None\n        self.attributes = attributes\n\n\nclass IfStatement:\n    def __init__(\n        self, cond: Expression, then: Block, else_: Optional[Block] = None\n    ) -> None:\n        self.cond = cond\n        self.then = then\n        self.else_ = else_\n        self.has_else = else_\n\n\nclass WhileStatement:\n    def __init__(self, cond: Expression, body: Block) -> None:\n        self.cond = cond\n        self.body = body\n\n\nclass ReturnStatement:\n    def __init__(self, value: Expression) -> None:\n        self.value = value\n\n\nclass BreakStatement:\n    def __init__(self) -> None:\n        pass\n\n\nclass ContinueStatement:\n    def __init__(self) -> None:\n        pass\n\n\nclass LetStatement:\n    def __init__(\n        self, name: str, type_: TypeRef, value: Optional[Expression] = None\n    ) -> None:\n        self.type_ = type_\n        self.value = value\n        self.name = name\n\n\nclass ExpressionStatement:\n    def __init__(self, expr: Expression) -> None:\n        self.value = expr\n\n\nclass Block:\n    def __init__(self, stmts: Statement) -> None:\n        self.statements = stmts\n\n\n@enum.unique\nclass BinaryOperator(enum.Enum):\n    ASSIGN = enum.auto()\n    AND = enum.auto()\n    OR = enum.auto()\n    GREATER_THAN = enum.auto()\n    LESS_THAN = enum.auto()\n    GREATER_EQUAL = enum.auto()\n    LESS_EQUAL = enum.auto()\n    EQUAL = enum.auto()\n    NOT_EQUAL = enum.auto()\n    ADD = enum.auto()\n    SUB = enum.auto()\n    MUL = enum.auto()\n    DIV = enum.auto()\n    ATTR = enum.auto()\n\n\n@enum.unique\nclass UnaryOperator(enum.Enum):\n    NOT = enum.auto()\n\n\nclass BinaryExpression:\n    def __init__(self, lhs: Expression, rhs: Expression, op: BinaryOperator) -> None:\n        self.lhs, self.rhs = lhs, rhs\n        self.op = op\n\n\nclass UnaryExpression:\n    def __init__(self, op: UnaryOperator, expr: Expression) -> None:\n        self.op, self.expr = op, expr\n\n\nclass CallExpression:\n    def __init__(self, callee: Expression, args: list[Expression]) -> None:\n        self.callee = callee\n        self.args = args\n\n\nclass IndexExpression:\n    def __init__(self, expr: Expression, index: Expression) -> None:\n        self.expr = expr\n        self.index = index\n\n\nclass NameRef:\n    def __init__(self, name: str) -> None:\n        self.name = name\n        self.type_: Optional[Type] = None\n\n    def assume(self) -> Type:\n        assert self.type_ is not None\n        return self.type_\n\n\nclass StringLiteral:\n    def __init__(self, v: str) -> None:\n        self.value = v\n\n\nclass IntegerLiteral:\n    def __init__(self, v: int) -> None:\n        self.value = v\n\n\nclass FloatLiteral:\n    def __init__(self, v: float) -> None:\n        self.value = v\n\n\nclass BooleanLiteral:\n    def __init__(self, b: bool) -> None:\n        self.value = b\n\n\nclass NullLiteral:\n    def __init__(self) -> None:\n        pass\n\n\n# type Statement = IfStatement | WhileStatement | ReturnStatement | BreakStatement | ContinueStatement | LetStatement | ExpressionStatement | Block\n# type Declaration = ImportDeclaration | PackageDeclaration | FunctionDeclaration | GlobalVarriableDeclaration\n# type Expression = BinaryExpression | UnaryExpression | CallExpression | IndexExpression | NameRef | StringLiteral | IntegerLiteral | FloatLiteral | BooleanLiteral | NullLiteral\n\n\nclass ToAstTransformer(lark.Transformer):\n    def start(self, trees):\n        for t in trees:\n            print(reprlib.repr(t))\n        return trees\n\n    def import_declaration(self, args):\n        return ImportDeclaration(args[0])\n\n    def composed_path(self, args):\n        l: PackageRef = args[0]\n        r: lark.Token = args[1]\n        new_path = list(l.paths)\n        new_path.append(r.value)\n        return PackageRef(new_path)\n\n    def raw_path(self, args):\n        name = args[0].value\n        return PackageRef([name])\n\n    def package_declaration(self, args):\n        return PackageDeclaration(args[0].value)\n\n    @lark.v_args(True)\n    def fn_def(self, attr, name, params, type, body):\n        return FunctionDeclaration(name, params, type, body, attr)\n\n    @lark.v_args(True)\n    def fn_decl(self, attr, name, params, type):\n        return FunctionDeclaration(name, params, type, attributes=attr)\n\n\n# source = open(\"./grammar.lark\", encoding=\"utf-8\", mode=\"r\")\nparser = lark.Lark( # source\nr\"\"\"\n%import common.WS\n%import common.CPP_COMMENT\n%import common.C_COMMENT\n%import common.SIGNED_NUMBER -> NUMBER\n%import common.ESCAPED_STRING -> STRING\n%import common.CNAME -> ID\n\n%ignore WS\n%ignore CPP_COMMENT\n%ignore C_COMMENT\n\nstart: declaration*\n\n?declaration: import_declaration\n            | package_declaration\n            | function_declaration\n            | global_variable_declaration\n\nimport_declaration: \"import\" package_path \";\"\npackage_declaration: \"package\" ID \";\"\nfunction_declaration: function_attribute* \"func\" ID \"(\" [param_list] \")\" \"->\" type_name block -> fn_def\n                    | function_attribute* \"func\" ID \"(\" [param_list] \")\" \"->\" type_name \";\" -> fn_decl\nfunction_attribute: PUBLIC | PRIVATE | EXPORT\nparam_list: ID \":\" type_name (\",\" ID \":\" type_name)*\nglobal_variable_declaration: \"global\" ID  \":\" type_name [\"=\" expr] \";\"\n\n?statement: if_statement\n        | while_statement\n        | return_statement\n        | break_statement\n        | continue_statement\n        | let_statement\n        | expression_statement\n        | block\n\nblock: \"{\" statement* \"}\"\nif_statement: \"if\" expr block (\"else\" \"if\" expr block)* [\"else\" expr block]\nwhile_statement: \"while\" expr block\nreturn_statement: \"return\" [expr] \";\"\nbreak_statement: \"break\" \";\"\ncontinue_statement: \"continue\" \";\"\nlet_statement: \"let\" ID \":\" type_name [\"=\" expr] \";\"\nexpression_statement: expr \";\"\n\npackage_path: package_path \".\" ID -> composed_path\n            | ID -> raw_path\ntype_name: type_name \".\" ID -> type_attr\n        | \"*\" type_name -> ptr_type\n        | type_name \"[\" type_name \"]\" -> generic_type\n        | ID -> raw_type\n\n?expr: expr \"=\" logic -> assign\n    | logic\n\n?logic: logic \"and\" compare -> and_\n    | logic \"or\" compare -> or_\n    | compare\n\n?compare: compare \">\" sum -> gt\n    | compare \"<\" sum -> lt\n    | compare \">=\" sum -> ge\n    | compare \"<=\" sum -> le\n    | compare \"==\" sum -> eq\n    | compare \"!=\" sum -> ne\n    | sum\n\n?sum: sum \"+\" product -> add\n    | sum \"-\" product -> sub\n    | product\n\n?product: product \"/\" atom -> div\n        | product \"*\" atom -> mul\n        | atom\n\n?atom : \"(\" expr \")\"\n    | \"not\" atom -> not_\n    | atom \".\" primary -> dot\n    | atom \"[\" expr \"]\" -> index\n    | atom \"(\" [args] \")\" -> call\n    | primary\n\nargs: expr (\",\" expr)*\n\nprimary: NUMBER -> num\n        | ID -> id\n        | STRING ->string\n        | TRUE -> true\n        | FALSE -> false\n        | NULL -> null\n\nTRUE: \"true\"\nFALSE: \"false\"\nNULL: \"null\"\nPUBLIC: \"public\"\nEXPORT: \"export\"\nPRIVATE: \"private\"\n\"\"\", parser=\"lalr\", transformer=ToAstTransformer())\ntree = parser.parse(\n    \"\"\"\n    package main;\n    import stdio;\n    global nothing: string = \"haha\";\n    public func main(args: array[string] ) -> int {\n        print(\"hello world\");\n        return 0;\n    }       \n    \"\"\"\n)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-11-02 20:41:13",
+    "modified_at": "2024-11-02 20:41:13",
+    "likes": 3,
+    "views": 16,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-11-02 20:39:13",
+    "updated_at": "2025-08-06 12:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 421,
+                "column": 17
+            },
+            "73919d0e-d139-b7be-9d1f-5c78bb1adca2": {
+                "row": 59,
+                "column": 0
+            },
+            "26902e48-8659-465d-9595-4ea40c3f4b96": {
+                "row": 86,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/1e1cbdb30f43b391f03ec6b6d67e6d82.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "其他",
+    "xml_path": "88b4d99b8a8d482cde4a895b4eaf3272",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈祺嘉",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20220120/TalzvD9Osh1zkfxuHaoZegXvLQ1584.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_57191332"
+}

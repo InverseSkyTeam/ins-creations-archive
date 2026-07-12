@@ -1,0 +1,65 @@
+{
+    "id": 57560730,
+    "name": "模态弹窗，但是进入动画",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import os\nos.startfile(\"index.html\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-11-17 11:21:07",
+    "modified_at": "2024-11-17 11:21:07",
+    "likes": 5,
+    "views": 18,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-11-17 10:57:53",
+    "updated_at": "2026-03-02 16:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "64d0e5b1-b9bb-3b59-e36d-09a6caf19945": {
+                "row": 48,
+                "column": 7
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 24
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9bbcb9a0bbc3af6e34e4c25428194c3a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他 网站",
+    "xml_path": "eddb05c073454387384f82d90409ac09",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_57560730"
+}

@@ -1,0 +1,9 @@
+print("""我最近准备完善我的3d（就是这个：https://code.xueersi.com/home/project/detail?lang=code&pid=52395924&version=offline&form=python&langType=python）
+目前有这几种更新方向：
+1、numba改numpy（你也不想等个10s编译吧）
+2、渲染质量更新
+    2.1、彩色光照/自定义光照强度（较简单）
+    2.2、阴影效果（可能严重影响fps）
+    2.3、phong着色（高光/漫反射/环境光）
+    2.4、pbr（基于物理）着色（可能严重影响fps，难度极大）""")
+print('请各位在评论区投票（五选一），将制作票数最高的一个更新')

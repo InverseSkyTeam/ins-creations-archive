@@ -1,0 +1,69 @@
+{
+    "id": 54627698,
+    "name": "IDU TermEd 0.0.0 pre v6",
+    "category": 1,
+    "type": "normal",
+    "description": "大更新！\n新增对Python的伪·增量高亮\n封面那张图是真的，TermEd确实可以编辑百万行代码不卡顿，但是粘贴需要花亿些时间，如果非要先编辑文件首部再看文件尾部那也需要亿些时间（几乎是全文高亮）",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/79c33c4f637fe5f2cf5bde932a9403b3.jpg",
+    "xml": "\"\"\"\n在此次运行中，你将编辑名为big-file.py的、10万行的、edcore.py复制n遍的大文件\n你可以再将它复制十遍以达到100万行之效果\n测试中，虽然TermEd高亮100万行需要快一分钟，甚至过程中CPU >30% 内存>1100MB，但是在高亮完毕后操作极其丝滑\n\"\"\"\n\nimport os\n\nos.system(\"start cmd /c \\\"python edcore.py big-file.py & pause\\\"\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-25 13:39:45",
+    "modified_at": "2024-07-25 13:44:38",
+    "likes": 4,
+    "views": 26,
+    "comments": 29,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-25 13:33:05",
+    "updated_at": "2025-08-22 16:45:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 0
+            },
+            "725876dd-a217-2b05-47e3-2a3a67993070": {
+                "row": 6,
+                "column": 19
+            },
+            "c8988448-c74e-0546-2c28-32ea9e4ecbb5": {
+                "row": 104521,
+                "column": 17
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/e1f2e44762148d777bdcc8c6cb6f793c.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "d7d5c45fa6bda2e44b19800b6fae1e5e",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54627698"
+}

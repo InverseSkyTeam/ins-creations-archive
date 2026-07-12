@@ -1,0 +1,79 @@
+/*提示：图片背景属性为 background-image ，值 url('/图片路径')    */
+body{
+    background-image: url('/static/images/bg1.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+/*DIY区域：尝试修改不同属性对应的值，选择合适的边距和颜色来匹配背景*/
+h1{
+    text-align: center;
+    color: #00a2ff;
+    margin-top: 20%;
+    margin-bottom: 14%;
+}
+
+.photo{
+    height: 150px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+/*DIY区域：设置底部版权样式
+/*背景色 #f08c55 搭配背景图 bg1.png */
+/*背景色 #8ba13f 搭配背景图 bg2.png,*/
+/*背景色 #71170d 搭配背景图 bg4.png */
+/*背景色 #aeacc6 搭配背景图 bg5.png */
+
+.banquan{
+    text-align: center;
+    color:blue;
+    margin-top: 20px;
+    margin-right:0px;
+    padding:20px;
+}
+
+
+header{
+	color: blue;
+}
+
+
+h2{
+    margin-left:5%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color:#3863b2;
+    text-align: center;
+}
+p{
+    margin-left: 5%;
+    margin-right:5%;
+}
+
+h5{
+    text-align: right;
+    margin-right:40px;
+}
+
+h4{
+    color: #3863b2;
+}
+.row{
+    text-align: center;
+}
+span{
+    margin-left:5%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color:#3863b2;
+}
+
+h3{
+    text-align: center;
+    color:blue;
+}
+footer{
+    color:black;
+}

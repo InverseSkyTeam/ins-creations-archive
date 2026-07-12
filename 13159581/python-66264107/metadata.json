@@ -1,0 +1,60 @@
+{
+    "id": 66264107,
+    "name": "招人",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"就是说写Next-Xes-Frontend需要找人帮忙写webpy部分\")\nprint(\"需要的技术栈：React NextJS Pyodide Xterm.js\")\nprint(\"有兴趣的评论下 无兴趣也不妨转发\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-12-28 18:56:51",
+    "modified_at": "2025-12-28 18:56:51",
+    "likes": 0,
+    "views": 22,
+    "comments": 2,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-12-28 18:56:41",
+    "updated_at": "2026-05-24 11:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 2,
+                "column": 25
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他",
+    "xml_path": "8a50cd1a3ca8fd607ec90a81ff1dcdf6",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_66264107"
+}

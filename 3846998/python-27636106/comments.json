@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1985336,
+        "topic_id": "CP_27636106",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "59258",
+        "reply_user_id": "3846998",
+        "content": "如今在编程海洋里进行历练，是为了长大后可以傲视群雄",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2021-11-30 19:04:01",
+        "comment_from": "topic",
+        "username": "智能艾克",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20210816/TallFDMU0qtnyXVOImbb1cCoLg1999.png",
+        "reply_username": "付开霁",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

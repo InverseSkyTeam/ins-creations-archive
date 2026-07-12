@@ -1,0 +1,15 @@
+body{
+    width:80%;
+    margin-left:10%;
+    background-image: url('/static/images/bg4.jpg');
+    padding:20px;
+}
+
+.r_margin{
+    margin:5%;
+}
+
+h3{
+    color:white;
+    text-align: center;
+}

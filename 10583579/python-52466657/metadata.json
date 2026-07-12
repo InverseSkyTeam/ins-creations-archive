@@ -1,0 +1,61 @@
+{
+    "id": 52466657,
+    "name": "塔珀自指公式",
+    "category": 1,
+    "type": "normal",
+    "description": "无聊\n最近主打音游，有时也看点漫画",
+    "user_id": 10583579,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/4c486ea96be899496a537a281f4603bb.jpg",
+    "xml": "from functools import reduce\nimport pygame\n\npygame.init()\npygame.display.set_caption(\"Tupper's self referential formula\")\nscreen = pygame.display.set_mode((1280,720))\n\ndef Tuppers_Self_Referential_Formula():\n    k = 4858450636189713423582095962494202044581400587983244549483093085061934704708809928450644769865524364849997247024915119110411605739177407856919754326571855442057210445735883681829823754139634338225199452191651284348332905131193199953502413758765239264874613394906870130562295813219481113685339535565290850023875092856892694555974281546386510730049106723058933586052544096664351265349363643957125565695936815184334857605266940161251266951421550539554519153785457525756590740540157929001765967965480064427829131488548259914721248506352686630476300\n    # k = 211349867467970855799412332199742853901876369115226871761118110007277662019229085785695350304797918244395561989957829456443077743544588012318077591618459522972418041923064114623775168829135014645230156246415448583032980130253292699648\n    def fn(x, y):\n        d = ((-17 * x) - (y % 17))\n        e = reduce(lambda x, y: x * y, [2 for x in range(-d)]) if d else 1\n        g = ((y // 17) // e) % 2\n        return 0.5 < g\n\n    screen.fill((255,255,255))\n    pos_x,pos_y = 100,200 # 绘制的初始位置\n    for y in range(k + 16, k - 1, -1):\n        pos_x = 100\n        for x in range(0, 107):\n            if fn(x, y):\n                pygame.draw.rect(screen,(0,0,0),((pos_x,pos_y),(10,10)))\n                pygame.display.update()\n            pos_x += 10\n        pos_y += 10\n\nif __name__ == '__main__':\n    Tuppers_Self_Referential_Formula()\n    running = True\n    while running:\n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                running = False\n        pygame.display.update()\n    pygame.quit()\n\n# 生成k值的懒得写了，可以用`tuppers-formula.ovh`里的\n# 虽然似乎他做的显示也比我好\n# 注：公式里的`⌊ ⌋`并不是`[]`，是楼层符号！！！",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-04-06 18:07:21",
+    "modified_at": "2024-04-06 18:07:21",
+    "likes": 5,
+    "views": 40,
+    "comments": 8,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-04-06 17:55:11",
+    "updated_at": "2026-03-31 16:05:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 19,
+                "column": 18
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/8fc23f308cfeae7cfdd927ef13230ad6.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "动画 算法",
+    "xml_path": "bc4d19609cd61139a678fcc5f86c48e5",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "何嘉晨",
+    "user_avatar": "https://img.100tal.com/user/20200730/Tall4HQqhG5rGNwFPlaLrVUxWA1748.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52466657"
+}

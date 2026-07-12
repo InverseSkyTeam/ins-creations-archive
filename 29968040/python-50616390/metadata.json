@@ -1,0 +1,69 @@
+{
+    "id": 50616390,
+    "name": "INS-WebView分词组件",
+    "category": 1,
+    "type": "normal",
+    "description": "分词部分照搬Chromium，但是不支持icu库，所以只能正常处理英文",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import text_break_iterator as text_break\nstring = '123-456abc def -345--678'\nres = text_break.test(string)\nfor i in range(len(res)-1):\n    print('\\033[1;37;45m' + string[res[i]:res[i+1]])\nprint('\\033[0m')\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-27 21:06:59",
+    "modified_at": "2024-01-28 11:36:11",
+    "likes": 4,
+    "views": 17,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-27 20:20:05",
+    "updated_at": "2026-07-04 10:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 31
+            },
+            "9740cf9c-a67f-a241-b792-8b3fad497fd4": {
+                "row": 99,
+                "column": 0
+            },
+            "b1b9533e-2483-0a63-48e7-1e332234b28b": {
+                "row": 196,
+                "column": 20
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/74169cb8757d8340319534741398c404.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "c6f1dabe74265be4b12987d8ad333453",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50616390"
+}

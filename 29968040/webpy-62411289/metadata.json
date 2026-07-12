@@ -1,0 +1,61 @@
+{
+    "id": 62411289,
+    "name": "旧坑重提",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print('''梳理一下还没填的坑：\n正在填：INS-sc_to_py（sratch转pygame，最新成果的视频在素材区）\n有较大概率会填：重写IDU-3D\n有较小概率会填：重写INS-PGM，INS-animation_editor\n去spa：INS-WebView\n''')",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-06-24 16:00:43",
+    "modified_at": "2025-06-24 16:00:43",
+    "likes": 2,
+    "views": 22,
+    "comments": 5,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-06-24 16:00:36",
+    "updated_at": "2026-05-22 14:00:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 4,
+                "column": 16
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/7e83334e71d79546347a49d9efc899ef.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "60e60e56fbb14017473f43334c26434d",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_62411289"
+}

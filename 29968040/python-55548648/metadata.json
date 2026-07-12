@@ -1,0 +1,65 @@
+{
+    "id": 55548648,
+    "name": "3D后室场景",
+    "category": 1,
+    "type": "normal",
+    "description": "模型文件来源于 ccw.site/s/4O8xr",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/7494cfb735ad7504b6731fc16e9a77e4.jpg",
+    "xml": "import pygame\nimport sys\n\ndef get_py_path():\n    return sys.executable\n\n\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\nfrom window import Window\n\n\npygame.init()\nw, h = 800, 600\nscreen = pygame.display.set_mode((w, h), pygame.RESIZABLE)\nclock = pygame.time.Clock()\npygame.key.stop_text_input()\n\nwindow = Window()\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        elif event.type == pygame.VIDEORESIZE:\n            w, h = screen.get_size()\n    window.update(pygame_events)\n\n    window.draw(screen, w, h)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-19 09:41:32",
+    "modified_at": "2024-08-19 09:41:32",
+    "likes": 11,
+    "views": 136,
+    "comments": 8,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-19 09:29:52",
+    "updated_at": "2026-07-07 16:05:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "620e2779-87cb-806e-7dbf-0995ce1f29c7": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 31,
+                "column": 28
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/825bbcbb320ca382d9953aaeae7ef7c9.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 11,
+    "favorites": 7,
+    "tags": "游戏 沙盒专区 海龟",
+    "xml_path": "b39de8d4860f1cd509e8a06b85a92a22",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55548648"
+}

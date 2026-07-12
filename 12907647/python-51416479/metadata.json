@@ -1,0 +1,61 @@
+{
+    "id": 51416479,
+    "name": "ij.简单“洁”构 -1",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/c4c41d3955a59cc7273b2e84eadd7556.jpg",
+    "xml": "import sys\n\n'''\ncode:\n3*(1+1)\ntokenize:\n[3,*,(,1,+,1,)]\nast:\n(\"*\",c(3),(\"+\",c(1),c(1)))\nflatstack:\n[(\"*\",2),(\"Const\",3),(\"+\",2),(\"Const\",1),(\"Const\",1),]\nres:\n6\n'''\ntoken_stack = [('*',2),('Const',3),('+',2),('Const',1),('Const',1),]\nvalue_stack = []\nscope = [{}]\n\nbuilt_in = {\n    '+': (lambda a, b: a + b),\n    '-': (lambda a, b: a - b),\n    '*': (lambda a, b: a * b),\n    '/': (lambda a, b: a / b),\n    '%': (lambda a, b: a % b),\n    '//': (lambda a, b: a // b),\n    '<<': (lambda a, b: a << b),\n    '>>': (lambda a, b: a >> b),\n    '^': (lambda a, b: a ^ b),\n    '|': (lambda a, b: a | b),\n    '&': (lambda a, b: a & b),\n    '+u': (lambda e: +e),\n    '-u': (lambda e: -e),\n    '~u': (lambda e: ~e),\n    'not': (lambda e: not e),\n}\n\nwhile token_stack:\n    token = token_stack.pop()\n    \n    if token[0] == 'Const':\n        value_stack.append(token[1])\n        continue\n    \n    # op: 操作符\n    # pn: param_num, 操作参数个数\n    op, pn = token\n    args = []\n    for i in range(pn):\n        arg = value_stack.pop()\n        args.append(arg)\n    res = built_in[op](*args)\n    value_stack.append(res)\n\nprint(value_stack[0])\nprint('程序猿的痛苦和电脑的快乐成正比')\nprint('编写速度和执行速度成反比')\nprint('我宁可找到一个优化的解')\nprint('解越简洁，解越简单，解越困难')\nprint('-'*40)\nprint('''欢迎来到【简单“洁”构】工程\n我将尽我所能提供一个简洁的解释器！\n（原理：前缀表达式、常量-函数构造原理。没了！简单！）\n此版本已经实现了expr的运算。\n（另：特别感谢吴宇航大佬的指点和帮助，他每天晚上和我在vscode里开share.不过我这次要走一条新道路，和pl有一些不同。）\n（另：付开霁大佬和鱼翔浅底大佬现在打算怎么写语言呢？）''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-09 13:10:44",
+    "modified_at": "2024-02-09 13:10:44",
+    "likes": 5,
+    "views": 37,
+    "comments": 80,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-07 22:40:29",
+    "updated_at": "2025-06-27 20:10:03",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 34,
+                "column": 1
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/da43b4f78098c806faea1c5971d4ece6.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "模拟 算法 其他",
+    "xml_path": "5a4f8048e4471ea549218bdef42c456a",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51416479"
+}

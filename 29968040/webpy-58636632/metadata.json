@@ -1,0 +1,125 @@
+{
+    "id": 58636632,
+    "name": "【webpy】（学习机可玩）合成大西瓜pygame",
+    "category": 1,
+    "type": "normal",
+    "description": "操作：鼠标点击操作\n\n特别声明：低中高性能模式实质上是修改界面大小，因为低性能设备上后期可能会出现严重掉帧\n\n封面上的图片是本地运行的结果，目前无法在webpy复现（因为webpy掉帧太严重）",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/b72465f60b24032edf8b32f9f08b888d.jpg",
+    "xml": "import pygame\nimport sys\nimport time\n\nsize = [(350, 550), (600, 800), (1200, 1200)]\nprint('请选择模式：')\nprint('1：低性能模式（适合手机和学习机）')\nprint('2：中性能模式（适合配置一般的机器）')\nprint('3：高性能模式（如果你是电脑，放心大胆用）')\nmode = input('请输入（输入数字序号）：')\ntry:\n    width, height = size[int(mode) - 1]\nexcept:\n    width, height = size[0]\n\nimport draw_lib\n\nimport ball_run\nimport image_manager\nimport anim_manager\nfrom score_number import ScoreNumber\nfrom finish_window import FinishWindow\n\npygame.init()\nprint_fps = False\n\n# width, height = 600, 800\nscreen = pygame.display.set_mode((width, height))\nclock = pygame.time.Clock()\n\n\n# ball_run.load_sound()\nball_run.newBall(0)\nball_run.width, ball_run.height = width, height - 80\n\nbackground = pygame.image.load('icon/bottomBack.png')\nscore_number = ScoreNumber(10, 20, 40)\nfinish_window = FinishWindow(width, height)\nbottom_bg = draw_lib.scale_img(background, width, 80)\ndash_line = pygame.image.load('icon/dash_line.png')\n\n\ndef draw():\n    screen.blit(bottom_bg, (0, height - 80))\n    screen.blit(dash_line, (0, ball_run.lineDashY - 2))\n    image_manager.draw(screen)\n    score_number.draw(screen)\n    if ball_run.finish == 2:\n        finish_window.draw(screen)\n\nwhile True:\n    # pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    screen.fill((0xFF, 0xE8, 0x9D))\n    ball_run.currentBallMove1(pygame.mouse.get_pos()[0])\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if not ball_run.finish and ball_run.currentBallStartDown():\n                ball_run.newBall(event.pos[0])\n            elif ball_run.finish == 2:\n                ball_run.finish = 0\n                ball_run.score = 0\n                ball_run.newBall(event.pos[0])\n    a = time.time()\n    ball_run.process()\n    # b = time.time()\n    anim_manager.update_all()\n    # c = time.time()\n    draw()\n    d = time.time()\n    if print_fps:\n        print(1 / max((d - a), 1 / 114514))\n    # print(b-a, c-b, d-c)\n    \n    pygame.display.update()\n    clock.tick(60)\n",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-01-10 23:15:18",
+    "modified_at": "2025-02-17 23:55:04",
+    "likes": 21,
+    "views": 329,
+    "comments": 274,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-06 21:50:22",
+    "updated_at": "2026-07-12 15:05:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "09abe05d-ec8a-bcda-ca2b-e74c7dee793b": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 53,
+                "column": 29
+            },
+            "2b2993b0-cabf-b192-38c6-318a436c0a18": {
+                "row": 16,
+                "column": 22
+            },
+            "42f8238b-8681-8f86-92b3-fa8cf13e48c3": {
+                "row": 24,
+                "column": 36
+            },
+            "c4db4491-0a44-b3a5-452b-d9cb67d605a2": {
+                "row": 10,
+                "column": 11
+            },
+            "b397db18-50b2-f1f2-893c-e56079a10899": {
+                "row": 80,
+                "column": 20
+            },
+            "28e4f552-36c1-e868-b657-cd859dbde655": {
+                "row": 171,
+                "column": 9
+            },
+            "6e4ea519-46f1-07ff-023e-855f939dcae6": {
+                "row": 13,
+                "column": 35
+            },
+            "1b8e5964-02a2-bf61-edb2-3198290c9b08": {
+                "row": 8,
+                "column": 16
+            },
+            "cb97a672-4296-62aa-5087-57669ac582c1": {
+                "row": 9,
+                "column": 2
+            },
+            "fb97df68-d871-b190-182a-f3dfa16db38a": {
+                "row": 0,
+                "column": 0
+            },
+            "1e6a26b3-1311-3bc1-75e4-47f233a715f0": {
+                "row": 9,
+                "column": 0
+            },
+            "2b4b1e4c-f387-0c0e-8b45-63e901a07e31": {
+                "row": 0,
+                "column": 31
+            },
+            "e57d2ab2-7aeb-bd07-1e9d-5b36492ca542": {
+                "row": 6,
+                "column": 49
+            },
+            "0630ab69-2d74-25ed-dbb4-e5c9dd3906a1": {
+                "row": 19,
+                "column": 18
+            },
+            "f0e4882d-e55f-2e48-fc67-71c67a5e950d": {
+                "row": 9,
+                "column": 66
+            },
+            "e0055452-1d8f-5848-af30-a2e96303b2c4": {
+                "row": 3,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/5d4b4c3522e85f2b6239c849838651e2.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 3,
+    "code_complete": 1,
+    "source_code_views": 12,
+    "favorites": 33,
+    "tags": "游戏 沙盒专区 海龟",
+    "xml_path": "743e6e5d38e66c07fa15c8d380628eca",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58636632"
+}

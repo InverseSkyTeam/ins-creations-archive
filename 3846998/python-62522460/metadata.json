@@ -1,0 +1,61 @@
+{
+    "id": 62522460,
+    "name": "TermEd 0.0.0 pre r5",
+    "category": 1,
+    "type": "normal",
+    "description": "新增文件树\n加入了Linux支持",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/5b29e8f2e3c7a3c8a4f0c0c96b468c3b.jpg",
+    "xml": "print(\"见FkjAccount123456/TermEd-r1/，clone到本地运行\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-06-28 20:07:19",
+    "modified_at": "2025-06-28 20:07:19",
+    "likes": 3,
+    "views": 28,
+    "comments": 9,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 61213712,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-06-28 20:06:15",
+    "updated_at": "2026-05-21 11:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/3517e9df872c4c81024ddcb35158f41b.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "6f01626f7f6bbc85b60699ced0d36333",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_62522460"
+}

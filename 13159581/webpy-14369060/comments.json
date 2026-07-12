@@ -1,0 +1,42 @@
+[
+    {
+        "id": 705098,
+        "topic_id": "CP_14369060",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "13159581",
+        "reply_user_id": "13159581",
+        "content": "[可多吃我一脚]",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2021-02-06 15:08:46",
+        "comment_from": "topic",
+        "username": "陈锦奕",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+        "reply_username": "陈锦奕",
+        "emojis": [
+            {
+                "id": "[可多吃我一脚]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/可多吃我一脚.png",
+                "type": "image",
+                "size": "medium"
+            }
+        ],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": true,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

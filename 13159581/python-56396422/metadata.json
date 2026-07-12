@@ -1,0 +1,61 @@
+{
+    "id": 56396422,
+    "name": "瞎写个pygame玩玩",
+    "category": 1,
+    "type": "normal",
+    "description": "6",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame,sys\npygame.init()\n\nsize = width,height = 600,400\nbg = (0,0,0)\n\nscreen = pygame.display.set_mode(size)\npygame.display.set_caption(\"demo\")\nevent_text = []\n\nfont = pygame.font.Font(None,20)\nline_height = font.get_linesize()\n\nposition = 0\nscreen.fill(bg)\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            sys.exit()\n        if event.type != pygame.MOUSEMOTION:\n            screen.blit(font.render(str(event),True,(0,255,0)),(0,position))\n            position+=line_height\n        if position>height:\n            position = 0\n            screen.fill(bg)\n    pygame.display.flip()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-22 17:44:04",
+    "modified_at": "2024-09-22 17:44:04",
+    "likes": 5,
+    "views": 10,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-22 17:43:11",
+    "updated_at": "2025-03-08 11:50:03",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 26,
+                "column": 25
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/a50b4d71e5ca72bee23b20e40cd4a015.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "pygame 游戏 其他 模拟 5个标签！！",
+    "xml_path": "d691d5acee55a7b3f182f98bf46163b6",
+    "created_source": "reprint",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56396422"
+}

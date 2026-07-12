@@ -1,0 +1,60 @@
+{
+    "id": 67028971,
+    "name": "新年快乐",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"新年快乐！开发还在不断缓慢推进，敬请期待：大量现代特性的TinyScript，C语言编写的终端编辑器SoaringVi，编译到本地的简单编译器，全新的、有泛型等重要特性的Butterfly！\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2026-02-17 00:31:15",
+    "modified_at": "2026-02-17 00:31:15",
+    "likes": 5,
+    "views": 19,
+    "comments": 11,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2026-02-17 00:31:06",
+    "updated_at": "2026-07-12 15:20:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 0
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "8e935705638dbb7290cdc2cbd623f64a",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_67028971"
+}

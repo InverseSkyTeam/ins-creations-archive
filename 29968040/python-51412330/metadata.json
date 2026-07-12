@@ -1,0 +1,61 @@
+{
+    "id": 51412330,
+    "name": "对于pygame渲染速度的测试",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport sys\nimport numpy as np\nfrom numba import njit\n\npygame.init()\nscreen = pygame.display.set_mode((700, 500))\nclock = pygame.time.Clock()\nfont_title = pygame.font.SysFont(\"SimHei\", 25)\n\n\ndef pygame_render():\n    for x in range(0, 700, 3):\n        for y in range(0, 500, 3):\n            pygame.draw.rect(screen, (int(x*0.3), int(y*0.3), int(x*0.3)), (x, y, 3, 3))\n\n\n@njit\ndef np_render(np_screen):\n    for x in range(0, 700, 3):\n        for y in range(0, 500, 3):\n            np_screen[x:x+3, y:y+3] = np.array([int(x*0.3), int(y*0.3), int(x*0.3)], dtype=np.uint8)\n\n\nmode = True\nx = font_title.render('pygame绘制', True, (255,)*3)\ny = font_title.render('np+numba绘制', True, (255,)*3)\nwhile True:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    mouse_pressed = pygame.mouse.get_pressed()[0]\n    mouse_pos = pygame.mouse.get_pos()\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            mode = not mode\n    if mode:\n        pygame_render()\n        screen.blit(x, (0, 0))\n    else:\n        screen_np = pygame.surfarray.pixels3d(screen)\n        np_render(screen_np)\n        del screen_np\n        screen.blit(y, (0, 0))\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-07 10:03:04",
+    "modified_at": "2024-02-07 10:03:04",
+    "likes": 2,
+    "views": 32,
+    "comments": 14,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-07 10:02:06",
+    "updated_at": "2025-04-21 17:10:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 13
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/6809a70325972bac78d76d580f86ae67.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "其他 模拟",
+    "xml_path": "b6eeb0a43ba646fa29614972daf59d6a",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51412330"
+}

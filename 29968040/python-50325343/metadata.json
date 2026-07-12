@@ -1,0 +1,85 @@
+{
+    "id": 50325343,
+    "name": "wyh-blog in pygame",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/1c3945be07b2aeee515c0d733c9073bb.jpg",
+    "xml": "import pygame\nimport os\nimport sys\nfrom show_main import Blog\n\npygame.init()\n\nscreenHeight = 650\nscreenWidth = 1200\nbg_color = (247, 247, 247)\n\nscreen = pygame.display.set_mode((screenWidth, screenHeight))\npygame.display.set_caption(\"wyh-blog\")\nclock = pygame.time.Clock()\nblog = Blog(screenWidth, screenHeight, bg_color)\n\nwhile True:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    pygame_events = pygame.event.get()\n    mouse_x, mouse_y = pygame.mouse.get_pos()\n    mouse_pressed = pygame.mouse.get_pressed()[0]\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.KEYDOWN:\n            pass\n\n    screen.fill(bg_color)\n    blog.render(screen, (mouse_x, mouse_y), mouse_pressed, pygame_events)\n    pygame.display.flip()\n    clock.tick(120)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-14 14:43:44",
+    "modified_at": "2024-01-19 08:35:47",
+    "likes": 7,
+    "views": 65,
+    "comments": 22,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-14 14:38:12",
+    "updated_at": "2026-07-11 23:05:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "fd17a4ec-9136-91b1-9612-5c5f291b8839": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 32,
+                "column": 0
+            },
+            "b87f793e-abd5-f803-218a-ea57300475f0": {
+                "row": 169,
+                "column": 79
+            },
+            "5fb26714-3c7b-eca6-b376-648f2e9b7bbd": {
+                "row": 474,
+                "column": 0
+            },
+            "887c80c9-51dd-6120-338b-8ad138f64714": {
+                "row": 5,
+                "column": 19
+            },
+            "0ba0d6c2-bcd3-1c6b-5765-bbad23f3cbe8": {
+                "row": 1,
+                "column": 2
+            },
+            "8ea864e4-e314-9437-2cf1-c8e13c2f319c": {
+                "row": 230,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9a4695874b2073e02ac1fd71b52c7a6c.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 4,
+    "tags": "游戏 沙盒专区 网站",
+    "xml_path": "0588e87b5fef010f104c4fcd93c8dc78",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50325343"
+}

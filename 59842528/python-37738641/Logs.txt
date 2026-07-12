@@ -1,0 +1,15 @@
+Logs Of The Sail
+
+.2022
+    .09
+        .10 verson:0.0 '''实现了计算的功能'''
+        .24 verson:0.1 '''具有了定义int类变量的功能'''
+        .?? verson:0.1 beta1 '''支持了string类型的加减'''
+        .?? verson:0.1 beta2 '''Sout语句'''
+        .?? verson:0.1 beta5 '''支持bool类型'、float、更名string类型为str、支持逻辑运算'''
+    .10
+        .01 verson:0.15 '''支持if语句，修复Sout语句的错误'''
+        .02 verson:0.2 '''支持常量，支持while语句进行循环，暂时未实现变量的作用域'''
+        .03 verson:0.3 '''支持if else语句'''
+        .?? verson:0.55 '''支持可变类型，以及多变量单行定义'''
+        .10-16  verson:0.66 '''Call stack 以及自带函数'''

@@ -1,0 +1,69 @@
+{
+    "id": 51420948,
+    "name": "[ES] 简单洁构 5",
+    "category": 1,
+    "type": "normal",
+    "description": "\"请循其本。\"",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/9869f71ca2e8c15c03afaf9c25666516.jpg",
+    "xml": "ast = {\n    'if-1': ['expr-1','expr-2','expr-3'],\n    'expr-1': [('Const',int(input('输入0/1，进行对es解释器的条件判断: '))),],\n    'expr-2': [('Binary','='),('Var','a'),('Const',1),],\n    'expr-3': [('Binary','='),('Var','a'),('Const',2),],\n}\nscope = [{}]\n\ndef f_let(var,value):\n    scope[-1][var] = value\n    return value\n\nbinary = {\n    '+': (lambda a, b: a + b),\n    '-': (lambda a, b: a - b),\n    '*': (lambda a, b: a * b),\n    '/': (lambda a, b: a / b),\n    '%': (lambda a, b: a % b),\n    '//': (lambda a, b: a // b),\n    '<<': (lambda a, b: a << b),\n    '>>': (lambda a, b: a >> b),\n    '^': (lambda a, b: a ^ b),\n    '|': (lambda a, b: a | b),\n    '&': (lambda a, b: a & b),\n    '=': f_let,\n}\nunary = {\n    '+': (lambda e: +e),\n    '-': (lambda e: -e),\n    '~': (lambda e: ~e),\n    'not': (lambda e: not e),\n}\n\n# 一般化\ndef generalize(value):\n    # 常量\n    if type(value) != tuple:\n        return value\n    # 变量查找\n    name = value[0]\n    for i in reversed(scope):\n        if name in i:\n            return i[name]\n    return name   # 有可能使用了未命名的变量，这里不报错区分。\n\ndef expr(l):\n    value_stack = []\n    p = len(l)\n    while p:\n        p -= 1\n        tp, value = l[p]\n        if tp == 'Const':\n            value_stack.append(value)\n        elif tp == 'Var':   # 变量套个括号和普通字符串区分\n            value_stack.append((value,))\n        elif tp == 'Unary':\n            value_stack[-1] = unary[value](generalize(value_stack[-1]))\n        elif tp == 'Binary':\n            left = generalize(value_stack.pop())\n            right = generalize(value_stack.pop())\n            value_stack.append(binary[value](left,right))\n    return value_stack[-1]\n\ndef if_(l):\n    condition = expr(ast[l[0]])\n    if condition:\n        return l[1]\n    return l[2]\n\ndic = {\n    'expr': expr,\n    'if': if_,\n}\n\nto = 'if-1'\nwhile type(to) == str:\n    stmt_type, stmt_id = to.split('-')\n    to = dic[stmt_type](ast[to])\nprint(f'value: {to}')\nprint(f'scope: {scope}')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-11 21:49:02",
+    "modified_at": "2024-02-11 21:49:02",
+    "likes": 3,
+    "views": 28,
+    "comments": 23,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 51416479,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-09 23:04:32",
+    "updated_at": "2026-02-21 15:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 16,
+                "column": 30
+            },
+            "c4aa30b0-4dc1-70fa-2d0c-84519659d524": {
+                "row": 60,
+                "column": 12
+            },
+            "9e577a1d-64f2-1cbf-1fac-047b8b43d6c5": {
+                "row": 10,
+                "column": 16
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/d8ef46891e10885497dc3d7e2d5fb153.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 3,
+    "tags": "模拟 算法 其他",
+    "xml_path": "c8f384184fe981fceef0bc37921c6726",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51420948"
+}

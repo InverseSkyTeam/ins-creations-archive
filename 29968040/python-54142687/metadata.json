@@ -1,0 +1,77 @@
+{
+    "id": 54142687,
+    "name": "IDU-3D沙盒（v0.1.1）",
+    "category": 1,
+    "type": "normal",
+    "description": "注意：本作品加载可能需要很久（将近5min），请耐心等待\n\n简单对speedup.py进行优化\n把渲染距离由4个区块改成1.5个区块\n添加了F3和彩蛋\n\n操作：\nwasd：移动\n空格：跳跃\n左shift：潜行\n左ctrl：疾跑\nf：飞行\ng：随机手上拿的方块\no：保存存档（可能报错）\nr：随机传送到地面上的任意位置\nESC：显示鼠标光标\nF6：加速进入夜晚/白天（不稳定）\nF3：显示F3界面\nF10：开启和关闭平滑光照（谨慎使用，会导致大幅度掉帧）\nL：彩蛋",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/c138a37e22092beb76a5c61201892ba0.jpg",
+    "xml": "import zipfile, sys\nwith zipfile.ZipFile('./textures.zip', 'r') as zip_ref:\n    zip_ref.extractall('.')\n\n\ndef get_py_path():\n    return sys.executable\n\n\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\n\n\nimport pygame\nimport player\nimport texture_manager\nimport world\nimport options\nimport keyboard_mouse\nfrom collections import deque\nimport sys\nimport time\nimport platform\nfrom mod import light_contrast\n\n\nclass InternalConfig:\n    def __init__(self, _options):\n        self.RENDER_DISTANCE = _options.RENDER_DISTANCE\n        self.FOV = _options.FOV\n        self.CHUNK_UPDATES = _options.CHUNK_UPDATES\n        self.SMOOTH_LIGHTING = _options.SMOOTH_LIGHTING\n\n\nclass Window:\n    def __init__(self, w, h):\n        self.width, self.height = w, h\n\n        # Options\n        self.options = InternalConfig(options)\n\n        # F3 Debug Screen\n\n        self.show_f3 = True\n\n        self.texture_manager = texture_manager.TextureManager(16, 16, 256)\n\n        # create world\n\n        self.world = world.World(None, self.texture_manager, self.options)\n\n        # player stuff\n\n        self.player = player.Player(self.world, self.width, self.height)\n        self.world.player = self.player\n\n        self.mouse_captured = False\n\n        # misc stuff\n\n        self.holding = 50\n\n        # controls stuff\n        self.controls = [0, 0, 0]\n\n        # mouse and keyboard stuff\n        self.keyboard_mouse = keyboard_mouse.Keyboard_Mouse(self)\n\n        # GPU command syncs\n        self.fences = deque()\n\n        self.exclusive = False  # 是否隐藏鼠标\n\n        self.system_info = f\"\"\"Python: {platform.python_implementation()} {platform.python_version()}\nSystem: {platform.machine()} {platform.system()} {platform.release()} {platform.version()}\nCPU: {platform.processor()}\nDisplay: {self.width}x{self.height}\"\"\"\n\n        self.f3_text = ''\n        self.show_f3 = False\n\n    def update_f3(self, delta_time):\n        \"\"\"Update the F3 debug screen content\"\"\"\n\n        player_chunk_pos = world.get_chunk_position(self.player.position)\n        player_local_pos = world.get_local_position(self.player.position)\n        chunk_count = len(self.world.chunks)\n        visible_chunk_count = len(self.world.visible_chunks)\n        vertices_count = 0\n        indices_count = 0\n        visible_vertices_count = 0\n        visible_indices_count = 0\n        for chunk in self.world.chunks.values():\n            if chunk.model.vertices is not None:\n                vertices_count += len(chunk.model.vertices)\n            if chunk.model.indices is not None:\n                indices_count += len(chunk.model.indices)\n        for chunk in self.world.visible_chunks:\n            if chunk.model.vertices is not None:\n                visible_vertices_count += len(chunk.model.vertices)\n            if chunk.model.indices is not None:\n                visible_indices_count += len(chunk.model.indices)\n\n        self.f3_text = \\\n            f\"\"\"IDU-3D沙盒 v0.1.1\n{round(1 / delta_time)} FPS ({self.world.chunk_update_counter} Chunk Updates)\nC: {visible_chunk_count}/{chunk_count} pC: {self.world.pending_chunk_update_count} pU: {len(self.world.chunk_building_queue)} aB: {chunk_count}\n        \nXYZ: {round(self.player.position[0], 3)} / {round(self.player.position[1], 3)} / {round(self.player.position[2], 3)}\nBlock: {self.player.rounded_position[0]} {self.player.rounded_position[1]} {self.player.rounded_position[2]}\nChunk: {player_local_pos[0]} {player_local_pos[1]} {player_local_pos[2]} in {player_chunk_pos[0]} {player_chunk_pos[1]} {player_chunk_pos[2]}\nClient Light: {max(self.world.get_light(self.player.rounded_position), self.world.get_skylight(self.player.rounded_position))} ({self.world.get_skylight(self.player.rounded_position)} sky, {self.world.get_light(self.player.rounded_position)} block)\n\n{self.system_info}\n\nRenderer: {\"INS-Sandbox3D v0.0.1\"}\nData: {vertices_count}个顶点, {indices_count}个面\nVisible Data: {visible_vertices_count}个顶点, {visible_indices_count}个面\n\"\"\"\n\n    def set_exclusive_mouse(self, exclusive):  # 设置鼠标是否隐藏\n        pygame.event.set_grab(exclusive)\n        pygame.mouse.set_visible(not exclusive)\n        self.exclusive = exclusive\n\n    def update(self, delta_time):\n        \"\"\"Every tick\"\"\"\n        if self.show_f3:\n            self.update_f3(delta_time)\n        if not self.mouse_captured:\n            self.player.input = [0, 0, 0]\n\n        self.player.update(delta_time)\n        self.world.tick(delta_time)\n\n    def on_draw(self, _screen, mod_line_x):\n        self.player.update_matrices()\n\n        self.world.prepare_rendering()\n        self.world.draw(_screen, mod_line_x)\n        if self.show_f3:\n            y = 0\n            font_size = int(min(self.width, self.height)/30)\n            line_height = int(font_size * 1.2)\n            font = pygame.font.SysFont('SimHei', font_size)\n            for line in self.f3_text.split('\\n'):\n                _screen.blit(font.render(line, True, (255,)*3), (0, y + (line_height-font_size)//2))\n                y += line_height\n\n    def on_resize(self, width, height):\n        self.player.view_width = width\n        self.player.view_height = height\n        self.width, self.height = width, height\n\n    def on_mouse_press(self, button):\n        pass\n\n    def on_mouse_motion(self, delta_x, delta_y):\n        pass\n\n    def on_key_press(self, key):\n        pass\n\n    def on_key_release(self, key):\n        pass\n\n\nif __name__ == \"__main__\":\n    pygame.init()\n    screen = pygame.display.set_mode((852, 480), pygame.RESIZABLE)\n    window = Window(852, 480)\n    clock = pygame.time.Clock()\n    pygame.key.stop_text_input()\n    last_time = time.time()\n    cross_hair = pygame.image.load('crosshair.png').convert_alpha()\n    mod_light_contrast = light_contrast.Mod(screen, 0.5)\n    use_mod = False\n    while True:\n        FPS = str(round(clock.get_fps()))\n        pygame.display.set_caption('fps:' + FPS)\n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                pygame.quit()\n                sys.exit()\n            elif event.type == pygame.VIDEORESIZE:\n                window.on_resize(screen.get_width(), screen.get_height())\n            elif event.type == pygame.MOUSEBUTTONDOWN:\n                if use_mod and not window.exclusive and mod_light_contrast.on_mouse_down(event.pos):\n                    continue\n                window.on_mouse_press(event.button)\n            elif event.type == pygame.MOUSEMOTION:\n                if use_mod and not window.exclusive and mod_light_contrast.on_mouse_motion(event.rel[0]):\n                    continue\n                window.on_mouse_motion(*event.rel)\n            elif event.type == pygame.MOUSEBUTTONUP:\n                if use_mod:\n                    mod_light_contrast.on_mouse_up()\n            elif event.type == pygame.KEYDOWN:\n                window.on_key_press(event.key)\n                if event.key == pygame.K_l:\n                    use_mod = not use_mod\n                    mod_light_contrast.dragging = False\n            elif event.type == pygame.KEYUP:\n                window.on_key_release(event.key)\n        screen.fill((255, 255, 255))\n\n        window.player.update_interpolation(delta_time=time.time()-last_time)\n        window.update(delta_time=time.time()-last_time)\n        last_time = time.time()\n\n        window.on_draw(screen, mod_light_contrast.line_x if use_mod else None)\n        screen.blit(cross_hair, cross_hair.get_rect(center=screen.get_rect().center))\n        if use_mod:\n            mod_light_contrast.draw()\n\n        pygame.display.update()\n        clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-09 16:57:39",
+    "modified_at": "2024-07-17 20:05:35",
+    "likes": 8,
+    "views": 182,
+    "comments": 29,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-09 16:07:21",
+    "updated_at": "2026-05-13 17:20:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "180182a7-5287-4b4d-297f-e6e2b12c8d78": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 19
+            },
+            "03bc3984-1949-91b0-7178-723cee666df8": {
+                "row": 0,
+                "column": 22
+            },
+            "ec136e5a-4079-88db-e455-c5772e242e40": {
+                "row": 165,
+                "column": 0
+            },
+            "e946a32d-8335-e9ea-add9-3402289b399a": {
+                "row": 5,
+                "column": 1
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/e1d771bcf41100201d1b514bf237ac8d.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 3,
+    "favorites": 12,
+    "tags": "游戏 沙盒专区 模拟",
+    "xml_path": "4b2b8bbff612314a4fd3b69cd694ecf3",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54142687"
+}

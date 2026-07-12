@@ -1,0 +1,19 @@
+1.1 变量
+    1.11 定义一个变量：var n1,n2,n3:type = v1,v2,v3;
+    1.13 定义一个变量：var n1,n2,n3:type;
+    1.13 修改一个变量：name = newval;
+1.2 常量
+    1.21 定义一个常量：const name:type = val;
+    1.22 自带常量：endl 、true、false（换行符）
+1.3 输入输出流
+    1.31 输出语句：Sout<< val1 << val2 << val3;
+    1.32 输入语句：Srin>> var1 << var2 << var3;
+1.4 分支语句
+    1.41 if语句 if condition { 一些指令  };
+    1.42 if-else if condition { 一些指令  }else{ 一些指令 };
+1.5 while循环
+    1.51 用法：while condition { 一些指令 };
+1.6 函数
+    1.61 自带函数 ：toint\tostr\tochr\toord 类型转化
+    1.62 自定义函数：def name(params)->type{ 一些指令;return xxx; }
+    1.63 调用函数 name(params)

@@ -1,0 +1,61 @@
+{
+    "id": 56479251,
+    "name": "实！变！函！数！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/17020200a2d937291ea4e0ce2cdf6475.jpg",
+    "xml": "import numpy as np\nimport pygame, sys, math\n\ndef draw_math_function(screen, expr, rect, steps = 10, color = (0, 0, 0), width = 3, limited = True):\n    p = []\n    for x in np.arange(-rect.width / 2, rect.width / 2, steps):\n        real_x = rect.centerx + x\n        real_y = rect.centery - eval(expr, globals(), locals())\n        if rect.top <= real_y < rect.bottom or (not limited):\n            p.append((real_x, real_y))\n    pygame.draw.lines(screen, color, False, p, width)\n\npygame.init()\nscreen = pygame.display.set_mode((700, 500))\nclock = pygame.time.Clock()\nl = 0\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((255, 255, 255))\n    \n    l += 0.005\n    draw_math_function(screen, '30*math.sin(x/30+l)', pygame.Rect(100, 200, 500, 100), color = (0, 0, 255))\n    draw_math_function(screen, '30*math.cos(x/30+l*2)', pygame.Rect(100, 200, 500, 100), color = (0, 255, 0))\n    draw_math_function(screen, '(x**2+x*(abs(12-l%24)-6)*10)//10', pygame.Rect(250, 0, 200, 500), 5, (255, 0, 0), 5)\n    draw_math_function(screen, '1/(abs(x)+1)*1000', pygame.Rect(0, 0, 700, 500))\n    pygame.draw.circle(screen, (255, 255, 0), (350, 250), l/3%0.5*300, 6)\n    pygame.display.update()\n\n    clock.tick()\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-28 12:40:38",
+    "modified_at": "2024-09-28 12:40:38",
+    "likes": 9,
+    "views": 94,
+    "comments": 24,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-28 12:39:56",
+    "updated_at": "2026-05-12 16:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 15,
+                "column": 5
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/2625ca10ea8c1de46a01e2448cb97e6d.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 4,
+    "tags": "模拟 算法 动画",
+    "xml_path": "54245a4e97077a2890feaea9b0227faf",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56479251"
+}

@@ -1,0 +1,61 @@
+{
+    "id": 59180295,
+    "name": "TermEd 0.0.0 pre r2",
+    "category": 1,
+    "type": "normal",
+    "description": "大幅提升Python高亮效果（见封面），用词法分析基本达到了语法分析的效果（bushi\n解决不少bug\n增加UndoTree\n见FkjAccount123456/TermEd-r1/",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/6baa7f7ede17c7986ed3271446d002b1.jpg",
+    "xml": "print(\"见FkjAccount123456/TermEd-r1/，clone到本地运行\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-02-02 19:56:13",
+    "modified_at": "2025-02-02 19:56:13",
+    "likes": 5,
+    "views": 57,
+    "comments": 46,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-02 19:53:23",
+    "updated_at": "2026-06-18 17:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/b449ca069cba2fefce9966cf6c6a8848.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 4,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "aec7b5b03b5dc9f867e3a16134edfd02",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59180295"
+}

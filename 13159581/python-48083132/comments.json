@@ -1,0 +1,72 @@
+[
+    {
+        "id": 4368511,
+        "topic_id": "CP_48083132",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "6862065",
+        "reply_user_id": "13159581",
+        "content": "[咧嘴]",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 1,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2023-09-17 18:59:13",
+        "comment_from": "topic",
+        "username": "彭禹嘉",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20230811/TalzSxj_LV3rrud4ToMx_RDnyg1192.png",
+        "reply_username": "陈锦奕",
+        "emojis": [
+            {
+                "id": "[咧嘴]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/咧嘴.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            }
+        ],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 1,
+            "data": [
+                {
+                    "id": 4370119,
+                    "topic_id": "CP_48083132",
+                    "parent_id": 4368511,
+                    "target_id": 4368511,
+                    "user_id": "13159581",
+                    "reply_user_id": "6862065",
+                    "content": "要不是我鸽，这东西早完成了...",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": null,
+                    "created_at": "2023-09-20 19:49:59",
+                    "comment_from": "topic",
+                    "username": "陈锦奕",
+                    "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+                    "reply_username": "彭禹嘉",
+                    "emojis": [],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": true,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                }
+            ]
+        },
+        "user_profile": null
+    }
+]

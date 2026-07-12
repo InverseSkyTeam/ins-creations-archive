@@ -1,0 +1,1 @@
+print("同时运行gameserver.py和gameclient.py，延迟已经很小了")

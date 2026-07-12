@@ -1,0 +1,61 @@
+{
+    "id": 60455330,
+    "name": "带来的一个相扑小游戏（笑",
+    "category": 1,
+    "type": "normal",
+    "description": "代码写的很拉（",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/6e5c74a0a084af7278d267fb144a3f23.jpg",
+    "xml": "import pygame\nimport sys\nimport websocket\nimport _thread as thread\nimport json\nimport time\n\npygame.init()\nuser = input(\"Id (1 or 2):\")\nroom = input(\"Room:\")\nfast_get = {\"1\": 2, \"2\": 1}\n\npygame.display.set_caption(f\"Game {room} - Player {user}\")\nscreen = pygame.display.set_mode((400, 600))\nplayer1_y = 335\nplayer2_y = 265\nwined = False\nstarted = False\n\ndef heartbeat():\n    while ws:\n        ws.send(\"heartbeat\")\n        time.sleep(10)\ndef on_open(ws: websocket.WebSocketApp):\n    # ws.send(json.dumps({\"user\": f\"Game-{room}-{user}\"}))\n    thread.start_new_thread(heartbeat, ())\ndef on_message(ws: websocket.WebSocketApp, message: str):\n    global player1_y, player2_y, started\n    message = json.loads(message)\n    # print(message)\n    if \"a\" in message and message[\"a\"] == \"inputName\":\n        ws.send(json.dumps({\"name\": f\"Game-{room}-{user}\"}))\n    if \"list\" in message and message[\"list\"][\"event\"] == \"del\":\n        started = False\n        return\n    if \"list\" in message and message[\"list\"][\"event\"] == \"add\":\n        ws.send(json.dumps({\"msg\": \"I'm ready\"}))\n        # started = True\n        return\n    if message[\"msg\"][\"name\"] == f\"Game-{room}-{fast_get[user]}\" and message[\"msg\"][\"content\"] == \"I&#039;m ready\" and not started:\n        started = True\n        ws.send(json.dumps({\"msg\": \"I'm ready\"}))\n        return\n    if message[\"msg\"][\"name\"] == f\"Game-{room}-{fast_get[user]}\" and message[\"msg\"][\"content\"] == \"Player 2 clicked\":\n        player1_y += 10\n        player2_y += 10\n    if message[\"msg\"][\"name\"] == f\"Game-{room}-{fast_get[user]}\" and message[\"msg\"][\"content\"] == \"Player 1 clicked\":\n        player1_y -= 10\n        player2_y -= 10\n\nws = websocket.WebSocketApp(\"wss://ws.asilu.com:8090/\", on_open=on_open, on_message=on_message)\nthread.start_new_thread(ws.run_forever, ())\n\nclock = pygame.time.Clock()\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            if ws:\n                ws.close()\n                del ws\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN and not wined and started:\n            ws.send(json.dumps({\"msg\": f\"Player {user} clicked\"}))\n            if user == \"1\":\n                player1_y -= 10\n                player2_y -= 10\n            if user == \"2\":\n                player1_y += 10\n                player2_y += 10\n\n    screen.fill((255, 255, 255))\n\n    player1 = pygame.draw.circle(screen, (255, 0, 0), (200, player1_y), 35)\n    player2 = pygame.draw.circle(screen, (0, 0, 255), (200, player2_y), 35)\n    arena = pygame.draw.circle(screen, (100, 100, 100), (200, 300), 200, 5)\n    if player2_y == 65:\n        screen.blit(pygame.font.SysFont(['kaiti', 'harmonyossanssc'], 50).render(\"玩家1获胜！\", True, (0, 0, 0)), (100, 300))\n        wined = True\n    if player1_y == 535:\n        screen.blit(pygame.font.SysFont(['kaiti', 'harmonyossanssc'], 50).render(\"玩家2获胜！\", True, (0, 0, 0)), (100, 300))\n        wined = True\n\n    if not started and not wined:\n        screen.blit(pygame.font.SysFont(['kaiti', 'harmonyossanssc'], 30).render(\"等待下一个人的到来...\", True, (0, 0, 0)), (50, 300))\n\n    pygame.display.flip()\n    clock.tick(60)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-03-23 16:21:29",
+    "modified_at": "2025-03-23 16:21:29",
+    "likes": 3,
+    "views": 55,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-03-23 16:10:26",
+    "updated_at": "2026-05-30 09:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 86,
+                "column": 18
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/b77d765a540eabb081f52075b46a7384.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他 游戏",
+    "xml_path": "a0a8146a96374547df8bacfc3559e28d",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_60455330"
+}

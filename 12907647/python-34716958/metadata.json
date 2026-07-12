@@ -1,0 +1,61 @@
+{
+    "id": 34716958,
+    "name": "庞加莱回归实验",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import random\nprint('彭加莱回归很著名，它说明了国一段很长的时间以后时间就会循环一次，这个时间不少于TREE(3)')\nprint('经过宇宙熵增，每个粒子都会不断打乱，总有一天排列组合会打乱到原来的状态，然后时间就会重现')\ninput('下面做一个大家能理解的小实验，看看10个元素[1,2,3,4,\"h\",6,7,8,9,11]的列表实现一次彭加莱回归需要打乱多少次，过程可能要等一会，如果时间长就重新运行，结果每循环10万次输出一次，回车开始')\ndef upset(l):\n    s = []\n    while l != []:\n        x = random.choice(l)\n        l.remove(x)\n        s.append(x)\n    return s\nold = [1,2,3,4,'h',6,7,8,9,11]\nlist_ = upset(old)\nprint('打乱1次',list_)\nxx = 1\nwhile list_ != [1,2,3,4,'h',6,7,8,9,11]:\n    xx += 1\n    list_ = upset(list_)\n    if xx % 100000 == 0:\n        print('\\033[2J\\033[100A打乱'+str(xx)+'次',list_)\nprint('\\033[2J\\033[100A共打乱'+str(xx)+'次，得到',list_)\nprint('已经实现了一个彭加莱回归！想想看，宇宙那么多元素，回归一次固然长，但是也总有一天能成功！这次实验到这里，有人想要打乱函数见源码')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2022-07-01 23:13:05",
+    "modified_at": "2024-01-24 22:33:41",
+    "likes": 3,
+    "views": 23,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2022-07-01 23:13:00",
+    "updated_at": "2024-01-29 12:20:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 6,
+                "column": 15
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/2df97cf75036d55d5541d06e983c6760.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他 模拟 算法",
+    "xml_path": "4d4a334c6b643f43a66f946877300d91",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_34716958"
+}

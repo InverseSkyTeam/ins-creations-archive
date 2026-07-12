@@ -1,0 +1,61 @@
+{
+    "id": 55609111,
+    "name": "伪造Visitor",
+    "category": 1,
+    "type": "normal",
+    "description": "随手写的玩具，把对AST的深搜包装成了Visitor，没什么技术含量，但在很多场合下它相当实用。",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "class Token:\n    def __init__(self, type, value):\n        self.type = type\n        self.value = value\n    def __eq__(self, other):\n        return self.type == other.type and self.value == other.value\nclass Node:\n    def __init__(self, name, children):\n        self.name = name\n        self.children = children\n\n    def __eq__(self, other):\n        return self.name == other.name and self.children == other.children\n\nclass Visitor:\n    def __init__(self):\n        pass\n    def visit(self, node):\n        node_stack = [node]\n        index_stack = [0]\n        value_stack = []\n        while node_stack:\n            node, index = node_stack[-1], index_stack[-1]\n            if isinstance(node, Token):\n                value_stack.append(node)\n                node_stack.pop()\n                index_stack.pop()\n                index_stack[-1] += 1\n                continue\n            if len(node.children) == index:\n                args = [value_stack.pop() for _ in range(index)]\n                res = getattr(self, f\"visit_{node.name}\")(*args)\n                value_stack.append(res)\n                node_stack.pop()\n                index_stack.pop()\n                if index_stack:\n                    index_stack[-1] += 1\n            else:\n                node_stack.append(node.children[index])\n                index_stack.append(0)\n        return value_stack.pop()\n    \nclass TreeVisitor(Visitor):\n    def visit_add(self, left, right):\n        return left + right\n    def visit_sub(self, left, right):\n        return left - right\n    def visit_mul(self, left, right):\n        return left * right\n    def visit_div(self, left, right):\n        return left / right\n    def visit_num(self, token):\n        return int(token.value)\n\ntree = Node(\"add\", [Node(\"num\", [Token(\"number\", 1)]), Node(\"mul\", [Node(\"num\", [Token(\"number\", 2)]), Node(\"num\", [Token(\"number\", 3)])])])\n\nvisitor = TreeVisitor()\nprint(visitor.visit(tree))",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-22 23:07:59",
+    "modified_at": "2024-08-22 23:07:59",
+    "likes": 3,
+    "views": 19,
+    "comments": 9,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-22 23:06:42",
+    "updated_at": "2025-08-24 21:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 9,
+                "column": 32
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/3a65585da0dc550979fe05b0c5471ced.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "394cd229e47e196b7104a81527a8ff84",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55609111"
+}

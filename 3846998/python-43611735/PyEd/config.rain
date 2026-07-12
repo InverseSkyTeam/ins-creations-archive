@@ -1,0 +1,24 @@
+#Python Editor的配置文件
+import python_editor_config
+set("tab",4)
+set("delay",0)
+set("nu",True)
+imap("jk",(fn()
+    set("mode","NORMAL")))
+imap("ss",(fn()
+    do("w")))
+nmap("ss",(fn()
+    do("w")))
+newtheme("lightpad",{
+    keyword:"\033[35m",
+    operator:"\033[36m",
+    identifier:"\033[0m",
+    number:"\033[33m",
+    header:"\033[35m",
+    string:"\033[32m",
+    comment:"\033[38;5;242m",
+    others:"\033[0m",
+    builtin:"\033[0m",
+    this:"\033[35m",
+})
+do("theme lightpad")

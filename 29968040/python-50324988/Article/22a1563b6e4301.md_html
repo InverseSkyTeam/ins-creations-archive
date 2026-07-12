@@ -1,0 +1,249 @@
+<html><head></head><body><h1>栈与队列</h1>
+<h4>前言</h4>
+<ul>
+<li>栈和队列是非常常用的数据结构，可以解决很多问题</li>
+<li>栈：先进后出 ； 队列：先进先出 ，这就是它们的最大特点</li>
+<li>本篇文章我将介绍Python和C++中的栈与队列，以及它们的基本操作</li>
+</ul>
+<h4>栈(stack)</h4>
+<ul>
+<li>栈(stack)，又名堆栈，是一种先进后出的数据结构</li>
+<li>典型应用：后缀表达式的求值、括号匹配问题</li>
+</ul>
+<h4>栈的操作：</h4>
+<ul>
+<li>入栈：push(content)</li>
+<li>出栈：pop()</li>
+<li>获取栈顶元素：top()</li>
+<li>栈的大小：size()</li>
+<li>栈是否为空： empty()</li>
+<li>下面是leetcode官网的动图 <img src="https://jihulab.com/ZiXuanYuan/blogpic/-/raw/main/pictures/2022/08/17_16_39_0_出入栈.gif" alt="加载错误" /></li>
+</ul>
+<h4>Python实现栈</h4>
+<p>在C++的STL中有封装好的栈，但是Python没有，以下是Python我封装的栈的类</p>
+<pre class="python"><code>class Stack():
+    def __init__(self):
+        self.__array = []
+    def push(self,content):
+        self.__array.append(content)
+    def size(self):
+        return len(self.__array)
+    def top(self):
+        return self.__array[self.size()-1]
+    def pop(self):
+        del self.__array[self.size()-1]
+    def empty(self):
+        if(self.size()&lt;=0):
+            return True
+        return False
+    def out(self):
+        for i in range(len(self.__array)):
+            print(self.__array[i],end=&quot; &quot;)
+        print(&quot;\n&quot;)</code></pre>
+<h4>C++.STL-栈</h4>
+<ul>
+<li><p>执行以下代码</p>
+<pre class="c++"><code>#include &lt;queue&gt;
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+  queue&lt;int&gt; mqu;
+  mqu.push(1);
+  mqu.push(2);
+  mqu.push(3);
+  mqu.pop();
+  cout &lt;&lt; mqu.top()&lt;&lt; &quot; &quot; &lt;&lt; mqu.size() &lt;&lt; endl ;
+  mqu.pop();
+  mqu.pop();
+  cout &lt;&lt; mqu.empty();
+  return 0;
+}</code></pre></li>
+<li><p>输出：</p>
+<pre><code>2 2 true</code></pre>
+<h4>后缀表达式的求值</h4></li>
+<li><p>后缀表达式：把运算符后置的表达式</p></li>
+<li><p>中缀表达式：1+2+3</p></li>
+<li><p>优点：方便计算机识别计算，可以省略括号</p></li>
+<li><p>栗子：545<em>+5/ 它以中缀表达式是这样表达的： (5+4</em>5)/5</p></li>
+<li><p>C++代码</p>
+<pre class="c++"><code>#include &lt;iostream&gt;
+#include &lt;stack&gt;
+using namespace std;
+/*
+Evaluate postfix expression
+82/       128*+     545*+5/
+*/ 
+stack&lt;int&gt; mst;
+void postFixEvaluation(string s){
+  for(int i=0;i&lt;s.size();i++){
+      if(s.at(i)&gt;=&#39;0&#39;&amp;&amp;s.at(i)&lt;=&#39;9&#39;)
+          mst.push((int)(s.at(i)-&#39;0&#39;));
+      else{
+          int num2 = mst.top();
+          mst.pop();
+          int num1 = mst.top();
+          mst.pop();
+
+          if(s.at(i)==&#39;+&#39;)
+              mst.push(num1+num2);
+          else if(s.at(i)==&#39;-&#39;)
+              mst.push(num1-num2);
+          else if(s.at(i)==&#39;*&#39;)
+              mst.push(num1*num2);
+          else if(s.at(i)==&#39;/&#39;)
+              mst.push(num1/num2);
+      }
+  }
+}
+int main(){
+  string s=&quot;128*+&quot;;
+  postFixEvaluation(s);
+  cout &lt;&lt; mst.top();
+  return 0; 
+}</code></pre></li>
+<li><p>Python代码</p>
+<pre class="python"><code>class Stack():
+  def __init__(self):
+      self.__array = []
+  def push(self,content):
+      self.__array.append(content)
+  def size(self):
+      return len(self.__array)
+  def top(self):
+      return self.__array[self.size()-1]
+  def pop(self):
+      del self.__array[self.size()-1]
+  def empty(self):
+      if(self.size()&lt;=0):
+          return True
+      return False
+  def out(self):
+      for i in range(len(self.__array)):
+          print(self.__array[i],end=&quot; &quot;)
+      print(&quot;\n&quot;)
+s=&quot;545*+5/&quot;
+mst=Stack()
+for i in range(len(s)):
+
+  if ord(s[i])&gt;=ord(&quot;0&quot;) and ord(s[i])&lt;=ord(&quot;9&quot;):
+      mst.push(ord(s[i])-ord(&#39;0&#39;))
+  else:
+      num2 = mst.top();
+      mst.pop();
+      num1 = mst.top();
+      mst.pop();
+      if s[i]==&#39;+&#39; :
+          mst.push(num1+num2);
+      elif s[i]==&#39;-&#39; :
+          mst.push(num1-num2);
+      elif s[i]==&#39;*&#39; :
+          mst.push(num1*num2);
+      elif s[i]==&#39;/&#39; :
+          mst.push(num1/num2);
+print(mst.top())    </code></pre></li>
+</ul>
+<hr />
+<h4>队列(Queue)</h4>
+<ul>
+<li><p>队列(Queue)，又名堆栈，是一种先进先出的数据结构</p></li>
+<li><p>典型应用：迷宫问题、最短路径、岛屿问题等</p>
+<h4>队列的操作：</h4></li>
+<li><p>入队：push(content)</p></li>
+<li><p>出队：pop()</p></li>
+<li><p>获取队顶元素：front()//最先进队的</p></li>
+<li><p>获取队头元素：back()//最后进队的</p></li>
+<li><p>队列的大小：size()</p></li>
+<li><p>队列是否为空： empty()</p></li>
+<li><p>下面是leetcode官网的动图 <img src="https://jihulab.com/ZiXuanYuan/blogpic/-/raw/main/pictures/2022/08/17_16_39_0_出入队.gif" alt="加载错误" /></p>
+<h4>Python实现队列</h4>
+<p>在C++的STL中有封装好的栈，但是Python没有，以下是Python我封装的栈的类</p>
+<pre class="python"><code>class Queue():
+  def __init__(self):
+      self.__array = []
+  def push(self,content):
+      self.__array.append(content)
+  def size(self):
+      return len(self.__array)
+  def pop(self):
+      for i in range(self.size()-1):
+          self.__array[i]=self.__array[i+1]
+  def front(self):
+      return self.__array[0]
+  def back(self):
+      return self.__array[self.size()-1]
+  def empty(self):
+      if self.size()&lt;=0:
+          return True
+      return False
+  def out(self):
+      for i in range(self.size()):
+          print(self.__array[i],end=&quot; &quot;)
+      print(&quot;\n&quot;) </code></pre>
+<h4>迷宫问题</h4>
+<p>1为可以走 0为不可以走 问从列表的[0,0]走到[n,n]最少需要多少步，只能走上下左右</p></li>
+<li><p>Python代码</p>
+<pre class="python"><code>class Queue():
+  def __init__(self):
+      self.__array = []
+
+  def push(self, content):
+      self.__array.append(content)
+
+  def size(self):
+      return len(self.__array)
+
+  def pop(self):
+      for i in range(self.size() - 1):
+          self.__array[i] = self.__array[i + 1]
+
+  def front(self):
+      return self.__array[0]
+
+  def back(self):
+      return self.__array[self.size() - 1]
+
+  def empty(self):
+      if self.size() &lt;= 0:
+          return True
+      return False
+
+  def out(self):
+      for i in range(self.size()):
+          print(self.__array[i], end=&quot; &quot;)
+      print(&quot;\n&quot;)
+
+info = [
+  [1, 1, 0, 0, 0],
+  [0, 1, 1, 1, 1],
+  [0, 1, 0, 1, 0],
+  [0, 1, 0, 1, 0],
+  [0, 1, 0, 1, 1]
+]
+r, c = 4, 4
+
+wayx, wayy = [0, -1, 0, 1], [-1, 0, 1, 0]
+
+mqu = Queue()
+
+mqu.push([0, 0, 0])
+info[0][0] = 1
+
+isFind = False
+
+while mqu.empty()==0 and isFind!=True:
+  top=mqu.front()
+  mqu.pop()
+  for i in range(4):
+      nx = top[0]+ wayx[i]
+      ny = top[1]+ wayy[i]
+      if nx &gt;= 0 and nx &lt;= r and ny &gt;= 0 and ny &lt;= c and info[nx][ny]==1:
+          mqu.push([nx,ny,top[2]+1])
+          info[nx][ny] = 0;
+          if nx == r and ny == c:
+              print(top[2]+1)
+              isFind=True
+              break
+if isFind==False:
+  print(&quot;Can&#39;t find anyway&quot;)</code></pre></li>
+</ul>
+</body></html>

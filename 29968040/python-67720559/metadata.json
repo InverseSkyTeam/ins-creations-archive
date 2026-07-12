@@ -1,0 +1,61 @@
+{
+    "id": 67720559,
+    "name": "Pygame 简易2D阴影追踪",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/ba759b51a3c18cdece5e6049433b16f9.jpg",
+    "xml": "import pygame\nimport sys\n\n\npygame.init()\nscreenWidth = 800\nscreenHeight = 600\nscreen = pygame.display.set_mode((screenWidth, screenHeight))\nclock = pygame.time.Clock()\n\ndef find_intersection_x(a, b, m):\n    # 计算点a到点b的直线与竖直线x=m的交点纵坐标\n    x1, y1 = a\n    x2, y2 = b\n    slope = (y2 - y1) / (x2 - x1)\n    y_intersect = y1 + slope * (m - x1)\n\n    return (m, y_intersect)\n\n\ndef find_intersection_y(a, b, m):\n    # 计算点a到点b的直线与水平线y=m的交点横坐标\n    x1, y1 = a\n    x2, y2 = b\n    if x2 == x1:\n        return (x1, m)\n    slope = (y2 - y1) / (x2 - x1)\n    x_intersect = x1 + (m - y1) / slope\n    \n    return (x_intersect, m)\n\n\ndef find_slant_border(a, a_border, b, b_border, w, h):\n    flag_a = 0 <= a_border[0][1] <= h-1, 0 <= a_border[1][0] <= w-1\n    flag_b = 0 <= b_border[0][1] <= h-1, 0 <= b_border[1][0] <= w-1\n    if flag_a[0] == flag_b[0] == True:\n        return (a, a_border[0], b_border[0], b)\n    elif flag_a[1] == flag_b[1] == True:\n        return (a, a_border[1], b_border[1], b)\n    elif flag_a[0] == flag_b[1] == True:\n        return (a, a_border[0], (a_border[0][0], b_border[1][1]), b_border[1], b)\n    elif flag_a[1] == flag_b[0] == True:\n        return (a, a_border[1], (a_border[1][0], b_border[0][1]), b_border[0], b)\n    else:\n        raise ValueError\n\n\ndef ray_tracing_2d(w, h, origin_wall_rect, origin_people_pos, offset_x=0, offset_y=0):\n    mask_surface = pygame.Surface((w, h), pygame.SRCALPHA).convert_alpha()\n    wall_rect = []\n    surface_rect = pygame.Rect(0, 0, w, h)\n    people_x, people_y = people_pos = origin_people_pos[0] + offset_x, origin_people_pos[1] + offset_y\n    debug = False\n    \n    for origin_wall in origin_wall_rect:\n        wall = origin_wall.move(offset_x, offset_y).clip(surface_rect)\n        if wall.w == 0 or wall.h == 0:\n            continue\n        if wall.collidepoint(people_x, people_y):  # 若角色在墙壁内部\n            mask_surface.fill((0, 0, 0, 128))\n            mask_surface.fill((0, 0, 0, 0), rect=wall)\n            return mask_surface\n        \n        wall_rect.append(wall)\n        \n   \n    for wall in wall_rect:\n        wall_left, wall_right = wall.x, wall.x + wall.w - 1\n        wall_top, wall_bottom = wall.y, wall.y + wall.h - 1\n        p_tl = (wall_left,  wall_top)  # 墙的左上角点\n        p_tr = (wall_right, wall_top)  # 墙的右上角点\n        p_bl = (wall_left,  wall_bottom)  # 墙的左下角点\n        p_br = (wall_right, wall_bottom)  # 墙的右下角点\n        \n        render_vertex = []\n        if wall_left <= people_x <= wall_right:  # 角色在墙的上/下方\n            if wall_bottom < people_y:  # 墙在上方\n                p1, p2 = p_bl, p_br\n                limit_vertical = 0\n            elif people_y < wall_top:  # 墙在下方\n                p1, p2 = p_tl, p_tr\n                limit_vertical = h - 1\n            p1_border_y = find_intersection_y(people_pos, p1, limit_vertical)\n            p2_border_y = find_intersection_y(people_pos, p2, limit_vertical)\n            if 0 <= p1_border_y[0] <= w-1:\n                p1_border = (p1_border_y,)\n            else:\n                p1_border = (find_intersection_x(people_pos, p1, 0), (0, limit_vertical))\n            if 0 <= p2_border_y[0] <= w-1:\n                p2_border = (p2_border_y,)\n            else:\n                p2_border = ((w-1, limit_vertical), find_intersection_x(people_pos, p2, w-1))\n            render_vertex = p1_border + p2_border + (p2, p1)\n        elif wall_top <= people_y <= wall_bottom:  # 角色在墙的左/右方\n            if wall_right < people_x:  # 墙在左边\n                p1, p2 = p_tr, p_br\n                limit_horizontal = 0\n            elif people_x < wall_left:  # 墙在右边\n                p1, p2 = p_tl, p_bl\n                limit_horizontal = w - 1\n            p1_border_x = find_intersection_x(people_pos, p1, limit_horizontal)\n            p2_border_x = find_intersection_x(people_pos, p2, limit_horizontal)\n            if 0 <= p1_border_x[1] <= h-1:\n                p1_border = (p1_border_x,)\n            else:\n                p1_border = (find_intersection_y(people_pos, p1, 0), (limit_horizontal, 0))\n            if 0 <= p2_border_x[1] <= h-1:\n                p2_border = (p2_border_x,)\n            else:\n                p2_border = ((limit_horizontal, h-1), find_intersection_y(people_pos, p2, h-1))\n            render_vertex = p1_border + p2_border + (p2, p1)\n        else:  # 处理四个角落方向（左上，右下，右上，左下）\n            if people_x < p_tl[0] and people_y < p_tl[1]:  # 墙在右下角\n                p0, p1, p2 = p_tl, p_tr, p_bl\n                limit_x, limit_y = w-1, h-1\n            elif people_x > p_tr[0] and people_y < p_tr[1]:  # 墙在左下角\n                p0, p1, p2 = p_tr, p_tl, p_br\n                limit_x, limit_y = 0, h-1\n            elif people_x < p_bl[0] and people_y > p_bl[1]:  # 墙在右上角\n                p0, p1, p2 = p_bl, p_br, p_tl\n                limit_x, limit_y = w-1, 0\n            elif people_x > p_br[0] and people_y > p_br[1]:  # 墙在左上角\n                p0, p1, p2 = p_br, p_bl, p_tr\n                limit_x, limit_y = 0, 0\n                \n            p1_border = (find_intersection_x(people_pos, p1, limit_x), \n                         find_intersection_y(people_pos, p1, limit_y))\n            p2_border = (find_intersection_x(people_pos, p2, limit_x), \n                         find_intersection_y(people_pos, p2, limit_y))\n            render_vertex = find_slant_border(p1, p1_border, p2, p2_border, w, h) + (p0,)\n\n        pygame.draw.polygon(mask_surface, (0, 0, 0, 128), render_vertex)\n        if debug:\n            pygame.draw.polygon(mask_surface, (0, 255, 255, 255), render_vertex, width=1)\n    return mask_surface\n\n\npeople_rect = pygame.Rect(100, 400, 50, 50)\nall_wall_rects = [\n    pygame.Rect(50, 50, 200, 200),    # 原始矩形\n    pygame.Rect(500, 500, 100, 100),  # 原始矩形\n    pygame.Rect(120, 320, 150, 40),   # 新增\n    pygame.Rect(400, 80, 80, 180),    # 新增\n    pygame.Rect(600, 250, 160, 60),   # 新增\n    pygame.Rect(200, 450, 50, 120),   # 新增\n    pygame.Rect(700, 100, 30, 100),   # 新增\n    pygame.Rect(300, 200, 120, 90),   # 新增\n    pygame.Rect(50, 500, 200, 30),    # 新增\n    pygame.Rect(450, 350, 70, 70),    # 新增\n    pygame.Rect(150, 100, 40, 140),   # 新增\n    pygame.Rect(550, 400, 100, 50)    # 新增\n]\n\nmove_index = -1\nfont = pygame.font.SysFont(None, 30)\nwhile True:\n    fps_str = 'fps:' + str(round(clock.get_fps()))\n    pygame.display.set_caption(fps_str)\n    pygame_events = pygame.event.get()\n    mouse_pos = pygame.mouse.get_pos()\n    mouse_pressed = pygame.mouse.get_pressed()[0]\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            for i, _rect in enumerate(all_wall_rects + [people_rect]):\n                if _rect.collidepoint(event.pos):\n                    move_index = i\n        if event.type == pygame.MOUSEMOTION and move_index >= 0:\n            if move_index < len(all_wall_rects):\n                all_wall_rects[move_index].move_ip(*event.rel)\n            else:\n                people_rect.move_ip(*event.rel)\n        if event.type == pygame.MOUSEBUTTONUP:\n            move_index = -1\n            \n\n    screen.fill((255, 255, 255))\n    # screen.fill((235, 235, 235), (0, 0, screenWidth, screenHeight))\n    \n    pygame.draw.rect(screen, (0, 255, 0), people_rect)\n    for _rect in all_wall_rects:\n        pygame.draw.rect(screen, (255, 0, 0), _rect)\n    mask = ray_tracing_2d(screenWidth, screenHeight, all_wall_rects, people_rect.center)\n    screen.blit(mask, (0, 0))\n    screen.blit(font.render(fps_str, True, (255, 0, 0)), (10, 10))\n    \n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2026-04-04 16:23:11",
+    "modified_at": "2026-04-04 16:23:11",
+    "likes": 5,
+    "views": 106,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2026-04-04 16:21:27",
+    "updated_at": "2026-07-12 11:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 190,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9fc609f4c20315303c2578c91ac202a4.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "故事 游戏 算法",
+    "xml_path": "8a61ef756f96bb4e6ce3b51c6b4806cc",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_67720559"
+}

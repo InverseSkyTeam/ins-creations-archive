@@ -1,0 +1,61 @@
+{
+    "id": 52962956,
+    "name": "全站最完美碰撞箱！（wsad移动 左键挖掘 右键摆放）",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 79932748,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/70ffe7e11ead0d611fdf14fbe65d3943.jpg",
+    "xml": "import pygame\nimport sys\n\npygame.init()\npygame.key.stop_text_input()\n\n# 定义常量(用户可以修改设置)\nSC_WIDTH = 1000\nSC_HEIGHT = 700\nBLOCK_SIZE = 50\nDROP_SIZE = 30\nMP_WIDTH = 100 * BLOCK_SIZE\nMP_HEIGHT = 100 * BLOCK_SIZE\nWIDTH = int(SC_WIDTH / BLOCK_SIZE)\nHEIGHT = int(SC_HEIGHT / BLOCK_SIZE)\n\nscreen = pygame.display.set_mode((SC_WIDTH,SC_HEIGHT))\npygame.display.set_caption('IDU Sandbox Driver')\n\nimg = pygame.transform.scale(pygame.image.load('./images/土.png'),(BLOCK_SIZE,BLOCK_SIZE))\ndata = [\n    *([[0,None] for i in range(100)] for line in range(10)),\n    *([[2,img] for i in range(100)] for line in range(90)),\n]\n\nclass Player:\n    def __init__(self):\n        self.x = SC_WIDTH / 2 - 20\n        self.y = SC_HEIGHT / 2 - 60\n        self.rect = pygame.Rect(self.x,self.y,40,120)\n        self.speed = 3\n    def bind(self,map_):\n        self.map = map_\n    \n    def move(self):\n        # 读取键盘移动意图\n        xoffset = keystate[pygame.K_RIGHT] - keystate[pygame.K_LEFT]\n        yoffset = keystate[pygame.K_DOWN] - keystate[pygame.K_UP]\n        xoffset *= self.speed\n        yoffset *= self.speed\n        \n        # 四种情况详细研究碰撞\n        bleft, btop = self.map.convert(1,self.x,self.y)\n        bright, bbottom = self.map.convert(1,self.x+self.rect.w-1,self.y+self.rect.h-1)\n        if xoffset < 0:    # 左右碰到方块限制\n            for row in range(btop,bbottom+1):\n                if self.map.data[row][bleft-1][0]:\n                    xoffset = -min(-xoffset, self.x - bleft * 50)\n                    break\n        elif xoffset > 0:\n            for row in range(btop,bbottom+1):\n                if self.map.data[row][bright+1][0]:\n                    xoffset = min(xoffset, bright * 50 + 50 - self.x - self.rect.w)\n                    break\n        self.x += xoffset    # x移动（提前移动避免出现斜对角卡方块情况）\n        self.x = min(max(self.x, 0), MP_WIDTH - 41)\n        \n        bleft, btop = self.map.convert(1,self.x,self.y)\n        bright, bbottom = self.map.convert(1,self.x+self.rect.w-1,self.y+self.rect.h-1)\n        if yoffset < 0:    # 上下碰到方块限制\n            for col in range(bleft,bright+1):\n                if self.map.data[btop-1][col][0]:\n                    yoffset = -min(-yoffset, self.y - btop * 50)\n                    break\n        elif yoffset > 0:\n            for col in range(bleft,bright+1):\n                if self.map.data[bbottom+1][col][0]:\n                    yoffset = min(yoffset, bbottom * 50 + 50 - self.y - self.rect.h)\n                    break\n        self.y += yoffset      # y移动\n        self.y = min(max(self.y, 0), MP_HEIGHT - 121)\n        \n        # 在地图边缘自移动\n        if self.x < SC_WIDTH / 2 - 20:\n            self.rect.x = int(self.x)\n        elif self.x >= MP_WIDTH - SC_WIDTH / 2 - 20:\n            self.rect.x = int(SC_WIDTH-MP_WIDTH+self.x+1)\n        if self.y < SC_HEIGHT / 2 - 60:\n            self.rect.y = int(self.y)\n        elif self.y >= MP_HEIGHT - SC_HEIGHT / 2 - 60:\n            self.rect.y = int(SC_HEIGHT-MP_HEIGHT+self.y+1)\n    \n    def draw(self):\n        pygame.draw.rect(screen,(255,0,0),self.rect,3)\n    \n    @property\n    def position(self):\n        return [self.x, self.y, self.rect.x, self.rect.y]\n\nclass GameMap:\n    def __init__(self,data):\n        self.__keystate = {\n            pygame.K_UP: 0, pygame.K_DOWN: 0, pygame.K_LEFT: 0, pygame.K_RIGHT: 0,\n            pygame.K_w: 0, pygame.K_s: 0, pygame.K_a: 0, pygame.K_d: 0,\n        }\n        self.data = data\n        self.highlightrect = pygame.Rect(0,0,50,50)\n    def include(self,player):\n        self.player = player\n    \n    def convert(self,tp,x,y,scx=None,scy=None):\n        if tp == 1:     # 绝对坐标转绝对方块\n            return [int(x // 50), int(y // 50)]\n        if tp == 2:     # 绝对方块转绝对坐标\n            return [x * 50, y * 50]\n        if tp == 3:     # 绝对方块转相对坐标\n            return [x * 50 - scx, y * 50 - scy]\n    \n    def draw(self):\n        # 绘制\n        px, py, psx, psy = self.player.position\n        x = min(max(0, px - psx), MP_WIDTH - SC_WIDTH - 1)\n        y = min(max(0, py - psy), MP_HEIGHT - SC_HEIGHT - 1)\n        bleft, btop = self.convert(1, x, y)\n        bright, bbottom = bleft + WIDTH, btop + HEIGHT\n        while btop <= bbottom:\n            while bleft <= bright:\n                image = self.data[btop][bleft][1]\n                if image:\n                    screen.blit(image,self.convert(3, bleft, btop, x, y))\n                bleft += 1\n            bleft = bleft - 1 - WIDTH\n            btop += 1\n        \n        # 高亮\n        ex, ey = mousestate['pos']\n        if 0 <= ex < SC_WIDTH and 0 <= ey <= SC_HEIGHT:\n            highlight_col, highlight_row = self.convert(1, x+ex, y+ey)\n            highbid = self.data[highlight_row][highlight_col][0]\n            if highbid:\n                border = 3\n                if mousestate[1]:\n                    self.data[highlight_row][highlight_col] = [0,None]\n            else:\n                border = 1\n                if mousestate[3]:\n                    self.data[highlight_row][highlight_col] = [2,img]\n            self.highlightrect.topleft = self.convert(3, highlight_col, highlight_row, x, y)\n            pygame.draw.rect(screen,(0,0,0),self.highlightrect,border,3)\n\n\n\nplayer = Player()\ngamemap = GameMap(data)\nplayer.bind(gamemap)\ngamemap.include(player)\n\nclock = pygame.time.Clock()\n\nkeystate = {\n    pygame.K_UP: 0,\n    pygame.K_DOWN: 0,\n    pygame.K_LEFT: 0,\n    pygame.K_RIGHT: 0,\n    pygame.K_w: 0,\n    pygame.K_s: 0,\n    pygame.K_a: 0,\n    pygame.K_d: 0,\n}\nmousestate = {\n    'pos': (-1,-1),\n    1: 0,\n    3: 0,\n}\n\n\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEMOTION:\n            mousestate['pos'] = event.pos\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            mousestate[event.button] = 1\n        if event.type == pygame.MOUSEBUTTONUP:\n            mousestate[event.button] = 0\n        if event.type == pygame.KEYDOWN:\n            keystate[event.key] = 1\n        if event.type == pygame.KEYUP:\n            keystate[event.key] = 0\n    \n    screen.fill((255,255,255))\n    gamemap.draw()\n    player.move()\n    player.draw()\n    pygame.display.update()\n    clock.tick(100)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-05-04 15:25:53",
+    "modified_at": "2024-05-04 22:57:46",
+    "likes": 15,
+    "views": 226,
+    "comments": 38,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-05-04 15:25:08",
+    "updated_at": "2026-06-07 15:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 6,
+                "column": 16
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/6a7bded82f7f6e50d331b0b77f691aff.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "游戏 模拟 算法",
+    "xml_path": "ec1e264270e70dadc2460d871ba07c18",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "实变函数",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20240219/Talzd7_uMAZmfn2jyKhnnEIn6Q1480.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52962956"
+}

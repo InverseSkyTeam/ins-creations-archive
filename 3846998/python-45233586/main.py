@@ -1,0 +1,1 @@
+print("请下载core.exe，它可以在Windows系统下运行")

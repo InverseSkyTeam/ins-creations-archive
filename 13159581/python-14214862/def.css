@@ -1,0 +1,35 @@
+footer{background-color: #323232;
+			color: #ffffff;}
+	
+p{text-shadow:5px 5px 20px #5b5b5b;font-size: 20px}
+a{text-shadow:5px 5px 20px #5b5b5b;text-decoration:none;color: white;font-size: 15px}
+body{text-shadow:5px 5px 20px #5b5b5b;background-image: url(https://livefile.xesimg.com/programme/python_assets/4de43558b7f4a82dae7eed42cef415da.jpg);background-repeat: no-repeat;background-attachment:fixed;padding-top:30px ;}	
+
+.tab_box{background: #fffeee;text-align: center;}
+.daohang{display: inline-block;
+margin-left: 30px;
+width: 150px;
+height: 40px;
+background: #fffcd0;
+border-bottom: 2px solid #ffaa00;
+font: 16px/40px "楷体";}
+
+h1{text-shadow:5px 5px 20px #5b5b5b;
+			text-align: center;
+			font-family:"楷体";
+			color: black;
+			font-size: 50px;}	
+.a_click{text-decoration:none;color: #E03000;font-size: 35px font-family: "幼圆";}
+.a_click:hover{text-decoration: underline;color: #E03000;font-size: 40px font-family: "幼圆";}
+.daohang>a{color: #000000;}
+.zhi{background-image: url(https://livefile.xesimg.com/programme/python_assets/0d86ec046e42f25e7c25bce14196fae3.jpg);}
+.daohang.current,
+.daohang:hover {background-color: #ffaa00;color: #fffff5;}
+.hd {height: 40px;}
+.tuchu{font-family: "楷体";font-size: 23px}		
+.xie{font-style: italic}
+.red{color: red}
+.blue{color: cyan}
+.text{text-align: left;}
+:root{background-color: azure;}
+#wen{width:800px;background-color: #FFFFF5}

@@ -1,0 +1,15 @@
+@ignore " \t\r\n" ;
+number : /[0-9](\\.[0-9][0-9]?)?/ ;
+
+@priority "+" 1 left ;
+@priority "-" 1 left ;
+@priority "*" 0 left ;
+@priority "/" 0 left ;
+S    ->   Expr            {output} ;
+Expr ->   Expr "+" Expr   {add}
+        | Expr "-" Expr   {sub}
+        | Expr "*" Expr   {mul}
+        | Expr "/" Expr   {div}
+        | "(" Expr ")"    {group}
+        | number          {number}
+        ;

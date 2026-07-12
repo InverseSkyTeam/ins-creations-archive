@@ -1,0 +1,69 @@
+{
+    "id": 54810993,
+    "name": "IDU-3D沙盒（v0.1.3）",
+    "category": 1,
+    "type": "normal",
+    "description": "优化加载速度，但FPS不变",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/1c56c8e695aca8d89798769b965a1619.jpg",
+    "xml": "import zipfile, sys\nwith zipfile.ZipFile('./textures.zip', 'r') as zip_ref:\n    zip_ref.extractall('.')\n\n\ndef get_py_path():\n    return sys.executable\n\n\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\nimport pygame\nimport sys\nimport time\nfrom game_window import Window\nimport options\n\npygame.init()\nscreen = pygame.display.set_mode((852, 480), pygame.RESIZABLE)\nclock = pygame.time.Clock()\npygame.key.stop_text_input()\n\nconfig = options.InternalConfig()\nwindow = Window(852, 480, config)\n\nlast_time = time.time()\nscale_ratio = 1\n\ncross_hair = pygame.image.load('crosshair.png').convert_alpha()\nnew_screen = pygame.Surface((int(screen.get_width()*scale_ratio), int(screen.get_height()*scale_ratio)))\nwindow.on_resize(new_screen.get_width(), new_screen.get_height())\n\nwhile True:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        elif event.type == pygame.VIDEORESIZE:\n            new_screen = pygame.Surface((int(screen.get_width() * scale_ratio), int(screen.get_height() * scale_ratio)))\n            window.on_resize(new_screen.get_width(), new_screen.get_height())\n        elif event.type == pygame.MOUSEBUTTONDOWN:\n            window.on_mouse_press(event.button)\n        elif event.type == pygame.MOUSEMOTION:\n            window.on_mouse_motion(*event.rel)\n        elif event.type == pygame.KEYDOWN:\n            window.on_key_press(event.key)\n        elif event.type == pygame.KEYUP:\n            window.on_key_release(event.key)\n    screen.fill((255, 255, 255))\n\n    window.player.update_interpolation(delta_time=time.time()-last_time)\n    window.update(delta_time=time.time()-last_time)\n    last_time = time.time()\n\n    window.on_draw(new_screen)\n    screen.blit(pygame.transform.scale(new_screen, screen.get_size()), (0, 0))\n    window.render_f3(screen)\n\n    screen.blit(cross_hair, cross_hair.get_rect(center=screen.get_rect().center))\n\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-30 15:04:15",
+    "modified_at": "2025-05-24 21:03:28",
+    "likes": 20,
+    "views": 370,
+    "comments": 30,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-30 14:50:06",
+    "updated_at": "2026-07-09 16:00:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "70219755-b516-f7e0-f156-c6b3487f60c7": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 22,
+                "column": 0
+            },
+            "97bcfdcd-b1ed-b395-c241-165e212797d2": {
+                "row": 306,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/74fd7402d05967313c6800591fcece96.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 20,
+    "favorites": 28,
+    "tags": "游戏 沙盒专区 算法",
+    "xml_path": "54032b13bcc8b8de9291d313c5b044f6",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54810993"
+}

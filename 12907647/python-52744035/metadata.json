@@ -1,0 +1,61 @@
+{
+    "id": 52744035,
+    "name": "物体的受力分析与位置变化分析（物理引擎引子）",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/4adf9ff19d84021e9b4f3c56333ef2d1.jpg",
+    "xml": "import pygame, sys\n\nclass Thing:\n    def __init__(self,w,h,m,c):\n        self.Fx = 0   # 力(N)\n        self.Fy = 0\n        self.Ax = 0   # 加速度(1px/s^2 1m=100px)\n        self.Ay = 0\n        self.Sx = 0   # 速度\n        self.Sy = 0\n        self.x = 200    # 位置\n        self.y = 200\n        self.m = m    # 质量(kg)\n        self.color = c\n        self.rect = pygame.Rect(self.x,self.y,w,h)\n    def __str__(self):\n        d = self.info()\n        for i in d:\n            d[i] = round(d[i])\n        return str(d)\n    def force(self,direction,value):\n        if direction == 'x':\n            self.Fx += value\n        else:\n            self.Fy += value\n        self.Fx *= 0.9    # 空气阻力\n        self.Fy *= 0.9\n        self.Ax = self.Fx / self.m * 100\n        self.Ay = self.Fy / self.m * 100\n    def run(self):\n        self.Sx += self.Ax\n        self.Sy += self.Ay\n        self.x += self.Sx\n        self.y += self.Sy\n        self.rect.topleft = [round(self.x),round(self.y)]\n    def blit(self):\n        pygame.draw.rect(screen,self.color,self.rect,0,10)\n    def info(self):\n        return {\n            'x': self.x,\n            'y': self.y,\n            'm': self.m,\n            'Sx': self.Sx,\n            'Sy': self.Sy,\n            'Ax': self.Ax,\n            'Ay': self.Ay,\n            'Fx': self.Fx,\n            'Fy': self.Fy,\n        }\n\nanimal = Thing(100,100,100,(0,255,200))\n\npygame.init()\npygame.key.stop_text_input()\nscreen = pygame.display.set_mode((800,600))\n\nc = pygame.time.Clock()\n\nwhile True:\n    for e in pygame.event.get():\n        if e.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if e.type == pygame.KEYDOWN:\n            if e.key == pygame.K_UP:\n                animal.force('y',-0.005)\n            if e.key == pygame.K_DOWN:\n                animal.force('y',0.005)\n            if e.key == pygame.K_LEFT:\n                animal.force('x',-0.005)\n            if e.key == pygame.K_RIGHT:\n                animal.force('x',0.005)\n    screen.fill((255,255,255))\n    animal.run()\n    animal.blit()\n    pygame.display.update()\n    pygame.display.set_caption(str(animal))\n    c.tick(100)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-04-20 13:24:19",
+    "modified_at": "2024-04-20 13:24:19",
+    "likes": 10,
+    "views": 96,
+    "comments": 345,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-04-19 23:55:40",
+    "updated_at": "2026-02-21 15:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 25,
+                "column": 32
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/fb6709d17bf52ddfc1934e9805f30d97.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 8,
+    "tags": "游戏 模拟 算法",
+    "xml_path": "a66f7d477c46aa68bbbd0a98ce72e264",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52744035"
+}

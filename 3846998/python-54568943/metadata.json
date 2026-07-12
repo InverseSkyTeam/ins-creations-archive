@@ -1,0 +1,61 @@
+{
+    "id": 54568943,
+    "name": "IDU TermEd 0.0.0 pre v4",
+    "category": 1,
+    "type": "normal",
+    "description": "新增查找功能\n（作品没流量啊，加上IDU试试？）（\n（不过这确实也是IDU项目，虽然比较边缘，目前也没什么用）",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import os\n\nos.system(\"start cmd /c \\\"python edcore.py config.rain\\\"\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-23 20:20:20",
+    "modified_at": "2024-07-23 20:20:20",
+    "likes": 3,
+    "views": 6,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-23 20:17:23",
+    "updated_at": "2024-10-07 14:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/72bf423432453b62a7980d01d083cf8c.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟",
+    "xml_path": "1f49728e494f8167d97c169646de320a",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54568943"
+}

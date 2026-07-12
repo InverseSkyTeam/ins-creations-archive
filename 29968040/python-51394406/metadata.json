@@ -1,0 +1,73 @@
+{
+    "id": 51394406,
+    "name": "[IOI2023] 机器人比赛 - pygame可视化工具",
+    "category": 1,
+    "type": "normal",
+    "description": "原题：https://www.luogu.com.cn/problem/P9605\n题目大意：给机器人编写指令，让机器人找出迷宫从左上到右下的最短路径（机器人能执行的指令很简单，只能根据当前格子和上下左右共5个格子的状态来执行固定的操作，也就是无法使用复杂的算法，比如bfs）\n当然，正解中机器人的指令很多，所以原题中必须写c++程序来生成指令\n\nQ：为啥会做这个\nA：前几周被家长拉去集训OI了，这个是集训考试时的第二题（其实考试的时候题都没看懂），考完之后发现这题还是很有意思的，就突发奇想做个可视化\n另：考完后在洛谷查到这题后的我：我****，我何德何能给我考IOI的题，直接给我上难度是吧",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/2dd53a9b4f9db20ca974c08da3e90f54.jpg",
+    "xml": "# 广告：鸿蒙图标库\n# https://developer.huawei.com/consumer/cn/design/harmonyos-icon/\n\nimport pygame\nimport sys\nfrom tools import *\n\npygame.init()\nscreen = pygame.display.set_mode((700, 500))\npygame.display.set_caption(\"[IOI2023] 机器人比赛\")\nclock = pygame.time.Clock()\nfont_title = pygame.font.SysFont(\"SimHei\", 25)\n\nimport ui\nButtons = ui.Buttons()\nTestCases = ui.TestCases()\nXiangXiXinXi = ui.XiangXiXinXi(1)\nCommandArea = ui.CommandArea()\nEditArea = ui.EditArea()\nscreen_cache = None\nclose_edit = False\n\nwhile True:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    mouse_pressed = pygame.mouse.get_pressed()[0]\n    mouse_pos = pygame.mouse.get_pos()\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                if CommandArea.show_edit and EditArea.close_rect.collidepoint(mouse_pos):\n                    CommandArea.show_edit = False\n                    close_edit = True\n                if not CommandArea.show_edit and TestCases.zh_rect.collidepoint(mouse_pos):\n                    ui.command.load_file('正正解.py')\n                    ui.command.parse_command()\n    if close_edit:\n        if not pygame.mouse.get_pressed()[0]:\n            close_edit = False\n        mouse_pressed = 0\n        mouse_pos = [-10, -10]\n        pygame_events = []\n    if not CommandArea.show_edit:\n        screen.fill((239, 239, 239))\n        render_linear_gradient_rect(screen, (35, 37, 38), (65, 67, 69), pygame.Rect(0, 0, 700, 50))\n        screen.blit(font_title.render('[IOI2023] 机器人比赛', True, (255,)*3), (25, 12))\n        pygame.draw.rect(screen, (255,)*3, (10, 60, 450, 30), border_radius=4)\n        pygame.draw.rect(screen, (255,)*3, (470, 60, 220, 430), border_radius=4)\n        pygame.draw.rect(screen, (255,)*3, (10, 100, 450, 390), border_radius=4)\n        Buttons.display(screen, mouse_pressed, mouse_pos)\n        screen.blit(TestCases.zh_sf, TestCases.zh_rect)\n        if Buttons.focus == 0:\n            ti_num = TestCases.display(screen, pygame_events, mouse_pos, mouse_pressed)\n            if ti_num:\n                XiangXiXinXi.set_num(ti_num)\n                Buttons.set_focus(1)\n        else:\n            XiangXiXinXi.render(screen, pygame_events, mouse_pos, mouse_pressed)\n        CommandArea.render(screen, pygame_events, mouse_pos, mouse_pressed)\n        if CommandArea.show_edit:\n            draw_alpha_rect(screen, (0, 0, 0, 100), (23, 73, 700-40-6, 500-90-6))\n            screen_cache = screen.copy()\n            EditArea.set_command(CommandArea.commands, CommandArea.edit_command)\n    else:\n        screen.blit(screen_cache, (0, 0))\n        pygame.draw.rect(screen, (255,)*3, (25, 75, 700-50, 500-100), border_radius=3)\n        EditArea.render(screen, mouse_pos, mouse_pressed)\n        if mouse_pressed and EditArea.save_rect.collidepoint(mouse_pos):\n            a, b, c, d, e, Z, A = EditArea.command\n            a += 2\n            b += 2\n            c += 2\n            d += 2\n            e += 2\n            if CommandArea.edit_command != 'new' and EditArea.command[:5] == CommandArea.commands[CommandArea.edit_command][:5]:\n                CommandArea.command_class.tp[a][b][c][d][e][0] = Z\n                CommandArea.command_class.tp[a][b][c][d][e][1] = ord(A)\n                CommandArea.commands[CommandArea.edit_command] = EditArea.command\n                CommandArea.show_edit = False\n                close_edit = True\n            elif CommandArea.command_class.tp[a][b][c][d][e][1]:\n                print('已经有这条指令了！')\n            else:\n                CommandArea.command_class.tp[a][b][c][d][e][0] = Z\n                CommandArea.command_class.tp[a][b][c][d][e][1] = ord(A)\n                CommandArea.show_edit = False\n                close_edit = True\n                if CommandArea.edit_command == 'new':\n                    CommandArea.commands.append(EditArea.command)\n                else:\n                    _a, _b, _c, _d, _e, _Z, _A = CommandArea.commands[CommandArea.edit_command]\n                    _a += 2\n                    _b += 2\n                    _c += 2\n                    _d += 2\n                    _e += 2\n                    CommandArea.command_class.tp[_a][_b][_c][_d][_e][:] = 0\n                    CommandArea.commands[CommandArea.edit_command] = EditArea.command\n        if mouse_pressed and EditArea.del_rect.collidepoint(mouse_pos):\n            if CommandArea.edit_command != 'new':\n                _a, _b, _c, _d, _e, _Z, _A = CommandArea.commands[CommandArea.edit_command]\n                _a += 2\n                _b += 2\n                _c += 2\n                _d += 2\n                _e += 2\n                CommandArea.command_class.tp[_a][_b][_c][_d][_e][:] = 0\n                del CommandArea.commands[CommandArea.edit_command]\n            CommandArea.show_edit = False\n            close_edit = True\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-06 13:13:46",
+    "modified_at": "2024-02-07 12:10:19",
+    "likes": 7,
+    "views": 124,
+    "comments": 33,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-06 12:54:05",
+    "updated_at": "2026-05-09 20:55:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "e007554f-8c76-c043-7ab5-851715550da0": {
+                "row": 9,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 65
+            },
+            "64cba663-9da5-847a-6cd1-17e1a4b8cb25": {
+                "row": 0,
+                "column": 4
+            },
+            "c3062abb-5342-fead-e60a-3ecd2bc52d0f": {
+                "row": 18175,
+                "column": 13
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/d7b5b44d61ece63d997463069ff4042b.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 6,
+    "tags": "游戏 沙盒专区 算法",
+    "xml_path": "fbc4cea1f3af70effc6f708f6bd76dd3",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51394406"
+}

@@ -1,0 +1,35 @@
+[
+    {
+        "id": 3762464,
+        "topic_id": "CP_40538912",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "17025146",
+        "reply_user_id": "3846998",
+        "content": "这不是基本操作吗？Rust里面还可以(a,b,c...) = (1,2,3,4,5,6)这样就只取前三位的值，后面全忽略",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2023-01-11 20:28:06",
+        "comment_from": "topic",
+        "username": "吴宇航",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+        "reply_username": "付开霁",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

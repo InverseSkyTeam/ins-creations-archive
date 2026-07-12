@@ -1,0 +1,61 @@
+{
+    "id": 55466322,
+    "name": "语法分析-结构填充法",
+    "category": 1,
+    "type": "normal",
+    "description": "递归向下语法分析的增强，虽然扫描次数增加了但是完美避免了递归限制\n示例是解析四则运算+函数调用，说明了此方法的正确性和可用性",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "\"\"\"\n上古技术的拼凑产品\n灵感本身来源于2022年初temp-integer2（integer系列第四代语言）\npre_parse来自于上古资料https://www.cnblogs.com/figure9/p/3620079.html\nRef来源于2022年底integer3.3.0pre\n好久不直接在xes编辑器写东西了\n其实还不错的\n\"\"\"\n\nprio = {\n    '*': 2, '/': 2,\n    '+': 1, '-': 1,\n}\n\n\nclass Ref:\n    def __init__(self, val: list):\n        self.val = val\n        self.tp = 'e'\n        \n    def __str__(self):\n        return '(' + ' '.join(map(str, self.val)) + ')'\n        # return str(self.val)\n        \n    __repr__ = __str__\n\n\ndef pre_parse(tokens: list):\n    prog = Ref([])\n    cur = prog\n    stack = []\n    refs = [prog]\n    \n    for i in tokens:\n        if i == '(':\n            stack.append(cur)\n            cur.val.append(Ref([]))\n            cur = cur.val[-1]\n            refs.append(cur)\n        elif i == ')':\n            cur = stack.pop()\n        else:\n            cur.val.append(i)\n    if cur != prog:\n        raise Exception(\"Unclosed parenthesis\")\n    return prog, refs\n    \n    \ndef parse_factor(expr: list, pos: int):\n    res = expr[pos]\n    pos += 1\n    while pos < len(expr) and isinstance(expr[pos], Ref):\n        expr[pos].tp = 'f'\n        res = Ref([res, expr[pos]])\n        pos += 1\n    return res, pos\n    \n    \ndef parse_expr(expr: list, pos: int):\n    fac, pos = parse_factor(expr, pos)\n    res = [fac]\n    stack = []\n    while pos < len(expr) and expr[pos] in prio:\n        op = expr[pos]\n        pos += 1\n        while stack and prio[op] <= prio[stack[-1]]:\n            r, l = res.pop(), res.pop()\n            res.append(Ref([stack.pop(), l, r]))\n        stack.append(op)\n        fac, pos = parse_factor(expr, pos)\n        res.append(fac)\n    while stack:\n        r, l = res.pop(), res.pop()\n        res.append(Ref([stack.pop(), l, r]))\n    if len(res) != 1:\n        # print(res, stack)\n        raise Exception(\"Wrong expr\")\n    return res[0], pos\n    \n\ndef parse(expr: Ref):\n    if expr.tp == 'e':\n        res, pos = parse_expr(expr.val, 0)\n        if pos != len(expr.val):\n            raise Exception(\"Syntax error\")\n        expr.val = res.val\n    elif expr.tp == 'f':\n        res = []\n        if len(expr.val):\n            e, pos = parse_expr(expr.val, 0)\n            res.append(e)\n            while pos < len(expr.val):\n                if expr.val[pos] != ',':\n                    raise Exception(\"Expect ','\")\n                pos += 1\n                e, pos = parse_expr(expr.val, pos)\n                res.append(e)\n        expr.val = res\n    else:\n        raise Exception(expr)\n\n\ntokens = \"1 * f ( 2 + 3 , 4 ) + 5\".split(' ')\nprog, refs = pre_parse(tokens)\nprog.tp = 'e'\nfor i in refs:\n    parse(i)\nprint(prog)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-15 15:46:29",
+    "modified_at": "2024-08-15 16:38:44",
+    "likes": 3,
+    "views": 28,
+    "comments": 26,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-15 10:42:21",
+    "updated_at": "2026-04-12 14:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 22,
+                "column": 20
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0271560c105462a25d29b02312031bca.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟 语法分析 递归向下增强 简洁明了 教程 其他",
+    "xml_path": "267025f8eafa0c54fbc4ac5e419b49f6",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55466322"
+}

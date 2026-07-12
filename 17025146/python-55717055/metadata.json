@@ -1,0 +1,61 @@
+{
+    "id": 55717055,
+    "name": "Earley Parser with SPPF",
+    "category": 1,
+    "type": "normal",
+    "description": "毫无疑问，这是社区目前最强大的语法分析算法。它使用了Earley算法，可以解析所有上下文无关语言，并可以处理歧义。它还使用了SPPF，可以处理无限歧义，例如给出的例子\nA -> A\nA -> （右边为空）\n显然这个文法具有无穷多种歧义，不管是LL还是LR，都会直接爆栈，而带SPPF的Earley算法可以将其解析为一个有环的共享子树解析森林。",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import copy\n\nclass Product:\n    def __init__(self, name, body):\n        self.name = name\n        self.body = body\n    def __str__(self):\n        return f\"{self.name} -> {' '.join(self.body)}\"\n    __repr__ = __str__\n\nclass Item:\n    def __init__(self, product, pos, begin):\n        self.product = product\n        self.pos = pos\n        self.begin = begin\n    def __str__(self):\n        return f\"{self.product.name} -> {' '.join(self.product.body[:self.pos])}·{' '.join(self.product.body[self.pos:])}\"\n    __repr__ = __str__\n    def __eq__(self, other):\n        return self.product.name == other.product.name and self.product.body == other.product.body and self.pos == other.pos and self.begin == other.begin\n\nclass Token:\n    def __init__(self, tp, value):\n        self.tp = tp\n        self.value = value\n    def __str__(self):\n        return f\"{self.tp} {self.value}\"\n    __repr__ = __str__\n\nclass TreeNode:\n    def __init__(self, name):\n        self.name = name\n        self.products = []\nclass ProductNode:\n    def __init__(self, item):\n        self.item = item\n        self.children = []\n\nclass Group:\n    def __init__(self, pos, state, group, token_num):\n        self.pos = pos\n        self.state = state\n        self.group = group\n        self.token_num = token_num\n\ndef nullable(name, patterns):\n    if name not in patterns:\n        return False\n    res = True\n    for product in patterns[name]:\n        is_null = True\n        for term in product.body:\n            is_null &= nullable(term, patterns)\n        res |= is_null\n\ndef recognize(patterns, lexer):\n    state0 = [Item(p, 0, 0) for p in patterns[\"S\"]]\n    for item in state0:\n        if item.pos == len(item.product.body):\n            for completed in state0:\n                if completed.pos < len(completed.product.body) and completed.product.body[completed.pos] == item.product.name:\n                    new_item = Item(completed.product, completed.pos+1, completed.begin)\n                    if new_item not in state0:\n                        state0.append(new_item)\n            continue\n        if item.product.body[0] in patterns:\n            for product in patterns[item.product.body[0]]:\n                    new_item = Item(product, 0, 0)\n                    if new_item not in state0:\n                        state0.append(new_item)\n        if item.product.body[item.pos] in patterns:\n            for product in patterns[item.product.body[item.pos]]:\n                new_item = Item(product, 0, 0)\n                if new_item not in state0:\n                    state0.append(new_item)\n    state_list = [state0]\n    token = lexer.lex()\n    index = 0\n    token_list = [token]\n    while token:\n        index += 1\n        state = []\n        state_list.append(state)\n        for item in state_list[-2]:\n            if item.pos < len(item.product.body) and item.product.body[item.pos] == token.tp:\n                new_item = Item(item.product, item.pos+1, item.begin)\n                if new_item not in state:\n                    state.append(new_item)\n        for item in state:\n            if item.pos == len(item.product.body):\n                for completed in state_list[item.begin]:\n                    if completed.pos < len(completed.product.body) and completed.product.body[completed.pos] == item.product.name:\n                        new_item = Item(completed.product, completed.pos+1, completed.begin)\n                        if new_item not in state:\n                            state.append(new_item) \n            elif item.product.body[item.pos] in patterns:\n                for product in patterns[item.product.body[item.pos]]:\n                    new_item = Item(product, 0, 0)\n                    if new_item not in state:\n                        state.append(new_item)\n                if nullable(item.product.body[item.pos], patterns):\n                    new_item = Item(item.product, item.pos+1, item.begin)\n                    if new_item not in state:\n                        state.append(new_item)\n        token = lexer.lex()\n        if token:\n            token_list.append(token)\n    return state_list, token_list\n\ndef parse(state_list, token_list, terminals):\n    table = [[] for _ in range(len(state_list))]\n    for i, state in enumerate(state_list):\n        for item in state:\n            if item.pos == len(item.product.body):\n                table[item.begin].append(Item(item.product, item.pos, i))\n    main_tree = TreeNode(\"S\")\n    groups = [Group(0, 0, [main_tree], 0)]\n    forest_pool = {}\n    while groups:\n        new_groups = []\n        for group in groups:\n            if group.token_num == len(token_list):\n                continue\n            if group.pos >= len(group.group):\n                if group.group:\n                    new_group = Group(0, 0, group.group, group.token_num)\n                    new_groups.append(new_group)\n                continue\n            node = group.group[group.pos]\n            if isinstance(node, Token):\n                if node.tp == token_list[group.state].tp:\n                    new_group = Group(group.pos+1, group.state+1, group.group, group.token_num+1)\n                    new_groups.append(new_group)\n            else:\n                if (item.product.name, group.state) in forest_pool:\n                    node.products = forest_pool[(item.product.name, group.state)].products\n                    continue\n                for item in table[group.state]:\n                    if item.product.name == node.name:\n                        item_node = ProductNode(item)\n                        node.products.append(item_node)\n                        new_nodes = [TreeNode(term) if term not in terminals else token_list[group.state] for term in item.product.body]\n                        item_node.children = new_nodes\n                        new_group = Group(group.pos+len(item.product.body), item.begin, group.group[:group.pos] + new_nodes + group.group[group.pos+1:], group.token_num)\n                        new_groups.append(new_group)\n                forest_pool[(item.product.name, group.state)] = node\n        groups = new_groups\n    return main_tree\n\ntext = \"\"\nindex = 0\nclass Lexer:\n    def lex():\n        global index\n        if index >= len(text):\n            return None\n        else:\n            res = Token(text[index], None)\n            index += 1\n            return res\nterminals = []\npatterns = {\n    \"S\": [\n        Product(\"S\", [\"A\"])\n    ],\n    \"A\": [\n        Product(\"A\", [\"A\"]),\n        Product(\"A\", [])\n    ]\n}\n\nstate_list, token_list = recognize(patterns, Lexer)\ntree = parse(state_list, token_list, terminals)\nprint(tree)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-29 23:17:19",
+    "modified_at": "2024-08-31 17:38:07",
+    "likes": 7,
+    "views": 25,
+    "comments": 10,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-29 23:11:53",
+    "updated_at": "2025-08-24 21:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 50,
+                "column": 22
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/35ae67d82fa729d8a5ec4737577a2219.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 6,
+    "tags": "其他",
+    "xml_path": "3508987c11e28edf22a2510a50aa12b1",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55717055"
+}

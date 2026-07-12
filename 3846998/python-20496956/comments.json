@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1143673,
+        "topic_id": "CP_20496956",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "3862903",
+        "reply_user_id": "3846998",
+        "content": "https://code.xueersi.com/home/project/detail?lang=scratch&pid=15340779&version=3.0&langType=scratch作者互赞吗？",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": [
+            {
+                "link": "https://code.xueersi.com/home/project/detail?lang=scratch&pid=15340779&version=3.0&langType=scratch",
+                "text": "我的爸爸是超人·跑酷"
+            }
+        ],
+        "created_at": "2021-06-16 16:38:05",
+        "comment_from": "topic",
+        "username": "葛妙馨",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20221203/Talz-q7jMLAe4iZYi8kbG9n6dg1061.png",
+        "reply_username": "付开霁",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

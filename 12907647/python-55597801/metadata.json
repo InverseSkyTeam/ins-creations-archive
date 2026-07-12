@@ -1,0 +1,61 @@
+{
+    "id": 55597801,
+    "name": "IDU又要重构了，已经第5次了吧？",
+    "category": 1,
+    "type": "normal",
+    "description": "、、、",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/1e43c74122e20bce894a1f2e60b14f44.jpg",
+    "xml": "print('''- 本计划更新于2024/8/22\n- 越靠近的计划写得越详细\n- 会分小计划条(每一点再详细扩充)\n- IDU 目前的新版本任务: 全盘重构重写\n\n---------------------------------------------\nIDU更新计划\n书写格式: 版本 (总版本/预计最晚时间)\n\n\n24H2步骤 (alpha1-10 10/7):\n  0.理清逻辑写下无掉落物的基本游戏引擎(24H1版本有基础)\n\n  1.加上typing\n\n  2.去掉card的逻辑\n    card融入到box中\n    原来的鼠标card只用一个bid+value体现\n    把card的体现直接简化为bid+value\n\n  3.重写page\n    bag可以继承page但是要加入获取掉落物的逻辑\n    page拥有被读取所有box的能力所以bag也有这个能力\n    这样设置一个showing列表来添加显示的page\n    就可以在鼠标进行交互的时候遍历showing所在page的所有box了\n\n  4.重写背包物品交换逻辑\n    有了showing列表就方便和box进行交互了\n    交互代码可以在box类内部和主循环event中合理分配\n    交互逻辑:\n        可以用列表进行清晰化\n        写完再优化冗余代码\n        横轴从[左键抬起 右键抬起 中键抬起 左键按下 右键按下 中键按下 滚轮 键盘按键]等方面来划分\n        纵轴从[鼠标有物品+box有物品 鼠标无物品+box有物品 鼠标有物品+box无物品 鼠标无物品+box无物品]等方面来划分\n        交互结果写下来\n        最后写完代码这一块就结束了\n        * box的种类也可以限制交互能力\n\n  5.重构代码结构\n    使用合理的顺序\n    清晰各处定义以及类型\n    正确辨别并巧妙使用引用和值传递\n  \n  6.新增合成物品功能\n\n\n24H3步骤 (alpha11-20 12/31):\n  0.在24H2的基础上有了一个较为完整的游戏引擎\n\n  1.新增功能方块\n    如: 工作台 熔炉 箱子\n    它们的页面使用page来显示和交互\n\n  2.新增工具物品\n    如: 木镐 石镐\n    它们给玩家带来一定的增益能力\n\n  3.新增游戏美化修饰\n    (I) 天体运行\n    (II) 白天黑夜\n    (III) 游戏世界系统\n\n  4.进度系统\n    查看游戏进度、成就\n\n  5.玩家的血量和饱食度\n    血量和饱食度系统可以让玩家更好地控制自己的状态\n    左上角通过两个条来显示血量和饱食度\n\n\n25H1步骤 (beta1-10 2/15):\n  0.在24H3基础上已经拥有了一个完善的游戏引擎\n    游戏已经有趣味性了\n\n  1.新增友好生物\n    羊、牛等会自由移动\n    打击它们可以获得对应物品\n    比如羊毛、牛肉等\n\n  2.新增对话系统\n    添加剧情\n\n  3.大量更新物品\n\n  4.添加操作功能\n    比如扔出物品、疾跑、下蹲等\n\n  5.添加鼠标悬浮说明\n\n  \n25H2步骤 (beta11-30 7/20):\n  0.在25H1基础上已经写出了超越dev16版本的体验\n    而且代码不会很冗长杂乱\n\n  1.新增敌对生物\n    这会让游戏的挑战性大幅提升\n\n  2.完善对话系统\n    比如添加一些按钮什么\n    不要再学习dev16那种糟糕的对话系统了\n\n  3.更新水、火等流体方块\n    * 添加铁桶与其交互\n\n  4.添加权杖的使用\n\n  5.游戏开始界面的添加\n\n  6.完善进度系统和游戏背景运行\n\n  7.添加音效和音乐\n\n  8.美化材质包\n\n  9.添加剧情\n\n  * 显然此处7 8需要我们的artists来完成\n  * 超越THW的水平了\n\n  \n25H3步骤 (gamma系列 8/20):\n  0.接近完整的独立游戏\n\n  1.新增生物和物品\n\n  2.重写地图生成逻辑\n    添加沙漠、森林、冰川等地形\n\n  3.添加天城、地府等维度\n\n  4.完善指令系统\n\n  5.添加逻辑系统\n    类似于红石\n    它们可以进行一些简单的逻辑运算、条件判断和制作自动设施\n\n  6.地图分区存储\n    区分第某某区彰显特色\n\n  7.更新互联网系统\n    可以进行通讯\n\n  8.添加剧情\n\n  9.查漏补缺之前的一些没写的小功能\n    比如玩家的体能、饱食度和饥饿值的区别等\n\n    \n25H4步骤 (delta系列 12/31):\n  0.现在离成功已经很接近了\n\n  1.完善开头界面\n\n  2.丰富生物、物品\n\n  3.完善剧情线\n\n  4.添加联机的功能(如果情况允许)\n\n  5.添加彩蛋系统\n\n  6.语言包\n\n  \n26H1步骤 (epsilon系列 3/1):\n  0.这是最后的完善和更新\n\n  \nV1.0\n打包\n直接发布正式版\n** 要不是上学时间和别的事情紧张\n** 这玩意可能三个月就能写完了''')\n\nprint('-'*40+'''\\n\\n\\n这个就是主要计划。\n\"IDU又双叒叕要重构了，这已经是第5次了，这把装py3.12加上typing，清晰下思路重来\"\n也就看情况写写玩玩吧。\n从0开始重新再写一遍代码，这一次碰撞箱也要优化一下了。\n最后祝贺一下黄羿杰的云联机3D游戏\n虽然还不够快，但是已经能玩了\n而且很好玩。''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-22 13:43:47",
+    "modified_at": "2024-08-22 13:43:47",
+    "likes": 4,
+    "views": 55,
+    "comments": 40,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-22 00:13:03",
+    "updated_at": "2026-02-21 16:00:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 180,
+                "column": 10
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/73328aa98d0e1ffd9ac0c6af012c4f59.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "其他 游戏",
+    "xml_path": "dfd3f9e98737f2865f5e80360002bccc",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55597801"
+}

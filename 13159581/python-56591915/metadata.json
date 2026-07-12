@@ -1,0 +1,61 @@
+{
+    "id": 56591915,
+    "name": "pygame跑酷",
+    "category": 1,
+    "type": "normal",
+    "description": "把基本功能写的差不多了\n应该能跟sc比划比划了（",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame,sys,os\nfrom pygame.locals import *\npygame.init()\n\nx=0\ny=0\ndef collide_color(aSurface,aRect,aColor):\n    pixel=pygame.PixelArray(aSurface)#锁定aSurface,将各点颜色保存在2维数组\n    aPixel=pixel[aRect.x:aRect.x+aRect.width,aRect.y:aRect.y+aRect.height]\n    pygame.PixelArray.close(pixel) #解锁aSurface并删除数组,上句得到数组切片\n    try:\n        return aColor in aPixel#指定颜色在切片中返回真,两者颜色应同为rgb或rgba\n    except:\n        return 0\n\nbackground_list = os.listdir(\"./地图\")\nindex = 0\nsize = width,height = 600,400\nbg = (255,255,255)\nscreen = pygame.display.set_mode(size)\npygame.display.set_caption(\"demo\")\nspeed = [0,0]\n\nclock = pygame.time.Clock()\nbackground_image = pygame.image.load('./地图/'+background_list[index]).convert()\nover = pygame.image.load(\"over.png\").convert()\nxuan = pygame.image.load(\"xuan.png\").convert()\nposition = xuan.get_rect()\nl_head = pygame.transform.flip(xuan,True,False)\nr_head = xuan\n#screen.blit(xuan,xuan.get_rect().move([0,300]))\n\nboola = True\nwhile True:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    # x = 1\n    event_list = pygame.event.get()\n    for event in event_list:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    key_pressed = pygame.key.get_pressed()\n    if key_pressed[K_a] or key_pressed[K_LEFT]:\n        x -= 1\n        xuan=l_head\n    if key_pressed[K_d] or key_pressed[K_RIGHT]:\n        x += 1\n        xuan=r_head\n    x = 0.9*x\n    position = position.move([x,0])\n\n    if collide_color(background_image,position,(0,0,0)):\n        position = position.move([0,-1])\n        if collide_color(background_image,position,(0,0,0)):\n            position = position.move([0,-1])\n            if collide_color(background_image,position,(0,0,0)):\n                position = position.move([0,-1])\n                if collide_color(background_image,position,(0,0,0)):\n                    position = position.move([0,-1])\n                    if collide_color(background_image,position,(0,0,0)):\n                        position = position.move([0,-1])\n                        if collide_color(background_image,position,(0,0,0)):\n                            position = position.move([x*-1,5])\n                            if key_pressed[K_w] or key_pressed[K_UP]:\n                                if x>0:\n                                    x = -4\n                                else:\n                                    x = 4\n                                y = -12\n                            else:\n                                x = 0\n    position = position.move([0,1])\n    if collide_color(background_image,position,(0,0,0)):\n        if key_pressed[K_w] or key_pressed[K_UP]:\n            y = -13\n    position = position.move([0,-1])\n    y+=1\n    position = position.move([0,y])\n    if collide_color(background_image,position,(0,0,0)):\n        position = position.move([0,y*-1])\n        y=0\n\n    #screen.fill(bg)\n    if collide_color(background_image,position,(0,255,0)) and position.left>=0:\n        y=-25\n    if collide_color(background_image,position,(0,255,255)) and position.left>=0:\n        y-=2\n    if collide_color(background_image,position,(255,0,0)) and position.left>=0:\n        position.top,position.left = (0,0)\n    if collide_color(background_image,position,(255,200,0)) and position.left>=0:\n        aaa = position.left,position.top\n        bbb = ''\n        if xuan==l_head:\n            bbb = \"left\"\n        xuan = pygame.image.load(\"xuan_small.png\").convert()\n        position = xuan.get_rect()\n        position.left,position.top = aaa\n        l_head = pygame.transform.flip(xuan,True,False)\n        r_head = xuan\n        if bbb==\"left\":\n            xuan = l_head\n        else:\n            xuan = r_head\n    if position.left<0:\n        position.left = 0\n    if position.right>width:\n        if index+1!=len(background_list):\n            xuan = pygame.image.load(\"xuan.png\").convert()\n            position = xuan.get_rect()\n            position.top,position.left = (0,0)\n            l_head = pygame.transform.flip(xuan,True,False)\n            r_head = xuan\n            index+=1\n            background_image = pygame.image.load(\"./地图/\"+background_list[index]).convert()\n        else:\n            background_image = over\n            boola = False\n    if position.bottom>height:\n        position.top,position.left = (0,0)\n    screen.blit(background_image, (0, 0))\n    if boola:\n        screen.blit(xuan,position)\n    pygame.display.flip()\n    #print(collide_color(background_image,position,pygame.Color('black')))\n\n    clock.tick(30)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-10-06 19:50:25",
+    "modified_at": "2024-10-06 19:50:25",
+    "likes": 3,
+    "views": 22,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-06 19:49:32",
+    "updated_at": "2026-05-07 00:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 127,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/d585385b0e34ce53e81c3cd95434b0b4.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "游戏 其他",
+    "xml_path": "f693a3007962425fd802723ad9e5064e",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56591915"
+}

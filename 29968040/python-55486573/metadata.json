@@ -1,0 +1,65 @@
+{
+    "id": 55486573,
+    "name": "从Chromium借鉴一个动画函数",
+    "category": 1,
+    "type": "normal",
+    "description": "实现了一个贝塞尔曲线动画，使用方法见改编\n可以在 https://cubic-bezier.com/#.25,.1,.25,1 查看类似的效果",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport sys\nfrom cubic_bezier import CubicBezier\nimport time\n\nbezier_func = CubicBezier(0.25, 0.1, 0.25, 1).Solve\n\npygame.init()\nscreen = pygame.display.set_mode((800, 600), pygame.RESIZABLE)\n\nclass AnimationExample:\n    def __init__(self, func):\n        self.func = func\n        self.in_animation = False  # 动画是否在进行中\n        \n        self._class = None\n        self._attr = None\n        self.start_attr = None  # 动画开始前的数值\n        self.target_attr = None  # 动画开始后的数值\n        self.start_time = None  # 动画开始的时间\n        self.duration = None  # 动画播放时长\n    \n    def new_animation(self, _class, _attr, target, duration):\n        '''\n        开始一个新动画\n        :param _class._attr: 要进行动画的参数\n        :param target: 动画结束后参数的值\n        :param duration: 动画的播放时长\n        '''\n        if self.in_animation:\n            return\n        self._class, self._attr = _class, _attr\n        self.start_attr = getattr(_class, _attr)\n        self.target_attr = target\n        self.in_animation = True\n        self.start_time = time.time()\n        self.duration = duration\n    \n    def update(self):\n        if not self.in_animation:\n            return\n        t = (time.time() - self.start_time) / self.duration\n        if t > 1:\n            self.in_animation = False\n        new_attr = self.start_attr + (self.target_attr - self.start_attr) * self.func(t)\n        setattr(self._class, self._attr, new_attr)\n\n\nclass Square:  # 用于演示动画效果的正方形类\n    def __init__(self):\n        self.size = 200\n        self.x, self.y = 30, 30\n        \n        self.animation = AnimationExample(bezier_func)\n        self.start_x, self.end_x = 30, 570\n    \n    def start_animation(self):\n        if self.x == self.start_x:\n            self.animation.new_animation(self, 'x', self.end_x, 2)\n        elif self.x == self.end_x:\n            self.animation.new_animation(self, 'x', self.start_x, 2)\n    \n    def draw(self, screen):\n        screen.fill((255, 0, 136), (self.x, self.y, self.size, self.size))  # 等同于 pygame.draw.rect\n        self.animation.update()\n\nclock = pygame.time.Clock()\nsquare = Square()\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            square.start_animation()\n\n    screen.fill((255,)*3)\n    square.draw(screen)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-16 16:00:30",
+    "modified_at": "2024-08-16 16:00:30",
+    "likes": 5,
+    "views": 42,
+    "comments": 4,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-16 15:31:51",
+    "updated_at": "2026-06-16 19:55:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "bf29e666-9ca4-1d73-02a1-1f6f4f301af5": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 27,
+                "column": 30
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/e6341598dee8c7ed30460b9fbd7d712d.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "游戏 沙盒专区 算法",
+    "xml_path": "a5c0bfa30cbf73b2ebf1b3bb1f79715b",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55486573"
+}

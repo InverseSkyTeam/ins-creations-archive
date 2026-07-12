@@ -1,0 +1,61 @@
+{
+    "id": 56480075,
+    "name": "实变函数乱动版（跟随鼠标",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 79932748,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/e65f79d4c60b95f8a4e3d6a7849a153c.jpg",
+    "xml": "import numpy as np\nimport pygame, sys, math\nimport random\n\ndef draw_math_function(screen, expr, rect, steps = 10, color = (0, 0, 0), width = 3, limited = True, args={}):\n    p = []\n    for x in np.arange(-rect.width / 2, rect.width / 2, steps):\n        real_x = rect.centerx + x\n        real_y = rect.centery - eval(expr, globals(), {**locals(), **args})\n        if rect.top <= real_y < rect.bottom or (not limited):\n            p.append((real_x, real_y))\n    pygame.draw.lines(screen, color, False, p, width)\n\nclass Function_awa:\n    def __init__(self):\n        self.rect = pygame.Rect(0, 0, 500, 500)\n        self.tl = 0\n        self.a = 1\n        self.c = 0\n    def follow(self, pos):\n        self.rect.center = pos\n    def draw(self):\n        self.tl += 0.005\n        self.a += 0.01\n        self.c += random.randint(-1, 1)\n        draw_math_function(screen, '30*math.sin(x/30+tl)', self.rect, color = (0, 0, 255), args = {'tl': self.tl})\n        draw_math_function(screen, '30*math.cos(x/30+tl)', self.rect, color = (0, 255, 0), args = {'tl': self.tl})\n        draw_math_function(screen, '((abs(12-a%24)-6)*x**2+x*(abs(12-tl%24)-6)*10)//10+c', self.rect, 5, (255, 0, 0), 5, args={'a': self.a, 'tl': self.tl, 'c': self.c})\n        pygame.draw.circle(screen, (255, 255, 0), self.rect.center, self.tl/3%0.5*300, 6)\n\npygame.init()\nscreen = pygame.display.set_mode((700, 500))\nclock = pygame.time.Clock()\nfa = Function_awa()\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((255, 255, 255))\n    fa.follow(pygame.mouse.get_pos())\n    fa.draw()\n    pygame.display.update()\n    clock.tick()\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-28 14:24:55",
+    "modified_at": "2024-09-28 14:24:55",
+    "likes": 7,
+    "views": 120,
+    "comments": 4,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 56479251,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-28 14:24:32",
+    "updated_at": "2026-07-12 11:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 18,
+                "column": 18
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/26756da0abc6bd8f435e2aec9de18c24.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "动画 模拟 艺术",
+    "xml_path": "a43b58bfbb45df6a790f1ec85bc9c8fb",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "实变函数",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20240219/Talzd7_uMAZmfn2jyKhnnEIn6Q1480.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56480075"
+}

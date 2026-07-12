@@ -1,0 +1,89 @@
+{
+    "id": 52219019,
+    "name": "C站首个不依赖opengl的3D沙盒",
+    "category": 1,
+    "type": "normal",
+    "description": "手搓出的3D引擎，目前靠近方块可能会导致方块消失的问题，这是透视裁剪不平滑的问题，后续将修复",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/1032d47900a9bec3577c3f5d680b1383.jpg",
+    "xml": "import os\nimport sys\ndef get_py_path():\n    return sys.executable\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\ninstall_library()\nimport pygame\nimport sys\nimport numpy as np\nimport model\n\npygame.init()\npygame.key.stop_text_input()\nscreen = pygame.display.set_mode((600, 600))\nclock = pygame.time.Clock()\nfont = pygame.font.SysFont('Arial', 11)\n\nz_buffer = np.full(screen.get_size(), np.inf, dtype=np.float64)\nwindow = model.Window(screen)\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((round(0.5*255), round(0.69*255), round(1.0*255)))\n    z_buffer[:, :] = np.inf\n    window.handle_event(pygame_events, pygame.mouse.get_pressed())\n    window.update()\n    window.on_draw(z_buffer)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-24 14:48:12",
+    "modified_at": "2024-03-31 09:45:22",
+    "likes": 30,
+    "views": 1204,
+    "comments": 59,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-24 14:39:48",
+    "updated_at": "2026-07-10 20:40:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "229b6541-88fa-8998-a2b6-d9334bf26516": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 17,
+                "column": 17
+            },
+            "02dfe6c1-41d1-59aa-7a54-532162b781c5": {
+                "row": 3,
+                "column": 0
+            },
+            "a666df9f-39c9-3302-9730-5c6b2a012530": {
+                "row": 27,
+                "column": 26
+            },
+            "bff0ed08-669f-a392-7f33-d2706652ecc8": {
+                "row": 921,
+                "column": 0
+            },
+            "f29f5126-0a2a-1b3b-ee5e-93c9cf323d80": {
+                "row": 104,
+                "column": 0
+            },
+            "5c684006-cbb6-3641-8165-2523093fec53": {
+                "row": 74,
+                "column": 0
+            },
+            "59a1bb97-e914-f88d-5e37-98cfc6ec2f25": {
+                "row": 74,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/c843e2eb032475e6beb7b85b29749b17.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 18,
+    "favorites": 55,
+    "tags": "游戏 沙盒专区 算法",
+    "xml_path": "cf58775598116c23b4f895c7aa82eef2",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52219019"
+}

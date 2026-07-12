@@ -1,0 +1,42 @@
+<html><head></head><body><h1>Sprite精灵实现Pygame矩形、圆形、精细碰撞</h1>
+<h2>前言</h2>
+<ul>
+<li><p>如果你有Pygame有一定的基础，并用过Pygame编写过游戏那么你一定有一个烦恼那就是当两个图像碰撞检测时，往往采用的是矩形碰撞检测这样就会导致，两个图案实际上还没有碰到，Pygame就识别为碰到了</p></li>
+<li><p>而Pygame中的Mask(遮罩)模块就是解决这个问题很好的方法，我们把这种用Mask实现碰撞检测的方法叫做精细碰撞，然而，这种方法实现的 <strong>难度稍微有点大</strong> ，而且 <strong>代码碎片很多</strong> ，<strong>很凌乱</strong></p></li>
+<li><p>而在Pygame中有这么一个类，专门是为游戏角色而设置的，这个类就是 <strong>Sprite精灵类</strong> ，这个类里面就有帮我们封装好的三种碰撞检测方法：Rect、Circle、Mask，其中Mask就是上面提到的遮罩</p>
+<h2>Sprite精灵类实现精细碰撞</h2></li>
+<li><p>创建精灵</p>
+<ul>
+<li><p>这里是创建了一个名为s的类</p>
+<pre class="python"><code>s = pygame.sprite.Sprite()
+s.image = pygame.transform.scale(pygame.image.load(&#39;file.png&#39;),(width,height))
+s.rect = pygame.Rect(x,y,width,height)</code></pre></li>
+<li><p>实例：创建两个待碰撞精灵，并为其image和rect属性赋值</p>
+<pre class="python"><code>  s = pygame.sprite.Sprite()
+  s.image = pygame.transform.scale(pygame.image.load(&#39;A.png&#39;),(350,350))
+  s.rect = pygame.Rect(300,150,350,350)
+
+  c = pygame.sprite.Sprite()
+  c.image = pygame.transform.scale(pygame.image.load(&#39;B.png&#39;),(200,200))
+  c.rect = pygame.Rect(0,0,100,100)</code></pre></li>
+</ul></li>
+<li><p>碰撞检测</p>
+<ul>
+<li><p>矩形碰撞检测 sp1、sp2分别是两个Sprite精灵 如果返回1为碰撞,0为没有碰撞</p>
+<pre class="python"><code>pygame.sprite.collide_rect(sp1,sp2)</code></pre></li>
+<li><p>外接圆碰撞检测 sp1、sp2分别是两个Sprite精灵 如果返回True为碰撞，False为没有碰撞</p>
+<pre class="python"><code>pygame.sprite.collide_circle(sp1,sp2)</code></pre></li>
+<li><p>Mask像素碰撞(精细碰撞) sp1、sp2分别是两个Sprite精灵 如果返回None为不碰撞，返回一个元组为碰撞</p>
+<pre class="python"><code>pygame.sprite.collide_mask(sp1,sp2)</code></pre>
+<h2>原理</h2>
+<p>在上一篇文章中，我介绍了Mask遮罩，其实，这个Sprite精灵只是对它的封装，当然Sprite可不止只有这个功能， 他的原来就是检测两个图案非透明部分有多上像素重叠，所以在物体1和物体2之间的碰撞难免还是会因为两个像素仅仅"接壤"而没有判断碰撞，但对比rect碰撞已经好了很多了</p></li>
+</ul></li>
+</ul>
+<h2>Pygame演示</h2>
+<ul>
+<li><strong>这里是三种方式的对比，可见：外接圆碰撞精度&gt;矩形碰撞&gt;精细碰撞</strong> <img src="https://jihulab.com/ZiXuanYuan/blogpic/-/raw/main/pictures/2022/08/20_19_20_52_Sprite%E4%BA%8B%E4%BE%8B%E7%A2%B0%E6%92%9E.png" alt="alt 加载失败" /></li>
+<li><a href="https://code.xueersi.com/home/project/detail?lang=code&amp;pid=36709123&amp;version=offline&amp;form=python&amp;langType=python">原链接已开源</a></li>
+</ul>
+<h2>总结</h2>
+<p>当然Sprite的功能远不止这些，这其实是pygame的一个游戏角色群的处理类，功能还是有非常之多的</p>
+</body></html>

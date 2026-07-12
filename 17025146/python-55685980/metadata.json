@@ -1,0 +1,61 @@
+{
+    "id": 55685980,
+    "name": "替换编程助手有望",
+    "category": 1,
+    "type": "normal",
+    "description": "也许我是第一个发现的人？",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "text = \"\"\"\n一直是很好奇编程助手的运作机制的，网页端编写点击“运行”，却能由本地python运行。信息是如何交换的？\n今天闲来无事，抓包玩玩，却发现xes的网页与本地运行的编程助手之间，是通过一个http连接和一个ws连接来交换信息的。\n其中，http连接地址为http://127.0.0.1:55820，交换的信息是状态和三方库安装情况之类无关紧要的，形式为json。\nws连接地址为ws://127.0.0.1:55821，交换的信息则是程序的代码、资源和运行结果之类，上行数据为一位状态码+json的形式，下行数据为一位状态码+base64编码的形式。\n说明一下，那个下行数据是第一位数字表状态，后面才是数据真正的base64编码，如果不注意把第一位也当做编码来解码的会得到乱码。我之所以对此很敏锐是因为研究过xes的服务器端运行的API，格式与此相仿，加之读过XesRemote源码。\n这意味着，如果我们自己编写一个本地程序，开放这两个连接和相应端口，接受前端传来的信息，返回前端需要的信息，就可以达到替换编程助手的效果。\n\"\"\"\nprint(text)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-26 18:23:09",
+    "modified_at": "2024-08-26 18:23:09",
+    "likes": 4,
+    "views": 79,
+    "comments": 74,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-26 18:22:52",
+    "updated_at": "2026-05-23 17:20:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 52
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/34512a7f8da2fcf4408b176ae041b7c8.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "其他",
+    "xml_path": "3db7615160283530b53c53ab6b4c1aa6",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55685980"
+}

@@ -1,0 +1,61 @@
+{
+    "id": 61213712,
+    "name": "TermEd 0.0.0 pre r4",
+    "category": 1,
+    "type": "normal",
+    "description": "新增窗口大小调整、窗口切换、补全菜单和单词补全\n将增量高亮（这一处的bug就比其他所有的都多）换成全文高亮\n开发速度正在不断加快",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/88443cb231416add2caa72622f9f5fbe.jpg",
+    "xml": "print(\"见FkjAccount123456/TermEd-r1/，clone到本地运行\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-05-01 09:53:30",
+    "modified_at": "2025-05-01 09:53:30",
+    "likes": 4,
+    "views": 36,
+    "comments": 85,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 60483434,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-05-01 09:50:37",
+    "updated_at": "2026-03-10 21:13:54",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/e4e9d56e685de7cd485f28a0c725be4c.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "算法 艺术",
+    "xml_path": "4e8da788cb9141c053021f88a024222e",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_61213712"
+}

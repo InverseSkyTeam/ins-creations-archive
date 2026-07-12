@@ -1,0 +1,1 @@
+print("下载PyEd文件夹，运行main.py即可使用Python Editor0.26")

@@ -1,0 +1,61 @@
+{
+    "id": 54056636,
+    "name": "期末？暑假！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print('''期末考完了，直接小丑，🤣 👉 🤡\n怎么说吧，这次数学考试的时候，没发到草稿纸，我后面人也没有，监考老师让我去对面教学楼3楼拿草稿纸，还强迫去，结果直接少考十分钟，后果可想而知。\n很好，数学没做完，只有班级第十了，间接影响后面考试的心态，政史和英语有点爆掉。\n\n总分就很一般，班级50个人排第7，年级1500个人排147，虽说没加作业，也没免。数学差三分就免了，政治差一分免作业。历史免了，但是48分，本来还能满分的，一道选择题似乎是对的改成错的了\n怎么说呢，年级名次似乎又很烂，但又没有预想的烂，我以为少了十分钟数学会和狗屎一样。（也确实很烂）\n\n然后抬头看看同行：\n班级六十个人里第五的黄羿杰，群里班级第一的Python“小白”，年级第三的小学同学，年级第一的鱼翔浅底，年级第一的落月花林。更不必说吴宇航了，不问都知道什么实力了。\n\n低头看看，发现自己真成小丑了（\n\n不过也没多大点事，也算放暑假了，先玩个几天再搞初三的东西（''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-06-30 14:54:22",
+    "modified_at": "2024-06-30 14:54:22",
+    "likes": 8,
+    "views": 65,
+    "comments": 205,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-06-30 14:54:03",
+    "updated_at": "2026-02-21 15:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 12,
+                "column": 33
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/f49836a71364dcc67eba8a066a9ed6eb.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "17cf60d7d9b19a29098dde3324ea4743",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54056636"
+}

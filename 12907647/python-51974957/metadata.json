@@ -1,0 +1,61 @@
+{
+    "id": 51974957,
+    "name": "IDU沙盒引擎 dev1.3 25亿像素",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/655bc7ca8e072ba1f3bafb34e83d6cb2.jpg",
+    "xml": "import pygame\nimport sys\n\npygame.init()\npygame.key.stop_text_input()\n\nSC_WIDTH = 1000\nSC_HEIGHT = 700\nBLOCK_SIZE = 50\nMP_WIDTH = 100 * BLOCK_SIZE\nMP_HEIGHT = 10006 * BLOCK_SIZE\nWIDTH = int(SC_WIDTH / BLOCK_SIZE)\nHEIGHT = int(SC_HEIGHT / BLOCK_SIZE)\n\nprint(f'''[INFO]\n窗口大小: {SC_WIDTH}x{SC_HEIGHT}={SC_WIDTH*SC_HEIGHT}px\n地图大小: {MP_WIDTH}x{MP_HEIGHT}={MP_WIDTH*MP_HEIGHT}px\n地图方块: 100x10006=1000600个\n单个方块: 50x50=2500px\nwsad/up down left right移动\n(fps/xpos/ypos在窗口标题显示)\nVersion dev-1''')\n\nscreen = pygame.display.set_mode((SC_WIDTH,SC_HEIGHT))\npygame.display.set_caption('IDU Sandbox Driver')\n\nimages = {\n    0: None,\n    2: pygame.transform.scale(pygame.image.load('./images/土.png'),(BLOCK_SIZE,BLOCK_SIZE)),\n    1: pygame.transform.scale(pygame.image.load('./images/草地.png'),(BLOCK_SIZE,BLOCK_SIZE)),\n}\ndata = [*([0 for i in range(100)] for line in range(5)),\n        [1 for i in range(100)],\n        *([2 for i in range(100)] for line in range(10000)),]\n\nclass GameMap:\n    def __init__(self,data):\n        self.__state = 'unclick'\n        self.__keystate = {\n            pygame.K_UP: 0,\n            pygame.K_DOWN: 0,\n            pygame.K_LEFT: 0,\n            pygame.K_RIGHT: 0,\n            pygame.K_w: 0,\n            pygame.K_s: 0,\n            pygame.K_a: 0,\n            pygame.K_d: 0,\n        }\n        self.data = data\n        self.offset_x = 0\n        self.offset_y = 0\n        self.choose_pos = None\n        self.choose_bid = None\n        self.choose_rect = pygame.Rect(0,0,BLOCK_SIZE,BLOCK_SIZE)\n        self.player_rect = pygame.Rect(0,0,40,120)\n        self.player_rect.center = (SC_WIDTH/2,SC_HEIGHT/2)\n    def state(self,s):\n        self.__state = s\n    def keyin(self,k,s):\n        self.__keystate[k] = s\n    def get_id(self,pos):\n        col = (self.offset_x + pos[0]) // BLOCK_SIZE\n        row = (self.offset_y + pos[1]) // BLOCK_SIZE\n        return (row,col)\n    def get_pos(self,row,col):\n        if (row >= len(self.data)) or (col >= len(self.data[row])) or (not self.data[row][col]):\n            return None\n        x = col * BLOCK_SIZE - self.offset_x\n        y = row * BLOCK_SIZE - self.offset_y\n        return (x,y)\n    def choose(self,epos):\n        self.choose_bid = self.get_id(epos)\n        self.choose_pos = self.get_pos(*self.choose_bid)\n        if self.choose_pos:\n            self.choose_rect.topleft = self.choose_pos\n    def move(self):\n        # 测定player四个角所在的位置\n        p_lt_site = self.get_id(self.player_rect.topleft)\n        p_lb_site = self.get_id(self.player_rect.bottomleft)\n        p_rt_site = self.get_id(self.player_rect.topright)\n        p_rb_site = self.get_id(self.player_rect.bottomright)\n        # 键盘移动\n        ks = self.__keystate\n        x_movement = 0\n        y_movement = 0\n        x_movement -= ks[pygame.K_LEFT] + ks[pygame.K_a]\n        x_movement += ks[pygame.K_RIGHT] + ks[pygame.K_d]\n        y_movement -= ks[pygame.K_DOWN] + ks[pygame.K_s]\n        y_movement += ks[pygame.K_UP] + ks[pygame.K_w]\n        self.offset_x += x_movement\n        self.offset_y -= y_movement\n        if self.offset_x >= MP_WIDTH - SC_WIDTH:\n            self.offset_x = MP_WIDTH - SC_WIDTH - 1\n        elif self.offset_x < 0:\n            self.offset_x = 0\n        if self.offset_y >= MP_HEIGHT - SC_HEIGHT:\n            self.offset_y = MP_HEIGHT - SC_HEIGHT - 1\n        elif self.offset_y < 0:\n            self.offset_y = 0\n        # 光标选择\n        self.choose(evt_pos)\n    def show(self):\n        left = self.offset_x // BLOCK_SIZE\n        top = self.offset_y // BLOCK_SIZE\n        left_pos = self.offset_x % BLOCK_SIZE\n        top_pos = self.offset_y % BLOCK_SIZE\n        for row in range(top, top + HEIGHT + 1):\n            for col in range(left, left + WIDTH + 1):\n                img = images[self.data[row][col]]\n                if img:\n                    x = (col - left) * BLOCK_SIZE - left_pos\n                    y = (row - top) * BLOCK_SIZE - top_pos\n                    screen.blit(img,(x,y))\n        pygame.draw.rect(screen,(255,0,0),self.player_rect,3)\n        if self.choose_pos:\n            pygame.draw.rect(screen,(0,0,0),self.choose_rect,3)\n        if self.__state == 'click':\n            row, col = self.choose_bid\n            if (row < len(self.data)) and (col < len(self.data[row])) and self.data[row][col]:\n                self.data[row][col] = 0\n\ngamemap = GameMap(data)\n\nclock = pygame.time.Clock()\nevt_pos = (-1,-1)\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEMOTION:\n            evt_pos = event.pos\n            gamemap.choose(evt_pos)\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            gamemap.state('click')\n        if event.type == pygame.MOUSEBUTTONUP:\n            gamemap.state('unclick')\n        if event.type == pygame.KEYDOWN:\n            gamemap.keyin(event.key,1)\n        if event.type == pygame.KEYUP:\n            gamemap.keyin(event.key,0)\n    \n    screen.fill((255,255,255))\n    gamemap.move()\n    gamemap.show()\n    pygame.display.update()\n    clock.tick()\n    pygame.display.set_caption(f'IDU Sandbox Driver (FPS: {round(clock.get_fps())} x:{gamemap.offset_x} y:{gamemap.offset_y})')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-16 17:43:43",
+    "modified_at": "2024-03-23 22:28:28",
+    "likes": 10,
+    "views": 69,
+    "comments": 104,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-15 23:27:27",
+    "updated_at": "2025-10-25 11:55:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 13
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/2c6be7109ddc49c38c758e0dbef1e8f9.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "模拟 算法 游戏",
+    "xml_path": "b7456ad9eb5dfcec25c952c288b8f0df",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51974957"
+}

@@ -1,0 +1,61 @@
+{
+    "id": 49416284,
+    "name": "人列计算机？电路。（闲着没事玩玩逻辑运算）",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/cf441a2f803d1bb7702d57ec7db878fe.jpg",
+    "xml": "class Input:\n    def __init__(self,info):\n        self.name = 'Input'\n        self.info = bool(int(info))\n    def get(self):\n        return self.info\n\nclass Out:\n    def __init__(self,last):\n        self.name = 'Out'\n        self.info = int(last.get())\n    def output(self):\n        print(self.info)\n        return self.info\n\nclass Road:\n    def __init__(self,last):\n        self.name = 'Road'\n        self.info = last.get()\n    def get(self):\n        return self.info\n\nclass Not:\n    def __init__(self,last):\n        self.name = 'Not'\n        self.info = not last.get()\n    def get(self):\n        return self.info\n\nclass Or:\n    def __init__(self,left,right):\n        self.name = 'Or'\n        self.info = left\n        if self.info.get():\n            self.newinfo = self.info.get()\n        if Not(self.info).get():\n            self.newinfo = right.get()\n        self.info = self.newinfo\n    def get(self):\n        return self.info\n\nclass And:\n    def __init__(self,left,right):\n        self.name = 'And'\n        self.left = Not(left)\n        self.right = Not(right)\n        self.info = Not(Or(self.left,self.right)).get()\n    def get(self):\n        return self.info\n\nclass XOR:\n    def __init__(self,left,right):\n        self.name = 'XOR'\n        self._or = Or(left,right)\n        self._and = Not(And(left,right))\n        self.info = And(self._or,self._and).get()\n    def get(self):\n        return self.info\n\nclass XNOR:\n    def __init__(self,left,right):\n        self.name = 'XNOR'\n        self.xor = XOR(left,right)\n        self.info = Not(self.xor).get()\n    def get(self):\n        return self.info\n\ndef test_stream():\n    print('开始测试')\n    \n    A = Input(1)\n    B = Input(0)\n    \n    r1 = Road(A)\n    r2 = Road(r1)\n    r3 = Road(r2)\n    o1 = Or(A,B)\n    o2 = And(A,B)\n    o3 = XOR(A,B)\n    o4 = XNOR(A,B)\n    \n    O1 = Out(r3)\n    _o1 = O1.output()\n    O2 = Out(o1)\n    _o2 = O2.output()\n    O3 = Out(o2)\n    _o3 = O3.output()\n    O4 = Out(o3)\n    _o4 = O4.output()\n    O5 = Out(o4)\n    _o5 = O5.output()\n    \n    if [_o1,_o2,_o3,_o4,_o5] == [1,1,0,1,0]:\n        print('测试成功')\n    print('-'*20)\n\ntest_stream()\nprint('二位二进制计算器：分别输入A1 A2 B1 B2（都是0或1，否则将会强制转为bool类型，可能报错），计算二进制数(A1A2)+(B1B2)，全过程仅使用逻辑运算。A1为A的2位，A2为A的个位。B1为B的2位，B2为B的个位。以上。\\n')\nA1 = Input(input('输入A1:'))\nA2 = Input(input('输入A2:'))\nB1 = Input(input('输入B1:'))\nB2 = Input(input('输入B2:'))\nO1 = O2 = O3 = None\n\nR3 = XOR(A2,B2)\nL1_1 = And(A2,B2)\nL1_2 = XOR(A1,B1)\nL1_3 = And(A1,B1)\n\nR2 = XOR(L1_1,L1_2)\nL2_1 = And(L1_1,L1_2)\n\nR1 = XOR(L1_3,L2_1)\n\nO1 = Out(R1)\nO2 = Out(R2)\nO3 = Out(R3)\n\no1 = O1.output()\no2 = O2.output()\no3 = O3.output()\n\nprint('-'*20)\nprint(f'{int(A1.info)}{int(A2.info)}+{int(B1.info)}{int(B2.info)}={o1}{o2}{o3}')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-20 14:21:05",
+    "modified_at": "2024-01-20 14:21:05",
+    "likes": 7,
+    "views": 56,
+    "comments": 21,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-11-25 22:08:22",
+    "updated_at": "2025-07-31 22:05:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 109,
+                "column": 19
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/337554dd3f05d0efe4ca8f99a7b3a887.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "教程 模拟 艺术",
+    "xml_path": "00144aaccad8c221f6290a3ace804cdd",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_49416284"
+}

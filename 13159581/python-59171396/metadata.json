@@ -1,0 +1,61 @@
+{
+    "id": 59171396,
+    "name": "Pygame实现菜单测试",
+    "category": 1,
+    "type": "normal",
+    "description": "修好了",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport tkinter as tk\nimport os\n\npygame.init()\nos.environ['SDL_VIDEO_WINDOW_POS'] = '240,60'\nscreen = pygame.display.set_mode((800, 600))\n\nroot = tk.Tk()\nroot.geometry(\"800x600+240+60\")\nroot.attributes(\"-topmost\", True)\nroot.attributes(\"-transparentcolor\",\"#f0f0f0\")\nroot.overrideredirect(True)\npopupmenu = tk.Menu(root, bg=\"#FFFFFF\", \n    font=(\"Arial\", 16), tearoff=False,\n    activebackground=\"#005FB8\", activeforeground=\"white\")\npopupmenu.add_command(label=\"Test1\")\npopupmenu.add_command(label=\"Test2\")\npopupmenu.add_command(label=\"Test3\")\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            root.destroy()\n            exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 3:\n                x, y = root.winfo_x(), root.winfo_y()\n                popupmenu.post(x + event.pos[0], y + event.pos[1])\n        if event.type == pygame.WINDOWMOVED:\n            position = event.x, event.y\n            root.wm_geometry(f\"+{int(position[0])}+{int(position[1])}\")\n\n\n    screen.fill((255, 255, 255))\n    root.update()\n\n    pygame.display.update()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-28 20:43:17",
+    "modified_at": "2025-01-30 16:39:51",
+    "likes": 3,
+    "views": 26,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-28 19:04:40",
+    "updated_at": "2026-07-03 02:35:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 43
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/b00234336e4eba6ea446f44d18216c0a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "模拟 其他",
+    "xml_path": "cdd19b824965bcfc9cbe619da6e806f7",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59171396"
+}

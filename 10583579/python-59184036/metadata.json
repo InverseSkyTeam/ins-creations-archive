@@ -1,0 +1,61 @@
+{
+    "id": 59184036,
+    "name": "Python实现Scratch跑酷",
+    "category": 1,
+    "type": "normal",
+    "description": "有一些bug，但不会去修了...",
+    "user_id": 10583579,
+    "thumbnail": "https://static0-test.xesimg.com/programme/assets/c16477eaab146fbc22a050e2203f91b8.png",
+    "xml": "import pygame,sys\nfrom typing import Tuple\n\ninput(\"填一个很久之前挖下的坑，已经半年没有编程了\\n该作品是由ELEVEN的一个scratch跑酷作品还原而成，花了半个下午搓的，证明pygame还是可以用sc的方法实现跑酷的，只不过不是用rect或者sprite硬套\\n所有的评论大概率都不会回复，还有几个月中考，退站作\\n上下左右操控，回车换行开始:)\")\nprint(\"\\n\\n\")\npygame.init()\npygame.display.set_caption(\"跑酷测试(python改编) 原scratch作品 by ELEVEN\")\n# 原版:480*360\nscreen = pygame.display.set_mode((960,720))\nimg_index = 0\nimg = pygame.image.load(\"./Image/0.png\")\n\ndef next_background():\n    global img_index,img,running\n    img_index += 1\n    if img_index == 20:\n        pygame.quit()\n        running = False\n        print(\"结束了，只节选了其中前20关 感谢观看,建议支持一下sc版的原作者ELEVEN\")\n        sys.exit()\n    img = pygame.image.load(f\"./Image/{img_index}.png\")\n\nclass Player:\n    def __init__(self):\n        self.x = 40*2\n        self.y = (180+10)*2\n        self.width = 48\n        self.height= 48\n        self.background = pygame.Surface((960,720))\n        self.background.fill((255,255,255))\n        self.background.blit(img,(0,720-img.get_height()))\n        self.x_ = 0\n        self.y_ = 0\n\n    def collide(self,color:Tuple[int,int,int]):\n        x = self.x\n        y = self.y\n        for _ in range(self.width-1):\n            try:\n                if self.background.get_at((x,y)) == color:\n                    return True\n            except:continue\n            x += 1\n        for _ in range(self.height-1):\n            try:\n                if self.background.get_at((x,y)) == color:\n                    return True\n            except:continue\n            y += 1\n        for _ in range(self.width-1):\n            try:\n                if self.background.get_at((x,y)) == color:\n                    return True\n            except:continue\n            x -= 1\n        for _ in range(self.height-1):\n            try:\n                if self.background.get_at((x,y)) == color:\n                    return True\n            except:continue\n            y -= 1\n        return False\n        \"\"\"\n        -> -> ->\n        |      |\n        ^      v\n        |      |\n        <- <-<-v\n        使用上图式巡逻方式\n        实现 sc 中碰到颜色函数\n        \"\"\"\n    def bind(self):\n        keys = pygame.key.get_pressed()\n        if keys[pygame.K_LEFT]:\n            self.x_ -= 2\n        if keys[pygame.K_RIGHT]:\n            self.x_ += 2\n        self.x_ *= 0.9\n        self.x = round(self.x + self.x_)\n        if self.x < 40:\n            self.x = 40\n        if self.collide((0,0,0)):\n            self.y -= 2\n            if self.collide((0,0,0)):\n                self.y -= 2\n                if self.collide((0,0,0)):\n                    self.y -= 2\n                    if self.collide((0,0,0)):\n                        self.x = round(self.x - self.x_)\n                    if keys[pygame.K_UP]:\n                        if self.x_ > 0:\n                            self.x_ = -10\n                        else:\n                            self.x_ = 10\n                        self.y_ = -23\n                    else:\n                        self.x_ = 0\n        self.y_ += 2\n        self.y = round(self.y + self.y_)\n        if self.y < 0:\n            self.y = 0\n        # elif self.y < 0:\n        #     self.x = 80\n        #     self.y = 380\n        if self.collide((0,0,0)):\n            self.y = round(self.y - self.y_)\n            self.y_ = 0\n        self.y += 2\n        if self.collide((0,0,0)):\n            if keys[pygame.K_UP]:\n                self.y_ = -27\n        self.y -= 2\n        if self.x > 920:\n            next_background()\n            self.x = 40*2\n            self.y = 190*2\n            self.background.fill((255,255,255))\n            self.background.blit(img,(0,720-img.get_height()))\n        if keys[pygame.K_SPACE] or self.collide((255,0,0)):\n            self.x = 40*2\n            self.y = 190*2\n        elif self.collide((51,255,0)):\n            self.y_ = -40\n        elif self.collide((51,0,255)):\n            self.y_ = 40\n    \n    def blit(self):\n        screen.blit(self.background,(0,0))\n        pygame.draw.rect(screen,(128,128,128),(self.x,self.y,self.width,self.height))\n        pygame.display.update()\n\np = Player()\nrunning = True\nclock = pygame.time.Clock()\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            print(\"结束了 感谢观看,建议支持一下sc版的原作者ELEVEN\")\n            sys.exit()\n            running = False\n    p.bind()\n    p.blit()\n    clock.tick(50)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-02-03 21:17:48",
+    "modified_at": "2025-02-04 13:14:21",
+    "likes": 9,
+    "views": 75,
+    "comments": 8,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-03 20:47:23",
+    "updated_at": "2026-07-11 09:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 144,
+                "column": 18
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/c32fe082385898c6e683ded2a7c8782b.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "游戏",
+    "xml_path": "f9d61a9278ca444eb1178d0f950aa474",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "何嘉晨",
+    "user_avatar": "https://img.100tal.com/user/20200730/Tall4HQqhG5rGNwFPlaLrVUxWA1748.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59184036"
+}

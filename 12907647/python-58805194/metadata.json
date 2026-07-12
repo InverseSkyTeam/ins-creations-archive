@@ -1,0 +1,61 @@
+{
+    "id": 58805194,
+    "name": "音乐卡点记录仪（见作品介绍）",
+    "category": 1,
+    "type": "normal",
+    "description": "这次是大作的第二个预告。\n这是《unwelcome school》的音乐记录仪，按下按键开始记录，为了在大作的phigros部分中的按键判定时间确定下来，我用自己这个记录仪先自己打了一遍节奏，保存在了素材record.txt里。\n打开改编，录完关闭窗口，record.txt记录的是打note的节点，个人没玩过音游，所以可能正确率不高，不过目前最好的办法就是这样了。\n至于预告1，我的作品被下架了，可能是封面不好看或者截图乱放会导致某些新手关不掉吧。但是社管这次没给原因也没通知，估计是屏蔽我了。不过没关系，既然这样我预告1和3估计不能发了，所以就用音乐记录仪补充一下。",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/cb0a9222c479878b63d36d882b9ed479.jpg",
+    "xml": "import pygame, sys\nimport time\npygame.init()\n\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('卡点记录仪')\n\nfont = pygame.font.SysFont('kaiti', 60)\n\nstart_time = 0\ntime_list = [0.00]\npygame.mixer.music.load('./bgm.mp3')\n\n\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            l = str(time_list)\n            with open('record2.txt', 'w', encoding='utf-8') as f:\n                f.write(l)\n                f.close()\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.KEYDOWN:\n            if not start_time:\n                start_time = time.time()\n                pygame.mixer.music.play(1)\n            else:\n                time_list.append(time.time() - start_time)\n    \n    screen.fill((255, 255, 255))\n    screen.blit(font.render(f'{time_list[-1]}s', True, (0, 0, 0)), (10, 10))\n    pygame.display.update()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-16 20:02:41",
+    "modified_at": "2025-01-16 20:02:41",
+    "likes": 3,
+    "views": 42,
+    "comments": 16,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-16 14:55:26",
+    "updated_at": "2026-02-21 16:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/ee1304ec501a371e99e1b8a0660117a1.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "艺术 游戏 模拟",
+    "xml_path": "f6df76f471165bb93bffcaa0a423e721",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58805194"
+}

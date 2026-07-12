@@ -1,0 +1,65 @@
+{
+    "id": 59170693,
+    "name": "Python Rope数据结构",
+    "category": 1,
+    "type": "normal",
+    "description": "由 https://github.site/sdidd/cppRopeSTL 改编而来",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from rope import Rope\n\nrope = Rope(\"Hello, World! this is a test to try the multi node feature. this is of the rope data structure\")\nprint(rope)\nprint(\"String Count:\", len(rope), \"\\nNode Count:\", rope.node_count())\nrope.replace(\"World\", \"webpy\")\nprint(rope)\nprint(\"String Count:\", len(rope), \"\\nNode Count:\", rope.node_count())\nrope.insert(6, 'Xes')\nprint(rope)\nprint(\"String Count:\", len(rope), \"\\nNode Count:\", rope.node_count())\n",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-01-28 14:20:42",
+    "modified_at": "2025-01-28 14:20:42",
+    "likes": 3,
+    "views": 18,
+    "comments": 3,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-28 14:07:01",
+    "updated_at": "2026-04-22 02:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "8a11481e-92d1-d892-7355-bfa9f6241d9c": {
+                "row": 143,
+                "column": 15
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 24
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0629fa1649655a48bc4f25d88e3cb9a4.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "算法 其他",
+    "xml_path": "a85738a4d7a7c3c6405823c06d111be5",
+    "created_source": "reprint",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59170693"
+}

@@ -1,0 +1,93 @@
+{
+    "id": 59936066,
+    "name": "PySide6 XES云盘（",
+    "category": 1,
+    "type": "normal",
+    "description": "也是用上Python 3.12了（\n感谢lrs的Universal Loader\n加上了流式上传（new_uploader.py改自lrs的https://code.xueersi.com/home/project/detail?lang=code&pid=58475913&version=offline&form=python&langType=python）\n\n另：Fitten Code的注释添加太好用辣！",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import loader\n\nloader.load_runtime()\nloader.load_packages(\"https://livefile.xesimg.com/programme/python_assets/82fc5a33b2d51568b0ecd21c2fd501b0.zip\")\nloader.run()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-03-05 21:38:21",
+    "modified_at": "2025-03-08 11:23:23",
+    "likes": 3,
+    "views": 26,
+    "comments": 20,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-03-05 21:37:37",
+    "updated_at": "2026-06-24 23:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 0
+            },
+            "767031fa-62f3-9b6c-1eda-5364f12215a8": {
+                "row": 137,
+                "column": 0
+            },
+            "ad7f0c39-4bfc-4282-ba4c-448449afeed3": {
+                "row": 5,
+                "column": 0
+            },
+            "96628199-4360-14b4-e085-00dc5c4385e3": {
+                "row": 0,
+                "column": 128
+            },
+            "99f876a3-aec4-b4d6-c287-d7fe60238588": {
+                "row": 24,
+                "column": 61
+            },
+            "53a142ab-bd5c-04d5-1cea-b97e4a5859ef": {
+                "row": 24,
+                "column": 61
+            },
+            "9d78a182-bf7f-b0f2-e171-3cfa2a4179e2": {
+                "row": 56,
+                "column": 0
+            },
+            "7310705b-a8c5-3543-2d78-6aa66b9247a6": {
+                "row": 46,
+                "column": 0
+            },
+            "9f678442-5036-7d86-8f87-b7a6daa9cba2": {
+                "row": 62,
+                "column": 106
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/3e2407a4a529e426c6cabcdca83147e0.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 2,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "51186d854a226f3e70a2c0ff1b404438",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59936066"
+}

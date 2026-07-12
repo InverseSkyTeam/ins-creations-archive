@@ -1,0 +1,61 @@
+{
+    "id": 54169600,
+    "name": "LR(1)语法分析",
+    "category": 1,
+    "type": "normal",
+    "description": "感觉LR(1)也不是很难的样子，我也就写了3天\n接下来试试LALR(1)和处理二义性，然后改造成语法分析器生成器",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "class Product:\n    def __init__(self, name, body):\n        self.name = name\n        self.body = body\n    def __str__(self):\n        return f\"{self.name} -> {''.join(self.body)}\"\n    __repr__ = __str__\n    def _eq__(self, other):\n        return self.name == other.name and self.body == other.body\n\nclass Item:\n    STATUS = -1\n    def __init__(self, product, pos, follow):\n        Item.STATUS += 1\n        self.status = Item.STATUS\n        self.product = product\n        self.pos = pos\n        self.follow = follow\n    def __str__(self):\n        return f\"{self.product} {self.pos} {self.follow}\"\n    __repr__ = __str__\n    def __eq__(self, other):\n        return self.product == other.product and self.pos == other.pos and self.follow == other.follow\n\nclass State:\n    STATUS = -1\n    def __init__(self, items):\n        State.STATUS += 1\n        self.status = State.STATUS\n        self.items = items\n\ndef first(product, terminal, nonterminal):\n    if product == \"ε\":\n        return {\"ε\"}\n    if product[0] == \"ε\":\n        product = product[1:]\n    if product[-1] == \"$\":\n        product = product[:-1]\n    if not product:\n        return {\"$\"}\n    if product in terminal:\n        return {product}\n    if product not in nonterminal:\n        return {\"ε\"}\n    products = nonterminal[product]\n    first_set = set()\n    for product in products:\n        for term in product.body:\n            if term in terminal:\n                first_set.add(term)\n                break\n            term_set = first(term, terminal, nonterminal)\n            first_set.update(term_set - {\"ε\"})\n            if \"ε\" not in term_set:\n                break\n        else:\n            first_set.add(\"ε\")\n    return first_set\n\ndef follow(product, terminal, nonterminal):\n    follow_set = set()\n    if product == \"S\":\n        follow_set.add(\"$\")\n    for name, experissions in nonterminal.items():\n        if name == product:\n            continue\n        for experission in experissions:\n            for index, term in enumerate(experission.body):\n                if term == product:\n                    if index != len(experission.body) - 1:\n                        first_set = first(experission.body[index+1], terminal, nonterminal)\n                        follow_set.update(first_set - {\"ε\"})\n                        if \"ε\" in first_set:\n                            follow_set.update(follow(name, terminal, nonterminal))\n                    else:\n                        follow_set.update(follow(name, terminal, nonterminal))\n    return follow_set\n\ndef closure(items, terminal, nonterminal):\n    if not items:\n        return []\n    closure_set = [*items]\n    index = 0\n    next_ = closure_set[index]\n    while next_ and next_.pos < len(next_.product.body):\n        followed = next_.product.body[next_.pos]\n        if followed in nonterminal and next_.pos < len(next_.product.body):\n            terms = nonterminal[followed]\n            for term in terms:\n                next_char = next_.product.body[next_.pos + 1] if next_.pos + 1 < len(next_.product.body) else \"ε\"\n                for b in first(next_char + next_.follow, terminal, nonterminal):\n                    new_item = Item(term, 0, b)\n                    if new_item not in closure_set:\n                        closure_set.append(new_item)\n        index += 1\n        next_ = closure_set[index] if index < len(closure_set) else None\n    return closure_set\n\ndef goto(items, char, terminal, nonterminal):\n    goto_set = []\n    for item in items:\n        if item.pos < len(item.product.body) and item.product.body[item.pos] == char:\n            new_item = Item(item.product, item.pos + 1, item.follow)\n            if new_item not in goto_set:\n                goto_set.append(new_item)\n    return closure(goto_set, terminal, nonterminal)\n\ndef make_goto_table(terminal, nonterminal):\n    goto_table = {}\n    I0 = State(closure([Item(Product(\"S'\", [\"S\"]), 0, \"$\")], terminal, nonterminal))\n    keys = terminal + list(nonterminal.keys())\n    state_list = [I0]\n    for state in state_list:\n        for char in keys:\n            goto_set = goto(state.items, char, terminal, nonterminal)\n            if goto_set:\n                for s in state_list:\n                    if s.items == goto_set:\n                        goto_table[(state.status, char)] = s.status\n                        break\n                else:\n                    new_state = State(goto_set)\n                    state_list.append(new_state)\n                    goto_table[(state.status, char)] = new_state.status\n    return goto_table, state_list\n\ndef make_action_table(terminal, goto_table, state_list):\n    action_table = {}\n    for state in state_list:\n        for item in state.items:\n            if item.pos < len(item.product.body):\n                for char in terminal:\n                    if (state.status, char) in goto_table:\n                        goto_state = goto_table[(state.status, char)]\n                        action_table[(state.status, char)] = (\"SHIFT\", goto_state)\n            elif item.product.name != \"S'\":\n                action_table[(state.status, item.follow)] = (\"REDUCE\", item.product)\n            elif item.follow == \"$\":\n                action_table[(state.status, \"$\")] = (\"ACCEPT\", None)\n    return action_table\n\"\"\"\nS' -> S\nS -> Expr\nExpr -> Term | Expr + Term | Expr - Term\nTerm -> Factor | Term * Factor | Term / Factor\nFactor -> ( Expr ) | Num\nNum -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n\"\"\"\nterminal = [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"+\", \"-\", \"*\", \"/\", \"(\", \")\"]\nnonterminal = {\n    \"S'\": [Product(\"S'\", [\"S\"])],\n    \"S\": [Product(\"S\", [\"Expr\"])],\n    \"Expr\": [Product(\"Expr\", [\"Term\"]), Product(\"Expr\", [\"Expr\", \"+\", \"Term\"]), Product(\"Expr\", [\"Expr\", \"-\", \"Term\"])],\n    \"Term\": [Product(\"Term\", [\"Factor\"]), Product(\"Term\", [\"Term\", \"*\", \"Factor\"]), Product(\"Term\", [\"Term\", \"/\", \"Factor\"])],\n    \"Factor\": [Product(\"Factor\", [\"(\", \"Expr\", \")\"]), Product(\"Factor\", [\"Num\"])],\n    \"Num\": [Product(\"Num\", [\"0\"]), Product(\"Num\", [\"1\"]), Product(\"Num\", [\"2\"]), Product(\"Num\", [\"3\"]), Product(\"Num\", [\"4\"]), Product(\"Num\", [\"5\"]), Product(\"Num\", [\"6\"]), Product(\"Num\", [\"7\"]), Product(\"Num\", [\"8\"]), Product(\"Num\", [\"9\"])]\n}\ngoto_table, state_list = make_goto_table(terminal, nonterminal)\naction_table = make_action_table(terminal, goto_table, state_list)\ntext = \"1+1*2\"\nstate_stack = [0]\nindex = 0\nchar = text[index]\nx = char\nwhile True:\n    state = state_stack[-1]\n    if x in terminal or x == \"$\":\n        if (state, x) in action_table:\n            action, arg = action_table[(state, x)]\n            if action == \"SHIFT\":\n                state_stack.append(arg)\n                index += 1\n                char = text[index] if index < len(text) else \"$\"\n                x = char\n            elif action == \"REDUCE\":\n                for _ in range(len(arg.body)):\n                    state_stack.pop()\n                x = arg.name\n            elif action == \"ACCEPT\":\n                print(\"Accepted!\")\n                break\n        else:\n            print(\"Error!\")\n            break\n    else:\n        if (state, x) in goto_table:\n            state_stack.append(goto_table[(state, x)])\n            x = char\n        else:\n            print(\"Error!\")\n            break",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-12 23:16:59",
+    "modified_at": "2024-07-13 20:59:56",
+    "likes": 3,
+    "views": 23,
+    "comments": 32,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-12 23:16:03",
+    "updated_at": "2025-08-24 21:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 10,
+                "column": 11
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/a6b07155d9dfddf23ded0e1fe4fda482.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他 算法",
+    "xml_path": "e1ab89da114e18344a35e651f9c5613d",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54169600"
+}

@@ -1,0 +1,7 @@
+print('导库中---(没有time库，不信点改编)');from snownlp import SnowNLP as snow;print('导库成功！');text = input('输入你要进行情感识别的内容');score = round(snow(text).sentiments,2)
+if score <= 0.24:print('情感不是很正面，小i识别出你写的这句话似乎是气话');print('得分：不合格')
+elif score <= 0.49:print('情感有点不正面，小i识别出你写的这句话似乎是不大好');print('得分：合格')
+elif score <= 0.69:print('情感比较正面，小i识别出你写的这句话很好，你很开心');print('得分：良好')
+else:print('情感十分正面，小i识别出你写的这句话特别好，你应该乐开了花');print('得分：优秀')
+print(score*100,'分')
+print('识别结束，请点赞表示你的言语得分高')

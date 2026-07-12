@@ -1,0 +1,13 @@
+#ax+b=c
+print("请将一个一元一次方程化为ax+b=c的样子（a，b，c必须是数字，小数也行）")
+a=float(input("请输入a："))
+b=float(input("请输入b："))
+c=float(input("请输入c："))
+print(str(a)+"x+"+str(b)+"="+str(c))
+space=len(str(a)+"x"+str(b))-len("解:"+str(a)+"x")
+print(" "*space+"解:"+str(a)+"x="+str(c)+"-"+str(b))
+space=space+3
+print(" "*space+str(a)+"x="+str(c-b))
+space=space+len(str(a))
+print(" "*space+"x="+str(c-b)+"÷"+str(a))
+print(" "*space+"x="+str((c-b)/a))

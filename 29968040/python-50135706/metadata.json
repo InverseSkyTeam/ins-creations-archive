@@ -1,0 +1,81 @@
+{
+    "id": 50135706,
+    "name": "在pygame里渲染markdown(v0.9)",
+    "category": 1,
+    "type": "normal",
+    "description": "新增图片渲染！！！\nLaTeX 和 img 加载方式改为懒加载\n滚动条鼠标悬停变色\n",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/24eb41a287ea50aa0e6918cecd643a74.jpg",
+    "xml": "import pygame\nimport os\nimport sys\nfrom PgMarkdown import PygameMarkdown, Load\n\npygame.init()\nscreenHeight = 650\nscreenWidth = 600\nscreen = pygame.display.set_mode((screenWidth, screenHeight))\npygame.display.set_caption(\"INS-PGM\")\nclock = pygame.time.Clock()\n\nmd = PygameMarkdown.MarkdownRenderer()\nmd.load_data(Load.load(\"./markdown文档.py\"))  # 加载 markdown 文件\n\nmd.set_area(surface=screen, offset_x=50, offset_y=10, width=500, height=630)\n\nwhile True:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    pygame_events = pygame.event.get()\n    mouse_x, mouse_y = pygame.mouse.get_pos()\n    mouse_pressed = pygame.mouse.get_pressed()[0]\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.KEYDOWN:\n            pass\n\n    screen.fill((200, 200, 200))\n    pygame.draw.rect(screen, (239, 239, 239), (0, 0, screenWidth, screenHeight))\n\n    # 绘制\n    md.display(pygame_events, mouse_x, mouse_y, mouse_pressed)\n\n    pygame.display.flip()\n    clock.tick(120)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2023-12-26 17:10:41",
+    "modified_at": "2024-01-29 09:49:06",
+    "likes": 11,
+    "views": 90,
+    "comments": 7,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-12-26 16:48:14",
+    "updated_at": "2026-07-11 23:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 30,
+                "column": 32
+            },
+            "70cc47cf-117d-196f-173b-2cc3458dc483": {
+                "row": 147,
+                "column": 24
+            },
+            "ea8c6df8-f648-0a81-285c-e2678a2504bd": {
+                "row": 390,
+                "column": 0
+            },
+            "78fcf416-fc48-51ff-20da-eec5331650bf": {
+                "row": 116,
+                "column": 0
+            },
+            "345572c1-c8a5-3432-578a-ef0443330f14": {
+                "row": 5,
+                "column": 16
+            },
+            "c0d737e7-9f51-5987-5eb5-5d9fd895efd0": {
+                "row": 14,
+                "column": 38
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/7c33122b9cc427a342c870c6d85778a3.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "游戏 沙盒专区 模拟",
+    "xml_path": "c3eba38e3373f17be12ff238d118a173",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50135706"
+}

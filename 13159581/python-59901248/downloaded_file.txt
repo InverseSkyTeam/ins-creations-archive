@@ -1,0 +1,324 @@
+from tkinter import *
+from tkinter import filedialog, messagebox
+from tkinter import ttk
+import idlelib.colorizer as idc
+import idlelib.percolator as idp
+import traceback
+import os
+import uploader as ul
+import requests as r
+from PIL import Image, ImageTk
+import os,sys,time
+import threading
+
+def run_code_in_window(code_text):
+    frame3 = Tk()
+    frame3.geometry("500x230+0+200")
+    frame3.title("CIDE运行分窗口")
+    frame3.attributes("-topmost", True)
+    yscrollbar2 = Scrollbar(frame3)
+    outtext = Text(frame3, height=200, font=(False, 14), bg="black", fg="white", insertbackground="white")
+    outtext['state'] = 'disabled'
+    yscrollbar2.pack(side=RIGHT, fill=Y)
+    outtext.pack()
+    yscrollbar2.config(command=outtext.yview)
+    outtext.config(yscrollcommand=yscrollbar2.set)
+    outtext['state'] = 'normal'
+    outtext.delete('1.0', 'end')
+    outtext['state'] = 'disabled'
+    def submit():
+        def print(*value, sep=' ', end='\n'):
+            outtext['state'] = 'normal'
+            for i in range(len(value)):
+                outtext.insert('end', value[i])
+                if i < len(value) - 1:
+                    outtext.insert('end', sep)
+                    
+            outtext.insert('end', end)
+            outtext.see('end')
+            time.sleep(0.03)
+            outtext['state'] = 'disabled'
+
+
+        def input(value=''):
+            print(value, end='')
+            is_function_finished = BooleanVar()
+            is_function_finished.set(False)
+            submittext = ""
+
+            def on_key_press(event):
+                nonlocal is_function_finished
+                nonlocal submittext
+                text = event.widget
+                line, column = map(int, text.index("insert").split('.'))
+                current_line_content = text.get("{}.0".format(line), "{}.end".format(line))
+                if event.keysym == "BackSpace":
+                    if (not current_line_content.strip().replace(value, "")):
+                        return "break"
+                    else:
+                        submittext = submittext[:-1]
+                        last_char_index = 'end-1c'
+                        outtext.delete(last_char_index)
+                elif event.keysym == "Return":
+                    is_function_finished.set(True)
+                else:
+                    submittext += event.char
+                    # outtext.insert('end', event.char)
+
+            outtext['state'] = 'normal'
+            outtext.bind("<Key>", on_key_press)
+            outtext.wait_variable(is_function_finished)
+            outtext.unbind("<Key>")
+            outtext["state"] = "disabled"
+            return submittext
+        
+        try:
+            sys.stdout.write = print
+            sys.stdin.readline = input
+            exec(code_text, globals(), locals())
+        except Exception as b:
+            bug = traceback.format_exc()
+            try:
+                print(bug)
+            except:
+                pass
+    
+    threada = threading.Thread(target=submit)
+    threada.daemon = True
+    threada.start()
+    frame3.mainloop()
+
+class TreeWindow(ttk.Frame):
+    def __init__(self, master, path):
+        super().__init__(master)
+        self.pack()
+
+        self.tree = ttk.Treeview(self)
+        self.tree.pack(fill=BOTH, expand=True)
+
+        # path
+        self.current_path = path
+
+        root = self.tree.insert("", "end", text=self.get_last_path(path), open=True)
+        self.load_tree(root, path)
+
+
+    def load_tree(self, parent, path):
+        self.tree.delete(*self.tree.get_children(parent))
+        for filepath in os.listdir(path):
+            abs_path = os.path.join(path, filepath)
+            node_text = self.get_last_path(abs_path)
+            node = self.tree.insert(parent, "end", text=node_text)
+            if os.path.isdir(abs_path):
+                self.load_tree(node, abs_path)
+
+    def get_last_path(self, path):
+        return os.path.basename(path)
+
+    def change_path(self):
+        new_path = filedialog.askdirectory(initialdir=self.current_path)
+        if new_path:
+            self.current_path = new_path
+            self.tree.delete(*self.tree.get_children())
+            root = self.tree.insert("", "end", text=self.get_last_path(new_path), open=True)
+            self.load_tree(root, new_path)
+
+    def get_full_path(self, item):
+        parent = self.tree.parent(item)
+        if parent == "":
+            return self.tree.item(item, "text")
+        return (self.get_full_path(parent)+'/'+self.tree.item(item, "text")).replace(self.current_path.split("/")[-1],"")
+        
+
+class CIDE:
+    def __init__(self):
+        self.tk = Tk()
+        self.tk.geometry("700x450+500+10")
+        # self.tk.overrideredirect(True)
+        self.tk.attributes("-topmost", True)
+        self.tk.title("CIDE")
+        # self.tk.iconphoto(False, PhotoImage(file=".\\icon.gif"))
+        self.tk.protocol("WM_DELETE_WINDOW", self.callback)
+
+        # tree_frame
+        self.tree_frame = Frame(self.tk)
+        self.tree_frame.pack(side=LEFT, fill=Y)
+
+        # tree主体
+        initial_path = "D:/Java&python/python"
+        self.filename = ""
+        self.tree_window = TreeWindow(self.tree_frame, initial_path)
+        self.tree_window.tree.bind("<<TreeviewSelect>>", self.on_file_selected)
+
+        self.menu_bar = Menu(self.tk)
+        self.tk.config(menu=self.menu_bar)
+
+        self.file_menu = Menu(self.menu_bar, tearoff=0)
+        self.menu_bar.add_cascade(label="文件", menu=self.file_menu)
+        
+        # 菜单文件栏
+        self.file_menu.add_command(label="运行", command=self.aaaa, accelerator="F5", state=DISABLED)
+        self.tk.bind("<F5>",self.aaaa)
+        self.file_menu.add_command(label="保存", command=self.save, accelerator="Ctrl+S")
+        self.tk.bind("<Control-s>",self.save)
+        self.file_menu.add_command(label="云端保存", command=self.cloud_save)
+        self.file_menu.add_command(label="打开文件", command=self.open, accelerator="Ctrl+O")
+        self.tk.bind("<Control-o>",self.open)
+        self.file_menu.add_command(label="打开文件夹", command=self.tree_window.change_path, accelerator="Ctrl+F")
+        self.tk.bind("<Control-f>",self.tree_window.change_path)
+        self.file_menu.add_command(label="云端打开文件", command=self.cloud_run)
+
+        # 代码区域Frame
+        self.frame1 = Frame(self.tk)
+        self.yscrollbar = Scrollbar(self.frame1)
+        self.text = Text(self.frame1, height=23, width=500,
+                    font=('楷体',15),undo=True,wrap='none',
+                    bg='#e6fff9',autoseparators=False, state=DISABLED)
+        # self.text.bind("<Key>",self.on_key_press)
+        self.yscrollbar.pack(side=RIGHT, fill=Y)
+        self.text.pack()
+        self.yscrollbar.config(command=self.text.yview)
+        self.text.insert(END, "请先打开一个文件")
+        self.configCodeHighlight(self.text)
+        self.text.config(yscrollcommand=self.yscrollbar.set)
+        self.frame1.pack(side=RIGHT, fill=BOTH, expand=True)
+
+    '''本地操作'''
+    def configCodeHighlight(self, component: Text):
+        idc.color_config(self.text)
+        p = idp.Percolator(self.text)
+        d = idc.ColorDelegator()
+        p.insertfilter(d)
+
+    def on_key_press(self,event):
+        text = event.widget
+        line, column = map(int, text.index("insert").split('.'))
+        current_line_content = text.get("{}.0".format(line), "{}.end".format(line))
+        if event.keysym == "Return" and current_line_content!="":
+            if (current_line_content[-1]==":"):
+                self.text.insert(END,"\n    ")
+                return "break"
+        if event.keysym == "Tab":
+            self.text.insert(END,"    ")
+            return "break"
+
+    def aaaa(self,event=""):
+        t = self.text.get(1.0,END)
+        # sys.stdout.write(t)
+        # process = multiprocessing.Process(target=run_code_in_window, args=(t,))
+        # process.start()
+
+        # process.terminate()
+        run_code_in_window(t)
+
+    def save(self):
+        try:
+            t = self.text.get(1.0, END)
+            f = filedialog.asksaveasfile(defaultextension=".py")
+            f.write(t + "\ninput(\"按回车退出\")")
+        except:
+            messagebox.showinfo('提示', '保存失败')
+        else:
+            messagebox.showinfo('提示', '保存成功')
+
+    def open(self):
+        path = filedialog.askopenfilename(initialdir="C:\\")
+        if path:
+            self.text["state"] = "normal"
+            self.tk.bind("<F5>",self.aaaa)
+            self.filename = ""
+            with open(path, "r", encoding="utf-8") as file:
+                self.text.delete("1.0", "end")
+                self.text.insert(END, file.read())
+
+    def on_file_selected(self, event):
+        selected_item = self.tree_window.tree.selection()[0]
+        self.text["state"] = "normal"
+        self.text.delete("1.0", "end")
+        item_text = self.tree_window.tree.item(selected_item, "text")
+        file_extension = os.path.splitext(item_text)[1]
+        if file_extension == '.py':
+            self.file_menu.entryconfig(0,state=NORMAL)
+            self.tk.bind("<F5>",self.aaaa)
+            self.text["state"] = "normal"
+            selected_file_path = self.tree_window.current_path+self.tree_window.get_full_path(selected_item)
+            try:
+                with open(self.filename,"w",encoding="utf-8") as f:
+                    f.write(self.text.get(1.0,END))
+            except Exception as b:
+                print(b)
+            with open(selected_file_path,"r",encoding="utf-8") as file:
+                self.filename = selected_file_path
+                self.text.delete("1.0", "end")
+                self.text.insert(END, file.read())
+            
+        elif not file_extension in ('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'):
+            self.file_menu.entryconfig(0,state=DISABLED)
+            self.tk.unbind("<F5>")
+            selected_file_path = self.tree_window.current_path+self.tree_window.get_full_path(selected_item)
+            try:
+                with open(self.filename,"w",encoding="utf-8") as f:
+                    f.write(self.text.get(1.0,END))
+                with open(selected_file_path,"r",encoding="utf-8") as file:
+                    self.filename = selected_file_path
+                    self.text.delete("1.0", "end")
+                    self.text.insert(END, file.read())
+            except:
+                pass
+
+    def callback(self):
+        if messagebox.askyesno('关闭', '您确定要关闭CIDE吗?'):
+            self.tk.destroy()
+            os._exit(200)
+        else:
+            pass
+
+    '''云端操作'''
+    def cloud_save(self):
+        def abcde():
+            uploader = ul.XesUploader()
+            path = "C:\\"+e2.get()+".py"
+            f = open(path,"w")
+            f.write(self.text.get(1.0,END))
+            f.close()
+            url = uploader.uploadAbsolutePath(path)
+            ct.insert(END, "文件的路径是：" + url)
+        top = Toplevel()
+        label = Label(top,text="请输入要云端保存的文件名:")
+        e2 = ttk.Entry(top)
+        cb = ttk.Button(top,text="提交",command=abcde)
+        ct = Text(top)
+        label.pack()
+        e2.pack()
+        cb.pack()
+        ct.pack()
+
+
+    def cloud_run(self):
+        def bbbbbbbb():
+            try:
+                url = e1.get()
+                #print(url)
+                head = {
+                    "User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11"
+                }
+                res = r.get(url, headers=head)
+                res.encoding = res.apparent_encoding
+                self.text.delete("1.0", "end")
+                self.text.insert(END, res.text)
+            except:
+                messagebox.showinfo(message="输入网址有误")
+        get_url = Toplevel()
+        get_url.geometry("200x100")
+        Label(get_url,text="请输入文件路径:")
+        e1 = ttk.Entry(get_url,width=150)
+        e1.pack()
+        Label(get_url,text="注意，云端打开有可能导致代码出错，请谨慎使用")
+        ttk.Button(get_url,text="确认",command=bbbbbbbb).pack()
+
+if __name__ == '__main__':
+    ide = CIDE()
+    ide.tk.mainloop()
+
+
+

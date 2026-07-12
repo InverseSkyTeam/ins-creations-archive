@@ -1,0 +1,43 @@
+[
+    {
+        "id": 2451445,
+        "topic_id": "CP_32187786",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "77160104",
+        "reply_user_id": "3846998",
+        "content": "写的非常好，要是能支持中缀表达式代码就更有可读性了[思考]",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2022-04-04 14:17:28",
+        "comment_from": "topic",
+        "username": "网校学员",
+        "user_avatar_path": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+        "reply_username": "付开霁",
+        "emojis": [
+            {
+                "id": "[思考]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/思考.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            }
+        ],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

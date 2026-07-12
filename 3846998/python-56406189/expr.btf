@@ -1,0 +1,190 @@
+type Result<T> = {
+	ok: bool,
+	val: T,
+};
+
+type Expr = {
+	tp: bool,
+	binary: {
+		op: str,
+		left: Expr,
+		right: Expr,
+	},
+	const: int,
+};
+
+var expr = "1 + 2 * 3";
+
+func isdigit(ch: str) -> bool {
+	return ord("0") <= ord(ch) && ord(ch) <= ord("9");
+}
+
+func stoi(s: str) -> int {
+	var num = 0;
+	var pos = 0;
+	while pos < len(s) {
+		num = num * 10 + ord(s[pos]) - ord("0");
+		pos = pos + 1;
+	}
+	return num;
+}
+
+func tokenize(code: str) -> Result<str[]> {
+	var res = null_list<str>;
+	var pos = 0;
+
+	while pos < len(code) {
+		while pos < len(code) && (code[pos] == " ") {
+			pos = pos + 1;
+		}
+		if pos >= len(code) {
+			break;
+		} else if isdigit(code[pos]) {
+			var num = "";
+			while pos < len(code) && isdigit(code[pos]) {
+				num = num + code[pos];
+				pos = pos + 1;
+			}
+			res.append(num);
+		} else if code[pos] == "+" || code[pos] == "-" ||
+		          code[pos] == "*" || code[pos] == "/" ||
+		          code[pos] == "(" || code[pos] == ")" {
+			res.append(code[pos]);
+			pos = pos + 1;
+		} else {
+			// println(code, " ", pos);
+			return new Result<str[]> { ok: False, val: res };
+		}
+	}
+
+	res.append("");
+	return new Result<str[]> { ok: True, val: res };
+}
+
+func parse(tokens: str[]) -> Result<Expr> {
+	var pos = 0;
+
+	var expr: Result<Expr>();
+
+	func factor() -> Result<Expr> {
+		// println("factor ", pos);
+		if tokens[pos] == "" {
+			return new Result<Expr> { ok: False };
+		} else if isdigit(tokens[pos][0]) {
+			var token = tokens[pos];
+			pos = pos + 1;
+			return new Result<Expr> {
+				ok: True,
+				val: new Expr { tp: False, const: stoi(token) },
+			};
+		} else if tokens[pos] == "(" {
+			pos = pos + 1;
+			var res = expr();
+			if !res.ok {
+				return res;
+			}
+			if tokens[pos] != ")" {
+				return new Result<Expr> { ok: False };
+			}
+			pos = pos + 1;
+			return res;
+		} else {
+			return new Result<Expr> { ok: False };
+		}
+	}
+
+	func term() -> Result<Expr> {
+		// println("term ", pos);
+		var res = factor();
+		// println(res);
+		if !res.ok { return res; }
+		while tokens[pos] == "*" || tokens[pos] == "/" {
+			var op = tokens[pos];
+			pos = pos + 1;
+			var right = factor();
+			if !right.ok { return right; }
+			res.val = new Expr {
+				tp: True,
+				binary: {
+					op: op,
+					left: res.val,
+					right: right.val,
+				}
+			};
+		}
+		return res;
+	}
+
+	expr = func() -> Result<Expr> {
+		// println("expr ", pos);
+		var res = term();
+		if !res.ok { return res; }
+		while tokens[pos] == "+" || tokens[pos] == "-" {
+			var op = tokens[pos];
+			pos = pos + 1;
+			var right = term();
+			if !right.ok { return right; }
+			res.val = new Expr {
+				tp: True,
+				binary: {
+					op: op,
+					left: res.val,
+					right: right.val,
+				}
+			};
+		}
+		return res;
+	};
+
+	return expr();
+}
+
+func eval(node: Expr) -> Result<int> {
+	if !node.tp {
+		return new Result<int> { ok: True, val: node.const };
+	} else {
+		var _left = eval(node.binary.left), _right = eval(node.binary.right);
+		if !_left.ok || !_right.ok {
+			return new Result<int> { ok: False };
+		}
+		var left = _left.val, right = _right.val;
+		var op = node.binary.op;
+		if op == "+" {
+			return new Result<int> { ok: True, val: left + right };
+		} else if op == "-" {
+			return new Result<int> { ok: True, val: left - right };
+		} else if op == "*" {
+			return new Result<int> { ok: True, val: left * right };
+		} else if op == "/" {
+			if right == 0 {	
+				return new Result<int> { ok: False };
+			}
+			return new Result<int> { ok: True, val: left / right };
+		}
+		return new Result<int> { ok: False };
+	}
+}
+
+func main() -> NoneType {
+	var tokens = tokenize(expr);
+	// println(tokens);
+	if !tokens.ok {
+		println("Error!");
+		return;
+	}
+	// println(tokens.val);
+	var node = parse(tokens.val);
+	if !node.ok {
+		println("Error!");
+		return;
+	}
+	// println(node.val);
+	var res = eval(node.val);
+	if !res.ok {
+		println("Error!");
+		return;
+	}
+	println(res.val);
+}
+
+main();

@@ -1,0 +1,36 @@
+body{
+    background:black;
+    background-size:100%;
+}
+
+
+h2{
+    text-align: center;
+    color:white;
+}
+
+.card{
+    background-color: rgba(150,200,255,40%);
+}
+body{
+    background:black;
+    background-size:100%;
+}
+
+
+h2{
+    text-align: center;
+    color:white;
+}
+
+.card{
+    background-color: rgba(150,200,255,40%);
+}
+
+.banner{
+    text-align: center;
+}
+
+.banner_img{
+    width: 80%;
+}

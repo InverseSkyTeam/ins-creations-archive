@@ -1,0 +1,35 @@
+[
+    {
+        "id": 577987,
+        "topic_id": "CP_8942893",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "5949806",
+        "reply_user_id": "2739759",
+        "content": "问题一：你的代码第几行是控制僵尸被射中几发豌豆后消失\n问题二：你的代码第几行是控制僵尸出现多少的\n问题三：你的代码第几行是输出红色文字的\n问题四：你的代码第几行是载入背景的",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2021-01-10 17:55:26",
+        "comment_from": "topic",
+        "username": "赖韵臣",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20220504/Talz5bv53pR38R6krhFTm9QLWQ1356.png",
+        "reply_username": "胡锦辉",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

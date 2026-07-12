@@ -1,0 +1,11 @@
+import os,time
+print('我不明白，审核为何给我退站作品热度、手动变量调0')
+print('现在我明白了，看评论区')
+print('首先对大家说声抱歉，接下来的流程有点复杂了')
+print('请观看下面两个网址，右键复制')
+print('退站传送门https://code.xueersi.com/home/project/detail?lang=code&pid=36487670&version=offline&form=python&langType=python')
+print('真的退站作品https://code.xueersi.com/home/project/detail?lang=code&pid=36447582&version=offline&form=python&langType=python')
+print('这两个手动变量被调0了，所以大家如果想给这两个作品三连，请都不要了，请给这个作品三连，这样网址更全，而且也不会因手动变量影响作品热度了')
+print('谢谢，请先观看一个视频！')
+time.sleep(2)
+os.system('我不明白.mp4')

@@ -1,0 +1,114 @@
+import sys
+database = []
+variabledb = []
+
+class LineRunner(object):
+    def __init__(self,command):
+        self.command = command
+        self.helptext = '非正式版本不开放帮助，请点击改编查看'
+        if self.command.replace(' ','').replace('\n','').replace('\t','') == '':
+            self.commandlist = ['space',self.command]
+        else:
+            self.commandlist = command.split()
+            if len(self.commandlist) < 2:
+                self.commandlist = ['space',self.commandlist[0]]
+            else:
+                self.commandlist = [self.commandlist[0],' '.join(self.commandlist[1:])]
+    def run(self):
+        ans = ''
+        try:
+            if self.commandlist[0] == 'out':
+                ans = self.cmd_out(eval(self.commandlist[1]))
+            elif self.commandlist[0] == 'in':
+                ans = self.cmd_in(eval(self.commandlist[1]))
+            elif self.commandlist[0] == 'int':
+                ans = self.cmd_int(eval(self.commandlist[1]))
+            elif self.commandlist[0] == 'str':
+                ans = self.cmd_str(eval(self.commandlist[1]))
+            elif self.commandlist[0] == 'list':
+                ans = self.cmd_list(eval(self.commandlist[1]))
+            elif self.commandlist[0] == 'cut':
+                ans = self.cmd_cut(eval(self.commandlist[1]))
+            elif self.commandlist[0] == 'help':
+                if self.commandlist[1] == '/':
+                    ans = self.cmd_help()
+            elif self.commandlist[0] == 'db':
+                cmd = self.commandlist[1].split()
+                cmd = [cmd[0],' '.join(cmd[1:])]
+                ans = self.cmd_calldb(eval(cmd[1]),cmd[0])
+            elif self.commandlist[0] == 'var':
+                cmd = self.commandlist[1].split('=')
+                cmd = [cmd[0],'='.join(cmd[1:])]
+                ans = self.cmd_var(cmd)
+            elif self.commandlist[0] == 'vars':
+                ans = self.cmd_vars(self.commandlist[1])
+            else:
+                ans = '[Error|OutWarn] undefined command.'
+        except:
+            ans = '[Error|OutError] except in outing.'
+        return ans
+    def cmd_out(self,cmd):
+        return cmd
+    def cmd_in(self,cmd):
+        return input(cmd)
+    def cmd_int(self,cmd):
+        return int(cmd)
+    def cmd_str(self,cmd):
+        return str(cmd)
+    def cmd_list(self,cmd):
+        return list(cmd)
+    def cmd_cut(self,cmd):
+        return cmd.split()
+    def cmd_var(self,cmd):
+        try:
+            exec('global '+cmd[0]+'\n'+cmd[0]+'='+cmd[1])
+            reply = 'variable '+cmd[0]+' is success.'
+            variabledb.append(cmd[0])
+        except:
+            try:
+                linerunnerplus = LineRunner(cmd[1])
+                answerplus = linerunnerplus.run()
+                print('['+answerplus+'] returned.\ndouble command run success.')
+                try:
+                    eval(answerplus)
+                except:
+                    answerplus = '"'+str(answerplus)+'"'
+                exec('global '+cmd[0]+'\n'+cmd[0]+'='+answerplus)
+                reply = 'variable '+cmd[0]+' is success.'
+                variabledb.append(cmd[0])
+            except:
+                reply = '[Error|VariableError] bad command and out error in varing.'
+        return reply
+    def cmd_vars(self,cmd):
+        if cmd == 'view':
+            return variabledb
+    def cmd_help(self):
+        return self.helptext
+    def cmd_calldb(self,cmd,do):
+        if do == 'add':
+            database.append(cmd)
+            return 'add '+str(cmd)
+        elif do == 'del':
+            database.remove(cmd)
+            return 'del '+str(cmd)
+        elif do == 'index':
+            try:
+                cmd = str(cmd)+' index '+str(database.index(cmd))
+            except:
+                cmd = str(cmd)+' not in database'
+            return cmd
+        elif do == 'find':
+            try:
+                cmd = database[cmd]
+            except:
+                cmd = str(cmd)+' is a bad index'
+            return cmd
+        else:
+            reply = '[Error|DataBaseError] db command except.'
+
+print('教程输入“help /”即可查看')
+while 1:
+    cmd = input('ins:')
+    linerunner = LineRunner(cmd)
+    answer = linerunner.run()
+    print(answer)

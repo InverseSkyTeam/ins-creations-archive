@@ -1,0 +1,17 @@
+body{
+    background-image: url('/static/images/bg3.png');
+    background-repeat:no-repeat; 
+    background-attachment:fixed;
+}
+
+.musicbg{
+            text-align:center;
+}
+.content{
+    width:80%;
+    margin:20px auto;
+}
+
+img{
+    width:80%;
+}

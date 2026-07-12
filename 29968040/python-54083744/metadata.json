@@ -1,0 +1,81 @@
+{
+    "id": 54083744,
+    "name": "（v0.5）在 3D程序 里玩 2D ！",
+    "category": 1,
+    "type": "normal",
+    "description": "一个没有使用 opengl 的 3d沙盒\n\n由逆天团队开发\n主要开发者：\n黄羿杰（3d沙盒）\n实变函数、小轩（2d沙盒）\n吴宇航（3d沙盒中的2d屏幕）\n\n更新内容：\n1、重构代码，并添加更多方块\n2、支持透明方块渲染\n\n2D操作：\n\tx: 继续对话\n\tz: 跳过对话功能\n\t↑↓←→: 移动\n\tb: 打开/关闭 背包\n\t鼠标左键：挖方块\n\t鼠标右键：放方块/使用工作台、熔炉\n3D操作：\n\twasd: 移动\n\t空格: 跳跃\n\tTab: 飞行\n\tC: 望远镜模式\n\t键盘左shift: 潜行\n\t移动时按R键: 疾跑\n\tE: 打开/关闭 背包\n\t鼠标左键：挖方块\n\t鼠标右键/鼠标左键+ctrl：放方块",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/a54df33041f88607c0b64edbe931d202.jpg",
+    "xml": "import sys\nimport pygame\nimport threading as thr\nimport time\n\n\ndef get_py_path():\n    return sys.executable\n\n\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\nimport zip_file_3_11 as zipfile\nwith zipfile.ZipFile('./data.zip', 'r', metadata_encoding='gbk') as zip_ref:\n    zip_ref.extractall('.')\n\nscreen = pygame.display.set_mode((600, 600), pygame.RESIZABLE)\npygame.init()\nclock = pygame.time.Clock()\nfont = pygame.font.SysFont('SimHei', 30)\n\n\nfrom window import Window\nimport IDU_undertale.main as IDU_undertale\n\n\nwindow = Window(screen)\nIS_COMPILE = False\n\n\ndef compile_thread():\n    global IS_COMPILE\n    window.initialize(452692)  # 生成地形\n    window.compile_aot()  # 编译 numba 函数\n    IS_COMPILE = True\n\n\ndef start_animation():\n    tt = thr.Thread(target=compile_thread, args=(), name=\"T2\")\n    tt.start()\n\n    logo = pygame.image.load('data/logo.png').convert_alpha()\n    prompt = [font.render('代码正在编译中' + i * '.', True, (0,) * 3) for i in range(1, 4)]\n\n    while not IS_COMPILE:\n        FPS = str(round(clock.get_fps()))\n        pygame.display.set_caption('fps:' + FPS)\n        pygame_events = pygame.event.get()\n        for event in pygame_events:\n            if event.type == pygame.QUIT:\n                pygame.quit()\n                sys.exit()\n            if event.type == pygame.VIDEORESIZE:\n                pass\n        screen.fill((227, 255, 254))\n        cx, cy = screen.get_rect().center\n        _prompt = prompt[int(time.time() * 2) % 3]\n        screen.blit(logo, logo.get_rect(center=(cx, cy - 30)))\n        screen.blit(_prompt, _prompt.get_rect(center=(cx, cy + 170)))\n        pygame.display.flip()\n        clock.tick(60)\n\n\ndef main():\n    while 1:\n        FPS = str(round(clock.get_fps()))\n        pygame.display.set_caption('fps:' + FPS)\n        pygame_events = pygame.event.get()\n        for event in pygame_events:\n            if event.type == pygame.QUIT:\n                pygame.quit()\n                sys.exit()\n            if event.type == pygame.VIDEORESIZE:\n                pass\n\n        screen.fill((round(0.5*255), round(0.69*255), round(1.0*255)))\n        mouse_pos_screen = window.hit_test_screen()\n        IDU_undertale.next(pygame_events, mouse_pos_screen)\n        window.handle_event(pygame_events, mouse_pos_screen)\n        window.update()\n        window.on_draw(IDU_undertale.screen)\n\n        pygame.display.flip()\n        clock.tick(114514)\n\n\nif __name__ == '__main__':\n    start_animation()\n    main()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-04 11:37:30",
+    "modified_at": "2024-07-04 11:37:30",
+    "likes": 37,
+    "views": 708,
+    "comments": 33,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-04 10:14:43",
+    "updated_at": "2026-07-08 10:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "39f197ec-a7db-4b1f-7466-749f45fb4639": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 38,
+                "column": 38
+            },
+            "1ba8804d-1df6-ef68-c4eb-d9ce22391fe0": {
+                "row": 0,
+                "column": 7
+            },
+            "b6cc5e11-da4a-2ce1-aaa2-76046cf3bfab": {
+                "row": 56,
+                "column": 0
+            },
+            "5bf27df4-f27e-28b3-6311-1601cd049584": {
+                "row": 3,
+                "column": 51
+            },
+            "82d2a39f-019f-97e5-18a8-4439871cd296": {
+                "row": 8,
+                "column": 39
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/b013f7d31c2ad4d4a8c3f1abe15d1148.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 2,
+    "code_complete": 1,
+    "source_code_views": 37,
+    "favorites": 57,
+    "tags": "游戏 沙盒专区 算法",
+    "xml_path": "b35faa039db181265c703ba7c2c330f3",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54083744"
+}

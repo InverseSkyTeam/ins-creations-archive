@@ -1,0 +1,65 @@
+{
+    "id": 59075920,
+    "name": "tk小桌宠",
+    "category": 1,
+    "type": "normal",
+    "description": "一个小桌宠，素材来源于小轩\n对了，你可以喂给它文件吃",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import tkinter as tk\nimport windnd,send2trash,random,os\nfrom tkinter import messagebox\nfrom PIL import Image,ImageTk\ny=1000\nx = 50\nflag=False\nrunning = True\ntop_y = 1000\ntop_run = True\ndef show():\n    top = tk.Toplevel()\n    top.geometry(\"320x960+350+1000\")\n    top.overrideredirect(True)\n    top.attributes(\"-transparentcolor\",\"#f0f0f0\")\n    top.attributes(\"-topmost\",True)\n    image = Image.open(\"./images/作者5.png\")\n    image = image.resize((320,960))\n    photo = ImageTk.PhotoImage(image)\n    def destory():\n        global top_run\n        top_run=False\n        top.destroy()\n        root.geometry(\"40x120+50+300\")\n        image = Image.open(\"./images/作者7.png\")\n        image = image.resize((40,120))\n        img = ImageTk.PhotoImage(image)\n        label.configure(image=img)\n        label.image = img\n\n    button = tk.Button(top, image=photo, bd=0, command=destory)\n    button.pack()\n    def move_up():\n        global top_y\n        if (top_y>235):\n            top.wm_geometry(f'+100+{top_y-10}')\n            top_y-=10\n            top.after(15, move_up)\n    top.after(15,move_up)\n    while top_run:\n        top.update()\ndef get_pos(event):\n    global xwin\n    global ywin\n    xwin = event.x\n    ywin = event.y\ndef move_window(event):\n    if flag:\n        root.geometry(f'+{event.x_root - xwin}+{event.y_root - ywin}')\ndef dragged_files(files):\n    msg = '\\n'.join((item.decode('gbk') for item in files))\n    if messagebox.askokcancel(\"\",\"确认删除吗？\"):\n        for i in msg.split(\"\\n\"):\n            send2trash.send2trash(i)\n        image = Image.open(\"./images/作者13.png\")\n        image = image.resize((40,120))\n        img = ImageTk.PhotoImage(image)\n        label.configure(image=img)\n        label.image = img\n\n        def change_back():\n            label.configure(image=photo)\n            label.image=photo\n        label.after(2000,change_back)\ndef move_away():\n    global x,top_run,top_y\n    x = root.winfo_x()\n    if (x<int(root.winfo_screenwidth())):\n        root.wm_geometry(f'+{x+10}+{root.winfo_y()}')\n        x+=10\n        root.after(15, move_away)\n    else:\n        top_run = True\n        top_y = 1000\n        show()\ndef move():\n    global y\n    if (y>300):\n        root.wm_geometry(f'+50+{y-10}')\n        y-=10\n        root.after(15, move)\n    else:\n        label.bind(\"<B1-Motion>\", move_window)\n        label.bind(\"<Button-1>\", get_pos)\n        windnd.hook_dropfiles(root , func=dragged_files)\n\n        def change_a(event):\n            global x\n            # image = Image.open(\"./images/作者\"+random.choice(['1','4','6','7','8','9'])+\".png\")\n            rand = random.choice(['1','4','5','6','7','8','9','11','17'])\n            image = Image.open(\"./images/作者\"+rand+\".png\")\n            image = image.resize((40,120))\n            img = ImageTk.PhotoImage(image)\n            label.configure(image=img)\n            label.image = img\n\n            if (rand=='5'):\n                x = 50\n                move_away()\n        label.bind(\"<Double-Button-1>\",change_a)\nroot = tk.Tk()\nroot.geometry(\"40x120+50+1000\")\nroot.overrideredirect(True)\nroot.attributes(\"-transparentcolor\",\"#f0f0f0\")\nroot.attributes(\"-topmost\",True)\n\ndef show_popupmenu(event):\n    popupmenu.post(event.x_root,event.y_root)\ndef change():\n    global flag\n    if (flag): flag=False\n    else: flag=True\npopupmenu = tk.Menu(root,tearoff=False)\npopupmenu.add_command(label=\"(取消)固定\",command=change)\ndef exit():\n    global running\n    running=False\n    os._exit(200)\npopupmenu.add_command(label=\"关闭\",command=exit)\nroot.bind(\"<Button-3>\",show_popupmenu)\n\nimage = Image.open(\"./images/作者7.png\")\nimage = image.resize((40,120))\nphoto = ImageTk.PhotoImage(image)\nlabel = tk.Label(root, image=photo, bd=0)\nlabel.pack()\nroot.after(15, move)\n\nwhile running:\n    root.update()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-25 15:03:17",
+    "modified_at": "2025-01-25 15:03:17",
+    "likes": 1,
+    "views": 14,
+    "comments": 7,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-24 12:01:43",
+    "updated_at": "2025-11-16 11:43:18",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 14,
+                "column": 41
+            },
+            "13506f28-0574-8ea9-773a-c0fe7862982e": {
+                "row": 129,
+                "column": 17
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0b1e2103395c7ddf413fa38bef5e8e42.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他 游戏",
+    "xml_path": "ce9f7955ca36a082c5cbd05fea7ef016",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59075920"
+}

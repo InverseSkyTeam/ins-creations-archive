@@ -1,0 +1,26 @@
+import XesAnalysis
+l=[
+    ["A",65,13,13,34,45,60,"28日"],
+    ["B",41,34,4,34,2,2,"29日"],
+    ["C",56,34,4,64,4,3,"30日"],
+    ["D",96,14,24,54,7,7,"31日"],
+    ["E",106,10,54,54,5,7,"31日"],
+    ["F",456,311,24,121,13,413,"31日"],
+    ["G",236,11,34,81,2,121,"31日"]
+  ]
+a=XesAnalysis.Analysis(l)
+#XesAnalysis.Analysis(l)传入需要分析的二维数组
+a.read()#读取二维数组中的信息
+a.out()#测试是否读入正确
+'''
+a.Analysis_view()#分析观看
+a.Analysis_like()#分析点赞
+a.Analysis_unlike()#分析踩
+a.Analysis_favorite()#分析收藏
+a.Analysis_adaptation()#分析改编
+a.Analysis_comment()#分析评论
+'''
+a.lineAnalysisAll()
+a.raderContrast([0,1,2,3,4,5])
+a.barContrast([0,1,2,3,4,5])
+a.pieContrast([[5,1,1],[4,1,1,0,0,0,0,0,0,0,0]])

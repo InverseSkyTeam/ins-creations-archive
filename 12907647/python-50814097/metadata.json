@@ -1,0 +1,61 @@
+{
+    "id": 50814097,
+    "name": "手痒了，又想写语言，写语言就要从Newlang抓起",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/622b2a8e8f9a7b6f16b03db0fb2490d4.jpg",
+    "xml": "# Firefly、storm、midlisp、speciallang\n'''\n吴宇航\n\n回复了你的评论 :\n这是个风(wind)雨(rain)交加的时代啊（\n\n6,（小声bb：付起名老是喜欢跟我对着干，我写个dragonfly他要写butterfly，我写个wind他要写个rain，后来他写了tinylisp我就写了个microlisp、、、不过后来我是实在没力气写个classicallang跟他的newlang对着干了（\n'''\n\nimport re\n\nclass Scanner:\n    def __init__(self,code):\n        self.code = code\n        self.scanner = re.Scanner([\n            (r'[0-9]+\\.[0-9]*', lambda scanner, token: ['float',float(token)]),\n            (r'\\.[0-9]+', lambda scanner, token: ['float',float(token)]),\n            (r'[0-9]+', lambda scanner, token: ['int',int(token)]),\n            (r'[A-z][A-z0-9]*', lambda scanner, token: ['alpha',token]),\n            (r'\\(|\\)|\\[|\\]|\\{|\\}', lambda scanner, token: ['paren',token]),\n            (r'[+-]|[*/%=]', lambda scanner, token: ['op',token]),\n            (r'\\n+', lambda scanner, token: ['ln',token]),\n            (r' +', lambda scanner, token: ['space',token]),\n            (r'.', lambda scanner, token: ['unk',token]),\n        ])\n    def scan(self):\n        result, rest = self.scanner.scan(awa)\n        if rest: raise Exception(f'小丑吧，怎么解析不出来这代码！\\n剩余:\\n{rest}')\n        return result + [['EOF','']]\n\nclass Tree:\n    def __init__(self,*args):\n        self.args=args\n    def __getitem__(self,n):\n        return self.args[n]\n    def __str__(self):\n        return type(self).__name__+\"(\"+\",\".join(map(str,self.args))+\")\"\n    __repr__=__str__\nclass Const(Tree):...\nclass Var(Tree):...\nclass Let(Tree):...\nclass Binary(Tree):...\nclass Unary(Tree):...\nclass Block(Tree):...\n\nclass Parser:\n    def __init__(self,stream):\n        self.stream = stream\n    \n    def get_prio(self,op):\n        return {\n            '*':2, '/':2, '%':2,\n            '+':1, '-':1,\n        }[op]\n    \n    def parse(self,stream):\n        p = 0\n        ttype, token = stream[p]\n        \n        # 返回此并指向下\n        def eat(ex=None):\n            nonlocal ttype, token, stream, p\n            if ex in [None,token]:\n                this = token\n                p += 1\n                while stream[p][0] == 'space':\n                    p += 1\n                ttype, token = stream[p]\n                return this\n            raise Exception(f'不匹配的单词{token}')\n        \n        def block():\n            l = []\n            while token not in ['','}']:\n                l.append(expr())\n                if ttype == 'ln':\n                    eat()\n            return Block(*l)\n        \n        def expr():\n            res = factor()\n            if type(res) == Block:\n                return res\n            if token in ['+','-','*','/','%',]:\n                res = Binary(eat(),res,factor())\n                while token in ['+','-','*','/','%',]:\n                    op = eat()\n                    fac = factor()\n                    if self.get_prio(res[0]) > self.get_prio(op):\n                        res=Binary(op,res,fac)\n                    else:\n                        res=Binary(res[0],res[1],Binary(op,res[2],fac))\n            if token == '=':\n                eat()\n                if type(res) != Var:\n                    raise Exception(f'不可以给非变量赋值！\\n错误:{res}')\n                res = Let(res,expr())\n            return res\n        \n        def factor():\n            if token == 'true':\n                eat()\n                return Const(True)\n            if token == 'false':\n                eat()\n                return Const(False)\n            if token == 'null':\n                eat()\n                return Const(None)\n            if ttype == 'int':\n                return Const(eat())\n            if ttype == 'float':\n                return Const(eat())\n            if ttype == 'alpha':\n                return Var(eat())\n            if token == '(':\n                eat()\n                e = expr()\n                eat(')')\n                return e\n            if token == '{':\n                eat()\n                b = block()\n                eat('}')\n                return b\n            if token in ('+','-'):\n                return Unary(eat(),factor())\n        \n        return block()\n    \n    def get_ast(self):\n        return self.parse(self.stream)\n\nclass Interpreter:\n    def __init__(self,ast):\n        self.ast = ast\n        self.global_scope = {}\n        self.dic_op_bin = {\n            '+': lambda a, b: a + b,\n            '-': lambda a, b: a - b,\n            '*': lambda a, b: a * b,\n            '/': lambda a, b: a / b,\n            '%': lambda a, b: a % b,\n            '==':lambda a, b: a == b,\n            '!=':lambda a, b: a != b,\n            '>': lambda a, b: a > b,\n            '<': lambda a, b: a < b,\n            '>=': lambda a, b: a >= b,\n            '<=': lambda a, b: a <= b,\n            '<<': lambda a, b: a << b,\n            '>>': lambda a, b: a >> b,\n            '&': lambda a, b: a & b,\n            '|': lambda a, b: a | b,\n            '^': lambda a, b: a ^ b,\n        }\n        self.dic_op_un = {\n            '+': lambda expr: +expr,\n            '-': lambda expr: -expr,\n            '~': lambda expr: ~expr,\n            # '!': lambda expr: not expr,\n        }\n    def run(self,tree,scope):\n        tp = type(tree)\n        if tp == Const:\n            return tree[0]\n        if tp == Var:\n            return scope[tree[0]]\n        if tp == Unary:\n            op = tree[0]\n            expr = self.run(tree[1],scope)\n            return self.dic_op_un[op](expr)\n        if tp == Binary:\n            op = tree[0]\n            l = self.run(tree[1],scope)\n            r = self.run(tree[2],scope)\n            return self.dic_op_bin[op](l,r)\n        if tp == Block:\n            for son in tree:\n                self.run(son,scope)\n            return\n        if tp == Let:\n            scope[tree[0][0]] = self.run(tree[1],scope)\n            \n    def execut(self):\n        self.run(self.ast,self.global_scope)\n\n\n\nawa = '''{a=1+2+3\n{n = a + 1}\n}\n'''\n\nscanner = Scanner(awa)\nstream = scanner.scan()\nprint(stream)\n\nparser = Parser(stream)\nast = parser.get_ast()\nprint(ast)\n\nprint('\\n\\n结果:')\n\nInterpreter = Interpreter(ast)\nInterpreter.execut()\nprint(Interpreter.global_scope)\n\n\n\n\n\nawa = '''a = (1.+-.1)*2*-3\nb = a + 1\nc = a+b\nd = true + 1 + true - false\ne = 5*(2+(1+2)*3)\nf = (3+(3+((((b+c)))+3))+3)/(1+2)-1+1+3/3-(2+5)%2\n'''",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-31 20:09:23",
+    "modified_at": "2024-02-01 13:28:54",
+    "likes": 4,
+    "views": 57,
+    "comments": 42,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-30 22:36:46",
+    "updated_at": "2026-02-21 15:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 8,
+                "column": 3
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/50028cc8f892aa0c3b8ba5e7a0227a32.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 3,
+    "tags": "算法 模拟 其他",
+    "xml_path": "62f5994ae6f77bef9b1b4413aaa353f8",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50814097"
+}

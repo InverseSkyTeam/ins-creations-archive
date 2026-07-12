@@ -1,0 +1,61 @@
+{
+    "id": 57682115,
+    "name": "隐藏扩展aiChatRobot，但是python",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import requests,json,sys\ncookie = json.loads(sys.argv[1])[\"cookies\"]\nhistory = \"\"\nwhile True:\n    question = input(\"请输入：\")\n    history+=\"我：\"+question\n    headers = {\n        'Cookie':cookie,\n        'Content-Type': 'application/json',\n        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'\n    }\n    token = json.loads(requests.get(url=\"https://code.xueersi.com/api/ai/auth_by_run_token\",headers=headers).text)[\"data\"][\"token\"]\n    headers = {\n        'Authorization': f'Bearer {token}',\n        'Content-Type': 'application/json',\n        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'\n    }\n    data = {\"prompt\":f\"请回答这个问题：“{question}”，这是刚刚的对话记录{history}\",\"history\":[],\"stream\":False,\"max_tokens\":0}\n    ask = json.loads(requests.post(\"https://codeapi.xueersi.com/ai/aigc/v2/chat\",json=data,headers=headers).text)[\"data\"][\"message\"][\"content\"]\n    print(\"回答：\"+ask)\n    history+=\"你：\"+ask\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-11-23 13:39:54",
+    "modified_at": "2025-01-22 20:33:29",
+    "likes": 8,
+    "views": 68,
+    "comments": 30,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-11-23 13:35:14",
+    "updated_at": "2026-05-27 17:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 16
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/8d3190c0a50e1488318f7e4203f70f07.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 3,
+    "favorites": 3,
+    "tags": "aiChatBot",
+    "xml_path": "136d79dfd688e894b9bbaf4060d25c2d",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_57682115"
+}

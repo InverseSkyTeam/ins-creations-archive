@@ -1,0 +1,65 @@
+{
+    "id": 60722856,
+    "name": "Pygame实现Scratch的外观特效",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/33fbb4bf9890015f60298bf5501eaaec.jpg",
+    "xml": "import pygame\nimport sys\nfrom Effect import Effect\n\npygame.init()\n\n# 屏幕设置\nw, h = 900, 900\nscreen = pygame.display.set_mode((w, h))\npygame.display.set_caption('图像效果调节器')\n\n# 颜色定义\nWHITE = (255, 255, 255)\nBLACK = (0, 0, 0)\nGRAY = (200, 200, 200)\nLIGHT_GRAY = (230, 230, 230)\nBLUE = (0, 120, 215)\nDARK_BLUE = (0, 90, 160)\nRED = (255, 0, 0)\n\n# 字体设置\nfont = pygame.font.SysFont(['kaiti', 'harmonyossanssc'], 24)\nsmall_font = pygame.font.SysFont(['kaiti', 'harmonyossanssc'], 20)\n\nUSE_CACHE = True\n\nclock = pygame.time.Clock()\n\nclass Sprite:\n    def __init__(self, path):\n        self.img = pygame.image.load(path).convert_alpha()\n        self.mosaic = 0\n        self.pixelate = 0\n        self.whirl = 0\n        self.fisheye = 0\n        self.color = 0\n        \n        self.temp_image = self.img.copy()\n        self.temp_color = self.temp_image.copy()\n    \n    def modify(self, mosaic, pixelate, whirl, fisheye, color):\n        if not USE_CACHE:\n            self.mosaic = mosaic\n            self.pixelate = pixelate\n            self.whirl = whirl\n            self.fisheye = fisheye\n            self.color = color\n            self.temp_image = Effect.transform_image(self.img, self.mosaic, self.pixelate, self.whirl, self.fisheye)\n            self.temp_color = Effect.transform_color(self.temp_image, self.color)\n            return\n        if self.mosaic != mosaic or self.pixelate != pixelate or self.whirl != whirl or self.fisheye != fisheye:\n            self.mosaic = mosaic\n            self.pixelate = pixelate\n            self.whirl = whirl\n            self.fisheye = fisheye\n            self.temp_image = Effect.transform_image(self.img, self.mosaic, self.pixelate, self.whirl, self.fisheye)\n            if self.color != color:\n                self.color = color\n            self.temp_color = Effect.transform_color(self.temp_image, self.color)\n            return\n        if self.color != color:\n            self.color = color\n            self.temp_color = Effect.transform_color(self.temp_image, self.color)\n    \n    def render(self, screen, rect):\n        screen.blit(self.temp_color, self.temp_color.get_rect(center=rect.center))\n\nclass InputBox:\n    def __init__(self, x, y, w, h, label, initial_value=0):\n        self.rect = pygame.Rect(x, y, w, h)\n        self.label = label\n        self.text = str(initial_value)\n        self.active = False\n        self.color = GRAY\n        self.label_surf = font.render(label, True, BLACK)\n        self.error = False\n        self.cursor_visible = False\n        self.cursor_timer = 0\n    \n    def handle_event(self, event, keyboard):\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if self.rect.collidepoint(event.pos):\n                self.activate(keyboard)\n            elif not keyboard.bg_rect.collidepoint(event.pos):\n                self.deactivate()\n        \n        if self.active and event.type == pygame.KEYDOWN:\n            self.process_key_event(event)\n    \n    def activate(self, keyboard):\n        self.active = True\n        self.color = BLUE\n        self.cursor_visible = True\n        self.cursor_timer = pygame.time.get_ticks()\n        keyboard.visible = True\n        keyboard.active_input = self\n    \n    def deactivate(self):\n        self.active = False\n        self.color = GRAY\n    \n    def process_key_event(self, event):\n        if event.key == pygame.K_RETURN:\n            self.deactivate()\n        elif event.key == pygame.K_BACKSPACE:\n            self.text = self.text[:-1]\n        elif event.unicode in '0123456789-.':\n            test_text = self.text + event.unicode\n            try:\n                test_text in '-.' or float(test_text)\n                self.text = test_text\n                self.error = False\n            except ValueError:\n                self.error = True\n    \n    def update(self):\n        if self.active:\n            now = pygame.time.get_ticks()\n            if now - self.cursor_timer > 500:\n                self.cursor_visible = not self.cursor_visible\n                self.cursor_timer = now\n    \n    def draw(self, screen):\n        screen.blit(self.label_surf, (self.rect.x, self.rect.y - 30))\n        pygame.draw.rect(screen, self.color, self.rect, 2)\n        pygame.draw.rect(screen, WHITE, (self.rect.x+2, self.rect.y+2, self.rect.w-4, self.rect.h-4))\n        \n        text_surface = font.render(self.text, True, BLACK)\n        screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))\n        \n        if self.active and self.cursor_visible:\n            cursor_x = self.rect.x + 5 + text_surface.get_width()\n            pygame.draw.line(screen, BLACK, (cursor_x, self.rect.y+5), \n                           (cursor_x, self.rect.y+self.rect.h-5), 2)\n        \n        if self.error:\n            pygame.draw.rect(screen, RED, self.rect, 2)\n    \n    def get_value(self):\n        try:\n            return float(self.text)\n        except ValueError:\n            return 0\n\nclass VirtualKeyboard:\n    def __init__(self):\n        self.visible = False\n        self.keys = [\n            ['7', '8', '9', '←'],\n            ['4', '5', '6', '←'],\n            ['1', '2', '3', '←'],\n            ['0', '-', '.', '←']\n        ]\n        self.key_rects = []\n        self.active_input = None\n        self.width = 400  # 加宽以适应退格键列\n        self.height = 300\n        self.x = w // 2 - self.width // 2\n        self.y = h - self.height - 20\n        self.bg_rect = pygame.Rect(self.x, self.y, self.width, self.height)\n        \n        key_width = 80\n        key_height = 60\n        margin = 10\n        \n        # 创建按键矩形，最后一列为退格键\n        for row in range(len(self.keys)):\n            for col in range(len(self.keys[row])):\n                x = self.x + margin + col * (key_width + margin)\n                y = self.y + margin + row * (key_height + margin)\n                self.key_rects.append(pygame.Rect(x, y, key_width, key_height))\n    \n    def handle_event(self, event):\n        if not self.visible:\n            return\n        \n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if not self.bg_rect.collidepoint(event.pos):\n                self.visible = False\n                if self.active_input:\n                    self.active_input.deactivate()\n                return\n            \n            for i, rect in enumerate(self.key_rects):\n                if rect.collidepoint(event.pos):\n                    row = i // 4  # 现在每行有4列\n                    col = i % 4\n                    char = self.keys[row][col]\n                    \n                    if self.active_input:\n                        if char == '←':  # 退格键处理\n                            key_event = pygame.event.Event(\n                                pygame.KEYDOWN,\n                                {'key': pygame.K_BACKSPACE, 'unicode': '', 'mod': 0}\n                            )\n                        else:\n                            key_event = pygame.event.Event(\n                                pygame.KEYDOWN,\n                                {'unicode': char, 'key': pygame.K_UNKNOWN, 'mod': 0}\n                            )\n                        self.active_input.process_key_event(key_event)\n    \n    def draw(self, screen):\n        if not self.visible:\n            return\n        \n        pygame.draw.rect(screen, LIGHT_GRAY, self.bg_rect)\n        pygame.draw.rect(screen, BLACK, self.bg_rect, 2)\n        \n        for i, rect in enumerate(self.key_rects):\n            color = DARK_BLUE if rect.collidepoint(pygame.mouse.get_pos()) else WHITE\n            pygame.draw.rect(screen, color, rect)\n            pygame.draw.rect(screen, BLACK, rect, 1)\n            \n            row = i // 4\n            col = i % 4\n            char = self.keys[row][col]\n            \n            # 退格键特殊样式\n            if char == '←':\n                text_surface = font.render(char, True, RED)  # 退格键用红色\n                # 绘制退格键图标\n                pygame.draw.rect(screen, (255, 200, 200) if rect.collidepoint(pygame.mouse.get_pos()) else (255, 230, 230), rect)\n            else:\n                text_surface = font.render(char, True, BLACK)\n            \n            text_rect = text_surface.get_rect(center=rect.center)\n            screen.blit(text_surface, text_rect)\n\n# 初始化\nsprite = Sprite('可多1.png')\nkeyboard = VirtualKeyboard()\ninput_boxes = [\n    InputBox(50, 400, 120, 32, \"马赛克\", sprite.mosaic),\n    InputBox(50, 480, 120, 32, \"像素化\", sprite.pixelate),\n    InputBox(50, 560, 120, 32, \"漩涡\", sprite.whirl),\n    InputBox(50, 640, 120, 32, \"鱼眼\", sprite.fisheye),\n    InputBox(50, 720, 120, 32, \"颜色\", sprite.color)\n]\n\n# 主循环\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        \n        keyboard.handle_event(event)\n        \n        for box in input_boxes:\n            box.handle_event(event, keyboard)\n    for box in input_boxes:\n        box.update()\n    \n    values = [box.get_value() for box in input_boxes]\n    sprite.modify(*values)\n    \n    screen.fill(WHITE)\n    # pygame.draw.rect(screen, 'red', (0, 0, w, h))\n    sprite.render(screen, pygame.Rect(50, 50, 300, 300))\n    \n    for box in input_boxes:\n        box.draw(screen)\n    \n    keyboard.draw(screen)\n    \n    # instructions = small_font.render(\"点击输入框可调出虚拟键盘，点击键盘外部可关闭\", True, BLACK)\n    # screen.blit(instructions, (50, 780))\n    fps = small_font.render(f\"FPS: {round(clock.get_fps(), 3)}\", True, BLACK)\n    screen.blit(fps, (10, 10))\n    \n    pygame.display.update()\n    clock.tick(114514)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-04-05 23:10:43",
+    "modified_at": "2025-04-06 12:13:35",
+    "likes": 7,
+    "views": 91,
+    "comments": 9,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-04-05 23:07:45",
+    "updated_at": "2026-07-05 12:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "0dce32a8-7226-a1da-10d4-4c11f5f8ab33": {
+                "row": 91,
+                "column": 29
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 109,
+                "column": 37
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/4fe4367a9f7b784077954690cf66de1e.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "其他 沙盒专区 艺术",
+    "xml_path": "aa441a4501f9fac9f348e39f752ac9b4",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_60722856"
+}

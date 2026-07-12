@@ -1,0 +1,65 @@
+{
+    "id": 49124616,
+    "name": "pvz骨骼动画渲染（bug修复版）",
+    "category": 1,
+    "type": "normal",
+    "description": "鼠标左键更换动作，鼠标右键更换僵尸",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/6ec9700d98889da81d1280ca68214559.jpg",
+    "xml": "print('解压图片文件中，请稍等')\nimport zipfile\nwith zipfile.ZipFile('Reanim.zip', 'r') as zip_ref:  # 解压骨骼动画图片\n    zip_ref.extractall('./')\nprint('图片文件解压成功')\nfrom PIL import Image\nimport numpy as np\nimport pygame, sys, math, data\nfrom numba import jit, prange, njit\n\n\n# TODO: 左键换动作，右键换僵尸\nact_num  = 0\nanim_data, act_data, act_name = None, None, None\ntx_r, tx_g, tx_b = 1.0, 1.0, 1.0  # 0.95, 0.47, 1.44\nnum = 0  # 当前在哪一帧\nup, down = -1, -1  # 当前动画的起始和结束帧数\nZombie_reanim_name = ['Zombie_catapult', 'Zombie_football', 'Zombie_gargantuar', 'Zombie_paper', 'Zombie_yeti', 'DoomShroom']\nZombie_num = 0\nreanims = data.open_reanims(Zombie_reanim_name)\n\n\n@jit(nopython=True)\ndef fun_numba(args, x, y):\n    x, y = args[0] * x + args[2] * y + args[4], args[1] * x + args[3] * y + args[5]\n    return [x, y]\n\n\n@jit(nopython=True)\ndef calc_colors_numba(opaque_color, transparent_color, tx_r, tx_g, tx_b, alpha):\n    opaque_r, opaque_g, opaque_b = opaque_color\n    alpha = transparent_color[3]*alpha/255\n    result_r = ((1 - alpha) * opaque_r + alpha * max(min(transparent_color[0] * tx_r, 255), 0))\n    result_g = ((1 - alpha) * opaque_g + alpha * max(min(transparent_color[1] * tx_g, 255), 0))\n    result_b = ((1 - alpha) * opaque_b + alpha * max(min(transparent_color[2] * tx_b, 255), 0))\n\n    return np.array([int(result_r), int(result_g), int(result_b)])\n\n\n@jit(nopython=True)\ndef canvas_transform_numba(screen: np.ndarray, image: np.ndarray, args: np.ndarray, tx_r, tx_g, tx_b, name, alpha):\n    if name == 'Zombie_paper_paper':\n        tx_r, tx_g, tx_b = 1.0, 1.0, 1.0\n    w, h = image.shape[1], image.shape[0]  # 变换前的大小\n    div_num = args[0] * args[3] - args[1] * args[2]\n    size = list(zip(fun_numba(args, 0, 0),\n                    fun_numba(args, 0, h-1),\n                    fun_numba(args, w-1, h-1),\n                    fun_numba(args, w-1, 0)))\n    new_w, new_h = math.ceil(max(size[0]))+1, math.ceil(max(size[1]))+1\n    for x in prange(min(new_w, screen.shape[0])):\n        for y in prange(min(new_h, screen.shape[1])):\n            new_x, new_y = ((x - args[4]) * args[3] - (y - args[5]) * args[2]) / div_num, \\\n                           (args[0] * (y - args[5]) - args[1] * (x - args[4])) / div_num\n            if new_x < 0 or new_x >= w or new_y < 0 or new_y >= h:\n                continue\n            screen[x, y] = calc_colors_numba(screen[x, y], image[int(new_y), int(new_x)], tx_r, tx_g, tx_b, alpha)\n\n\ndef init_reanim(zname):\n    global anim_data, act_data, act_name, act_num, up, down, num\n    anim_data, act_data, act_name = reanims[zname]\n    act_num = 0\n    up, down = act_data[act_name[act_num]]\n    num = up\n\n\ndef next_act():\n    global act_num, up, down, num, act_name\n    act_num += 1\n    act_num %= len(act_name)\n    up, down = act_data[act_name[act_num]]\n    num = up\n\n\npygame.init()\ninit_reanim(Zombie_reanim_name[Zombie_num])\nscreen = pygame.display.set_mode((300, 300))\nclock = pygame.time.Clock()\nwhile True:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                next_act()\n            if event.button == 3:\n                Zombie_num += 1\n                Zombie_num %= len(Zombie_reanim_name)\n                init_reanim(Zombie_reanim_name[Zombie_num])\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_1:  # 魅惑\n                tx_r, tx_g, tx_b = 0.95, 0.47, 1.44\n            if event.key == pygame.K_2:  # 蓝色蒙版,减速效果\n                tx_r, tx_g, tx_b = 0.5, 0.5, 2.0\n            if event.key == pygame.K_3:  # 减速+加亮效果\n                tx_r, tx_g, tx_b = 1.08, 1.08, 1.91\n            if event.key == pygame.K_4:  # 魅惑，加亮效果\n                tx_r, tx_g, tx_b = 1.46, 1.0, 1.68\n            if event.key == pygame.K_0:  # 无效果\n                tx_r, tx_g, tx_b = 1.0, 1.0, 1.0\n    screen.fill((255, 255, 255))\n    self_data = anim_data[num]\n    for i in self_data:\n        canvas_transform_numba(pygame.surfarray.pixels3d(screen), i[0],\n                               np.array([i[1], i[2], i[3], i[4], i[5] + 75, i[6] + 75]),\n                               tx_r, tx_g, tx_b, i[7], i[8])\n    pygame.display.update()\n    clock.tick(30)\n    num += 1\n    if num == down+1:\n        num = up\n\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2023-11-12 11:25:54",
+    "modified_at": "2024-06-08 15:02:28",
+    "likes": 8,
+    "views": 122,
+    "comments": 38,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-11-12 11:09:51",
+    "updated_at": "2026-06-27 10:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "fb0e8b35-9f3d-b90a-2abf-21452ae1b6cb": {
+                "row": 59,
+                "column": 35
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 28
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/81b28bc9d56e2f4cc3bb85abdf1d2137.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "游戏 沙盒专区 模拟",
+    "xml_path": "49574afe7a9e1dc779d4d475158e4ed8",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_49124616"
+}

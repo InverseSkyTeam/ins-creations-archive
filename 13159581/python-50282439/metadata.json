@@ -1,0 +1,65 @@
+{
+    "id": 50282439,
+    "name": "CIDE V1.1",
+    "category": 1,
+    "type": "normal",
+    "description": "解决运行线程问题！",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import CIDE",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-06 16:28:10",
+    "modified_at": "2024-01-06 16:28:10",
+    "likes": 5,
+    "views": 10,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-06 16:27:27",
+    "updated_at": "2024-11-17 11:30:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "634a4b88-c9e7-a419-70c2-f58f80774786": {
+                "row": 212,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 11
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/14838fac7f4eff9e9991fb559d6c4ca7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "模拟",
+    "xml_path": "c1c05e29be864592971953bc2b9d1710",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50282439"
+}

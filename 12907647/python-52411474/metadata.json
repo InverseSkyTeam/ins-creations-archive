@@ -1,0 +1,61 @@
+{
+    "id": 52411474,
+    "name": "视 野 裁 剪",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/7f9a536f1fa2fec1af1cde2a17a4efa5.jpg",
+    "xml": "from PIL import Image, ImageDraw\nimport time\n\nw, h = 1000, 700\ncx, cy = w/2, h/2\nr1 = 150\nr2 = 200\nrd = r2 - r1\n\nimage = Image.new('RGBA',(w,h))\ndraw = ImageDraw.Draw(image)\n\nfor x in range(w):\n    for y in range(h):\n        delta = round(((x - cx) ** 2 + (y - cy) ** 2) ** 0.5)\n        if delta <= r1:\n            draw.point((x,y),fill=(0,0,0,0))\n        elif delta <= r2:\n            alpha = 255 - round((r2 - delta) * 255 / rd)\n            draw.point((x,y),fill=(0,0,0,alpha))\n        else:\n            draw.point((x,y),fill=(0,0,0,255))\n\nimage.save('bg.png')\nprint(time.perf_counter())",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-04-05 12:35:58",
+    "modified_at": "2024-04-05 12:35:58",
+    "likes": 4,
+    "views": 34,
+    "comments": 3,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-04-05 12:21:18",
+    "updated_at": "2026-02-21 15:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 7,
+                "column": 12
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/3c52f97288834cdacf230c25e7fc6e46.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟",
+    "xml_path": "7a16f4d53285b8113faaaae85e3238dd",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52411474"
+}

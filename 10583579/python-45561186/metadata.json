@@ -1,0 +1,61 @@
+{
+    "id": 45561186,
+    "name": "mc风格的弹窗",
+    "category": 1,
+    "type": "normal",
+    "description": "实现了mc风格的弹窗，目前还没有填写文字",
+    "user_id": 10583579,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nfrom typing import Any, Optional,Tuple,Union,List\nimport sys\nfrom time import sleep\n\nprint(\"点击屏幕打开弹窗\")\n\npygame.init()\npygame.display.set_caption(\"弹窗测试\")\nscreen = pygame.display.set_mode((1280,720))\n\ntry:\n    import ntpath\n    del ntpath\n    FONTNAME = \"kaiti\"\nexcept:\n    FONTNAME = \"kaittf\"\n\nFontDict = {}\n\ndef show_text(content:Optional[str],color:tuple,position:Union[list,tuple],size:int,master:pygame.Surface=screen,fontname = FONTNAME):\n    if f\"font_{size}\" in FontDict:\n        master.blit(FontDict[f\"font_{size}\"].render(content,True,color),(position))\n    else:\n        FontDict[f\"font_{size}\"] = pygame.font.SysFont(fontname,size)\n        show_text(content,color,position,size,master)\n\ndef get_font(size,fontname=FONTNAME):\n    if f\"font_{size}\" not in FontDict:\n        FontDict[f\"font_{size}\"] = pygame.font.SysFont(fontname,size)\n    return FontDict[f\"font_{size}\"]\n\nbackground = pygame.image.load(\"背景.jpg\")\nbackground = pygame.transform.scale(background,(1280,720))\n\n# 弹窗类\nclass Window(pygame.Surface):\n    def __init__(self, screen:Optional[pygame.Surface], color:Tuple[int,int,int], size:Union[Tuple[int,int], List[int], None] = (100,100),border_radius:Optional[int] = 10,alpha=200) -> None:\n        self.screen = screen\n        self.size = tuple(size)\n\n        # 父类初始化\n        super().__init__(self.size)\n\n        # 高度 & 宽度\n        self.width = self.size[0] # 弹窗宽度\n        self.height = self.size[1] # 弹窗高度\n        self.screen_width = self.screen.get_width() # pygame屏幕宽度\n        self.screen_height = self.screen.get_height() # pygame屏幕高度\n\n        # 位置\n        self.x = (self.screen_width - self.width) // 2\n        self.y = (self.screen_height - self.height) // 2\n        \n        # 颜色\n        self.color = color\n\n        # 所在矩形\n        self.rect = self.get_rect()\n        self.rect.x = self.x\n        self.rect.y = self.y\n\n        # 圆角\n        self.border_radius = border_radius\n\n        # 透明度\n        self.alpha = alpha\n\n        # 界面\n        self.fill((255,255,255))\n        pygame.draw.rect(self, self.color, (0,0,self.width, self.height), 0, border_radius=self.border_radius)\n        self.set_colorkey(pygame.Color(\"white\"))\n        self.__screen = self.screen.copy()\n        self.closed = False\n\n    def gradient_appear(self) -> None:\n        self.closed = False\n        for alpha in range(0,150):\n            self.set_alpha(int(Window.linear(0,self.alpha+1,Window.nonlinear(alpha/150))))\n            self.screen.blit(self.__screen,(0,0))\n            self.screen.blit(self,self.rect)\n            pygame.display.update()\n            pygame.time.delay(1)\n\n    def fly_in_appear(self, side = \"down\",command = None) -> None:\n        \"\"\"\n        :param side ->  up  表示从下往上飞入\n                       down 表示从上往下飞入\n        \"\"\"\n        self.closed = False\n        self.set_alpha(self.alpha)\n        if side == \"down\":\n            y = self.y // 0.5\n        elif side == \"up\":\n            y = self.screen_height - self.y // 0.5\n        for i in range(150):\n            screen.blit(self.__screen,(0,0))\n            if command:\n                command(self.x,self.y-Window.linear(y,0,Window.nonlinear(i/150)))\n            screen.blit(self,(self.x,self.y-Window.linear(y,0,Window.nonlinear(i/150))))\n            pygame.display.update()\n            pygame.time.delay(1)\n\n    def update(self) -> None:\n        pygame.display.update()\n\n    def disappear(self) -> None:\n        try:\n            self.screen.blit(self.__screen,(0,0))\n            pygame.display.update()\n        except:\n            raise pygame.error(\"the window has not appeared yet\")\n\n    @staticmethod\n    def nonlinear(x:Union[int,float]) -> int:\n        return x**3 * (6 * x**2 - 15 * x + 10)\n\n    @staticmethod\n    def linear(y1,y2,w) -> int:\n        return y1 + (y2 - y1) * w\n\nclass MC_Style_Window(Window):\n    def __init__(self,screen:pygame.Surface) -> None:\n        super().__init__(screen,(255,255,255),(700,500),6,255)\n        self.close_rect = pygame.Rect(463+self.x,17+self.y,20,20)\n        self.background = screen.subsurface(pygame.Rect(self.x+15,self.y+48,self.width-31,self.height-71))\n        pygame.draw.rect(self, (91,91,91), pygame.Rect(2,2, self.width-4, self.height-4), width=4, border_radius=self.border_radius-2)\n        pygame.draw.rect(self,(0,0,0),pygame.Rect(0,0,self.width,self.height),width=2,border_radius=self.border_radius)\n        pygame.draw.rect(self,(242,250,250),pygame.Rect(2,2,self.width-8,self.height-8),border_top_left_radius=self.border_radius)\n        pygame.draw.rect(self,(198,198,198),pygame.Rect(6,6,self.width-12,self.height-12),width=0,border_top_left_radius=3)\n        show_text(\"×\",(113,107,109),(self.width-37,17),20,self)\n        pygame.display.update()\n    \n    def on_button_down(self,event):\n        if not self.closed:\n            if event.type == pygame.MOUSEBUTTONDOWN:\n                if self.close_rect.collidepoint(event.pos):\n                    self.screen.blit(self._Window__screen,(0,0))\n                    self.closed = True\n    \n    def update(self,x,y):\n        if y+48 < 0:\n            self.background = self._Window__screen.subsurface(pygame.Rect(x+15,0,self.width-31,self.height-71+y+48))\n            self.blit(self.background,(15,-y))\n            self.imformation_area = pygame.Surface((self.width-31,self.height-71+y+48),pygame.SRCALPHA)\n            self.imformation_area.fill(pygame.Color(0,0,0,180))\n            self.blit(self.imformation_area,(15,-y))\n            pygame.draw.rect(self,(252,252,252),pygame.Rect(self.width-18,48,2,self.height-71),width=0)\n            pygame.draw.rect(self,(125,128,129),pygame.Rect(self.width-18,48,2,3),width=0)\n            pygame.draw.rect(self,(252,252,252),pygame.Rect(15,self.height-25,self.width-32,2),width=0)\n            pygame.draw.rect(self,(125,128,129),pygame.Rect(15,self.height-25,3,2),width=0)\n        else:\n            self.background = self._Window__screen.subsurface(pygame.Rect(x+15,y+48,self.width-31,self.height-71))\n            self.blit(self.background,(15,48))\n            self.imformation_area = pygame.Surface((self.width-31,self.height-71),pygame.SRCALPHA)\n            self.imformation_area.fill(pygame.Color(0,0,0,180))\n            self.blit(self.imformation_area,(15,48))\n            pygame.draw.rect(self,(252,252,252),pygame.Rect(self.width-18,48,2,self.height-71),width=0)\n            pygame.draw.rect(self,(125,128,129),pygame.Rect(self.width-18,48,2,3),width=0)\n            pygame.draw.rect(self,(252,252,252),pygame.Rect(15,self.height-25,self.width-32,2),width=0)\n            pygame.draw.rect(self,(125,128,129),pygame.Rect(15,self.height-25,3,2),width=0)\n\nscreen.blit(background,(0,0))\nmc_window = MC_Style_Window(screen)\nrunning = True\nclock = pygame.time.Clock()\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        elif event.type == pygame.MOUSEBUTTONDOWN:\n            if not mc_window.close_rect.collidepoint(event.pos):\n                mc_window.fly_in_appear(command=mc_window.update)\n    mc_window.on_button_down(event)\n    pygame.display.update()\n    clock.tick(60)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2023-07-20 21:55:16",
+    "modified_at": "2024-08-07 22:53:03",
+    "likes": 10,
+    "views": 90,
+    "comments": 10,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-07-20 21:54:29",
+    "updated_at": "2026-05-29 11:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 123,
+                "column": 54
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/38adfcad5aee5fe7fc4c1c4ef427b8ea.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 2,
+    "favorites": 4,
+    "tags": "动画 模拟",
+    "xml_path": "c09554462fae5f4a9ebd99a80e47a4ad",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "何嘉晨",
+    "user_avatar": "https://img.100tal.com/user/20200730/Tall4HQqhG5rGNwFPlaLrVUxWA1748.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_45561186"
+}

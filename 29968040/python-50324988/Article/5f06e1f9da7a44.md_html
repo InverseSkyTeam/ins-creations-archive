@@ -1,0 +1,97 @@
+<html><head></head><body><h1>Vercel+Github搭建Hexo博客</h1>
+<h3>工作原理</h3>
+<ul>
+<li>github是一个代码托管平台，缺点是加载的时候特别慢</li>
+<li>vercel完美结局了这个问题，vercel加载速度相对快一些，可以和github绑定，而且根据github储存库实时拉取更新</li>
+<li>Hexo一个快速、简洁且高效的博客框架,它支持几条简短的命令发布博客,因此是对于初学者比较友好的博客框架</li>
+</ul>
+<h3>准备工作</h3>
+<ul>
+<li><p>github账号、vercel账号</p></li>
+<li><p>nodejs v12版本以上 、 git</p>
+<blockquote>
+<p>网站官网：</p>
+<blockquote>
+<p><a href="https://github.com/">github官网</a>、<a href="https://vercel.com/">vercel官网</a> <a href="https://git-scm.com/">git官网</a>、<a href="https://nodejs.org/en/">nodejs官网</a></p>
+</blockquote>
+</blockquote></li>
+</ul>
+<hr />
+<h3>创建Vercel项目并拉取</h3>
+<ol>
+<li>首先进vercel官网，点击 New Project 按钮，然后点击 Browse All Templates 按钮 找到Hexo主题然后 修改项目名 把下面那个框勾掉（那个是创建私有储存库），然后你的github里会自动生成一个项目</li>
+<li>配置git :
+<ul>
+<li><p>打开git-bush 输入ssh-keygen -t rsa -C "{{github的电子邮箱地址}}" 连续 3 次回车，最终会在用户目录下生成个包含公钥私钥等数据的目录 ( 一般是 C:/Users/{{你的用户名}}/.ssh/ ) 将刚复制的内容粘贴到 Key(你的github-&gt;setting-&gt;SSH) 中，Title 随便写一个，点击保存 ( Add SSH Key )</p></li>
+<li><p>运行下方命令 :</p>
+<pre><code>git config --global user.name &quot;{{你的 GitHub username}}&quot;
+git config --global user.email &quot;{{你的 GitHub 注册邮箱地址}}&quot;
+ssh -T git@github.com # 邮箱地址不用改 如果提示 Are you sure you want to continue connecting (yes/no)? 请输入 yes 并回车。</code></pre></li>
+</ul></li>
+<li>在本地选一个文件夹 打开git-bash 运行：git clone https://github.com/用户名/仓库名称</li>
+</ol>
+<hr />
+<h3>更换主题</h3>
+<ol>
+<li>首先打开<a href="https://hexo.io/themes/">hexo官网</a> 挑选一个心仪的主题 ，单击图片可以预览网页，点下面文字到github仓库 <strong>注意：不要选择indigo这个主题，这个主题有漏洞，配置起来很麻烦，有些主题预览不了的尽量不要选，避免一会的麻烦（作者一开始选的就是indigo）</strong></li>
+<li>到仓库之后 在主文件夹打开git-bash 然后输入 git clone 你刚才的主题的仓库的网址 themes/主题名</li>
+<li>打开主项目下的 _config.yml 文件 把 theme：lanspace 改为 theme:你的主题名 然后进到 themes文件夹里把landspace文件夹删了（也可以不删）</li>
+</ol>
+<hr />
+<h3>更改配置</h3>
+<p><strong>注意：这一步需要有较好的英文功底</strong></p>
+<ol>
+<li><p>进入 打开主项目下的 _config.yml 文件 修改 <strong>注意：这里冒号后面有空格 我之前就是应为这个找半天不知道报错在哪</strong></p>
+<pre><code>title: 标题
+subtitle: 你的个性签名
+author: 你的名字
+language: zh-CN
+# URL
+url: 这里写你vercel预览的网址，我这边是：https://yzx-blog.vercel.app/</code></pre></li>
+<li><p>进入你的主题文件夹里面的 _config.yml 文件 修改各项属性 由于每个主题各有不同 大家可以在网上搜索教程</p></li>
+</ol>
+<hr />
+<h3>生成网页</h3>
+<ol>
+<li><p>万事俱备后再在（这一步其实应该提前做的） cmd运行：</p>
+<pre><code>npm install -g hexo </code></pre>
+<p>主目录运行：</p>
+<pre><code>npm install -g hexo 
+npm install hexo-cli --save
+npm install hexo-deployer-git --save</code></pre>
+<p>这是在搭建hexo环境</p></li>
+<li><p>生成网页</p>
+<pre><code>hexo clean
+hexo g
+hexo s</code></pre>
+<p>hexo s之后会在http://localhost:4000/显示你的网页 如果这个时候你成功了那么就可以提交到github了</p>
+<p><strong>可能的报错：</strong></p>
+<pre><code>error: RPC failed； curl 28 OpenSSL SSL_read: Connection was reset, errno 10054 fatal: expected</code></pre>
+<p><strong>解决办法</strong></p>
+<pre><code>git config --global http.sslVerify &quot;false&quot;</code></pre></li>
+</ol>
+<hr />
+<h3>提交并成功部署博客</h3>
+<ol>
+<li><p>主文件夹打开git-bush</p></li>
+<li><p>运行:以下代码</p>
+<pre><code>git remote
+git remote 你vercel生成的那个github仓库网址
+git add .（可能要尝试两次）
+git commit -m &quot;提交的备注&quot;
+git push -u origin main</code></pre></li>
+</ol>
+<hr />
+<h3>写文章</h3>
+<ol>
+<li>运行 hexo new "文章名"</li>
+<li>在提示的目录打开文件使用markdown语法编辑 具体教程看<a href="https://www.runoob.com/markdown/md-tutorial.html">markdown教程用法</a>转自菜鸟教程</li>
+<li>之后 clean g s三件套 再来一遍再提交就OK了</li>
+</ol>
+<hr />
+<h3>归档、分类里面是报错的</h3>
+<ol>
+<li>检查一下你的yml配置文件</li>
+<li>按照这个<a href="https://blog.csdn.net/weixin_48927364/article/details/123295436">教程</a>走</li>
+</ol>
+</body></html>

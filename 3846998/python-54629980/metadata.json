@@ -1,0 +1,61 @@
+{
+    "id": 54629980,
+    "name": "IDU TermEd 0.0.0 pre v7",
+    "category": 1,
+    "type": "normal",
+    "description": "新增Rain的增量高亮",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import os\n\nos.system(\"start cmd /c \\\"python edcore.py config.rain\\\"\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-25 16:44:58",
+    "modified_at": "2024-07-25 16:44:58",
+    "likes": 3,
+    "views": 22,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-25 16:42:54",
+    "updated_at": "2025-08-22 16:45:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/7931bedfdd5c5b1e41053d3e48e92401.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "bc4fc02f441ee81ac726ff1b18cf10c2",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54629980"
+}

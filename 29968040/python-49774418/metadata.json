@@ -1,0 +1,89 @@
+{
+    "id": 49774418,
+    "name": "排序算法可视化",
+    "category": 1,
+    "type": "normal",
+    "description": "转载自pygame官网",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nfrom random import randint\nfrom time import time\nfrom algs import algorithmsDict\nimport display as display\n\n# Declared in display.py\n# 1. global variables : numBars, delay, do_sorting, paused, timer_space_bar\n# 2. widgets : sizeBox, delayBox, algorithmBox, playButton, stopButton\n\n\ndef main():\n    numbers = []\n    running = True\n    # print(list(algorithmsDict.keys()))\n    algorithmsDictChinese = {\n        '插入排序': 'insertion', \n        '冒泡排序': 'bubble',\n        '选择排序': 'selection',\n        '归并排序': 'merge',\n        '快速排序': 'quick',\n        '计数排序': 'counting',\n        '双向冒泡排序': 'cocktail',\n        '循环排序': 'cycle',\n        '随机排序': 'bogo',\n        '堆排序': 'heap',\n        '基数排序': 'radix',\n        '希尔排序': 'shell',\n        '侏儒排序': 'gnome',\n        '梳排序': 'comb',\n        '双调排序': 'bitonic',\n        '煎饼排序': 'pancake',\n        '二分插入排序': 'binary insertion',\n        '桶排序': 'bucket',\n        'Tim排序': 'tim',\n        '臭皮匠排序': 'stooge',\n        '链排序': 'strand',\n        '奇偶排序': 'odd-even',\n        '鸽巢排序': 'pigeonhole',\n        '交换排序': 'exchange',\n        '树形排序': 'tree'\n    }\n    display.algorithmBox.add_options(list(algorithmsDictChinese.keys()))\n\n    alg_iterator = None\n\n    timer_delay = time()\n    \n    while running:\n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                running = False\n\n            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and display.do_sorting:\n                display.paused = not display.paused\n                display.timer_space_bar = time()\n\n            display.updateWidgets(event)\n\n        display.delay = (display.delayBox.value-display.delayBox.rect.x-6)/1000 # delay is in ms\n\n        if display.playButton.isActive: # play button clicked\n            display.playButton.isActive = False\n            display.do_sorting = True\n            current_alg = display.algorithmBox.get_active_option()\n            current_alg = algorithmsDictChinese[current_alg]\n            display.numBars = int(display.sizeBox.text)\n            numbers = [randint(10, 400) for i in range(display.numBars)] # random list to be sorted\n            alg_iterator = algorithmsDict[current_alg](numbers, 0, display.numBars-1) # initialize iterator\n\n        if display.stopButton.isActive: # stop button clicked\n            display.stopButton.isActive = False\n            display.do_sorting = False\n            display.paused = False\n            try: # deplete generator to display sorted numbers\n                while True:\n                    numbers, redBar1, redBar2, blueBar1, blueBar2 = next(alg_iterator)\n            except StopIteration:\n                pass\n\n        if display.do_sorting and not display.paused: # sorting animation\n            try:\n                if time()-timer_delay >= display.delay:\n                    numbers, redBar1, redBar2, blueBar1, blueBar2 = next(alg_iterator)\n                    display.drawInterface(numbers, redBar1, redBar2, blueBar1, blueBar2)\n                    timer_delay = time()\n            except StopIteration:\n                display.do_sorting = False\n        elif display.do_sorting and display.paused: # animation paused\n            display.drawInterface(numbers, -1, -1, -1, -1)\n        else: # no animation\n            a_set = set(range(display.numBars))\n            display.drawInterface(numbers, -1, -1, -1, -1, greenRows=a_set)\n\n\nif __name__ == '__main__':\n    main()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2023-12-11 20:19:44",
+    "modified_at": "2023-12-11 20:19:44",
+    "likes": 8,
+    "views": 30,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-12-11 19:08:18",
+    "updated_at": "2026-05-16 09:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "202e97ca-7e84-5240-ea39-55533e030075": {
+                "row": 68,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 36,
+                "column": 24
+            },
+            "ee868e90-de67-d9e5-f61c-e48b8a5687df": {
+                "row": 24,
+                "column": 35
+            },
+            "6ba4f296-e554-47b7-cbd5-3ce2986fd948": {
+                "row": 96,
+                "column": 0
+            },
+            "f7d017c9-46a2-7418-1647-2899764d2074": {
+                "row": 218,
+                "column": 32
+            },
+            "28fd7514-7893-718f-51a0-dfdfdfd04183": {
+                "row": 33,
+                "column": 0
+            },
+            "63beb594-38ce-5959-6d91-1476e6507403": {
+                "row": 27,
+                "column": 0
+            },
+            "d119252a-343c-f644-7d30-21b79c3409a1": {
+                "row": 41,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/64f857924a9fe265c46635a63314ed48.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "a99c52cf12f3a3944e39cdfd5bd504f3",
+    "created_source": "reprint",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_49774418"
+}

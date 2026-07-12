@@ -1,0 +1,65 @@
+{
+    "id": 59162506,
+    "name": "pygame动画库 v0.0.2",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport sys\nfrom INS_Animation import transition, TransitionGroup\n\n\npygame.init()\nw, h = 800, 600\nscreen = pygame.display.set_mode((w, h), pygame.RESIZABLE)\nclock = pygame.time.Clock()\n\n\nclass Button:\n    def __init__(self):\n        self.center = (400, 300)\n        self.w, self.h = 200, 100\n\n        self.is_hover = False\n\n        self.hover_transition = TransitionGroup()\n        self.no_hover_transition = TransitionGroup()\n\n        hover_transition_w = transition((self, 'w', self.w * 1.5), '0.1s', 'ease-in-out', '0s')\n        hover_transition_h = transition((self, 'h', self.h * 1.5), '0.1s', 'ease-in-out', '0s')\n        self.hover_transition.add_transition([hover_transition_w, hover_transition_h])\n\n        no_hover_transition_w = transition((self, 'w', self.w), '0.1s', 'ease-in-out', '0s')\n        no_hover_transition_h = transition((self, 'h', self.h), '0.1s', 'ease-in-out', '0s')\n        self.no_hover_transition.add_transition([no_hover_transition_w, no_hover_transition_h])\n\n    def get_rect(self):  # 这个不需要看懂\n        rect = pygame.Rect(0, 0, round(self.w), round(self.h))\n        rect.center = self.center\n        return rect\n\n    def render(self, screen):  # 不用看，只是用于绘制的\n        pygame.draw.rect(screen, (255, 0, 0), self.get_rect(), border_radius=20)\n\n        txt = pygame.font.SysFont('SimHei', round(self.w / 10)).render('这是一个按钮', True, (255, 255, 255))\n        screen.blit(txt, txt.get_rect(center=self.get_rect().center))\n\n    def handle_event(self):\n        mouse_pos = pygame.mouse.get_pos()\n        if self.get_rect().collidepoint(mouse_pos):  # 被鼠标碰到\n            if not self.is_hover:  # 但是不处于 hover 状态\n                self.is_hover = True\n                self.no_hover_transition.stop()\n                self.hover_transition.start()\n        else:  # 没被鼠标碰到\n            if self.is_hover:  # 但是处于 hover 状态\n                self.is_hover = False\n                self.hover_transition.stop()\n                self.no_hover_transition.start()\n\n    def update(self):\n        self.hover_transition.update()\n        self.no_hover_transition.update()\n\n\nbutton = Button()\n\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.VIDEORESIZE:\n            w, h = screen.get_size()\n    button.handle_event()\n\n    screen.fill((255,)*3)\n    button.update()\n    button.render(screen)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-26 20:55:31",
+    "modified_at": "2025-01-26 20:55:31",
+    "likes": 2,
+    "views": 34,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-26 20:54:58",
+    "updated_at": "2026-05-08 18:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "96a75401-65a0-9e23-71af-25648c45db3f": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 79,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/f4884376522c4bd3196ae3374e368b58.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "游戏 沙盒专区 艺术",
+    "xml_path": "3bea979a1f37a62a485f3dee043dfafc",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59162506"
+}

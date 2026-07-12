@@ -1,0 +1,7 @@
+print("瞎写了个模态窗口封装，顺手存云下")
+print("代码写的很乱，只是为了copy方便（")
+print("源码在素材区，有需要改编看")
+print()
+print("A modal window encapsulation was written hastily and saved to the cloud.")
+print("The code is messy, just for easy copying.")
+print("The source code is in the resources area so you need to adapt it.")

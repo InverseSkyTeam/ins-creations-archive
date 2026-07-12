@@ -1,0 +1,65 @@
+{
+    "id": 50354303,
+    "name": "氵：#代码跃动#",
+    "category": 1,
+    "type": "normal",
+    "description": "水",
+    "user_id": 10583579,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from hitmouse import *\n\nn = int(input(\"请输入年兽洞排数：\"))\nm = int(input(\"请输入年兽洞列数：\"))\n\n#TODO初级改编：可改变年兽洞穴的样式\nadd_hole(\"洞穴6.png\")\n#TODO初级改编：可修改年兽的外观\nadd_pic(\"年兽1.png\",\"年兽1\",)\nadd_pic(\"年兽2.png\",\"年兽2\")\nadd_pic(\"年兽3.png\",\"年兽3\")\nadd_pic(\"年兽4.png\",\"年兽4\")\n#{\nset_map([['h' for i in range(m)] for j in range(n)])\n#}\n\n#击打的年兽数量\ncount = 0\nwhile True:\n    m = hit()\n    #TODO高级改编1：修改击打年兽后的结果\n    if m == '年兽1':\n        count = count + 1\n    elif m == '年兽2':\n        #让锤子变小或变大\n        # big()\n        # small()\n        count = count + 1\n    elif m == '年兽3':\n        count = count + 1\n    elif m == '年兽4':\n        #全屏爆炸\n        boom()\n        count = 0\n    else:\n        pass\n        \n    #TODO高级改编2：修改难度区间\n    if count <= 20:\n        #控制游戏难度，数字越大游戏越难\n        mouse(2)\n    elif count <= 40:\n        mouse(4)\n    else:\n        mouse(6)\n    # 开始游戏\n    play()\n    # 显示击打的年兽数\n    show_beast(count)",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2024-01-19 21:57:50",
+    "modified_at": "2024-01-19 21:57:50",
+    "likes": 5,
+    "views": 26,
+    "comments": 2,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 50142432,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-19 21:57:29",
+    "updated_at": "2025-07-19 17:59:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 6,
+                "column": 19
+            },
+            "170953fa-ea7a-418e-a4cd-0e5b92662492": {
+                "row": 409,
+                "column": 4
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/1bf9daa540ca60901da558d17c8fd454.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "游戏",
+    "xml_path": "95e9fc88db7aee45a8fa0c57fd91e3b7",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "何嘉晨",
+    "user_avatar": "https://img.100tal.com/user/20200730/Tall4HQqhG5rGNwFPlaLrVUxWA1748.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50354303"
+}

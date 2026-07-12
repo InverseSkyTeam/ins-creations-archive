@@ -1,0 +1,65 @@
+{
+    "id": 51428388,
+    "name": "纯python渲染3D FPS++",
+    "category": 1,
+    "type": "normal",
+    "description": "使用numpy+numba优化",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/cc22002e71dd6f862635518a471fd7f2.jpg",
+    "xml": "from render import render, Model\nimport pygame, sys\npygame.init()\nscreen = pygame.display.set_mode((600, 600))\nmodel = Model(\"res/axe.obj\", texture_filename=\"res/axe.tga\")\nclock = pygame.time.Clock()\nnum = 0\nwhile 1:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            pass\n\n    screen.fill((255, 255, 255))\n    render(\n        model,\n        height=600,\n        width=600,\n        filename=\"axe.png\",\n        screen=screen,\n        angleX=0,\n        angleY=num\n    )\n    pygame.display.flip()\n    clock.tick(114514)\n    num += 0.05\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-15 16:41:55",
+    "modified_at": "2024-02-15 16:41:55",
+    "likes": 5,
+    "views": 86,
+    "comments": 15,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-15 16:33:21",
+    "updated_at": "2025-12-25 20:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "38ee08a0-3041-321e-8411-258110cdd6ad": {
+                "row": 31,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 4,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0c706544bfe8e9b333d126e419f04901.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "游戏 沙盒专区 海龟",
+    "xml_path": "bb8b70c6ae526d0e05b9756706f69195",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51428388"
+}

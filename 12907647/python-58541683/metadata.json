@@ -1,0 +1,61 @@
+{
+    "id": 58541683,
+    "name": "近期状况：",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/8652b4c948e0a496720504aa4a57a864.jpg",
+    "xml": "import pygame\nimport random\nimport time\nimport sys\n\npygame.init()\nfont = {\n    30: pygame.font.SysFont('kaiti', 30),\n    40: pygame.font.SysFont('kaiti', 40),\n}\ndef show_text(text, color=(0, 0, 0), pos=(0, 0), size=40):\n    screen.blit(font[size].render((text), True, color), pos)\n\npygame.display.set_caption('∫insjhx 近期状况')\nscreen = pygame.display.set_mode((800, 600))\n\ninsjhx = pygame.image.load('insjhx.png')\nclock = pygame.time.Clock()\n\nclass Actor:\n    def __init__(self, img):\n        self.standard_img = img\n        self.rect = 0\n        self.resize(self.standard_img.get_width(), self.standard_img.get_height())\n    def resize(self, w, h):\n        x, y = (0, 0)\n        if self.rect:\n            x, y = self.rect.x, self.rect.y\n        self.img = pygame.transform.smoothscale(self.standard_img, (w, h))\n        self.rect = self.img.get_rect()\n        self.rect.x, self.rect.y = x, y\n    def move(self, x, y):\n        self.rect.x += x\n        self.rect.y += y\n    def setp(self, x, y):\n        self.rect.x = x\n        self.rect.y = y\n    def show_on(self, scr):\n        scr.blit(self.img, self.rect)\n\ninsjhx = Actor(insjhx)\ninsjhx.resize(480, 1440)\ninsjhx.setp(160, 600)\nstartmovespeed = 15\nnow = 1\n\n\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                if now in [2, 4, 5, 7, 9, 10]:\n                    now += 1\n                    if now == 8:\n                        screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)\n                        insjhx.setp(-480, 100)\n                        insjhx.resize(480, 1440)\n                        startmovespeed = 10\n                    if now == 11:\n                        pygame.quit()\n                        print('∫insjhx 有思想的不定积分逃离了窗口，他进入了互联网穿越去下一家玩了。')\n                        sys.exit()\n        if event.type == pygame.KEYDOWN:\n            if event.key == ord('r'):\n                ...\n    \n    if now == 6:\n        if insjhx.rect.x < 1160:\n            insjhx.move(6, 0)\n            screen = pygame.display.set_mode((max(insjhx.rect.x + 40, 800), max(600, insjhx.rect.x - 200)))\n        else:\n            screen = pygame.display.set_mode((1200, 800))\n            now = 7\n    \n    screen.fill((255, 255, 255))\n    if now == 3:\n        screen.fill(((insjhx.rect.x - 100)*255/60, (insjhx.rect.x - 100)*255/60,(insjhx.rect.x - 100)*255/60))\n    elif now in [4, 5, 6, 7, 8, 9]:\n        screen.fill((0, 0, 0))\n    insjhx.show_on(screen)\n    \n    # xes python3.7 不能用 match-case 差评！\n    if now == 1:\n        insjhx.move(0, -startmovespeed)\n        startmovespeed *= 0.97\n        if startmovespeed < 0.5:\n            startmovespeed = 5\n            now = 2\n    elif now == 2:\n        show_text('有思想的不定积分来了！[单击]继续', (0, 0, 0), (60, 50), 40)\n    elif now == 3:\n        if insjhx.rect.w > 40:\n            insjhx.resize(insjhx.rect.w * 0.95, insjhx.rect.h * 0.95)\n        else:\n            insjhx.resize(40, 120)\n        if insjhx.rect.x > 100:\n            insjhx.move(-5, -startmovespeed)\n            startmovespeed *= 0.95\n        if insjhx.rect.size == (40, 120) and insjhx.rect.x <= 100:\n            now = 4\n    elif now == 4:\n        show_text('看来终于还是有人来看我的作品了啊。', (255, 255, 255), (200, 50), 30)\n        show_text('IDU来不及写，最近也没什么灵感。', (255, 255, 255), (200, 100), 30)\n        show_text('要不就写点近期状况吧。[单击]继续', (255, 255, 255), (200, 150), 30)\n    elif now == 5:\n        show_text('说真的，这里实在有点窄。', (255, 255, 255), (200, 50), 30)\n        show_text('我有点施展不开。', (255, 255, 255), (200, 100), 30)\n    elif now == 7:\n        show_text('好了，现在方便聊了。', (255, 255, 255), (10, 10), 30)\n        show_text('最近精神状态还不错，基本上能保证6小时的睡眠了。', (255, 255, 255), (10, 40), 30)\n        show_text('我也尽量找了不少事情干，', (255, 255, 255), (10, 70), 30)\n        show_text('似乎确实比以前更丰富了。', (255, 255, 255), (10, 100), 30)\n        show_text('我最近喜欢用一些富有表现力的东西来表现我的内心，或为一种情绪的释放。', (255, 255, 255), (10, 130), 30)\n        show_text('吴宇航暑假指出我以前虚无主义的毛病，也得到了一些宽慰。', (255, 255, 255), (10, 160), 30)\n        show_text('我在b站找到了一个up主，叫清竹莫叶，有很多存在主义的视频，还有些悬疑推理，很好看。', (255, 255, 255), (10, 190), 30)\n        show_text('另外，我最近发现了一个叫略nd的up主，我倒是挺喜欢他画的人物。', (255, 255, 255), (10, 220), 30)\n        show_text('这些大抵是属于一些精神上的帮助了，能够舒缓我的心情。', (255, 255, 255), (10, 250), 30)\n        show_text('虽然回不到以前某个阶段的巅峰状态了，不过现在我可以依然说是实力不减。', (255, 255, 255), (10, 280), 30)\n        show_text('我在现实和虚拟的世界中任意穿越，', (255, 255, 255), (10, 310), 30)\n        show_text('体验不一样的经历。', (255, 255, 255), (10, 340), 30)\n        show_text('这是我近期的精神状态。', (255, 255, 255), (10, 370), 30)\n        show_text('另外，我打算写一部围绕我的人设的小说或者作品', (255, 255, 255), (10, 400), 30)\n        show_text('不过纯文字信息量不够，如果有编程、绘画、音乐，那或许是一个具有宏大世界观的大作。', (255, 255, 255), (10, 430), 30)\n        show_text('现在没时间，我只会编程，动画并不好做。所以至少要耽搁到寒假了。它或是真正的IDU吧。', (255, 255, 255), (10, 460), 30)\n        show_text('不知道你们有没有看过：mc,ut,phigros,alan,cheems之类，我可能还会做一个视频大杂烩。', (255, 255, 255), (10, 490), 30)\n        show_text('大概会在b站发一个关联这些和我的一些oc和一些常见鬼畜的混剪。', (255, 255, 255), (10, 520), 30)\n        show_text('所以，一切还是很丰富的。', (255, 255, 255), (10, 550), 30)\n    elif now == 8:\n        insjhx.move(startmovespeed, 0)\n        startmovespeed -= 0.1\n        if insjhx.rect.x > 10:\n            startmovespeed = 0\n            now = 9\n    elif now == 9:\n        show_text('哈哈哈！', (255, 0, 0), (600, 100), 40)\n        show_text('你的电脑', (255, 255, 255), (600, 150), 40)\n        show_text('被我黑了', (0, 255, 0), (600, 200), 40)\n        show_text('继续单击鼠标以对话。', (128, 128, 128), (600, 300), 30)\n    elif now == 10:\n        show_text('皮一下很开心。', (0, 0, 0), (600, 100), 40)\n        show_text('祝你新年快乐！迎接那深不可测的2025吧！哈哈哈！', (0, 0, 0), (600, 150), 30)\n        show_text('单击以关闭。', (0, 0, 0), (600, 200), 40)\n        \n    pygame.display.update()\n    clock.tick(60)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-01 17:21:28",
+    "modified_at": "2025-01-01 17:21:28",
+    "likes": 5,
+    "views": 79,
+    "comments": 25,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-01 17:19:59",
+    "updated_at": "2026-05-02 23:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 134,
+                "column": 30
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/78be6150e718c213359a112c4001915f.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "动画 艺术 游戏",
+    "xml_path": "400315b5d8ecbcf5c68db19b02d63c10",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58541683"
+}

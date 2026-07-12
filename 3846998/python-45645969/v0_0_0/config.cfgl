@@ -1,0 +1,104 @@
+editor.message("Hello, world!")
+
+var x = editor.x, y = editor.y
+var get_char_at = editor.get_char_at
+var text = editor.text
+
+def surround_by(c1, c2) {
+    if y() >= std.len(text()[x()]) || y() == 0 {
+        return False
+    }
+    return get_char_at(x(), y()) == c2 && get_char_at(x(), y() - 1) == c1
+}
+
+def cfgl_mode() {
+    var cfgl_regex = {
+        "newline": "\n",
+        "number": "[0-9]+",
+        "word": "[a-z_A-Z][a-z_A-Z0-9]*",
+        "comment": "#[^\n]*",
+        "string": "\"([^\"\\\\]|(\\\\.))*\"",
+        "unknown": "."
+    }
+    var cfgl_keyword = [
+        "if", "else", "while", "def", "var", "for", "in",
+        "return", "break", "continue",
+        "True", "False", "None", "func"
+    ]
+    var cfgl_tokenizer = editor.generate_tokenizer(cfgl_regex, cfgl_keyword)
+    editor.set_tokenizer(cfgl_tokenizer)
+    cfgl_auto_pair()
+    cfgl_indent()
+}
+
+def bind_pair(left, right) {
+    editor.bind("Insert", left, func() {
+        editor.insert(left + right)
+        editor.cursor_left()
+    })
+}
+
+def cfgl_auto_pair() {
+    bind_pair("(", ")")
+    bind_pair("\"", "\"")
+    bind_pair("[", "]")
+    bind_pair("{", "}") 
+    editor.bind("Insert", "\010", func() {
+        if surround_by("(", ")") || surround_by("[", "]") || surround_by("{", "}") || surround_by("\"", "\"") {
+            editor.cursor_right()
+            editor.delete()
+            editor.delete()
+        }
+        else {
+            editor.delete()
+        }
+    })
+}
+
+def get_indent(ln) {
+    var i = 0
+    while i < std.len(text()[ln]){
+        if get_char_at(ln, i) != " " {
+            break
+        }
+        i = i + 1
+    }
+    return i
+}
+
+def basic_auto_indent() {
+    editor.bind("Insert", "\r", func() {
+        var ln = x()
+        editor.insert("\r" + " " * get_indent(ln))
+    })
+}
+
+def cfgl_indent() {
+    editor.bind("Insert", "\r", generate_indent("([{", ")]}", "([{"))
+}
+
+def generate_indent(lefts, rights, chars) {
+    return func() {
+        var indent = get_indent(x())
+        for left in lefts, right in rights {
+            if surround_by(left, right) {
+                editor.insert("\r" + " " * indent)
+                editor.cursor_Home()
+                editor.insert("\r")
+                editor.cursor_up()
+                editor.insert(" " * (indent + editor.tab_size()))
+                return None
+            }
+        }
+        for char in chars {
+            if y() > 0 && get_char_at(x(), y() - 1) == char {
+                editor.insert("\r" + " " * (indent + editor.tab_size()))
+                return None
+            }
+        }
+        editor.insert("\r" + " " * indent)
+    }
+}
+
+editor.new_extension("cfgl", cfgl_mode)
+editor.new_extension("*", basic_auto_indent)

@@ -1,0 +1,65 @@
+{
+    "id": 56160369,
+    "name": "一个比较完美的HTML5自带的模态弹窗",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0-test.xesimg.com/programme/assets/a358e2f487eaec25e8e5176f7335b313.png",
+    "xml": "import os\nos.startfile(\"index.html\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-15 20:28:26",
+    "modified_at": "2024-09-15 20:28:26",
+    "likes": 3,
+    "views": 17,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-15 20:25:46",
+    "updated_at": "2026-03-02 16:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 24
+            },
+            "4a7c551a-2f7d-db7f-08ee-88c02399b22a": {
+                "row": 21,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0ab7d58744a705775f6ab60d4602abab.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "网站 教程",
+    "xml_path": "67af22f56cd153c1257c994e51812eb7",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56160369"
+}

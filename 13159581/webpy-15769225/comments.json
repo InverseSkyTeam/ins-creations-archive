@@ -1,0 +1,109 @@
+[
+    {
+        "id": 843471,
+        "topic_id": "CP_15769225",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "13159581",
+        "reply_user_id": "13159581",
+        "content": "[可多灵机一动]",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 2,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2021-03-02 20:14:14",
+        "comment_from": "topic",
+        "username": "陈锦奕",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+        "reply_username": "陈锦奕",
+        "emojis": [
+            {
+                "id": "[可多灵机一动]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/可多灵机一动.png",
+                "type": "image",
+                "size": "medium"
+            }
+        ],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": true,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 2,
+            "data": [
+                {
+                    "id": 983471,
+                    "topic_id": "CP_15769225",
+                    "parent_id": 843471,
+                    "target_id": 843471,
+                    "user_id": "49412066",
+                    "reply_user_id": "13159581",
+                    "content": "看我的https://code.xueersi.com/home/project/detail?lang=code&pid=15898258&version=webpy&form=python&langType=python",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": [
+                        {
+                            "link": "https://code.xueersi.com/home/project/detail?lang=code&pid=15898258&version=webpy&form=python&langType=python",
+                            "text": "课堂巩固——你画我猜"
+                        }
+                    ],
+                    "created_at": "2021-04-11 13:06:52",
+                    "comment_from": "topic",
+                    "username": "侯欣源",
+                    "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20201113/TalzIS1qBXRZYG2yaMifjLFyVg1024.jpg",
+                    "reply_username": "陈锦奕",
+                    "emojis": [],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": false,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                },
+                {
+                    "id": 983472,
+                    "topic_id": "CP_15769225",
+                    "parent_id": 843471,
+                    "target_id": 843471,
+                    "user_id": "49412066",
+                    "reply_user_id": "13159581",
+                    "content": "看我的https://code.xueersi.com/home/project/detail?lang=code&pid=15898258&version=webpy&form=python&langType=python",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": [
+                        {
+                            "link": "https://code.xueersi.com/home/project/detail?lang=code&pid=15898258&version=webpy&form=python&langType=python",
+                            "text": "课堂巩固——你画我猜"
+                        }
+                    ],
+                    "created_at": "2021-04-11 13:06:52",
+                    "comment_from": "topic",
+                    "username": "侯欣源",
+                    "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20201113/TalzIS1qBXRZYG2yaMifjLFyVg1024.jpg",
+                    "reply_username": "陈锦奕",
+                    "emojis": [],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": false,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                }
+            ]
+        },
+        "user_profile": null
+    }
+]

@@ -1,0 +1,19 @@
+var mod = module {
+    pi: 3.14,
+    getPi: func()
+        return mod.pi
+    end,
+    isPrime: func(num)
+        if num < 2
+            return False
+        end
+        for i = 2 to num
+            if num % i == 0
+                return False
+            end
+        end
+        return True
+    end,
+}
+
+return mod

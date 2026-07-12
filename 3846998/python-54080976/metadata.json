@@ -1,0 +1,65 @@
+{
+    "id": 54080976,
+    "name": "betterlang v1",
+    "category": 1,
+    "type": "normal",
+    "description": "https://github.com/FkjAccount123456/betterlang",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"https://github.com/FkjAccount123456/betterlang\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-03 12:29:24",
+    "modified_at": "2024-07-03 12:29:24",
+    "likes": 3,
+    "views": 18,
+    "comments": 19,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-03 12:20:40",
+    "updated_at": "2026-02-13 20:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            },
+            "55f77c77-4670-fa75-5aa9-26bfac11407f": {
+                "row": 10,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/ddf145834b8cd672f19bdddce12070e7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟",
+    "xml_path": "20c1a93531196cc5a133f41f9c5767ed",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54080976"
+}

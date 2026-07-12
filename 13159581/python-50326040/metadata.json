@@ -1,0 +1,65 @@
+{
+    "id": 50326040,
+    "name": "猫咪图片爬虫",
+    "category": 1,
+    "type": "normal",
+    "description": "图片保存在C盘的cat_images文件夹中\n典型的异步思路",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import threading\nimport asyncio\nimport aiohttp\nimport random\nimport time\nimport sys\nimport os\n\ntry:\n    os.mkdir('C:\\\\cat_images')\nexcept:\n    pass\n\nstart = time.time()\nsemaphore = asyncio.Semaphore(5)\nsession = None\nnumlist = [int(i) for i in range(100,2101)]\n\nasync def request(num):\n    async with semaphore:\n        x = num\n        headers = {\n            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',\n            'Accept-Language': 'en-US,en;q=0.9'\n        }\n        try:\n            async with session.get(\"https://placekitten.com/\"+x+'/'+x,headers=headers) as res:\n                await asyncio.sleep(5)\n                cat_img = await res.read()\n                print(type(cat_img))\n                with open('C://images/'+x+'x'+x+'.jpg','wb') as f:\n                    f.write(cat_img)\n        except asyncio.exceptions.TimeoutError:\n            print('Time out')\n            threading.Thread(target=request,args=(num,)).start()\n            #await request(num)\n\nasync def main():\n    global session\n    timeout = aiohttp.ClientTimeout(total=5)\n    connector = aiohttp.TCPConnector(ssl=False)\n    session = aiohttp.ClientSession(timeout=timeout,connector=connector)\n    index_tasks = [asyncio.ensure_future(request(str(i))) for i in numlist]\n    await asyncio.gather(*index_tasks)\n\nloop = asyncio.get_event_loop()\nloop.run_until_complete(main())\nend = time.time()\nprint(\"Cost time:\", end - start)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-14 17:51:01",
+    "modified_at": "2024-02-03 18:59:02",
+    "likes": 6,
+    "views": 27,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-14 17:49:36",
+    "updated_at": "2026-07-06 01:20:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "93a8f4c9-b060-f203-4219-e473892ea88d": {
+                "row": 40,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 8,
+                "column": 4
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0753bab2e9cf36da88ae993c38908b11.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 0,
+    "tags": "其他",
+    "xml_path": "295e273165ac7ff4b1137338fc37ab7e",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50326040"
+}

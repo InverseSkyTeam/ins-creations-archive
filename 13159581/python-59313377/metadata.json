@@ -1,0 +1,61 @@
+{
+    "id": 59313377,
+    "name": "pygame菜单美化",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport tkinter as tk\n\ntop_run = False\n\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\n\nroot = tk.Tk()\nroot.overrideredirect(True)\nroot.attributes('-topmost', True)\n# root.attributes('-fullscreen', True)\nroot.attributes('-transparentcolor', \"#f0f0f0\")\n\nmenu_options = [\"选项 1\", \"选项 2\", \"选项 3\", \"选项 4\"]\n\ndef on_option_click(option):\n    print(f\"你点击了 {option}\")\n\ndef rounded_rect(canvas, x1, y1, x2, y2, radius=25, **kwargs):\n    points = [x1 + radius, y1,\n              x1 + radius, y1,\n              x2 - radius, y1,\n              x2 - radius, y1,\n              x2, y1,\n              x2, y1 + radius,\n              x2, y1 + radius,\n              x2, y2 - radius,\n              x2, y2 - radius,\n              x2, y2,\n              x2 - radius, y2,\n              x2 - radius, y2,\n              x1 + radius, y2,\n              x1 + radius, y2,\n              x1, y2,\n              x1, y2 - radius,\n              x1, y2 - radius,\n              x1, y1 + radius,\n              x1, y1 + radius,\n              x1, y1]\n\n    return canvas.create_polygon(points, **kwargs, smooth=True)\n\n\nwhile True:\n    info = pygame.display.Info()\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            root.destroy()\n            exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 3:\n                if top_run:\n                    top_run = False\n                    top.destroy()\n                x, y = root.winfo_pointerx(), root.winfo_pointery()\n                top = tk.Toplevel(root)\n                top.geometry(\"+{}+{}\".format(x, y))\n                top.overrideredirect(True)\n                top.attributes('-topmost', True)\n                top.attributes('-transparentcolor', \"#f0f0f0\")\n\n                item_height = 30\n                vertical_padding = 20\n                menu_height = len(menu_options) * item_height + vertical_padding\n\n                canvas = tk.Canvas(top, width=200, height=menu_height)\n                canvas.pack(fill=\"both\", expand=True)\n\n                padding = 10\n                radius = 20\n                rounded_rect(canvas, padding, padding, 200 - padding, menu_height - padding, radius=radius,\n                             fill=\"#333333\")\n\n                item_ids = []\n                rect_ids = []\n                for i, option in enumerate(menu_options):\n                    item_id = canvas.create_text(100, i * item_height + vertical_padding // 2 + item_height // 2,\n                                                 text=option, fill=\"white\", font=(\"Arial\", 12))\n                    item_ids.append(item_id)\n\n                    rect_id = canvas.create_rectangle(padding, i * item_height + vertical_padding // 2,\n                                                      200 - padding, i * item_height + vertical_padding // 2 + item_height,\n                                                      fill=\"\", outline=\"\")\n                    rect_ids.append(rect_id)\n\n                    def on_enter(event, item=item_id):\n                        canvas.itemconfig(item, fill=\"#00aaff\")\n\n                    def on_leave(event, item=item_id):\n                        canvas.itemconfig(item, fill=\"white\")\n\n                    def on_click(event, opt=option):\n                        canvas.itemconfig(item_id, fill=\"#00ff00\")\n                        on_option_click(opt)\n                        top.destroy()\n                        global top_run\n                        top_run = False\n\n                    canvas.tag_bind(rect_id, \"<Enter>\", on_enter)\n                    canvas.tag_bind(rect_id, \"<Leave>\", on_leave)\n                    canvas.tag_bind(rect_id, \"<Button-1>\", on_click)\n\n                top_run = True\n            if event.button == 1:\n                if top_run:\n                    top_run = False\n                    top.destroy()\n\n    screen.fill((255, 255, 255))\n    root.update()\n    if top_run:\n        top.update()\n\n    pygame.display.update()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-02-07 12:34:48",
+    "modified_at": "2025-02-07 12:34:48",
+    "likes": 1,
+    "views": 16,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-07 12:34:17",
+    "updated_at": "2026-05-29 05:00:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 115,
+                "column": 27
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/1e1e76b28be80cba773f696287c1e274.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他 游戏",
+    "xml_path": "6a3133651bb0f156fee99a65bc6d86af",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59313377"
+}

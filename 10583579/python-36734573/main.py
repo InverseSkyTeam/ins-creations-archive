@@ -1,0 +1,1 @@
+print("C站有史以来最大的bug，所有作品热度全部变成了0\n热度前50的所有作品热度也都变成0了，不信看https://code.xueersi.com/api/works/popular?type=popular&lang=&tag=&page=1&per_page=50\n截了两张图放素材区了，要看的点改编")

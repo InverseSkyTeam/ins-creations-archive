@@ -1,0 +1,61 @@
+{
+    "id": 55867923,
+    "name": "暂退？永退？",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"今天已开学，在接下来的半年是不会再上线了，若运气好，提前录取进当地重点高中，或许可以在明年年后上线，若运气不好，可能就是永退了。\")",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2024-09-01 20:58:40",
+    "modified_at": "2024-09-01 20:58:40",
+    "likes": 5,
+    "views": 66,
+    "comments": 5,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-01 20:57:42",
+    "updated_at": "2025-10-16 22:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 42
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/90ea4bf6441cf6a119483cbe6ee75ab5.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "4fb066f3ccb64608c8cad9320c84e1d3",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55867923"
+}

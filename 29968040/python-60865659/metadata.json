@@ -1,0 +1,65 @@
+{
+    "id": 60865659,
+    "name": "PyLineBreaker",
+    "category": 1,
+    "type": "normal",
+    "description": "本作是把以下项目从javascript翻译成python\nnpm包unicode-trie\nnpm包linebreak\n",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import re\nfrom py_linebreaker import LineBreaker, String\n\n# 这些测试用例有问题，可能不正确或适配不同，跳过它们\nSKIP = {\n    125, 127, 815, 1161, 1163, 1165, 1167, 1331, 2189, 2191, 2873, 2875, 3567,\n    3739, 4081, 4083, 4425, 4427, 4473, 4475, 4597, 4599, 4645, 4647, 4943,\n    5109, 5111, 5459, 6149, 6151, 6153, 6155, 6489, 6491, 6663, 6833, 6835,\n    7005, 7007, 7177, 7179, 7477, 7486, 7491, 7576, 7577, 7578, 7579, 7580,\n    7581, 7583, 7584, 7585, 7586, 7587, 7604, 7610, 7611, 7681\n}\n\nwith open('LineBreakTest.txt', 'r', encoding='utf-8') as f:\n    lines = f.readlines()\n\nwrong = 0\n\nfor i, line in enumerate(lines):\n    row_number = i + 1\n    line = line.strip()\n    if not line or line.startswith('#'):\n        continue\n\n    # 分割测试数据和注释\n    if '#' in line:\n        cols, comment = line.split('#', 1)\n    else:\n        cols, comment = line, ''\n    cols = cols.strip()\n\n    # 解析Unicode代码点\n    parts = re.split(r'\\s*[×÷]\\s*', cols)\n    code_points = [int(p, 16) for p in parts[1:-1] if p]\n\n    # 构建测试字符串\n    test_str = String(''.join(chr(cp) for cp in code_points))\n\n    # 执行断行操作\n    breaker = LineBreaker(test_str)\n    breaks = []\n    last = 0\n    while True:\n        bk = breaker.nextBreak()\n        if not bk:\n            break\n        breaks.append(test_str.data[last * 2: bk.position * 2].decode('utf-16be'))\n        last = bk.position\n\n    # 解析预期结果\n    expected = []\n    for segment in re.split(r'\\s*÷\\s*', cols)[:-1]:\n        codes = re.split(r'\\s*×\\s*', segment.strip())\n        codes = [c for c in codes if c]  # 过滤空字符串\n        if not codes:\n            expected.append('')\n            continue\n        expected.append(''.join(chr(int(c, 16)) for c in codes))\n\n    # 跳过指定用例\n    if row_number in SKIP:\n        print(f'跳过第 {row_number} 行，因为测试样例可能有问题\\n')\n        continue\n\n    # 验证结果\n    if breaks == expected:\n        print(f'第 {row_number} 行成功\\n实际: {breaks}\\n预期: {expected}\\n注释: {comment.strip()}\\n')\n    else:\n        print(f'第 {row_number} 行失败\\n实际: {breaks}\\n预期: {expected}\\n注释: {comment.strip()}\\n')\n        wrong += 1\n\nprint(f\"所有测试完成，有 {wrong} 次测试失败\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-04-12 15:42:51",
+    "modified_at": "2025-04-12 15:45:40",
+    "likes": 3,
+    "views": 36,
+    "comments": 9,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-04-12 15:36:13",
+    "updated_at": "2026-05-23 17:15:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 6,
+                "column": 9
+            },
+            "fa5ef38f-3c36-ff47-1c05-e0ec8d9b0cd2": {
+                "row": 7686,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/4306ff5223dcc238cb4a1d99caf0d87a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他 算法 模拟",
+    "xml_path": "732ab42115318719d4be93f3ad3e32bc",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_60865659"
+}

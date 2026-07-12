@@ -1,0 +1,65 @@
+{
+    "id": 58824650,
+    "name": "pygame中英文混合渲染",
+    "category": 1,
+    "type": "normal",
+    "description": "极不成熟的雏形，但是确实可以工作，作为TermEd底层之一存在\n感谢小轩的指导",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nfrom utils import get_width\n\n\ndef init(caption: str = \"TermEd\"):\n    pygame.init()\n    pygame.font.init()\n    ui = pygame.display.set_mode((800, 600), pygame.RESIZABLE)\n    pygame.display.set_caption(caption)\n    return ui\n\n\ndef is_cn_char(ch: str):\n    return get_width(ch) == 2\n\n\ndef render(ui: pygame.Surface, pos, text: str, fg, bg,\n           font: tuple, fsize):\n    if not text:\n        return\n    cur = text[0]\n    tp = is_cn_char(text[0])\n    for i in range(1, len(text)):\n        new = is_cn_char(text[i])\n        if tp != new:\n            cur_surf = font[tp].render(cur, True, fg, bg)\n            ui.blit(cur_surf, (pos if not tp else (pos[0], pos[1] - fsize / 5)))\n            pos = pos[0] + cur_surf.get_width(), pos[1]\n            tp = new\n            cur = \"\"\n        cur += text[i]\n    if cur:\n        ui.blit(font[tp].render(cur, True, fg, bg), (pos if not tp else (pos[0], pos[1] - fsize / 5)))\n\n\ndef main():\n    FONT_SIZE = 20\n    FPS = 60\n\n    ui = init()\n    font = (pygame.font.SysFont(\"Times New Roman\", FONT_SIZE),\n            pygame.font.SysFont(\"Microsoft YaHei\", FONT_SIZE))\n\n    font_h = font[1].get_height()\n    ed_quit = False\n\n    clock = pygame.time.Clock()\n    dt = 0\n\n    while not ed_quit:\n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                ed_quit = True\n\n        nlines = ui.get_height() // font_h\n\n        ui.fill('white')\n        for i in range(nlines):\n            render(ui, (0, i * font_h),\n                   \"Hello,你好，world!世界！\", 'black', None, font, FONT_SIZE)\n        # render(ui, (0, 0),\n        #        \"Hello, world! 你好，世界！ Hello, TermEd! 你好，TermEd！\", 'black', None, font, FONT_SIZE)\n        pygame.display.update()\n\n        dt = clock.tick(FPS)\n    \n    pygame.quit()\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-16 22:58:57",
+    "modified_at": "2025-01-16 22:58:57",
+    "likes": 3,
+    "views": 20,
+    "comments": 6,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-16 22:50:41",
+    "updated_at": "2025-09-23 23:45:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 38,
+                "column": 0
+            },
+            "d70b3532-3857-3c53-e972-c23805d53ecd": {
+                "row": 62,
+                "column": 15
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/64d2557a55f9002b765511d1709d1092.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟",
+    "xml_path": "59c170ccbbae629084afe8efe27276d4",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58824650"
+}

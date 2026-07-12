@@ -1,0 +1,5 @@
+print("震惊，马子锦复活了！！！！！！！！！！！！！！！！！！！！！")
+print("MZJ复活了！！！！！！！！！！！！")
+print('万岁万岁万万岁！！！/doge/doge/doge')
+print('时隔三年（或许是记错了，两年），你终于回来了，之前账号都注销了')
+print('马子锦！！！他个人主页https://code.xueersi.com/space/5868275，，，，，gogogo！！！')

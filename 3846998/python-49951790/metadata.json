@@ -1,0 +1,61 @@
+{
+    "id": 49951790,
+    "name": "Python编辑器测试0.1版",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/b6414e319d0d844546c09cb077b07477.jpg",
+    "xml": "import tkinter as tk\nfrom tkinter.filedialog import askopenfilename, asksaveasfilename\nfrom tkinter.scrolledtext import ScrolledText\nimport re\nfrom enum import Enum\nfrom keyword import kwlist as py_kwlist\n\n\nclass PyTokenType(Enum):\n    OPERATOR = 0\n    KEYWORD = 1\n    NUMBER = 2\n    IDENT = 3\n    SYMBOL = 4\n    STRING = 7\n    ESCAPE = 8\n    COMMENT = 9\n\n\npy_tokentp_map = {\n    PyTokenType.OPERATOR: \"op\",\n    PyTokenType.KEYWORD: \"kw\",\n    PyTokenType.NUMBER: \"num\",\n    PyTokenType.IDENT: \"id\",\n    PyTokenType.SYMBOL: \"sym\",\n    PyTokenType.STRING: \"str\",\n    PyTokenType.ESCAPE: \"esc\",\n    PyTokenType.COMMENT: \"cmt\",\n}\n# 直接照抄One Dark\ncolorscheme = {\n    \"code\": {\n        \"op\": \"#56b6c2\",\n        \"kw\": \"#c678dd\",\n        \"num\": \"#d19a66\",\n        \"id\": \"#abb2bf\",\n        \"sym\": \"#abb2bf\",\n        \"str\": \"#98c379\",\n        \"esc\": \"#56b6c2\",\n        \"cmt\": \"#5c6370\",\n    },\n\n    \"back\": \"#282c34\",\n    \"fore\": \"#abb2bf\",\n    \"selectback\": \"#677696\",\n    \"selectfore\": \"#abb2bf\",\n    \"cursor\": \"#528bff\",\n    \"curline\": \"#2c313c\",\n}\nsettings = {\n    \"menu\": True,\n    \"hl_curln\": True,\n}\npy_operators = {\n    '+', '-', '**', '*', '/', '%', '//',\n    '==', '!=', '>', '<', '>=', '<=',\n    '<<', '>>', '&', '|', '^'\n    '!', '~',\n}\npy_symbols = {\n    '(', ')', '[', ']', '{', '}',\n    ',', '.', ':', ';',\n    '=', '+=', '-=', '*=', '/=', '%=',\n    '>>=', '<<=', '&=', '|=', '^=',\n}\n\n\nclass Token:\n    def __init__(self, tp: PyTokenType, y1: int, x1: int, y2: int, x2: int):\n        self.tp, self.y1, self.x1, self.y2, self.x2 = tp, y1, x1, y2, x2\n\n\ndef py_tokenize(text: str):\n    # NOTE: Tkinter的高亮是前开后闭区间，tokenizer得到的是前闭后开区间\n    # 解决：减一\n    def next():\n        nonlocal x, y, pos\n        if text[pos] == \"\\n\":\n            y += 1\n            x = 1\n        else:\n            x += 1\n        pos += 1\n\n    pos = 0\n    res = []\n    y, x = 1, 1\n\n    while pos < len(text):\n        while pos < len(text) and text[pos] in ' \\n\\t#':\n            if text[pos] in ' \\n\\t':\n                next()\n            else:\n                y1, x1 = y, x\n                while pos < len(text) and text[pos] != '\\n':\n                    next()\n                res.append(Token(PyTokenType.COMMENT, y1, x1, y, x))\n        if pos >= len(text):\n            break\n        elif text[pos].isdigit():\n            y1, x1 = y, x\n            while pos < len(text) and (text[pos].isdigit() or text[pos] in '.box'):\n                next()\n            res.append(Token(PyTokenType.NUMBER, y1, x1, y, x))\n        elif text[pos].isalpha() or text[pos] == '_':\n            y1, x1 = y, x\n            ident = \"\"\n            while pos < len(text) and (text[pos].isalnum() or text[pos] == '_'):\n                ident += text[pos]\n                next()\n            if ident in py_kwlist:\n                res.append(Token(PyTokenType.KEYWORD, y1, x1, y, x))\n            else:\n                res.append(Token(PyTokenType.IDENT, y1, x1, y, x))\n        elif text[pos] in '\\'\"':\n            xx = text[pos]\n            y1, x1 = y, x\n            next()\n            escapes = []\n            while pos < len(text) and text[pos] not in (xx, '\\n'):\n                if text[pos] == '\\\\':\n                    ey1, ex1 = y, x\n                    next()\n                    if pos >= len(text):\n                        break\n                    if text[pos] == '\\n':\n                        next()\n                    elif text[pos] == 'u':\n                        next()\n                        for i in range(4):\n                            if pos < len(text):\n                                next()\n                            else:\n                                break\n                        escapes.append(\n                            Token(PyTokenType.ESCAPE, ey1, ex1, y, x))\n                    elif text[pos] == 'x':\n                        next()\n                        for i in range(2):\n                            if pos < len(text):\n                                next()\n                            else:\n                                break\n                        escapes.append(\n                            Token(PyTokenType.ESCAPE, ey1, ex1, y, x))\n                    elif text[pos].isdigit():\n                        for i in range(3):\n                            if pos < len(text) and text[pos].isdigit():\n                                next()\n                            else:\n                                break\n                        escapes.append(\n                            Token(PyTokenType.ESCAPE, ey1, ex1, y, x))\n                    else:\n                        next()\n                        escapes.append(\n                            Token(PyTokenType.ESCAPE, ey1, ex1, y, x))\n                else:\n                    next()\n            if pos >= len(text):\n                break\n            next()\n            res.append(Token(PyTokenType.STRING, y1, x1, y, x))\n            res.extend(escapes)\n        elif text[pos: pos + 3] in py_symbols:\n            y1, x1 = y, x\n            next()\n            next()\n            next()\n            res.append(Token(PyTokenType.SYMBOL, y1, x1, y, x))\n        elif text[pos: pos + 2] in py_operators:\n            y1, x1 = y, x\n            next()\n            next()\n            res.append(Token(PyTokenType.OPERATOR, y1, x1, y, x))\n        elif text[pos: pos] in py_operators:\n            y1, x1 = y, x\n            next()\n            res.append(Token(PyTokenType.OPERATOR, y1, x1, y, x))\n        elif text[pos] in py_symbols:\n            y1, x1 = y, x\n            next()\n            res.append(Token(PyTokenType.SYMBOL, y1, x1, y, x))\n        else:\n            next()\n\n    return res\n\n\nclass CodeArea(ScrolledText):\n    def __init__(self, master=None):\n        super().__init__(master)\n        self.config(background=colorscheme['back'],\n                    foreground=colorscheme['fore'],\n                    selectbackground=colorscheme['selectback'],\n                    selectforeground=colorscheme['selectfore'],\n                    highlightbackground=colorscheme['back'],\n                    insertbackground=colorscheme['cursor'],\n                    height=24)\n        # self.bind(\"<KeyRelease>\", self.highlight)\n\n    def load(self, text: str):\n        self.delete(0.0, tk.END)\n        self.insert(0.0, text)\n        # self.highlight()\n\n    def cleartag(self):\n        for i in colorscheme:\n            self.tag_remove(i, 0.0, tk.END)\n\n    def highlight(self, *args):\n        self.cleartag()\n        self.test_pyhl()\n        if not self.is_selecting() and settings['hl_curln']:\n            self.hl_curline()\n        for k, v in colorscheme['code'].items():\n            self.tag_config(k, foreground=v)\n        if settings['hl_curln']:\n            self.tag_config(\"curline\", background=colorscheme['curline'])\n        self.update()\n        self.master.update()\n\n    def test_pyhl(self, *args):\n        text = self.get(0.0, tk.END)\n        tokens = py_tokenize(text)\n        for token in tokens:\n            if token.tp in py_tokentp_map:\n                self.tag_add(py_tokentp_map[token.tp],\n                                f\"{token.y1}.{token.x1 - 1}\", f\"{token.y2}.{token.x2 - 1}\")\n\n    def hl_curline(self):\n        ln = self.index(tk.INSERT)\n        ln_start = self.index(ln + \" linestart\")\n        ln_end = self.index(ln + \" lineend+1c\")\n        self.tag_add(\"curline\", ln_start, ln_end)\n\n    def is_selecting(self):\n        try:\n            self.get(tk.SEL_FIRST, tk.SEL_FIRST)\n            return True\n        except:\n            return False\n\n    def refresh(self):\n        self.after(1000, self.highlight)\n\n\nclass CodeEditor(tk.Tk):\n    def __init__(self):\n        super().__init__()\n        self.title(\"untitled - TestEd\")\n        self.save_path = \"\"\n\n        if settings['menu']:\n            self.menu = tk.Menu(self)\n            self.fileMenu = tk.Menu(self.menu, tearoff=False)\n            self.fileMenu.add_command(label=\"Open\", command=self.open)\n            self.fileMenu.add_command(label=\"Save\", command=self.save)\n            self.fileMenu.add_command(label=\"Save as\", command=self.save_as)\n            self.fileMenu.add_separator()\n            self.fileMenu.add_command(label=\"Quit\", command=self.quit)\n            self.menu.add_cascade(label=\"File\", menu=self.fileMenu)\n            self.config(menu=self.menu)\n\n        self.codearea = CodeArea(self)\n        self.codearea.bind(\"<Control-s>\", self.save, '')\n        self.codearea.bind(\"<Control-S>\", self.save_as, '')\n        self.codearea.bind(\"<Control-o>\", self.open, '')\n        self.codearea.pack(fill=tk.BOTH)\n\n    def retitle(self, title: str):\n        self.title(title)\n        self.update()\n\n    def save(self, *args):\n        if self.save_path == \"\":\n            self.save_path = asksaveasfilename()\n        if self.save_path == \"\":\n            return\n        with open(self.save_path, \"w\", encoding=\"utf-8\") as f:\n            f.write(self.codearea.get(1.0, tk.END))\n        self.retitle(self.save_path + \" - TestEd\")\n        return 'break'\n\n    def save_as(self, *args):\n        self.save_path = \"\"\n        self.save()\n        return 'break'\n\n    def open(self, *args):\n        self.save_path = askopenfilename()\n        if self.save_path == \"\":\n            return\n        with open(self.save_path, \"r\", encoding=\"utf-8\") as f:\n            self.codearea.load(f.read())\n        self.retitle(self.save_path + \" - TestEd\")\n        return 'break'\n\n    def codearea_update(self):\n        self.codearea.highlight()\n        self.after(10, self.codearea_update)\n\n\nroot = CodeEditor()\n\nroot.codearea_update()\nroot.mainloop()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2023-12-17 17:45:56",
+    "modified_at": "2023-12-17 17:45:56",
+    "likes": 3,
+    "views": 73,
+    "comments": 27,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 49858791,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-12-17 17:44:50",
+    "updated_at": "2026-06-19 19:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 307,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/ab70452f6b165b3ee4cb2b51125250fe.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟",
+    "xml_path": "fc0c8718163f2a266ba92c5edfbdf77f",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_49951790"
+}

@@ -1,0 +1,10 @@
+from wukong.jgb import *
+turtle.width(40)
+turtle.color("yellow")
+turtle.forward(80)
+turtle.width(40)
+turtle.color("red")
+turtle.forward(250)
+turtle.width(40)
+turtle.color("yellow")
+turtle.forward(80)

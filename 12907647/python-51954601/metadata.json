@@ -1,0 +1,65 @@
+{
+    "id": 51954601,
+    "name": "es-compiler v0",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/ddb8d27a2d8c3d97e4fce3a70bcbd8af.jpg",
+    "xml": "built_in = {\n    '+': (lambda a, b: a + b),\n    '-': (lambda a, b: a - b),\n    '*': (lambda a, b: a * b),\n    '/': (lambda a, b: a / b),\n}\n\ndef compile_(stream):\n    code = []\n    define = [{}]\n    p = 0\n    q = 0\n    while p < len(stream):\n        symbol = stream[p]\n        if symbol in built_in:\n            code.append(('blt',built_in[symbol]))\n        elif symbol == 'let':\n            p += 1\n            name = stream[p]\n            define[-1][name] = q\n            q += 1\n            code.append(('store',None))\n        elif symbol == 'set':\n            p += 1\n            var = stream[p]\n            site = define[-1][var]\n            code.append(('set',site))\n        elif symbol == 'get':\n            p += 1\n            var = stream[p]\n            site = define[-1][var]\n            code.append(('get',site))\n        elif type(symbol) == int:\n            code.append(('const',symbol))\n        p += 1\n    return code\n\nstream = [1,1,'+','let','a','get','a','let','b',6,'set','b',6,'set','a']\ncode = compile_(stream)\n\ndef output_code(code):\n    for line in code:\n        print(f'{line[0]}: {line[1]}')\n\nprint(f'{stream}\\n\\n')\noutput_code(code)\n\nfrom es_runtime import run\nstack, scope = run(code)\nprint(f'\\n\\nstack: {stack}\\nscope: {scope}')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-24 11:33:10",
+    "modified_at": "2024-03-24 11:33:10",
+    "likes": 6,
+    "views": 40,
+    "comments": 18,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-15 19:20:35",
+    "updated_at": "2025-01-07 09:31:35",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 49,
+                "column": 44
+            },
+            "b9722378-a7f6-89c7-479a-4994f3311c86": {
+                "row": 19,
+                "column": 23
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/d2db5d02da2475258b79486d4aea146a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "算法 模拟 教程",
+    "xml_path": "b1677dc292ce7e353fb80a4d7751d569",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51954601"
+}

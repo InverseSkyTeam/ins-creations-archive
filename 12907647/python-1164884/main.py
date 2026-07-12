@@ -1,0 +1,31 @@
+#目前做到这里！
+
+password = input("请设置密码。")
+tn = input("请输入电话号码。")
+zh = input("请输入账号。")
+name = input("请输入姓名。")
+nl = input("请输入年龄。")
+csrq = input("请输入出生日期。")
+nc = input("请输入昵称。")
+yz = input("验证账号！")
+yz2 = input("验证密码！")
+yz3 = input("验证电话号码！")
+yz4 = input("验证出生日期！")
+yz5 = input("验证姓名！")
+yz6 = input("验证昵称！")
+yz7 = input("验证年龄！")
+if yz != zh and yz2 == password and yz3 == tn and yz4 == csrq and yz5 == name and yz6 == nc and yz7 == nl or yz == zh and yz2 != password and yz3 == tn and yz4 == csrq and yz5 == name and yz6 == nc and yz7 == nl or yz == zh and yz2 == password and yz3 != tn and yz4 == csrq and yz5 == name and yz6 == nc and yz7 == nl or yz == zh and yz2 == password and yz3 == tn and yz4 != csrq and yz5 == name and yz6 == nc and yz7 == nl or yz == zh and yz2 == password and yz3 == tn and yz4 == csrq and yz5 != name and yz6 == nc and yz7 == nl or yz == zh and yz2 == password and yz3 == tn and yz4 == csrq and yz5 == name and yz6 != nc and yz7 == nl or yz == zh and yz2 == password and yz3 == tn and yz4 == csrq and yz5 == name and yz6 == nc and yz7 != nl or yz != zh and yz2 != password and yz3 == tn and yz4 == csrq and yz5 == name and yz6 == nc and yz7 != nl or yz != zh and yz2 == password and yz3 != tn and yz4 == csrq and yz5 == name and yz6 == nc and yz7 == nl or:
+    print("欢迎回来！！！！！",name,"!")
+    print(nc,"您下载的《题目转转乐》已完成，快去看看吧！(由#99#5.502596知乎人emdjfh9908编程)")
+    question = input(nc,"99*99=?    5805=1/9801=2/9701=3")
+    if question != "2":
+        print("错！再来一次吧!")
+    else:
+        print("答对了！下一题！")
+        question2 = input(nc,"太阳核心多少温度？    1600万度=1/16000度=2/800万度=3")
+        if question2 != "1":
+            print("错！再来一次吧!！")
+        else:
+            print("答对了！下一题！")
+else:
+    print("电脑已锁屏！")

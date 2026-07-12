@@ -1,0 +1,61 @@
+{
+    "id": 55587807,
+    "name": "时隔2年，再访云变量！",
+    "category": 1,
+    "type": "normal",
+    "description": "好！",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/a1a42a24199e57f9f697f09c629644c7.jpg",
+    "xml": "try:\n    import websocket\nexcept:\n    print('请在库管理安装websocket-client，记住一定要加上-client')\n    exit()\nimport random\nimport json\nimport time\n\ndef on_message(ws, message):\n    res = json.loads(message)\n    if res['method'] == 'set' and res['name'] == 'cloud_test':\n        value = res['value']\n        print(f'收到: {value}')\n        ws.count += 1\n        if ws.count == 10:\n            ws.close()\n\ndef on_error(ws, error):\n    print(f'错误报告: {error}')\n\ndef on_close(ws, close_status_code, close_msg):\n    print('连接断开')\n    if close_status_code:\n        print(f'Close status code: {close_status_code}')\n    if close_msg:\n        print(f'Close message: {close_msg}')\n\ndef on_open(ws):\n    print('连接成功')\n    ws.count = 0\n\n    for i in range(10):\n        r = random.randint(0, 2048)\n        data = {\n            'method': 'set',\n            'name': 'cloud_test',\n            'user': '10000000',\n            'project_id': '22168480',\n            'value': str(r),\n        }\n        ws.send(json.dumps(data))\n        print(f'发送: {r}')\n\n        handshake_data = {\n            'method': 'handshake',\n            'user': '10000000',\n            'project_id': '22168480',\n        }\n        ws.send(json.dumps(handshake_data))\n\nws = websocket.WebSocketApp('wss://api.xueersi.com/codecloudvariable/ws:90',\n                            on_message = on_message,\n                            on_error = on_error,\n                            on_close = on_close,\n                            on_open = on_open)\n\nt = time.time()\nws.run_forever()\nprint(f'\\n\\n总用时: 用时{time.time() - t}s')\nprint('感谢两年前的云翼计划。')\nprint('但今天，它不一样了，长连接联机时代将会到来。以前的webconnect保存资源close太慢，而长联机不需要反复connect和close.')\nprint('期待python制作的联机fps的3d游戏吧！')\nprint('提一句，短联机慢在close，长联机慢在message.所以快的还是不多，但是达到了0.14s/条')\nprint('黄羿杰研究认为这是scratch传输云变量的限制，所以没办法，之后找个新源应该会更好。')\nprint('*注: vscode的fitten code帮助我们搜集了一些关于websocket-client的信息，这非常好。')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-21 18:25:43",
+    "modified_at": "2024-08-21 18:25:43",
+    "likes": 9,
+    "views": 100,
+    "comments": 93,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-21 18:24:51",
+    "updated_at": "2026-05-31 06:10:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 57,
+                "column": 15
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/c8b302433bee836897b7e83e128539cf.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 6,
+    "tags": "游戏 模拟",
+    "xml_path": "622c6952955d7076b3e7d346d5153c26",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55587807"
+}

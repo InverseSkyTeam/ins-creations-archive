@@ -1,0 +1,61 @@
+{
+    "id": 58834883,
+    "name": "打破窗口：目前进度",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/3f545d3db829960400604bc52c4f7ed6.jpg",
+    "xml": "# 视频链接: https://livefile.xesimg.com/programme/python_assets/5ff6c5a0e29817ef056e42642cc6a426.mp4\n# 文件存档于学而思网盘\n\nprint('由于环境版本过低不支持运行，我们选择录制视频给大家看。')\ninput('你可以自己打开改编复制链接(学而思网盘打开)观看，也可以回车打开视频直接观看:')\n\nimport webbrowser as w\nw.open('https://livefile.xesimg.com/programme/python_assets/5ff6c5a0e29817ef056e42642cc6a426.mp4')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-17 18:40:49",
+    "modified_at": "2025-01-17 18:40:49",
+    "likes": 8,
+    "views": 132,
+    "comments": 52,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-17 18:39:13",
+    "updated_at": "2026-06-01 23:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 7,
+                "column": 98
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/596696027b54b3b52440e3b526944c98.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "游戏 动画 模拟",
+    "xml_path": "c34c54a273ae46accf4ae7925c26b52b",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58834883"
+}

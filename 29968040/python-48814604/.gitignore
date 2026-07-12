@@ -1,0 +1,7 @@
+.python-version
+__pycache__/
+.pyc
+settings.json
+*.c
+*.so
+build/

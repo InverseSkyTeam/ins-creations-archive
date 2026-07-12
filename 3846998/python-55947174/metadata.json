@@ -1,0 +1,61 @@
+{
+    "id": 55947174,
+    "name": "Rusp设想与设计第二版",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from time import sleep\n\nprint(\"\"\"准备好，这是绝对的、设计的、付式的——抽象\n\"\"\")\n\nsleep(3)\n\nprint(\"\"\"ideas.md如下\n# Rusp\nRusp是一种名字混合Rust和Lisp的语言，然而并没有Rust的内存管理机制，也没有Lisp的灵活性\nRusp的语法类似Lisp而语义类似于C，当然不可缺少的是Lisp伟大的宏支持（静态展开，不支持递归）\n采用等价类型系统（标记类型系统和结构类型系统的折中设计，目的是方便宏生成类型）\n没有自带GC，进而也没有闭包，只有全局作用域和当前作用域\n当然，也没有伟大的call/cc\n## 最终目标\n- 自举，且代码行数是原来的1/2\n- 编译到机器码\n- 速度和C相同\n- 通过宏实现C++/Rust的全部语义（抽象但是这是Lisp）\n- 拥有和C++/Rust相当的标准库\n- 实现GUI库\n- 实现IDE\n## Rusp-py\n这是Rusp的一个实验版本，先用Python验证可行性\n当然必不可少的-编译到字节码\n\"\"\")\n\nsleep(3)\n\nprint(\"\"\"syntax.lisp如下\n; 没错Rusp语法和语义第二版设计\n; 加入一些现代的设计和语法糖\n\n; number自动省略（C版的int也是）\n(defun fac (num) number\n  (if (= num 0)\n    1\n    (* (fac (- num 1)) num)))\n\n(defun main () number\n  (define num 10)\n  ; 内置函数编译由参数类型决定\n  (print (fac num) \"\\n\")\n  0\n  )\n\n; macro确实是静态展开且允许运算，但是只允许访问局部变量和元变量\n(defmacro hello (name)\n  ; puts会对传参做类型检查，保证其全部是字符串（(list number)）类型\n  ; 好吧只有number，不要紧以后会改的（\n  '(println \"Hello, \" ,name \"!\"))\n\n(defun main () number\n  (hello \"world\")\n  0\n  )\n\n; 结构体定义\n(defstruct A [a b number])\n\n(defun main () number\n  (define a (A 1 2))\n  ; 更好的属性获取\n  (println (a a))\n  (println (a b))\n  0\n  )\n\n; 这里的语法必须大改\n; 只有一种逻辑是正确的：宏等参数展开优化，然而更复杂了\n; 错误的，所以要使用独立的语法\n(deftypegen vec (T)\n  [size max number]\n  [val (list ,T)]\n  ; 方法定义和调用\n  :method\n  (defun push ([v ,T]) void\n      (when (= (self size) (self max))\n      ; 这里没办法，Lisp写命令式本来就怪\n      (set-attr self max (* 2 (self max)))\n      (set-attr self val (realloc (self val) (self max))))\n      (set-nth (self val) (self size) v)\n      (set-attr self size (+ 1 (self size))))\n  (defun get (n) ,T\n      (get-nth (self val) n))\n  ; 没有RAII怎么行\n  :destruct\n  (defun *destructor* () void\n    (free (self val))\n    ())\n  )\n\n(defmacro vec-init (T)\n  '((vec ,T) 0 8 (malloc 8)))\n\n(defun main () number\n  (define v (vec-init number))\n  (v push 1)\n  (v push 2)\n  (println (v get 0))\n  0\n  )\n\n\"\"\")\n\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-07 10:51:46",
+    "modified_at": "2024-09-07 10:51:46",
+    "likes": 3,
+    "views": 20,
+    "comments": 10,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 55867969,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-07 10:48:15",
+    "updated_at": "2026-02-13 18:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 102,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/85bfa7b600940179b7e06428eb84b728.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "艺术 Rusp 设想",
+    "xml_path": "265dd1ffbf621e646b971cdc28cf08b2",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55947174"
+}

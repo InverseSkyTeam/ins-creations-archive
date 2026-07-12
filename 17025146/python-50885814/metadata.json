@@ -1,0 +1,61 @@
+{
+    "id": 50885814,
+    "name": "lambda演算进阶",
+    "category": 1,
+    "type": "normal",
+    "description": "有了运算，完整的二元组，还有实现递归的Y组合子，这个lambda演算理论上就应该是图灵完备的了。",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "# import sys  \n# sys.setrecursionlimit(10000)\n\nTRUE = (lambda a: (lambda b: a))\nFALSE = (lambda a: (lambda b: b))\nIF = (lambda cond: (lambda expr1: (lambda expr2: cond(expr1)(expr2))))\nAND = (lambda a: (lambda b: IF(a)(b)(FALSE)))\nOR = (lambda a: (lambda b: IF(a)(TRUE)(b)))\nNOT = (lambda a: IF(a)(FALSE)(TRUE))\nONE = (lambda g: (lambda z: g(z)))\nTWO = (lambda g: (lambda z: g(g(z))))\nTHREE = (lambda g: (lambda z: g(g(g(z)))))\nADD = (lambda a: (lambda b: (lambda g: (lambda z: a(g)(b(g)(z))))))\nMUL = (lambda a: (lambda b: (lambda g: (lambda z: a(lambda x: b(g)(x))(z)))))\nSUB = (lambda a: (lambda b: b(lambda x: (lambda g: (lambda z: x(lambda u: (lambda h: h(u(g))))(lambda _: z)(lambda y: y))))(a)))\nIS_ZERO = (lambda a: a(lambda _: FALSE)(TRUE))\nEQ = (lambda a: (lambda b: AND(IS_ZERO(SUB(a)(b)))(IS_ZERO(SUB(b)(a)))))\nLT = (lambda a: (lambda b: NOT(IS_ZERO(SUB(b)(a)))))\nLE = (lambda a: (lambda b: IS_ZERO(SUB(a)(b))))\nGT = (lambda a: (lambda b: NOT(IS_ZERO(SUB(a)(b)))))\nGE = (lambda a: (lambda b: IS_ZERO(SUB(b)(a))))\nNIL = (lambda onpair: (lambda onnil: onnil(VOID)))\nPAIR = (lambda a: (lambda b: (lambda onpair: (lambda onnil: onpair(a)(b)))))\nIS_NIL = (lambda pair: pair(lambda fst: (lambda rst: FALSE))(lambda x: TRUE))\nIS_PAIR = (lambda pair: pair(lambda fst: (lambda rst: TRUE))(lambda x: FALSE))\nFIRST = (lambda pair: pair(lambda fst: (lambda rst: fst))(VOID))\nREST = (lambda pair: pair(lambda fst: (lambda rst: rst))(VOID))\nY = lambda f: (lambda x: f(lambda z: x(x)(z)))(lambda x: f(lambda z: x(x)(z)))\nPOWER = Y(\n    lambda power: (lambda a: (lambda b: IF(EQ(b)(ONE))(lambda x: a(x))(lambda x: MUL(a)(power(a)(SUB(b)(ONE)))(x))))\n)\n\n\ndef toint(n):\n    return n(lambda x: x + 1)(0)\nprint(toint(\n    POWER(THREE)(TWO)\n))\n\n\n\"\"\"\n我觉得有必要为这一大堆lambda演算的源码配上每一个演算的理论推导\ntrue(a)(b) = a\nfalse(a)(b) = b\nif(cond)(expr1)(expr2) = cond(expr1)(expr2)\n推导{\n  if(true)(expr1)(expr2)\n    = true(expr1)(expr2)\n    = expr1\n  if(false)(expr1)(expr2)\n    = false(expr1)(expr2)\n    = expr2\n}\nand(a)(b) = if(a)(b)(false)\nor(a)(b) = if(a)(true)(b)\nnot(a) = if(a)(false)(true)\n\none(g)(z) = g(z)\ntwo(g)(z) = g(g(z))\nn(g)(z) = g^n (z)\na+b (g)(z) = g^(a+b) (z)\na*b (g)(z) = g^(a*b) (z)\n...\nadd(a)(b) = (lambda g: (lambda z: a(g)(b(g)(z))))\n理论推导{\n  a+b = (lambda g: (lambda z: g^(a+b) (z)))\n  b(g)(z)\n    = g^b(z)\n  a(g)(b(g)(z))\n    = a(g)(g^b(z))\n    = g^a(g^b(z))\n    = g^(a+b) (z)\n  add(a)(b)\n    = (lambda g: (lambda z: a(g)(b(g)(z))))\n    = (lambda g: (lambda z: g^(a+b) (z)))\n    = a+b\n  two = (lambda g: (lambda z: g(g(z))))\n  add(one)(one)\n    = (lambda g: (lambda z: one(g)(one(g)(z))))\n    = (lambda g: (lambda z: g(one(g)(z))))\n    = (lambda g: (lambda z: g(g(z))))\n    = two\n}\nmul(a)(b) = (lambda g: (lambda z: a(lambda x: b(g)(x))(z)))\n推导{\n  a*b = (lambda g: (lambda z: g^(a*b) (z)))\n  b(g)(x)\n    = g^b (x)\n  lambda x: b(g)(x)\n    = lambda x: g^b (x)\n  a(lambda x: b(g)(x))(z)\n    = a(lambda x: g^b (x))(z)\n    = (lambda x: g^b (x))^a (z)\n    = (lambda x: g^b (x))^(a-1) ((lambda x: g^b (x))(z))\n    = (lambda x: g^b (x))^(a-1) (g^b (z))\n    = (lambda x: g^b (x))^(a-2) ((lambda x: g^b (x))(g^b (z)))\n    = (lambda x: g^b (x))^(a-2) (g^b (g^b (z)))\n    = (lambda x: g^b (x))^(a-2) (g^(b*2) (z))\n    = ...\n    = (lambda x: g^b (x))^(a-a) (g^(b*a) (z))\n    = g^(a*b) (z)\n  mul(a)(b)\n    = (lambda g: (lambda z: a(lambda x: b(g)(x))(z)))\n    = (lambda g: (lambda z: g^(a*b) (z)))\n    = a*b\n  one = (lambda g: (lambda z: g(z)))\n  two = (lambda g: (lambda z: g(g(z))))\n  mul(one)(two)\n    = (lambda g: (lambda z: one(lambda x: two(g)(x))(z)))\n    = (lambda g: (lambda z: (lambda x: two(g)(x))(z)))\n    = (lambda g: (lambda z: (two(g)(z))))\n    = (lambda g: (lambda z: g(g(z))))\n    = two\n}\nsub(a)(b) = b(lambda x: (lambda g: (lambda z: x(lambda u: (lambda h: h(u(g))))(lambda _: z)(lambda y: y))))(a)\n推导{\n  a(g)(z) = g^a (z)\n  令X满足X^n (z) = (lambda h: h(g^(n-1) (z)))\n  则\n  a(X)(z)\n    = X^a (z)\n    = (lambda h: h(g^(a-1) (z)))\n    = (lambda h: h((a-1) (g)(z)))\n  a(X)(z)(lambda y: y)\n    = (lambda h: h((a-1) (g)(z)))(lambda y: y)\n    = (a-1) (g)(z)\n  令pred(a)(g)(z)=(a-1) (g)(z)\n  则pred(a)(g)(z) = a(X)(z)(lambda y: y)\n  pred(a)\n    = (lambda g: (lambda z: a(X)(z)(lambda y: y)))\n  观察到当X(u) = (lambda h: h(u(g)))时\n  X(lambda _: z) = (lambda h: h(z))\n  X^2 (lambda _: z)\n    = X(X(lambda _: z))\n    = X(lambda h: h(z))\n    = (lambda h: h((lambda h: h(z))(g)))\n    = (lambda h: h(g(z)))\n  X^n (lambda _: z) = (lambda h: h(g^(n-1) (z)))\n  pred(a)\n    = (lambda g: (lambda z:\n      a(lambda u: (lambda h: h(u(g))))\n      (lambda _: z)\n      (lambda y: y)))\n  sub(a)(b)\n    = b(lambda x: pred(x))(a)\n    = b(lambda x: (lambda g: (lambda z: \n          x(lambda u: (lambda h: h(u(g))))\n          (lambda _: z)\n          (lambda y: y))))(a)\n}\nis_zero(a) = a(lambda _: false)(true)\neq(a)(b) = and(is_zero(sub(a)(b)))(is_zero(sub(b)(a)))\nlt(a)(b) = not(is_zero(sub(b)(a)))\nle(a)(b) = is_zero(sub(a)(b))\ngt(a)(b) = not(is_zero(sub(a)(b)))\nge(a)(b) = is_zero(sub(b)(a))\nge = (lambda a: (lambda b: is_zero(sub(a)(b))))\n\n\nnil = (lambda onPair: (lambda onNil: onNil(void)))\npair(a)(b) = (lambda onPair: (lambda onNil: onPair(a)(b)))\nis_nil(thenil) = thenil(lambda fst: (lambda rst: false))(lambda x: true)\n推导{\n  is_nil(thenil)\n    = thenil(lambda fst: (lambda rst: false))(lambda x: true)\n    = (lambda onPair: (lambda onNil: onNil(void)))(lambda fst: (lambda rst: false))(lambda x: true)\n    = (lambda x: true)(void)\n    = true\n  is_nil(thepair)\n    = thepair(lambda fst: (lambda rst: false))(lambda x: true)\n    = (lambda onPair: (lambda onNil: onPair(a)(b)))(lambda fst: (lambda rst: false))(lambda x: true)\n    = (lambda fst: (lambda rst: false))(a)(b)\n    = false\n}\nis_pair(thepair) = thepair(lambda fst: (lambda rst: true))(lambda x: false)\nfirst(thepair) = thepair(lambda fst: (lambda rst: fst))(void)\nrest(thepair) = thepair(lambda fst: (lambda rst: rst))(void)\n推导{\n  first(thepair)\n    = (lambda fst: (lambda rst: fst))(a)(b)\n    = a\n  rest(thepair)\n    = (lambda fst: (lambda rst: rst))(a)(b)\n    = b\n}\n\n\n\"\"\"",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-31 21:07:34",
+    "modified_at": "2024-01-31 21:07:34",
+    "likes": 5,
+    "views": 51,
+    "comments": 20,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-31 19:45:20",
+    "updated_at": "2024-10-25 21:30:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 67,
+                "column": 12
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/39440dbc1ce855f7d0a2b5f7ee0046cd.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他 算法",
+    "xml_path": "751345a9dd9fef5d13d4be145e5999ce",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50885814"
+}

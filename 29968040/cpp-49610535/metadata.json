@@ -1,0 +1,60 @@
+{
+    "id": 49610535,
+    "name": "GPT写的C++ expr",
+    "category": 1,
+    "type": "normal",
+    "description": "支持max和min函数，正确性未知",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/live/default-cpp-thumbnail.png",
+    "xml": "#include <iostream>\n#include <string>\n#include <algorithm>\n#include <cctype>\n#include <cmath>\n\n// 声明函数原型\ndouble expression(const std::string &str, size_t &pos);\ndouble number(const std::string &str, size_t &pos);\ndouble factor(const std::string &str, size_t &pos);\ndouble term(const std::string &str, size_t &pos);\n\n// 解析数字\ndouble number(const std::string &str, size_t &pos) {\n    double result = 0;\n    while (pos < str.length() && std::isdigit(str[pos])) {\n        result = result * 10 + (str[pos++] - '0');\n    }\n    return result;\n}\n\n// 解析括号和函数\ndouble factor(const std::string &str, size_t &pos) {\n    if (str[pos] == '(') {\n        ++pos; // 跳过左括号\n        double result = expression(str, pos);\n        ++pos; // 跳过右括号\n        return result;\n    } else if (std::tolower(str[pos]) == 'm') {\n        // 检测min或max函数\n        std::string func = str.substr(pos, 3);\n        std::transform(func.begin(), func.end(), func.begin(), ::tolower);\n        pos += 3; // 跳过函数名\n        ++pos; // 跳过左括号\n        double a = expression(str, pos);\n        ++pos; // 跳过逗号\n        double b = expression(str, pos);\n        ++pos; // 跳过右括号\n        if (func == \"max\") {\n            return std::max(a, b);\n        } else if (func == \"min\") {\n            return std::min(a, b);\n        }\n    }\n    return number(str, pos);\n}\n\n// 解析乘除\ndouble term(const std::string &str, size_t &pos) {\n    double result = factor(str, pos);\n    while (pos < str.length()) {\n        if (str[pos] == '*') {\n            ++pos;\n            result *= factor(str, pos);\n        } else if (str[pos] == '/') {\n            ++pos;\n            double divisor = factor(str, pos);\n            if (divisor != 0) {\n                result /= divisor;\n            } else {\n                throw std::runtime_error(\"Division by zero.\");\n            }\n        } else {\n            break;\n        }\n    }\n    return result;\n}\n\n// 解析加减\ndouble expression(const std::string &str, size_t &pos) {\n    double result = term(str, pos);\n    while (pos < str.length()) {\n        if (str[pos] == '+') {\n            ++pos;\n            result += term(str, pos);\n        } else if (str[pos] == '-') {\n            ++pos;\n            result -= term(str, pos);\n        } else {\n            break;\n        }\n    }\n    return result;\n}\n\nint main() {\n    std::string expr = \"\";\n    std::cin >> expr;\n    size_t pos = 0;\n    try {\n        double result = expression(expr, pos);\n        std::cout << \"Result: \" << result << std::endl;\n    } catch (const std::exception &e) {\n        std::cerr << \"Error: \" << e.what() << std::endl;\n    }\n    return 0;\n}",
+    "lang": "cpp",
+    "published": 1,
+    "published_at": "2023-12-05 19:54:18",
+    "modified_at": "2023-12-05 19:54:18",
+    "likes": 5,
+    "views": 39,
+    "comments": 31,
+    "version": "cpp",
+    "source": "xes_live",
+    "original_id": 1,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-12-04 22:22:58",
+    "updated_at": "2025-02-09 17:20:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 67,
+                "column": 1
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "624fe7ddfb088762876af7b35648c976",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": null,
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CC_49610535"
+}

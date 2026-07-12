@@ -1,0 +1,61 @@
+{
+    "id": 58642103,
+    "name": "webpy rotate方法补丁",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame, math\npygame.init()\n\ndef rotate(surf, angle):  # 对 webpy 的 rotate 的补丁\n    # 摘自 pygame 的 C 代码，并修改为python代码\n    radangle = angle * 0.01745329251994329\n    sangle = math.sin(radangle)\n    cangle = math.cos(radangle)\n    x, y = surf.get_width(), surf.get_height()\n    cx = cangle * x\n    cy = cangle * y\n    sx = sangle * x\n    sy = sangle * y\n    nxmax = int(max(abs(cx + sy), abs(cx - sy), abs(-cx + sy), abs(-cx - sy)))\n    nymax = int(max(abs(sx + cy), abs(sx - cy), abs(-sx + cy), abs(-sx - cy)))\n\n    new_surf = pygame.Surface((nxmax, nymax), pygame.SRCALPHA)  # 创建新画布\n    new_surf.blit(surf, ((nxmax - x) // 2, (nymax - y) // 2))  # 相当于给原画布加上透明边框，保证旋转结果正确\n    res = pygame.transform.rotate(new_surf, angle)  # 对加边框的画布进行旋转\n    \n    res_surf = pygame.Surface((nxmax, nymax), pygame.SRCALPHA)\n    res_surf.blit(res, (0, 0))\n    return res_surf\n\na = pygame.image.load('cs.png')\nb = rotate(a, 40)\n\nclock = pygame.time.Clock()\nscreen = pygame.display.set_mode((100, 100))\nwhile True:\n    screen.fill((255,255,255))\n    screen.blit(b, (0, 0))\n    pygame.display.update()\n    clock.tick(30)\n    \n",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-01-08 22:34:43",
+    "modified_at": "2025-01-08 22:34:43",
+    "likes": 1,
+    "views": 17,
+    "comments": 0,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-08 22:34:13",
+    "updated_at": "2026-05-21 18:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 32,
+                "column": 26
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/73123cb72f1003d4bb766722731d9695.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "cee34a983c65ac18e339bda056ae81a5",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58642103"
+}

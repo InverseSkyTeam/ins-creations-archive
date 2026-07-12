@@ -1,0 +1,69 @@
+{
+    "id": 65202343,
+    "name": "TinyScript",
+    "category": 1,
+    "type": "normal",
+    "description": "不到一个月极限赶工的隔离时期纪念项目\n这仅仅是一个初版，功能相当于betterlang v2，性能稍好，后面还有很多要加的",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import os\n\nos.system(\"gcc *.h *.c -o main\")\nos.system(\"main\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-11-06 21:50:24",
+    "modified_at": "2025-11-13 16:16:38",
+    "likes": 2,
+    "views": 27,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-11-06 21:48:58",
+    "updated_at": "2026-05-30 07:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "c7aa4313-7971-87a3-117b-28043fb95f02": {
+                "row": 4,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 17
+            },
+            "45357b78-69bf-6576-186c-99773f325866": {
+                "row": 64,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/6ab7204be437322851a6c5c6a21f120e.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 艺术 模拟",
+    "xml_path": "c7cdd6f5f52cb4970d7d28105b39fa5c",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_65202343"
+}

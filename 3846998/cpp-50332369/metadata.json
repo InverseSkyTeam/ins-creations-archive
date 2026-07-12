@@ -1,0 +1,60 @@
+{
+    "id": 50332369,
+    "name": "C语言：可变列表",
+    "category": 1,
+    "type": "normal",
+    "description": "使用C语言和宏实现的可变列表\n警告：宏是一个危险的东西，切勿滥用！每次调用宏前请检查扩展结果！警惕副作用！",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/live/default-cpp-thumbnail.png",
+    "xml": "#include <stdio.h>\n#include <stdlib.h>\n\n#define Extend(type, size, max, ptr)                                           \\\n  if (size == max) {                                                           \\\n    max *= 2;                                                                  \\\n    ptr = (type *)realloc(ptr, sizeof(type) * max);                            \\\n  }\n\n// Extendable sequence\n\n#define NewSeq(type, name)                                                     \\\n  size_t name##_max = 8, name##_size = 0;                                      \\\n  type *name##_val = (type *)malloc(sizeof(type) * name##_max)\n\n#define FreeSeq(name) free(name##_val)\n\n#define SeqNth(name, n) (name##_val[n])\n\n#define SeqAppend(type, name, val)                                             \\\n  Extend(type, name##_size, name##_max, name##_val);                           \\\n  name##_val[name##_size++] = val\n\n#define SeqSize(name) (name##_size)\n\nint main()\n{\n    NewSeq(int, a);\n    for (int i = 1; i <= 10; i++) {\n        SeqAppend(int, a, i);\n        for (size_t p = 0; p < SeqSize(a); p++) {\n            printf(\"%d \", SeqNth(a, p));\n        }\n        puts(\"\");\n    }\n    FreeSeq(a);\n    return 0;\n}",
+    "lang": "cpp",
+    "published": 1,
+    "published_at": "2024-01-16 19:24:59",
+    "modified_at": "2024-01-16 19:24:59",
+    "likes": 3,
+    "views": 45,
+    "comments": 23,
+    "version": "cpp",
+    "source": "xes_live",
+    "original_id": 1,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-16 19:19:18",
+    "updated_at": "2026-02-25 21:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 33,
+                "column": 17
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "算法 模拟",
+    "xml_path": "8ecff7e7c727a173e5abb267b96af671",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": null,
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CC_50332369"
+}

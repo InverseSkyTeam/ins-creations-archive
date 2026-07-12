@@ -1,0 +1,61 @@
+{
+    "id": 50625087,
+    "name": "有一种递归中继器的美",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/517203c9989c5253e7a563315080b732.jpg",
+    "xml": "import time\nt = time.time()\nclass a:\n    def __init__(self):\n        self.awa = 1\n    @classmethod\n    def aa(cls):\n        return cls\nx = eval('a()'+'.aa()()'*100+'.aa()')\ny = eval('x()'+'.aa()()'*100+'.aa()')\nx = eval('y()'+'.aa()()'*100+'.aa()')\ny = eval('x()'+'.aa()()'*100+'.aa()')\nfor i in range(100):\n    x = eval('y()'+'.aa()()'*100+'.aa()')\n    y = eval('x()'+'.aa()()'*100+'.aa()')\nx = eval('y()'+'.aa()()'*100+'.aa()')\nprint(time.time()-t)\nprint(x().awa)\nprint(a().aa()().aa()().awa)\nprint(x().aa()().awa is a().aa()().aa()().awa)\n\n# 递归报错\n# x = eval('y()'+'.aa()()'*1000+'.aa()')\n# y = eval('x()'+'.aa()()'*1000+'.aa()')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-28 16:10:48",
+    "modified_at": "2024-01-28 16:10:48",
+    "likes": 4,
+    "views": 43,
+    "comments": 14,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-28 16:10:21",
+    "updated_at": "2026-02-21 15:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 23,
+                "column": 40
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/63eb118326ae6d8e7fe427863d6d3466.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "算法 模拟 教程",
+    "xml_path": "5b6343ca7e35daf81f9b0fce8d9b0592",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50625087"
+}

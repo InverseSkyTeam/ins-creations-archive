@@ -1,0 +1,61 @@
+{
+    "id": 68888357,
+    "name": "【AI创作】pygame 多个点电荷的电场线",
+    "category": 1,
+    "type": "normal",
+    "description": "详见改编中的图片",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/fd479927be62cffa593af80bb403e78c.jpg",
+    "xml": "import pygame\nimport numpy as np\nimport sys\n\n# 初始化\npygame.init()\nWIDTH, HEIGHT = 800, 600\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"多个点电荷的电场线（带方向）\")\n\n# 颜色\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED   = (255, 0, 0)\nBLUE  = (0, 0, 255)\nARROW_COLOR = (200, 200, 200)  # 箭头颜色\n\n# ========== 点电荷定义 ==========\nclass Charge:\n    def __init__(self, pos, q):\n        self.pos = np.array(pos, dtype=float)\n        self.q = q\n\n# 示例：两个正电荷，一个负电荷\ncharges = [\n    Charge((300, 300),  1),\n    Charge((500, 300),  1),\n    Charge((400, 450), -1),\n]\n\nK = 1.0  # 库仑常数\n\n# ========== 电场计算 ==========\ndef electric_field(points, charges):\n    \"\"\"批量计算电场 (N,2) -> (N,2)\"\"\"\n    E = np.zeros_like(points)\n    for charge in charges:\n        r_vec = points - charge.pos\n        dist = np.linalg.norm(r_vec, axis=1)\n        dist = np.maximum(dist, 1e-4)  # 防除零\n        E += (K * charge.q / dist**3)[:, np.newaxis] * r_vec\n    return E\n\n# ========== 单条电场线追踪 ==========\ndef trace_field_line(start_point, charges, ds=1.0, max_steps=3000, stop_dist=8.0):\n    path = [start_point.copy()]\n    current = start_point.copy().astype(float)\n\n    for _ in range(max_steps):\n        E = electric_field(np.array([current]), charges)[0]\n        norm = np.linalg.norm(E)\n        if norm < 1e-12:\n            break\n        direction = E / norm\n        next_point = current + direction * ds\n\n        # 边界检查\n        if not (0 <= next_point[0] < WIDTH and 0 <= next_point[1] < HEIGHT):\n            path.append(next_point)\n            break\n\n        # 靠近负电荷时终止\n        for ch in charges:\n            if ch.q < 0 and np.linalg.norm(next_point - ch.pos) < stop_dist:\n                path.append(next_point)\n                return path  # 直接返回，不再继续\n\n        path.append(next_point)\n        current = next_point\n\n    return path\n\n# ========== 生成起始点 ==========\ndef generate_start_points(charges, n_lines=20, start_radius=10):\n    points = []\n    for ch in charges:\n        if ch.q > 0:\n            angles = np.linspace(0, 2*np.pi, n_lines, endpoint=False)\n            for ang in angles:\n                sp = ch.pos + start_radius * np.array([np.cos(ang), np.sin(ang)])\n                if 0 <= sp[0] < WIDTH and 0 <= sp[1] < HEIGHT:\n                    points.append(sp)\n    return points\n\n# ========== 绘制方向箭头 ==========\ndef draw_arrow(screen, pos, direction, size=8, color=ARROW_COLOR):\n    \"\"\"在 pos 处绘制一个指向 direction 的三角形箭头\"\"\"\n    tip = pos + direction * size\n    # 垂直向量\n    perp = np.array([-direction[1], direction[0]])\n    left = pos + perp * size * 0.4\n    right = pos - perp * size * 0.4\n    pygame.draw.polygon(screen, color, [tip, left, right])\n\n# ========== 计算所有电场线 ==========\ndef compute_all_lines(charges):\n    start_pts = generate_start_points(charges)\n    lines = [trace_field_line(sp, charges) for sp in start_pts]\n    return lines\n\nfield_lines = compute_all_lines(charges)\n\n# ========== 主循环 ==========\nclock = pygame.time.Clock()\nrunning = True\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    screen.fill(BLACK)\n\n    # 绘制电场线\n    for line in field_lines:\n        if len(line) > 1:\n            # 画线条\n            pygame.draw.lines(screen, WHITE, False, line, 1)\n\n            # 每 20 像素画一个方向箭头\n            arrow_spacing = 100  # 像素间隔\n            # 转换成整数索引步长（因为 ds=1.0，点间隔约 1 像素）\n            step = max(1, arrow_spacing)\n            for i in range(0, len(line)-1, step):\n                p1 = np.array(line[i])\n                p2 = np.array(line[i+1])\n                d = p2 - p1\n                norm = np.linalg.norm(d)\n                if norm > 1e-6:\n                    draw_arrow(screen, p1, d/norm, size=8)\n\n    # 绘制点电荷\n    for ch in charges:\n        color = RED if ch.q > 0 else BLUE\n        radius = max(6, int(abs(ch.q) * 8))\n        pygame.draw.circle(screen, color, ch.pos.astype(int), radius)\n        # 正负号\n        font = pygame.font.SysFont(None, 24)\n        sign = '+' if ch.q > 0 else '-'\n        text = font.render(sign, True, WHITE)\n        text_rect = text.get_rect(center=ch.pos.astype(int))\n        screen.blit(text, text_rect)\n\n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()\nsys.exit()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2026-07-04 21:31:29",
+    "modified_at": "2026-07-04 21:31:29",
+    "likes": 2,
+    "views": 22,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2026-07-04 21:27:20",
+    "updated_at": "2026-07-12 15:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 13
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/1a429323dbfeddabb98cb186a22419b8.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "其他 模拟 教程",
+    "xml_path": "526668d38d2304be769f1fa546fe2828",
+    "created_source": "reprint",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_68888357"
+}

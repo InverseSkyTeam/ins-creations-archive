@@ -1,0 +1,73 @@
+{
+    "id": 59175316,
+    "name": "pygame文本编辑器（v0.0.3 正式版）",
+    "category": 1,
+    "type": "normal",
+    "description": "添加光标闪动\n添加shift+方向键的快捷键\n修复许多已知bug\n\n注：由于特殊原因，将放弃代码高亮的制作，其实本地已有代码高亮的版本，但bug太多不宜发布",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/46687a0b0015ee4f42ed7a4affa39fbb.jpg",
+    "xml": "import pygame\nimport sys\nimport os\nfrom INS_text_input import TextInput\nfrom pygame.locals import *\n\n\ndef install_library():\n    try:\n        import pygame\n        print(\"pygame当前版本：\", pygame.version.vernum)\n        if not (pygame.version.vernum.major >= 2 and pygame.version.vernum.minor >= 3):\n            raise ValueError\n    except ValueError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        import sys\n        try:\n            subprocess.check_call([sys.executable, '-m', 'pip', 'install', \"--upgrade\", \"pygame\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\nos.environ[\"SDL_IME_SHOW_UI\"] = \"1\"\n\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"pygame多行文本编辑器·重生\")\n\npygame.key.set_repeat(450, 25)\n\nclock = pygame.time.Clock()\n\nwith open('./demo.txt', 'r', encoding='utf-8') as f:\n    _init_text = str(f.read())\n# with open('./example.js', 'r', encoding='utf-8') as f:\n#     _init_text = str(f.read())\n\ninput_box = TextInput(font=pygame.font.Font('CHSansSC.ttf', 16),\n                      font_size=16, font_color=(0, )*3, line_height=24,\n                      rect=screen.get_rect().inflate(-20, -20),\n                      init_text=_init_text, fps=120)\n\n\nwhile True:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    mouse_pos = pygame.mouse.get_pos()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((255,)*3)\n    pygame.draw.rect(screen, (0xdd,) * 3, input_box.rect.inflate(4, 4), width=2)\n    input_box.handle_events(pygame_events, mouse_pos)\n    input_box.display(screen, mouse_pos)\n    # input_box.debug()\n\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-31 14:57:53",
+    "modified_at": "2025-01-31 19:55:35",
+    "likes": 7,
+    "views": 58,
+    "comments": 61,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-31 14:51:54",
+    "updated_at": "2026-07-12 14:50:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "d6b6fced-a995-379e-93ec-06b31944e848": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 53,
+                "column": 13
+            },
+            "dd62032f-de78-e850-8365-847a4ec55165": {
+                "row": 68,
+                "column": 0
+            },
+            "3bdbd995-2fd0-28a6-19d1-3bf10fe3b8eb": {
+                "row": 70,
+                "column": 34
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/5f144e7e1da927c75c0fb8c1cc91240b.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 6,
+    "tags": "游戏 沙盒专区 模拟",
+    "xml_path": "9de851e0a8ca7d0d3df8ba14c0149324",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59175316"
+}

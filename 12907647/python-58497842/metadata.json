@@ -1,0 +1,61 @@
+{
+    "id": 58497842,
+    "name": "舒尔特方格（玩法和感想放评论区）",
+    "category": 1,
+    "type": "normal",
+    "description": "评论区看玩法",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/bd169925cd02f85c05053a3e1fefcb97.jpg",
+    "xml": "import pygame\nimport random\nimport time\nimport sys\n\npygame.init()\nfont = {\n    30: pygame.font.SysFont('kaiti', 30),\n    40: pygame.font.SysFont('kaiti', 40),\n}\ndef show_text(text, color=(0, 0, 0), pos=(0, 0), size=40, center=1):\n    s = font[size].render((text), True, color)\n    screen.blit(s, (int(pos[0] - s.get_width() * center / 2), int(pos[1] - s.get_height() * center / 2)))\n\npygame.display.set_caption('INS逆天团队 舒尔特方格')\nscreen = pygame.display.set_mode((615, 630))\n\n\n\ntable_size = 5\n\ndef generate_table(size):\n    standard_list = list(range(1, size * size + 1))\n    game_list = []\n    while standard_list:\n        element = random.choice(standard_list)\n        game_list.append(element)\n        standard_list.remove(element)\n    return game_list\n\ntable = generate_table(table_size)\nblock_size = 600 // table_size\nprogress = 0\ntotal_progress = table_size * table_size\nstarted = 0\nrecord = 0\n\n\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                col = int(event.pos[0] / block_size)\n                row = int(event.pos[1] / block_size)\n                num = table[row * table_size + col]\n                if num == progress + 1:\n                    progress = num\n                    if progress == total_progress:\n                        started = 0\n                        record = time.time() - t1\n        if event.type == pygame.KEYDOWN:\n            if event.key == ord('r') and not record:\n                started = 1\n                t1 = time.time()\n    \n    screen.fill((111, 255, 255))\n    if started or record:\n        for each in range(len(table)):\n            num = table[each]\n            block = pygame.Rect(each % table_size * block_size, each // table_size * block_size, block_size, block_size)\n            pygame.draw.rect(screen, (0, 0, 0), block, 3)\n            show_text(str(num), pos=block.center)\n    \n    pygame.draw.line(screen, (128, 128, 128), (0, 615), (500, 615), 30)\n    pygame.draw.line(screen, (0, 233, 111), (0, 615), (int(500 * progress / total_progress), 615), 30)\n    show_text(f'进度 {progress}/{total_progress} ({progress * 100 / total_progress:.2f}%)', pos=(0, 600), size=30, center=0)\n    show_text(f'{time.time()-t1:.2f}s' if started else f'{record:.2f}s', (255, 0, 0), (500, 600), 30, 0)\n    \n    pygame.display.update()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-12-27 21:07:48",
+    "modified_at": "2024-12-27 21:07:48",
+    "likes": 12,
+    "views": 75,
+    "comments": 21,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-12-27 21:07:14",
+    "updated_at": "2026-05-24 23:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 15,
+                "column": 44
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/c215a724c15217cbd9ead3425ac3c01b.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "游戏",
+    "xml_path": "d554aff732f783a8a8f56b2fb3976dc5",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_58497842"
+}

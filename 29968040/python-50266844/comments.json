@@ -1,0 +1,35 @@
+[
+    {
+        "id": 4497876,
+        "topic_id": "CP_50266844",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "27141890",
+        "reply_user_id": "29968040",
+        "content": "魔法师程序员与麻瓜程序员最大的不同处就是：魔法师程序员能再极端中创造神话，而麻瓜程序员只能摆烂",
+        "likes": 1,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2024-01-14 15:06:56",
+        "comment_from": "topic",
+        "username": "陈思翰",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20230605/Talz0jI8mBkMUtnWoJrt93XBEA1420.png",
+        "reply_username": "黄羿杰",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": true,
+        "can_top": true,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

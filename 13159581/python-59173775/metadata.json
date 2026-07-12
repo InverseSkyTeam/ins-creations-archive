@@ -1,0 +1,61 @@
+{
+    "id": 59173775,
+    "name": "CIDE V1.5",
+    "category": 1,
+    "type": "normal",
+    "description": "新突破",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from tkinter import *\nfrom tkinter import filedialog, messagebox,simpledialog\nfrom tkinter import ttk\nimport idlelib.colorizer as idc\nimport idlelib.percolator as idp\nimport traceback\nimport os\nimport uploader as ul\nimport requests as r\nfrom PIL import Image,ImageTk\nimport os\nimport keyboard\nimport threading\n\nclass CIDE:\n    def __init__(self):\n        self.tk = Tk()\n        self.tk.title(\"CIDE V1.5\")\n        self.tk.geometry(\"498x450+600+10\")\n        # self.tk.overrideredirect(True)\n        # self.tk.attributes(\"-topmost\",True)\n        self.tk.iconphoto(False,PhotoImage(file=\".\\\\icon.gif\"))\n        self.tk.protocol(\"WM_DELETE_WINDOW\", self.callback)\n\n        # self.title_frame = Frame(self.tk)\n        # self.title_label = Label(self.title_frame,bg=\"grey\",height=2,fg=\"lightgreen\",text=\"CIDE　　  　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　\")\n        # self.title_label.grid(row=0,sticky=W)\n        # self.title_label.bind(\"<B1-Motion>\", self.move_window)\n        # self.title_label.bind('<Button-1>', self.get_pos)\n        # self.title_close = Button(self.title_frame,bg=\"grey\",text=\"×\",bd=0,font='blod',activebackground='#ff1e5e',activeforeground='white',fg=\"white\",pady=3,command=self.callback,cursor='hand2',highlightthickness=0)\n        # self.title_close.grid(row=0,sticky=E)\n        # self.title_frame.pack()\n\n        self.frame1 = Frame(self.tk)\n        self.yscrollbar = Scrollbar(self.frame1)\n        self.text = Text(self.frame1, height=23, width=500,font=(None,12))\n        self.yscrollbar.pack(side=RIGHT, fill=Y)\n        self.text.pack()\n        self.yscrollbar.config(command=self.text.yview)\n        self.text.insert(END, \"print(\\\"Hello World!\\\")\")\n        self.configCodeHighlight(self.text)\n        self.text.config(yscrollcommand=self.yscrollbar.set)\n        self.frame1.pack()\n\n        self.frame2 = Frame(self.tk)\n        self.b1 = ttk.Button(self.frame2, width=300, text=\"运行\", command=self.threadaaaa)\n        self.b1.pack()\n\n        ttk.Button(self.frame2, width=300, text=\"保存\", command=self.save).pack()\n\n        ttk.Button(self.frame2, width=300, text=\"打开\", command=self.open).pack()\n\n        self.frame2.pack()\n\n    '''本地操作'''\n    def configCodeHighlight(self,component: Text):\n        idc.color_config(self.text)\n        p = idp.Percolator(self.text)\n        d = idc.ColorDelegator()\n        p.insertfilter(d)\n    def aaaa(self):\n        \n        # def hhhh():\n        #     self.newprint(\"\\n按回车关闭窗口\")\n        #     keyboard.add_hotkey('enter', self.frame3.destroy)\n        def print(*value,sep=' ',end='\\n'):\n            self.outtext['state'] = 'normal'\n            for i in range(len(value)):\n                self.outtext.insert('end',value[i])\n                if i < len(value)-1:\n                    t.insert('end',sep)\n            self.outtext.insert('end',end)\n            self.outtext['state'] = 'disabled'\n        def input(value=''):\n            print(value,end='')\n            is_function_finished = BooleanVar()\n            is_function_finished.set(False)\n            submittext = \"\"  \n            def on_key_press(event):\n                nonlocal is_function_finished\n                nonlocal  submittext \n                text = event.widget\n                # 获取当前光标位置\n                line, column = map(int, text.index(\"insert\").split('.'))\n                # 获取当前行的内容\n                current_line_content = text.get(\"{}.0\".format(line), \"{}.end\".format(line))\n                # 如果是Backspace按下且当前行为空，阻止删除\n                if event.keysym == \"BackSpace\":\n                    if (not current_line_content.strip().replace(value,\"\")):\n                        return \"break\"\n                    else:\n                        submittext = submittext[:-1]\n                        last_char_index = 'end-1c'\n                        self.outtext.delete(last_char_index)\n                elif event.keysym == \"Return\":\n                    is_function_finished.set(True)\n                else:\n                    submittext += event.char\n                    # self.outtext.insert('end', event.char)\n            self.outtext['state'] = 'normal'\n\n            self.outtext.bind(\"<Key>\", on_key_press)\n            # submittext = ''\n            # submittype = 0\n            # def submit(event):\n            #     global submittext\n            #     global submittype\n            #     # 获取当前光标位置\n            #     line_number = self.outtext.index(\"insert\").split(\".\")[0]\n            #     # 获取整行内容\n            #     line_content = self.outtext.get(\"{}.0\".format(line_number), \"{}.end\".format(line_number))\n            #     submittext=line_content.replace(value,\"\")\n            #     submittype=1\n            #     self.outtext['state'] = 'disabled'\n            # print(value)\n            # self.outtext.bind(\"<Return>\",submit)\n            # while submittype==0:\n            #     pass\n            self.frame3.wait_variable(is_function_finished)\n            self.outtext.unbind(\"<Key>\")\n            self.outtext[\"state\"] = \"disabled\"\n            return submittext\n\n        self.frame3 = Toplevel(self.tk)\n        self.frame3.geometry(\"500x230+0+200\")\n        \n        # self.title_close.grid(row=0, sticky=E)\n        # self.title_frame.pack()\n        self.frame3.title(\"CIDE运行分窗口\")\n        self.yscrollbar2 = Scrollbar(self.frame3)\n        self.outtext = Text(self.frame3,height=200,font=(False,14),bg=\"black\",fg=\"white\",insertbackground=\"white\")\n        self.outtext['state'] = 'disabled'\n        self.yscrollbar2.pack(side=RIGHT, fill=Y)\n        self.outtext.pack()\n        self.yscrollbar2.config(command=self.outtext.yview)\n        self.outtext.config(yscrollcommand=self.yscrollbar2.set)\n        self.outtext['state'] = 'normal'\n        self.outtext.delete('1.0', 'end')\n        self.outtext['state'] = 'disabled'\n        t = self.text.get(1.0, END)\n        #t = t.replace('print','self.newprint').replace('input','self.newinput')\n        try:\n            # with open(\"D:\\\\maincode.py\", \"w\", encoding=\"utf-8\") as fn:\n            #     fn.write(t + \"\\ninput(\\\"按回车退出\\\")\")\n            # os.system(\"start D:\\\\maincode.py\")\n            exec(t,globals(),locals())\n        except Exception as b:\n            bug = traceback.format_exc()\n            print(bug)\n        finally:\n            #hhhh()\n            try:\n                self.frame3.mainloop()\n            except:\n                pass\n\n    def threadaaaa(self):\n        threading.Thread(target=self.aaaa).start()\n\n    def save(self):\n        try:\n            t = self.text.get(1.0, END)\n            f = filedialog.asksaveasfile(defaultextension=\".py\")\n            f.write(t + \"\\ninput(\\\"按回车退出\\\")\")\n        except:\n            messagebox.showinfo('提示', '保存失败')\n        else:\n            messagebox.showinfo('提示', '保存成功')\n    def open(self):\n        path = filedialog.askopenfilename(initialdir=\"C:\\\\\")\n        with open(path,\"r\",encoding=\"UTF-8\") as file:\n            self.text.delete(\"1.0\", \"end\")\n            self.text.insert(END,file.read())\n\n    def get_pos(self,event):\n        global xwin, ywin\n        xwin = event.x\n        ywin = event.y\n    def move_window(self,event):\n        self.tk.geometry(f'+{event.x_root - xwin}+{event.y_root - ywin}')\n\n    def move_window2(self,event):\n        self.frame3.geometry(f'+{event.x_root - xwin}+{event.y_root - ywin}')\n\n    def callback(self):\n        if messagebox.askyesno('关闭', '您确定要关闭CIDE吗?'):\n            self.tk.destroy()\n            os._exit(200)\n        else:\n            pass\n\n\nide = CIDE()\nide.tk.mainloop()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-01-30 16:14:28",
+    "modified_at": "2025-01-30 16:14:28",
+    "likes": 1,
+    "views": 14,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-01-30 16:14:03",
+    "updated_at": "2025-07-04 10:25:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 20,
+                "column": 45
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/be1ac8ba8074e444f30154c3e5c713ba.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他 模拟",
+    "xml_path": "f40a6ad27d3d57bab840408e10fe226c",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59173775"
+}

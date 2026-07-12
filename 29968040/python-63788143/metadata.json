@@ -1,0 +1,61 @@
+{
+    "id": 63788143,
+    "name": "我就不信这个也会被下架！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/481fc4b53c1b80708464721f654d23cb.jpg",
+    "xml": "import pygame\nimport sys\n\n\n# 初始化 Pygame\npygame.init()\npygame.mixer.init()\n\n# 颜色定义\n# BACKGROUND = (255, 255, 255)\n# UI_BACKGROUND = (242, 242, 242)\n# PROGRESS_BG = (189, 203, 225)\n# PROGRESS_FG = (84, 143, 255)\n# PROGRESS_HEAD = (255, 255, 255)\n# TEXT_COLOR = (23, 23, 23)\n\n# 颜色定义\nBACKGROUND = (255, 255, 255)\nUI_BACKGROUND = (255, 240, 240)  # 浅红色背景\nPROGRESS_BG = (255, 200, 200)    # 浅红色进度条背景\nPROGRESS_FG = (220, 0, 0)        # 深红色进度条前景\nPROGRESS_HEAD = (255, 255, 255)  # 白色进度条头部\nTEXT_COLOR = (100, 0, 0)         # 深红色文字\n\nFONT_NAMES = [\n    \"notosanscjktcregular\",\n    \"notosansmonocjktcregular\",\n    \"notosansregular\",\n    \"microsoftjhenghei\",\n    \"microsoftyahei\",\n    \"msgothic\",\n    \"msmincho\",\n    \"unifont\",\n    \"Arial\",\n]\n\n# 窗口设置\nWIDTH, HEIGHT = 900, 500\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Pygame 音频播放器 - 支持进度调整\")\n\n\nclass Player:\n    def __init__(self):\n        self.is_pause = False\n        self.length_seconds = None\n        self.offset = 0\n        \n        self.last_pos = -1\n    \n    @property\n    def is_play(self):\n        return not (pygame.mixer.music.get_pos() == -1)\n    \n    def load(self, path):\n        pygame.mixer.music.load(path)\n        self.offset = 0\n        self.length_seconds = 573.2742309570312  # pygame.mixer.Sound(path).get_length()\n    \n    def play(self):\n        self.is_pause = False\n        self.offset = 0\n        pygame.mixer.music.play(loops=0, start=0.0, fade_ms=0)\n    \n    def stop(self):\n        self.is_pause = False\n        self.offset = 0\n        pygame.mixer.music.stop()\n    \n    def set_pos(self, seconds):\n        if not self.is_play:\n            self.play()\n        self.offset += int((seconds - self.get_pos()) * 1000)\n        pygame.mixer.music.set_pos(seconds)\n    \n    def get_pos(self):\n        res = pygame.mixer.music.get_pos()\n        if res == -1:\n            self.last_pos = -1\n            return 0\n        if res < self.last_pos:\n            # print(114514)\n            return (self.offset + self.last_pos) / 1000\n        # print(1919)\n        self.last_pos = res\n        return (self.offset + res) / 1000\n    \n    def get_state(self):\n        if not self.is_play:\n            return False\n        return not self.is_pause\n    \n    def pause(self):  # 暂停\n        self.is_pause = True\n        pygame.mixer.music.pause()\n    \n    def unpause(self):\n        self.is_pause = False\n        pygame.mixer.music.unpause()\n\n\nclass PlayButton:\n    def __init__(self, player: Player, rect: pygame.Rect):\n        self.play_image = pygame.image.load('play.png').convert_alpha()\n        self.pause_image = pygame.image.load('pause.png').convert_alpha()\n        self.player = player\n        self.rect = rect\n    \n    def draw(self, surface):\n        image = self.pause_image if self.player.get_state() else self.play_image\n        image = pygame.transform.smoothscale(image, self.rect.size)\n        surface.blit(image, self.rect)\n    \n    def handle_event(self, _event):\n        if _event.type == pygame.MOUSEBUTTONDOWN and _event.button == 1 and self.rect.collidepoint(_event.pos):\n            if not self.player.is_play:\n                self.player.play()\n            elif self.player.is_pause:\n                self.player.unpause()\n            else:\n                self.player.pause()\n\n\nclass ProgressBar:\n    def __init__(self, player: Player, rect: pygame.Rect):\n        self.player = player\n        self.rect = rect\n        self.line_rect = pygame.Rect(self.rect.x, 0, self.rect.w, self.rect.h // 15)\n        self.line_rect.centery = self.rect.centery\n        self.font_size = self.rect.h // 5\n        self.font = pygame.font.SysFont(FONT_NAMES, self.font_size)\n        \n        self.dragging = False\n        self.temp_progress = None\n    \n    @property\n    def progress(self):\n        if self.dragging and self.temp_progress is not None:\n            return self.temp_progress\n        return self.player.get_pos() / self.player.length_seconds\n    \n    @property\n    def progress_seconds(self):\n        if self.dragging and self.temp_progress is not None:\n            return int(self.temp_progress * self.player.length_seconds)\n        return self.player.get_pos()\n    \n    @staticmethod\n    def time_convert(seconds):\n        seconds = int(seconds)\n        return f'{seconds // 60:02d}:{seconds % 60:02d}'\n    \n    def draw(self, surface):\n        border = self.line_rect.h // 2\n        head_raidus = int(self.rect.h * 0.15)\n        head_x = self.line_rect.x + int((self.line_rect.w - head_raidus * 2) * self.progress) + head_raidus\n        line_fg_rect = self.line_rect.copy()\n        line_fg_rect.w = max(head_x - self.line_rect.x, self.line_rect.h)\n        pygame.draw.rect(surface, PROGRESS_BG, self.line_rect, border_radius=border)\n        pygame.draw.rect(surface, PROGRESS_FG, line_fg_rect, border_radius=border)\n        pygame.draw.circle(surface, PROGRESS_HEAD, (head_x, line_fg_rect.centery), head_raidus)\n        \n        # progress = (head_x - self.rect.x - int(self.rect.h * 0.15)) / (self.rect.w - int(self.rect.h * 0.3))\n        left_text = self.font.render(self.time_convert(self.progress_seconds), True, TEXT_COLOR)\n        right_text = self.font.render(self.time_convert(self.player.length_seconds), True, TEXT_COLOR)\n        text_y = self.line_rect.bottom + (self.rect.bottom - self.line_rect.bottom - self.font_size) // 2\n        surface.blit(left_text, (self.line_rect.left, text_y))\n        surface.blit(right_text, (self.line_rect.right - right_text.get_width(), text_y))\n    \n    def get_mouse_progress(self, x):\n        offset_x = x - self.rect.x - self.rect.h * 0.15\n        progress = offset_x / (self.rect.w - self.rect.h * 0.3)\n        return max(0.0, min(1.0, progress))\n    \n    def handle_event(self, _event):\n        rect = pygame.Rect(self.rect.x, 0, self.rect.w, int(self.rect.h * 0.3))\n        rect.centery = self.rect.centery\n        if _event.type == pygame.MOUSEBUTTONDOWN and _event.button == 1 and rect.collidepoint(_event.pos):\n            self.dragging = True\n            self.temp_progress = self.player.get_pos() / self.player.length_seconds\n        elif _event.type == pygame.MOUSEMOTION:\n            self.temp_progress = self.get_mouse_progress(_event.pos[0])\n        elif _event.type == pygame.MOUSEBUTTONUP and _event.button == 1 and self.dragging:\n            progress = self.get_mouse_progress(_event.pos[0])\n            self.player.set_pos(progress * self.player.length_seconds)\n            self.temp_progress = None\n            self.dragging = False\n\n    \nclass UI:\n    def __init__(self, rect: pygame.Rect):\n        self.rect = rect\n        self.player = Player()\n        \n        button_size = self.rect.h // 2\n        padding = int(button_size * 0.7)\n        \n        button_rect = pygame.Rect(self.rect.x + padding, 0, button_size, button_size)\n        button_rect.centery = self.rect.centery\n        self.play_button = PlayButton(self.player, button_rect)\n        \n        progress_rect = pygame.Rect(button_rect.right + padding, self.rect.y, 0, self.rect.h)\n        progress_rect.w = self.rect.right - int(padding * 1.2) - progress_rect.x\n        self.progress_bar = ProgressBar(self.player, progress_rect)\n    \n    def load(self, path):\n        self.player.load(path)\n    \n    def draw(self, surface):\n        pygame.draw.rect(surface, UI_BACKGROUND, self.rect, border_radius=self.rect.h//3)\n        self.play_button.draw(surface)\n        self.progress_bar.draw(surface)\n    \n    def handle_event(self, events):\n        for _event in events:\n            self.play_button.handle_event(_event)\n            self.progress_bar.handle_event(_event)\n\n\nclass BackGround:\n    def __init__(self):\n        self.image = pygame.transform.smoothscale(pygame.image.load('background.png'), (WIDTH, HEIGHT)).convert_alpha()\n    \n    def draw(self, _screen):\n        _screen.blit(self.image, (0, 0))\n\n\nbackground = BackGround()\nui = UI(pygame.Rect((WIDTH - 800) // 2, (HEIGHT - 160) // 2, 800, 160))\nui.load('国际歌.ogg')\n\n# 主循环\nclock = pygame.time.Clock()\nwhile True:\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    ui.handle_event(pygame_events)\n\n    # 绘制界面\n    screen.fill(BACKGROUND)\n    background.draw(screen)\n    # pygame.draw.rect(screen, (0,0,0), (0,0,WIDTH, HEIGHT), 1)\n    ui.draw(screen)\n\n    pygame.display.flip()\n    clock.tick(60)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-08-15 13:53:56",
+    "modified_at": "2025-08-15 13:53:56",
+    "likes": 8,
+    "views": 94,
+    "comments": 9,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-08-15 13:49:49",
+    "updated_at": "2026-06-27 17:10:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 248,
+                "column": 18
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/dbd5bf5332d8a2bb79d0377daa2a398a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 7,
+    "tags": "艺术 故事 其他",
+    "xml_path": "04aca40c66dd00d3ecb1d7c1b7de72e7",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_63788143"
+}

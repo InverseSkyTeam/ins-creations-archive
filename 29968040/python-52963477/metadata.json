@@ -1,0 +1,73 @@
+{
+    "id": 52963477,
+    "name": "pygame多行文本编辑器 · 重生",
+    "category": 1,
+    "type": "normal",
+    "description": "重制版，重写了大部分代码，这次更注重代码可读性和渲染速度",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame\nimport sys\nimport os\nimport text_input_box\nfrom pygame.locals import *\n\ndef get_py_path():\n    return sys.executable\ndef install_library():\n    try:\n        import pygame\n        print(\"pygame当前版本：\",pygame.version.vernum)\n        if not (pygame.version.vernum.major>=2 and pygame.version.vernum.minor>=3):\n            int('aaa')#强制报错\n    except:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"--upgrade\", \"pygame\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\ninstall_library()\n\nos.environ[\"SDL_IME_SHOW_UI\"] = \"1\"\n\npygame.init()\nscreen = pygame.display.set_mode((700, 500))\npygame.display.set_caption(\"pygame多行文本编辑器·重生\")\npygame.key.start_text_input()\npygame.key.set_text_input_rect(pygame.Rect(80, 80, 320, 40))\npygame.key.set_repeat(450, 25)\npygame.time.set_timer(USEREVENT, 500)\nclock = pygame.time.Clock()\n\n\nfont_size = 16\nfont = pygame.font.SysFont('SimHei', font_size)\nfont_color = (0, )*3\nline_height = 24\nrect = pygame.Rect(20, 20, 700-40, 500-40)\ninit_text = 'IDU nb!!!\\n'*100000\ninput_box = text_input_box.TextInput(font, font_size, font_color, line_height, rect, init_text)\n\n\nwhile True:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((255,)*3)\n    input_box.handle_events(pygame_events)\n    input_box.render(screen)\n    pygame.draw.rect(screen, (255, 0, 0), (rect.x-1, rect.y-1, rect.w+2, rect.h+2), width=1)\n\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-05-04 16:16:45",
+    "modified_at": "2024-05-04 16:50:45",
+    "likes": 5,
+    "views": 53,
+    "comments": 21,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-05-04 16:12:05",
+    "updated_at": "2026-01-20 19:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "aa0087fc-ec4f-3e55-3760-c14f6ff01d2d": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 8,
+                "column": 22
+            },
+            "120b8ad5-bbd1-50d4-dd53-bbad07f6a26f": {
+                "row": 4,
+                "column": 0
+            },
+            "5169f12a-a305-8885-b159-02d24a78727c": {
+                "row": 27,
+                "column": 44
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/3b89b000e4a8e8cbc3c9872d005cf7d7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "游戏 沙盒专区 模拟",
+    "xml_path": "5c71715242b59d82e53d0d282e9d32a2",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52963477"
+}

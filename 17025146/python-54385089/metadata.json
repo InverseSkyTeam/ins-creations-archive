@@ -1,0 +1,65 @@
+{
+    "id": 54385089,
+    "name": "词法分析器生成器",
+    "category": 1,
+    "type": "normal",
+    "description": "很显然这是可以处理字符串的",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from lex import Lex\n\ngenerator = Lex()\n\n@generator.pattern('\".*\"')\ndef string(text):\n    print(\"String:\", text)\ngenerator.compile()\ngenerator.lex('\"success\"')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-18 23:24:28",
+    "modified_at": "2024-07-19 18:48:14",
+    "likes": 5,
+    "views": 23,
+    "comments": 3,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-18 23:16:22",
+    "updated_at": "2025-08-24 21:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "b920e94a-d496-d925-e4c4-f8709c0ae43f": {
+                "row": 379,
+                "column": 40
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 4,
+                "column": 26
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/04f4cbd905c9243e0cadf083c28a8715.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "其他 算法",
+    "xml_path": "6a2b625231df2427dea0c75e627a0e82",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54385089"
+}

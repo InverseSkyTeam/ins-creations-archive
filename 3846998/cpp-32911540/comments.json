@@ -1,0 +1,69 @@
+[
+    {
+        "id": 2637578,
+        "topic_id": "CC_32911540",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "7776789",
+        "reply_user_id": "3846998",
+        "content": "其实这玩意类似于一个叫BrainF**K的语言，但你的操作性可读性比那还高一点……\nF**k就不解释是什么意思了，人家是真的打孔纸带语言（笑\n不过图灵完备倒是有点接近了",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 1,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2022-05-02 19:45:55",
+        "comment_from": "topic",
+        "username": "张歆睿",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20220403/TalzdxAuYk3_z5BjyGS90Xtt-Q1043.jpg",
+        "reply_username": "付开霁",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 1,
+            "data": [
+                {
+                    "id": 3395977,
+                    "topic_id": "CC_32911540",
+                    "parent_id": 2637578,
+                    "target_id": 2637578,
+                    "user_id": "3846998",
+                    "reply_user_id": "7776789",
+                    "content": "啊对对对\n不过其实应该叫Forth和BrainFuck的混合体\n现在加了“函数”就更像Forth了\n看一下https://code.xueersi.com/home/project/detail?lang=code&pid=37720803&version=cpp&form=cpp&langType=cpp\n发现它其实是伪·C语言虚拟机的前身",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": [
+                        {
+                            "link": "https://code.xueersi.com/home/project/detail?lang=code&pid=37720803&version=cpp&form=cpp&langType=cpp",
+                            "text": "伪·C语言0.2编辑器"
+                        }
+                    ],
+                    "created_at": "2022-10-23 09:17:20",
+                    "comment_from": "topic",
+                    "username": "付开霁",
+                    "user_avatar_path": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+                    "reply_username": "张歆睿",
+                    "emojis": [],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": true,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                }
+            ]
+        },
+        "user_profile": null
+    }
+]

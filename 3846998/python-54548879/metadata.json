@@ -1,0 +1,65 @@
+{
+    "id": 54548879,
+    "name": "TermEd 0.0.0 pre v3",
+    "category": 1,
+    "type": "normal",
+    "description": "新增撤销-重做系统",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/75bca36197817b145b496fdab4a8c987.jpg",
+    "xml": "import os\n\nos.system(\"start cmd /c \\\"python edcore.py config.rain\\\"\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-07-23 16:28:36",
+    "modified_at": "2024-07-23 19:13:26",
+    "likes": 3,
+    "views": 10,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-23 16:23:53",
+    "updated_at": "2024-10-07 14:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 0
+            },
+            "b203edae-b364-80e5-fdaa-14be216465dd": {
+                "row": 794,
+                "column": 58
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/aa45d5099d15610d33f9852079cf9b08.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "830d4fde860bee9410b967f555d9d75c",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54548879"
+}

@@ -1,0 +1,61 @@
+{
+    "id": 63596715,
+    "name": "铁傀儡机，但是Pygame",
+    "category": 1,
+    "type": "normal",
+    "description": "这是使用Pillow为核心渲染的3D效果，所以仅能使用画家算法\n所以出现缝隙、重叠是正常的",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/cb8dacc03c301d04bf8c39d618452c1e.jpg",
+    "xml": "def install_library():\n    try:\n        import pygame\n        print(\"pygame当前版本：\", pygame.version.vernum)\n        if not (pygame.version.vernum.major >= 2 and pygame.version.vernum.minor >= 3):\n            raise ValueError\n    except ValueError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        import sys\n        try:\n            subprocess.check_call([sys.executable, '-m', 'pip', 'install', \"--upgrade\", \"pygame\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        import sys\n        try:\n            subprocess.check_call([sys.executable, '-m', 'pip', 'install', \"pygame\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\n\n\nimport pygame\nimport sys\nimport time\nimport math\nfrom data import BlockType, TextureManager, Block\nfrom render import render_cube\n\npygame.init()\nscreen = pygame.display.set_mode((700, 500))\nclock = pygame.time.Clock()\nfont = pygame.font.SysFont(None, 20)\n\ntexture_manager = TextureManager()\niron = BlockType(texture_manager, {'all': 'iron_block'})\npumpkin = BlockType(texture_manager, {'y': 'pumpkin_top', 'x': 'pumpkin_side', 'back': 'pumpkin_side', 'front': 'carved_pumpkin'})\n\n\ncube = [Block(pumpkin, (0, -1, 0)), Block(iron, (0, 0, 0)), Block(iron, (0, 1, 0)), Block(iron, (-1, 0, 0)), Block(iron, (1, 0, 0))]\nangle_x = 0.0\nangle_y = 0.0\nmouse_dragging = False\n\npygame.mixer.music.load('music.ogg')\npygame.mixer.music.play(loops=-1)\n\nwhile True:\n    fps = f'fps: {clock.get_fps():.3f}'\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:\n            mouse_dragging = True\n        if event.type == pygame.MOUSEMOTION and mouse_dragging:\n            angle_x += event.rel[1]/300\n            angle_y += event.rel[0]/100\n        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:\n            mouse_dragging = False\n    screen.fill((255, 255, 255))\n    \n    t = (math.sin(time.time() * 6.5) + 1) / 2\n    cube[1].z = cube[2].z = t\n    cube[3].z = cube[4].z = 1 - t\n\n    # pygame.draw.rect(screen, (255,0,0), (0,0,700,500),2)\n    render_cube(screen, (700, 500), texture_manager, [angle_x, angle_y], cube)\n    screen.blit(font.render(fps, True, (0, 0, 0)), (10, 10))\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-08-07 04:39:50",
+    "modified_at": "2025-08-11 19:11:36",
+    "likes": 9,
+    "views": 133,
+    "comments": 10,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-08-07 04:35:43",
+    "updated_at": "2026-06-06 09:20:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 22,
+                "column": 73
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/a211bbb1907a0f1519b45db5f2c633f6.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 7,
+    "tags": "艺术 动画 模拟",
+    "xml_path": "a8f8b426bbe96415cc3e043019e74b8f",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_63596715"
+}

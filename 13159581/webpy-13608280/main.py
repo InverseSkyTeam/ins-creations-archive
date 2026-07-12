@@ -1,0 +1,18 @@
+from turtle import *
+tracer(0)
+for i in range(10000):
+    clear()
+    color("yellow")
+    begin_fill()
+    circle(100,360,4)
+    end_fill()
+    left(120)
+    begin_fill()
+    circle(100,360,4)
+    end_fill()
+    left(120)
+    begin_fill()
+    circle(100,360,4)
+    end_fill()
+    left(5)
+    update()

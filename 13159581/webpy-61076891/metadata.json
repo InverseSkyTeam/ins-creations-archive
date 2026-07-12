@@ -1,0 +1,65 @@
+{
+    "id": 61076891,
+    "name": "XES AiRefactor",
+    "category": 1,
+    "type": "normal",
+    "description": "XES c++课程的AI帮助解决问题（",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/050b0eb802368563f1900829e937b0dc.jpg",
+    "xml": "print(\"\"\"说实话\n虽然很好用\n但是是陈思翰【css】和凌【VueElementMixin】的代码的复合怪（\n4/20补：还有lrs【AI请求】的成分（\n\n适用于xes c++课程的代码本\n源码在素材区，进改编看\n你问我怎么安装？网上搜 \\x1b[31mTampermonkey\\x1b[0m 安装脚本。\n\n说实话，xes这个代码本一旦开油猴就动不动history api没掉\n\n但就是说，VueElementMixin太好用辣！\n效果图：https://livefile.xesimg.com/programme/python_assets/e774c11c28f41823b469a0a683f7f14d.png\n\n附：phigros魔改被公约1.9下架了（\n\"\"\")",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-04-19 20:45:31",
+    "modified_at": "2025-04-20 19:54:07",
+    "likes": 2,
+    "views": 51,
+    "comments": 5,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-04-19 20:33:09",
+    "updated_at": "2026-05-15 04:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 16
+            },
+            "060b3234-160a-ba83-46f5-0a6b94c28019": {
+                "row": 154,
+                "column": 45
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/2cdb76d42a25074e9fc3371211ea24cb.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "837aac9770b9434d55ec28a8011ee655",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_61076891"
+}

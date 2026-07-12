@@ -1,0 +1,61 @@
+{
+    "id": 56021693,
+    "name": "@苏设设 以后给人发文件就在这里吧",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print('有人不会用学而思图床，评论区又发不完整，只能这样。\\n链接: https://livefile.xesimg.com/programme/python_assets/e7cc04ad0eb39211239de5faa11c4633.png\\n素材里面也有图片，而且更多，其中的小轩-逆天团队标准logo是标准的\\n回复给 @苏设设')\n\nprint('\\n\\n@陈思翰 这里活跃的大佬不多，我现在有b站、vscode、洛谷、qq、凌cim等可以集中交流，主要是qq，除了吴宇航等几位大佬用的其他，大多人用的qq')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-08 09:29:19",
+    "modified_at": "2024-09-08 14:37:29",
+    "likes": 6,
+    "views": 60,
+    "comments": 56,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-08 09:29:07",
+    "updated_at": "2025-12-28 23:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 2,
+                "column": 51
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/fbdd392dfa90c6311190b799a8b932a8.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "781753e064578ce55835a9e9acc8e4a1",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56021693"
+}

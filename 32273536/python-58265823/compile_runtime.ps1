@@ -1,0 +1,1 @@
+clang ./k/runtime.c -c -o runtime.o -target x86_64-pc-windows-msvc-elf

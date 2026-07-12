@@ -1,0 +1,23 @@
+from turtle import*
+def Dshu(a,b,c,d,e):
+    t=Turtle()
+    t.penup()
+    t.goto(a,b)
+    t.pendown()
+    t.goto(a,b-c)
+    t.goto(a+d,b-c+d)
+    t.goto(a+d,b-e*2-d)
+    t.goto(a+d+e,b-d-e)
+    t.goto(a,b)
+def Dheng(a,b,c,d,e):
+    t=Turtle()
+    t.penup()
+    t.goto(a,b)
+    t.pendown()
+    t.goto(a+c-e*2,b)
+    t.goto(a+c-e,b+e)
+    t.goto(a+c+d,b-d)
+    t.goto(a+d,b-d)
+    t.goto(a,b)
+Dshu(-50,-50,200,10,5)
+Dheng(-300,-200,200,5,20)

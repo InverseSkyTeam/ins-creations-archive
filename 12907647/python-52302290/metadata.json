@@ -1,0 +1,69 @@
+{
+    "id": 52302290,
+    "name": "IDU沙盒 dev2.7 日月",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/603e01bc3d7f6c53a6027da1a31dfd7f.jpg",
+    "xml": "import pygame\nimport time\nimport sys\nimport sight\n\npygame.init()\npygame.key.stop_text_input()\n\n# 定义常量(用户可以修改设置)\nSC_WIDTH = 1000\nSC_HEIGHT = 700\nBLOCK_SIZE = 50\nMP_WIDTH = 100 * BLOCK_SIZE\nMP_HEIGHT = 111 * BLOCK_SIZE\nWIDTH = int(SC_WIDTH / BLOCK_SIZE)\nHEIGHT = int(SC_HEIGHT / BLOCK_SIZE)\n\nprint(f'''[INFO]\n窗口大小: {SC_WIDTH}x{SC_HEIGHT}={SC_WIDTH*SC_HEIGHT}px\n地图大小: {MP_WIDTH}x{MP_HEIGHT}={MP_WIDTH*MP_HEIGHT}px\n地图方块: 100x111=11100个\n单个方块: 50x50=2500px\nwsad/up down left right移动\n(fps/xpos/ypos在窗口标题显示)\nVersion dev-2 碰撞检测\nVersion dev-2.1 丝滑跳跃\nVersion dev-2.2 太阳运动\nVersion dev-2.3 右键添加方块\nVersion dev-2.4 圆角太阳\nVersion dev-2.5 视野\nVersion dev-2.6 黑夜\nVersion dev-2.7 日月交替\n''')\n\nscreen = pygame.display.set_mode((SC_WIDTH,SC_HEIGHT))\npygame.display.set_caption('IDU Sandbox Driver')\n\nimages = {\n    0: None,\n    1: pygame.transform.scale(pygame.image.load('./images/草地.png'),(BLOCK_SIZE,BLOCK_SIZE)),\n    2: pygame.transform.scale(pygame.image.load('./images/土.png'),(BLOCK_SIZE,BLOCK_SIZE)),\n    3: pygame.transform.scale(pygame.image.load('./images/石块.png'),(BLOCK_SIZE,BLOCK_SIZE)),\n}\ndata = [*([0 for i in range(100)] for line in range(10)),\n        [1 for i in range(100)],\n        *([2 for i in range(100)] for line in range(35)),\n        *([3 for i in range(100)] for line in range(65)),]\n\nclass Life:\n    pass\n\n# 玩家内核\nclass Player:\n    def __init__(self):\n        self.hp = 100\n        self.rect = pygame.Rect(0,0,40,120)\n        self.rect.center = (SC_WIDTH/2,SC_HEIGHT/2)\n        self.jumplity = 1      # 跳跃系数，越大越能跳\n        self.chooserange = 200     # 选择范围（未制作）\n    def draw(self):\n        pygame.draw.rect(screen,(255,0,0),self.rect,3)\n\n# 地图（也算是游戏引擎类吧doge）\nclass GameMap:\n    # 初始化\n    def __init__(self,data,player):\n        self.__state = 'unclick'\n        self.__keystate = {\n            pygame.K_UP: 0, pygame.K_DOWN: 0, pygame.K_LEFT: 0, pygame.K_RIGHT: 0,\n            pygame.K_w: 0, pygame.K_s: 0, pygame.K_a: 0, pygame.K_d: 0,\n            pygame.K_q: 0,    # 背包\n            pygame.K_e: 0,    # 合成\n        }\n        self.data = data\n        self.offset_x = 0\n        self.offset_y = 0\n        self.choose_pos = None\n        self.choose_bid = None\n        self.choose_rect = pygame.Rect(0,0,BLOCK_SIZE,BLOCK_SIZE)\n        self.player = player\n        self.player_on_ground = False\n        self.Fy = 0\n    \n    # 基础功能\n    def state(self,s):\n        self.__state = s\n    def keyin(self,k,s):\n        self.__keystate[k] = s\n    def get_id(self,pos):\n        col = round((self.offset_x + pos[0]) // BLOCK_SIZE)\n        row = round((self.offset_y + pos[1]) // BLOCK_SIZE)\n        return (row,col)\n    def get_pos(self,row,col):\n        if (row >= len(self.data)) or (col >= len(self.data[row])):\n            return None\n        x = col * BLOCK_SIZE - self.offset_x\n        y = row * BLOCK_SIZE - self.offset_y\n        return (x,y)\n    \n    # 光标选择\n    def choose(self,epos):\n        self.choose_bid = self.get_id(epos)\n        self.choose_rect.topleft = self.get_pos(*self.choose_bid)\n    \n    # 背包\n    def backpack(self):\n        ...\n    # 合成\n    def craft(self):\n        ...\n    \n    # 事件处理专区\n    def handle_event(self):\n        # 测定player四个角所在的位置\n        p_lt_site = self.get_id(self.player.rect.topleft)\n        p_lb_site = self.get_id(self.player.rect.bottomleft)\n        p_rt_site = self.get_id(self.player.rect.topright)\n        p_rb_site = self.get_id(self.player.rect.bottomright)\n        \n        # 键盘移动\n        ks = self.__keystate\n        x_movement = ks[pygame.K_RIGHT] + ks[pygame.K_d] \\\n                   - ks[pygame.K_LEFT] - ks[pygame.K_a]\n        if self.player_on_ground:     # 在地上，能跳\n            self.Fy = ks[pygame.K_UP] | ks[pygame.K_w]\n        else:     # 不在地上，按力落体\n            self.Fy -= 0.01\n        y_movement = self.Fy * self.player.jumplity\n        \n        self.player_on_ground = False\n        if x_movement < 0:\n            col = p_lt_site[1] - 1\n            for row in range(p_lt_site[0],p_lb_site[0]+1):\n                if data[row][col]:\n                    maxleft = self.player.rect.left - (self.get_pos(row,col)[0] + BLOCK_SIZE)\n                    x_movement = -min(maxleft,-x_movement)\n                    break\n        elif x_movement > 0:\n            col = p_rt_site[1] + 1\n            for row in range(p_rt_site[0],p_rb_site[0]+1):\n                if data[row][col]:\n                    maxright = self.get_pos(row,col)[0] - self.player.rect.right - 1\n                    x_movement = min(maxright,x_movement)\n                    break\n        if y_movement < 0:\n            row = p_lb_site[0] + 1\n            for col in range(p_lb_site[1],p_rb_site[1]+1):\n                if data[row][col]:\n                    maxdown = self.get_pos(row,col)[1] - self.player.rect.bottom - 1\n                    y_movement = -min(maxdown,-y_movement)\n                    if y_movement == 0:\n                        self.player_on_ground = True\n                    break\n        elif y_movement > 0:\n            row = p_lt_site[0] - 1\n            for col in range(p_lt_site[1],p_rt_site[1]+1):\n                if data[row][col]:\n                    maxup = self.player.rect.top - (self.get_pos(row,col)[1] + BLOCK_SIZE)\n                    y_movement = min(maxup,y_movement)\n                    break\n        \n        self.offset_x += x_movement\n        self.offset_y -= y_movement\n        self.offset_x = max(min(self.offset_x, MP_WIDTH - SC_WIDTH - 1), 0)\n        self.offset_y = max(min(self.offset_y, MP_HEIGHT - SC_HEIGHT - 1), 0)\n        \n        # 按键对应的拓展\n        if ks[pygame.K_q]:\n            self.backpack()    # 打开背包\n        if ks[pygame.K_e]:\n            self.craft()    # 合成\n        \n        # 光标选择\n        self.choose(evt_pos)\n    \n    # 绘制地图\n    def show(self):\n        left = round(self.offset_x // BLOCK_SIZE)\n        top = round(self.offset_y // BLOCK_SIZE)\n        for row in range(top, top + HEIGHT + 1):\n            for col in range(left, left + WIDTH + 1):\n                img = images[self.data[row][col]]\n                if img:\n                    screen.blit(img,self.get_pos(row,col))\n        self.player.draw()\n        if self.data[self.choose_bid[0]][self.choose_bid[1]]:\n            pygame.draw.rect(screen,(0,0,0),self.choose_rect,3)\n        else:\n            pygame.draw.rect(screen,(155,155,155),self.choose_rect,1)\n        if self.__state == 'clickleft':\n            row, col = self.choose_bid\n            if (row < len(self.data)) and (col < len(self.data[row])) and self.data[row][col]:\n                self.data[row][col] = 0\n        elif self.__state == 'clickright':\n            row, col = self.choose_bid\n            if (row < len(self.data)) and (col < len(self.data[row])) and (not self.data[row][col]):\n                self.data[row][col] = 3\n\nclass SunAct:\n    def __init__(self,d,h,suntime):\n        self.d = d\n        self.h = h\n        self.r = self.d / 2\n        self.sunrise, self.sunset = suntime\n        self.noon = (self.sunrise + self.sunset) / 2\n        self.v = self.d / (self.sunset - self.sunrise)\n        self.rect = pygame.Rect(0,0,100,100)\n        self.sun_pos = False\n    def get_sun_pos(self,t):\n        '''\n        x 与 time 的关系：\n            x = (t - noon) / (sunset - sunrise) * d\n        y 与 x 的关系：\n            圆标准方程（不知道别的什么函数/方程能更好描述天体运动路径了）\n        '''\n        if t < self.sunrise or t > self.sunset:\n            self.sun_pos = False\n            return\n        x = round((t - self.noon) * self.v)\n        y = round((self.r ** 2 - x ** 2) ** 0.5)\n        self.sun_pos = (x+self.r, self.h-y)      # 返回的坐标系是数学的，所以改变\n    def day(self):\n        if self.sun_pos:\n            self.rect.center = self.sun_pos\n            pygame.draw.rect(screen,(255,0,0),self.rect,0,25)\n            pygame.draw.rect(screen,(255,195,111),self.rect,5,25)\n    def night(self,t):\n        if not self.sun_pos:\n            if self.sunrise - 1 <= t <= self.sunrise:\n                sightbg_alpha = (self.sunrise - t) * 255\n            elif self.sunset <= t <= self.sunset + 1:\n                sightbg_alpha = (t - self.sunset) * 255\n            else:\n                sightbg_alpha = 255\n            sightbg.set_alpha(sightbg_alpha)\n            screen.blit(sightbg,(0,0))\n\nplayer = Player()\ngamemap = GameMap(data,player)\nsun = SunAct(SC_WIDTH,SC_HEIGHT,(6,18))\nsightbg = sight.generate_surface(SC_WIDTH,SC_HEIGHT,150,50)\nsightbg.set_alpha(0)\n\nclock = pygame.time.Clock()\nevt_pos = (-1,-1)\n\ngamestarttime = time.time()\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEMOTION:\n            evt_pos = event.pos\n            gamemap.choose(evt_pos)\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            ebtn = event.button\n            if ebtn == 1:\n                gamemap.state('clickleft')\n            elif ebtn == 3:\n                gamemap.state('clickright')\n        if event.type == pygame.MOUSEBUTTONUP:\n            gamemap.state('unclick')\n        if event.type == pygame.KEYDOWN:\n            gamemap.keyin(event.key,1)\n        if event.type == pygame.KEYUP:\n            gamemap.keyin(event.key,0)\n    \n    screen.fill((255,255,255))\n    gametime = (time.time() - gamestarttime) * 1000 / 3600 + 6\n    gamedaytime = gametime % 24\n    sun.get_sun_pos(gamedaytime)\n    sun.day()\n    gamemap.handle_event()\n    gamemap.show()\n    sun.night(gamedaytime)\n    pygame.display.update()\n    clock.tick()\n    \n    pygame.display.set_caption(f'IDU Sandbox Driver (FPS: {int(clock.get_fps())})')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-30 23:49:32",
+    "modified_at": "2024-04-05 14:24:12",
+    "likes": 5,
+    "views": 43,
+    "comments": 61,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 51974957,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-30 14:19:00",
+    "updated_at": "2025-02-11 08:40:08",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 11,
+                "column": 15
+            },
+            "25830b06-8034-a320-6606-94bc7d532974": {
+                "row": 30,
+                "column": 30
+            },
+            "1fba2d20-7561-e803-d4d1-3d4968e6ed15": {
+                "row": 41,
+                "column": 22
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/f43bead8f332148aa308a8b9c1374218.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "模拟 算法 游戏",
+    "xml_path": "989dfbd24648e94b51b001b8c68f8c73",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52302290"
+}

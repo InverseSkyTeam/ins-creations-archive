@@ -1,0 +1,666 @@
+try:
+    #导库
+    from pgzrun import *
+    from easygui import *
+    from tkinter.messagebox import *
+    from tkinter import *
+    import os
+    #import com
+    import webbrowser as web
+    from time import *
+    import sys,json
+    import time
+    import PIL
+    #import hs
+    from random import *
+    from pickle import *
+    import requests as r
+    import bs4
+    from tkinter.colorchooser import *
+    from tkinter import ttk
+    #----------------------------------------------------------------------#
+    # 逐字输出
+    def c_print(js):
+        ohh = int(0)
+        for i in js:
+            print(js[ohh], end="", flush=True)
+            sleep(0.085)
+            ohh += 1
+    #获取用户的id
+    in_xes = True
+    try:
+        cookies = json.loads(sys.argv[1])["cookies"]
+        for i in cookies.split(";"):
+            id = i[8:] if i[1:7] == "stu_id" else id
+    except:
+        c_print("你用的不是xes的编辑器（或未登录），无法享受免登录服务\n")
+        in_xes = False
+    #----------------------------------------------------------------------#
+    #获取vip列表
+    head = {
+        "User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11"
+    }
+    url = "https://livefile.xesimg.com/programme/python_assets/8a47a00d942aa88fda83febeb9dc2672.txt"
+    res = r.get(url, headers=head)
+    res.encoding = res.apparent_encoding
+    vip = [int(i) for i in res.text.split(",")]
+    #----------------------------------------------------------------------#
+    #检测是否需要调用hs.py中的函数
+    choices = ["a","b"]
+    #版本号
+    banbeng = "V3.3.2"
+    #----------------------------------------------------------------------#
+    #大量路径与检测是否需要显示软件
+    stf16 = os.getcwd() + "\\images\\hh.png"
+    stf = os.getcwd() + "\\登陆.html"
+    stf2 = os.getcwd() + "\\dmy.html"
+    stf3 = os.getcwd() + "\\main（带图标移动）.py"
+    stf4 = os.getcwd() + "\\com_new.py"
+    stf5 = os.getcwd() + "\\calc.py"
+    stf6 = os.getcwd() + "\\com.py"
+    stf7 = os.getcwd() + "\\calc_old.py"
+    stf8 = os.getcwd() + "\\aa.png"
+    stf9 = os.getcwd() + "\\日记本.py"
+    stf10 = os.getcwd() + "\\二维码生成器.py"
+    stf11 = os.getcwd() + "\\python代码编辑器.py"
+    stf12 = os.getcwd() + "\\红包雨.py"
+    stf13 = os.getcwd() + "\\hs.py"
+    stf14 = os.getcwd() + "\\main(2).py"
+    stf15 = os.getcwd() + "\\zhxx.py"
+    xxx = os.getcwd() + "\\信息.txt"
+    stftime = os.getcwd() + "\\now_time.py"
+    delcom = False
+    deljt = False
+    delht = False
+    delhs = False
+    deljs = False
+    delll = False
+    delcmd = False
+    delwz = False
+    delsj = False
+    deljsb = False
+    delewm = False
+    deldm = False
+    #----------------------------------------------------------------------#
+    #获取关机次数
+    f = open(".\\关机次数.txt","r")
+    gjcs = int(f.read())
+    f.close()
+    #----------------------------------------------------------------------#
+    #登陆系统
+    f = open("D:\\账号.txt", "a")
+    while True:
+        if id in vip and in_xes == True:
+            xxxx = "未知"
+            yyyy = "未知"
+            zzzz = "未知"
+            break
+        else:
+            a = buttonbox("你要注册还是登陆",choices=["登陆","注册","退出"])
+            if a == "登陆":
+                x = open("D:\\账号.txt","r")
+                if x.read() == "":
+                    msgbox("请先注册!!!")
+                else:
+                    b = multpasswordbox(msg="请输入用户名与密码",fields=["用户名：","密码：","年龄:"])
+                    d = open("D:\\账号.txt","r")
+                    if str(b) == d.read():
+                        d.close()
+                        msgbox("登陆成功!!")
+                        xxxx = b[0]
+                        yyyy = b[1]
+                        zzzz = b[2]
+                        break
+                    else:
+                        d.close()
+                        msgbox("密码错误")
+            if a == "退出":
+                c_print('\033[1;36m代码运行结束(hhh)\033[6A\033[8m\033[?25l')
+                sys.exit()
+            if a == "注册":
+                y = open("D:\\账号.txt","r")
+                if y.read() != "":
+                    y.close()
+                    msgbox("本程序仅可注册一个账号")
+                else:
+                    c = multpasswordbox(msg="请输入用户名与密码",fields=["用户名：","密码：","年龄:"])
+                    if "" in c or " " in c or "   " in c:
+                        msgbox("所填项目中不可以含有空字符")
+                    else:
+                        z = open("D:\\账号.txt","a")
+                        z.write(str(c))
+                        z.close()
+    #----------------------------------------------------------------------#
+    #窗口大小
+    WIDTH = 1000
+    HEIGHT = 600
+    #为键盘检测做准备
+    xmm = True
+    #为创建文件夹做准备
+    lj = 1
+    lb = 1
+    lp = 1
+    #---------------------------------------------------------------------#
+    #一个画图类
+    class Application(Frame):
+        def __init__(self, master=None):
+            super().__init__(master)
+            self.master = master
+            self.pack()
+            self.createWidget()
+            self.x = 0
+            self.y = 0
+            self.lastDraw = 0
+            self.startDrawFlag = False
+            self.fgcolor = "red"
+
+        def createWidget(self):
+            self.drawPad = Canvas(self, width=900, height=500, bg="black")
+            self.drawPad.pack()
+            btn_pen = ttk.Button(self, text="画笔", command=self.pen)
+            btn_pen.pack(side=LEFT)
+            btn_rect = ttk.Button(self, text="矩形", command=self.rect)
+            btn_rect.pack(side=LEFT)
+            btn_clear = ttk.Button(self, text="清屏",command=self.clear)
+            btn_clear.pack(side=LEFT)
+            btn_erasor = ttk.Button(self, text="橡皮擦",command=self.erasor)
+            btn_erasor.pack(side=LEFT)
+            btn_line = ttk.Button(self, text="直线",command=self.line)
+            btn_line.pack(side=LEFT)
+            btn_lineArrow = ttk.Button(self, text="箭头直线",command=self.lineArrow)
+            btn_lineArrow.pack(side=LEFT)
+            btn_color = ttk.Button(self, text="颜色",command=self.color)
+            btn_color.pack(side=LEFT)
+            self.drawPad.bind("<ButtonRelease-1>", self.stopDraw)
+
+        def stopDraw(self,event):
+            self.startDrawFlag = False
+            self.lastDraw = 0
+
+        def startDraw(self,event):
+            self.drawPad.delete(self.lastDraw)
+            if not self.startDrawFlag:
+                self.startDrawFlag = True
+                self.x = event.x
+                self.y = event.y
+
+        def line(self):
+            self.drawPad.bind("<B1-Motion>", self.myline)
+
+        def lineArrow(self):
+            self.drawPad.bind("<B1-Motion>", self.mylineArrow)
+
+        def rect(self):
+            self.drawPad.bind("<B1-Motion>", self.myRect)
+
+        def pen(self):
+            self.drawPad.bind("<B1-Motion>", self.myPen)
+
+        def erasor(self):
+            self.drawPad.bind("<B1-Motion>", self.myErasor)
+
+        def clear(self):
+            self.drawPad.delete("all")
+
+        def color(self):
+            c = askcolor(color=self.fgcolor, title="选择画笔颜色")
+            self.fgcolor = c[1]
+
+        def myline(self, event):
+            self.startDraw(event)
+            self.lastDraw = self.drawPad.create_line(self.x, self.y, event.x, event.y, fill=self.fgcolor)
+
+        def mylineArrow(self, event):
+            self.startDraw(event)
+            self.lastDraw = self.drawPad.create_line(self.x, self.y, event.x, event.y, arrow=LAST, fill=self.fgcolor)
+
+        def myRect(self, event):
+            self.startDraw(event)
+            self.lastDraw = self.drawPad.create_rectangle(self.x, self.y, event.x, event.y, outline=self.fgcolor)
+
+        def myPen(self, event):
+            self.startDraw(event)
+            self.drawPad.create_line(self.x, self.y, event.x, event.y, fill=self.fgcolor)
+            self.x = event.x
+            self.y = event.y
+
+        def myErasor(self, event):
+            self.startDraw(event)
+            self.drawPad.create_rectangle(event.x - 3, event.y - 3, event.x + 3, event.y + 3, fill="black")
+            self.x = event.x
+            self.y = event.y
+    # ---------------------------------------------------------------------#
+    #大量函数
+    def a():
+        msgbox("无")
+
+    def py():
+        global lp
+        f = open("C:\\新建Pyhon文件("+str(lp)+").py","w")
+        f.close()
+        lp = lp + 1
+        msgbox("已把文件保存至C盘")
+
+    def cd_main():
+        f = open(".\\关机次数.txt","r")
+        q = f.read()
+        f.close()
+        msgbox("你关闭此程序的次数是："+q)
+
+    def wj():
+        global lj
+        x = str(lj)
+        os.mkdir("C:\\")
+        lj = lj + 1
+        msgbox("已把文件保存至C盘")
+
+    def wb():
+        global lb
+        f = open("C:\\新建文本文档("+str(lb)+").txt","w")
+        f.close()
+        lb = lb + 1
+        msgbox("已把文件保存至C盘")
+    def cq():
+        os.startfile(stf14)
+        sys.exit()
+
+    #
+    #----------------------------------------------------------------------#
+    a = buttonbox(msg="此代码不带图标拖动，要图标拖动吗？(图标拖动版已经很久没更新了)",title="提示",choices=("要","不要"))
+    if a == "要":
+        os.startfile(stf3)
+        sys.exit()
+    else:
+        su = buttonbox("注:右键和B键的功能是一样的",image=stf8,choices=["继续","继续"])
+        if su == stf8:
+            os.startfile(stf12)
+            sys.exit()
+        else:
+            #角色
+            bg = Actor("bg.png",[0,0])
+            bg1 = Actor("bg1.png",[0,0])
+            computer = Actor("计算机.png",[50,50])
+            ht = Actor("画图.png",[50,150])
+            hs = Actor("回收站.png",[50,250])
+            js = Actor("计算器.png",[50,350])
+            ll = Actor("浏览器.png",[50,450])
+            cmd = Actor("cmd.png",[50,550])
+            wz = Actor("网站.png",[150,550])
+            sj = Actor("时间.png",[150,350])
+            jt = Actor("截图.png",[150,450])
+            #sj = Actor("时间.png",[250,50])
+            jsb = Actor("记事本.png",[150,50])
+            gj = Actor("关机.png",[950,25])
+            xm = Actor("休眠.png",[950,75])
+            td = Actor("td.png",[950,550])
+            ewm = Actor("二维码.png",[150,150])
+            dm = Actor("代码.png",[150,250])
+            cd = Actor("彩蛋.png",[950,125])
+            gly = Actor("管理员.png",[950,500])
+            #绘制
+            def draw():
+                bg.draw()
+                screen.draw.text(banbeng,(925,575),fontsize=40)
+                if xmm == True:
+                    if delcom == False:
+                        computer.draw()
+                    if deljt == False:
+                        jt.draw()
+                    if delht == False:
+                        ht.draw()
+                    if delhs == False:
+                        hs.draw()
+                    if deljs == False:
+                        js.draw()
+                    if delll == False:
+                        ll.draw()
+                    if delcmd == False:
+                        cmd.draw()
+                    if delwz == False:
+                        wz.draw()
+                    if delsj == False:
+                        sj.draw()
+                    if deljsb == False:
+                        jsb.draw()
+                    if delewm == False:
+                        ewm.draw()
+                    gj.draw()
+                    xm.draw()
+                    if deldm == False:
+                        dm.draw()
+                    cd.draw()
+                    gly.draw()
+                else:
+                    bg1.draw()
+                    td.draw()
+
+            #-------------------------------------------#
+            #鼠标与键盘的检测
+            def on_key_down():
+                if keyboard.b == True:
+                    root = Tk()
+                    chen = Menu(root)
+
+                    a = Menu(chen,tearoff=True)
+
+                    a.add_command(label="python文件",command=py)
+                    a.add_command(label="文本文档",command=wb)
+                    chen.add_cascade(label="创建",menu=a)
+
+                    b = Menu(chen,tearoff=True)
+                    b.add_command(label="")
+                    b.add_command(label="")
+                    chen.add_cascade(label="",menu=b)
+                    root.config(menu=chen)
+
+                    c = Button(root,text="恢复所有被删除的程序",command=hfdel)
+                    c.pack()
+
+                    root.mainloop()
+            #-------------------------------------------#
+            #鼠标检测
+            def on_mouse_down(pos,button):
+                global xmm
+                global aaa
+                global gjcs
+                global choices
+                global delcom
+                global deljt
+                global delht
+                #右键检测
+                if button == mouse.RIGHT and xmm == True:
+                    if bg.collidepoint(pos):
+                        if computer.collidepoint(pos) and delcom == False:
+                            root1 = Tk()
+                            def com_main():
+                                root1.destroy()
+                                os.system(stf4)
+                            def com_del():
+                                global delcom
+                                root1.destroy()
+                                delcom = True
+                            Button(root1,text="打开",command=com_main).pack(fill=X)
+                            Button(root1,text="删除",command=com_del).pack(fill=X)
+                            root1.mainloop()
+                        elif ht.collidepoint(pos) and delht == False:
+                            root2 = Tk()
+                            def ht_main():
+                                root2.destroy()
+                                p = Tk()
+                                p.geometry("900x500+100+100")
+                                app = Application(master=p)
+                                p.mainloop()
+                            def ht_del():
+                                global delht
+                                root2.destroy()
+                                delht = True
+                            Button(root2,text="打开",command=ht_main).pack(fill=X)
+                            Button(root2,text="删除",command=ht_del).pack(fill=X)
+                            root2.mainloop()
+                        elif hs.collidepoint(pos) and delhs == False:
+                            root3 = Tk()
+                            def hs_main():
+                                root3.destroy()
+                                os.system("explorer.exe %s" % stf2)
+                            def hs_del():
+                                global delhs
+                                root3.destroy()
+                                delhs = True
+                            Button(root3,text="打开",command=hs_main).pack(fill=X)
+                            Button(root3,text="删除",command=hs_del).pack(fill=X)
+                            root3.mainloop()
+                        elif js.collidepoint(pos) and deljs == False:
+                            root4 = Tk()
+                            def js_main():
+                                root4.destroy()
+                                os.system(stf5)
+                            def js_del():
+                                global deljs
+                                root4.destroy()
+                                deljs = True
+                            Button(root4,text="打开",command=js_main).pack(fill=X)
+                            Button(root4,text="删除",command=js_del).pack(fill=X)
+                            root4.mainloop()
+                        elif ll.collidepoint(pos) and delll == False:
+                            root5 = Tk()
+                            def ll_main():
+                                root5.destroy()
+                                web.open("https://www.baidu.com/")
+                            def ll_del():
+                                global delll
+                                root5.destroy()
+                                delll = True
+                            Button(root5,text="打开",command=ll_main).pack(fill=X)
+                            Button(root5,text="删除",command=ll_del).pack(fill=X)
+                            root5.mainloop()
+                        elif cmd.collidepoint(pos) and delcmd == False:
+                            root6 = Tk()
+                            def cmd_main():
+                                root6.destroy()
+                                os.startfile("C:\\Windows\\System32\\cmd.exe")
+                            def cmd_del():
+                                global delcmd
+                                root6.destroy()
+                                delcmd = True
+                            Button(root6,text="打开",command=cmd_main).pack(fill=X)
+                            Button(root6,text="删除",command=cmd_del).pack(fill=X)
+                            root6.mainloop()
+                        elif wz.collidepoint(pos) and delwz == False:
+                            root7 = Tk()
+                            def wz_main():
+                                root7.destroy()
+                                os.startfile(stf)
+                            def wz_del():
+                                global delwz
+                                root7.destroy()
+                                delwz = True
+                            Button(root7,text="打开",command=wz_main).pack(fill=X)
+                            Button(root7,text="删除",command=wz_del).pack(fill=X)
+                            root7.mainloop()
+                        elif sj.collidepoint(pos) and delsj == False:
+                            root8 = Tk()
+                            def sj_main():
+                                root8.destroy()
+                                os.system(stftime)
+                            def sj_del():
+                                global delsj
+                                root8.destroy()
+                                delsj = True
+                            Button(root8,text="打开",command=sj_main).pack(fill=X)
+                            Button(root8,text="删除",command=sj_del).pack(fill=X)
+                            root8.mainloop()
+                        elif jt.collidepoint(pos) and deljt == False:
+                            root9 = Tk()
+                            def jt_main():
+                                root9.destroy()
+                                os.system("C:\\Windows\\System32\\SnippingTool.exe")
+                            def jt_del():
+                                global deljt
+                                root9.destroy()
+                                deljt = True
+                            Button(root9,text="打开",command=jt_main).pack(fill=X)
+                            Button(root9,text="删除",command=jt_del).pack(fill=X)
+                            root9.mainloop()
+                        elif jsb.collidepoint(pos) and deljsb == False:
+                            root10 = Tk()
+                            def jsb_main():
+                                root10.destroy()
+                                os.system(stf9)
+                            def jsb_del():
+                                global deljsb
+                                root10.destroy()
+                                deljsb = True
+                            Button(root10,text="打开",command=jsb_main).pack(fill=X)
+                            Button(root10,text="删除",command=jsb_del).pack(fill=X)
+                            root10.mainloop()
+                        elif ewm.collidepoint(pos) and delewm == False:
+                            root11 = Tk()
+                            def ewm_main():
+                                root11.destroy()
+                                os.system(stf10)
+                            def ewm_del():
+                                global delewm
+                                root11.destroy()
+                                delewm = True
+                            Button(root11,text="打开",command=ewm_main).pack(fill=X)
+                            Button(root11,text="删除",command=ewm_del).pack(fill=X)
+                            root11.mainloop()
+                        elif cd.collidepoint(pos):
+                            pass
+                        elif gj.collidepoint(pos):
+                            pass
+                        elif xm.collidepoint(pos):
+                            pass
+                        elif gly.collidepoint(pos):
+                            pass
+                        elif dm.collidepoint(pos) and deldm == False:
+                            root12 = Tk()
+                            def dm_main():
+                                root12.destroy()
+                                os.system(stf11)
+                            def dm_del():
+                                global deldm
+                                root12.destroy()
+                                deldm = True
+                            Button(root12,text="打开",command=dm_main).pack(fill=X)
+                            Button(root12,text="删除",command=dm_del).pack(fill=X)
+                            root12.mainloop()
+                        else:
+                            root = Tk()
+                            chen = Menu(root)
+
+                            a = Menu(chen,tearoff=True)
+
+                            a.add_command(label="python文件",command=py)
+                            a.add_command(label="文本文档",command=wb)
+                            a.add_separator()
+                            chen.add_cascade(label="创建",menu=a)
+
+                            b = Menu(chen,tearoff=True)
+                            b.add_command(label="")
+                            b.add_command(label="")
+                            chen.add_cascade(label="",menu=b)
+                            root.config(menu=chen)
+
+                            def hfdel():
+                                global delcom
+                                global deljt
+                                global delht
+                                global delhs
+                                global deljs
+                                global delll
+                                global delcmd
+                                global delwz
+                                global delsj
+                                global deljsb
+                                global delewm
+                                global deldm
+                                root.destroy()
+                                delcom = False
+                                deljt = False
+                                delht = False
+                                delhs = False
+                                deljs = False
+                                delll = False
+                                delcmd = False
+                                delwz = False
+                                delsj = False
+                                deljsb = False
+                                delewm = False
+                                deldm = False
+                            c = Button(root,text="恢复所有被删除的程序",command=hfdel)
+                            c.pack()
+
+                            root.mainloop()
+                    
+                #左键检测
+                if button == mouse.LEFT and xmm == True:
+                    if computer.collidepoint(pos) and delcom == False:
+                        os.system(stf4)
+                    if ht.collidepoint(pos) and delht == False:
+                        p = Tk()
+                        p.geometry("900x550+500+500")
+                        Application(master=p)
+                        p.mainloop()
+                        #os.system('C:\\Windows\\System32\\mspaint.exe')
+                    if hs.collidepoint(pos) and delhs == False:
+                        os.system("explorer.exe %s" % stf2)
+                    if js.collidepoint(pos) and deljs == False:
+                        os.system(stf5)
+                    if ll.collidepoint(pos) and delll == False:
+                        web.open("https://www.baidu.com/")
+                    if cmd.collidepoint(pos) and delcmd == False:
+                        os.startfile("C:\\Windows\\System32\\cmd.exe")
+                    if wz.collidepoint(pos) and delwz == False:
+                        os.startfile(stf)
+                    if sj.collidepoint(pos) and delsj == False:
+                        os.system(stftime)
+                    if jt.collidepoint(pos) and deljt == False:
+                        os.system("C:\\Windows\\System32\\SnippingTool.exe")
+                    if cd.collidepoint(pos):
+                        hshs = choice(choices)
+                        if hshs == "a":
+                            f = open(".\\关机次数.txt","r")
+                            q = f.read()
+                            f.close()
+                            c_print("你关闭此程序的次数是："+q)
+                        elif hshs == "b":
+                            os.system(stf13)
+                    if gj.collidepoint(pos):
+                        ggj = Tk()
+
+                        def wgj():
+                            global gjcs
+                            gjj = askokcancel(title="",message="确定关机吗",parent=ggj)
+                            if gjj == True:
+                                gjcs = gjcs+1
+                                f = open(".\\关机次数.txt","w")
+                                f.write(str(gjcs))
+                                f.close()
+                                msgbox("tips:有一个彩蛋需要把代码下载到本地运行才可以正常输出(你可能已经发现了)")
+                                c_print("\033[1;36m代码运行结束(hhh)\033[6A\033[8m\033[?25l")
+                                sys.exit()
+                            else:
+                                pass
+        
+                        Button(ggj,text="关机",command=wgj).pack(fill=X)
+                        Button(ggj,text="重启",command=cq).pack(fill=X)
+
+                        ggj.mainloop()
+                    if gly.collidepoint(pos):
+                        yh = Tk()
+                        yh.title("个人中心")
+                        yh.geometry("250x250")
+                        try:
+                            Label(yh,text="用户中心").grid(row=0,pady=5,columnspan=3)
+                            Label(yh,text="用户名："+xxxx).grid(row=2)
+                            Label(yh,text="密码："+yyyy).grid(row=3)
+                            Label(yh,text="年龄："+zzzz).grid(row=4)
+                        except:
+                            showinfo("提示","信息提取失败",parent=yh)
+
+                        tkphoto = PhotoImage(file=stf16)
+                        Label(yh,image=tkphoto).grid(row=2,rowspan=2,padx=5,pady=5,column=1)
+
+                        yh.mainloop()
+                    if xm.collidepoint(pos):
+                        xmm = False
+                    if jsb.collidepoint(pos) and deljsb == False:
+                        os.system(stf9)
+                    if ewm.collidepoint(pos) and delewm == False:
+                        os.system(stf10)
+                    if dm.collidepoint(pos) and deldm == False:
+                        os.system(stf11)
+                else:
+                    if td.collidepoint(pos):
+                        xmm = True
+
+            go()
+except Exception as b:
+    # exceptionbox()
+    bug = Tk()
+    Label(bug,text=b).pack()
+    bug.mainloop()
+    c_print('\033[1;36m代码运行结束(hhh)\033[6A\033[8m\033[?25l')
+else:
+    c_print('\033[1;36m代码运行结束(hhh)\033[6A\033[8m\033[?25l')

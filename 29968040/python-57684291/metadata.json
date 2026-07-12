@@ -1,0 +1,77 @@
+{
+    "id": 57684291,
+    "name": "INS-PGM v2.0.0 - alpha",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/602690f83a435c3226e19fcbed5dcc8e.jpg",
+    "xml": "import zipfile, sys\n\nimport pygame\nimport os\n\ndef get_py_path():\n    return sys.executable\ndef install_library():\n    try:\n        print(\"pygame当前版本：\",pygame.version.vernum)\n        if not (pygame.version.vernum.major>=2 and pygame.version.vernum.minor>=3):\n            int('aaa')#强制报错\n    except:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"--upgrade\", \"pygame\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\ninstall_library()\n\nwith zipfile.ZipFile('./assest.zip', 'r') as zip_ref:\n    zip_ref.extractall('.')\n\nimport sys\nfrom PgMarkdown import PygameMarkdown, Load\n\n\npygame.init()\nscreenWidth = 800\nscreenHeight = 600\nscreen = pygame.display.set_mode((screenWidth, screenHeight))\npygame.display.set_caption(\"INS-PGM\")\nclock = pygame.time.Clock()\n\nmd = PygameMarkdown.MarkdownRenderer()\nmd.load_data(Load.load(\"./example.md\"))\n\nmd.set_area(screen, pygame.Rect(50, 10, 700, 580), False)\n\nwhile True:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    pygame_events = pygame.event.get()\n    mouse_pos = pygame.mouse.get_pos()\n    mouse_pressed = pygame.mouse.get_pressed()[0]\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.KEYDOWN:\n            pass\n\n    screen.fill((200, 200, 200))\n    pygame.draw.rect(screen, (236,)*3, (0, 0, screenWidth, screenHeight))\n    pygame.draw.rect(screen, (255,)*3, md.rect.inflate(20, 0))\n\n    # 绘制\n    md.display(pygame_events, mouse_pos, mouse_pressed)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-11-23 17:16:35",
+    "modified_at": "2024-11-23 20:35:58",
+    "likes": 8,
+    "views": 56,
+    "comments": 11,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-11-23 17:06:14",
+    "updated_at": "2026-06-22 23:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "c18466ec-fc2a-6358-10d1-7a1079eda6cd": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 8,
+                "column": 8
+            },
+            "ff5bb55f-9dce-c06f-d3c3-8f3df332e8ff": {
+                "row": 8,
+                "column": 0
+            },
+            "c2574e62-bcf6-b6e4-169a-e1654a751d02": {
+                "row": 13,
+                "column": 10
+            },
+            "ac2711af-5101-72bf-3708-fb28abd590cb": {
+                "row": 10,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/be285199fdccaf24f57fa707eda532dd.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 7,
+    "tags": "游戏 沙盒专区 网站",
+    "xml_path": "c75c2217e1a46eb78b2f24f5356ba61c",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_57684291"
+}

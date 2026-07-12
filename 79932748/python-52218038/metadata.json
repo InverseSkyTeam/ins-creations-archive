@@ -1,0 +1,61 @@
+{
+    "id": 52218038,
+    "name": "关于加入逆天团队",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 79932748,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print('@小轩 加入逆天团队，并合作IDU项目。对沙盒和语言等的研发感兴趣。希望接受。')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-24 13:18:10",
+    "modified_at": "2024-03-24 13:18:10",
+    "likes": 4,
+    "views": 71,
+    "comments": 17,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-24 13:17:58",
+    "updated_at": "2026-07-10 16:55:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 48
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/4ae20fec035a98482a72c55ae8187fe7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他",
+    "xml_path": "a39590c7a203452ef88752447f490e21",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "实变函数",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20240219/Talzd7_uMAZmfn2jyKhnnEIn6Q1480.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52218038"
+}

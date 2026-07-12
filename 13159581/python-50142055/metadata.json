@@ -1,0 +1,61 @@
+{
+    "id": 50142055,
+    "name": "快捷Tk V0.4",
+    "category": 1,
+    "type": "normal",
+    "description": "根据APGL开源协议开源\n提供2个类\n使用时请继承原类，而不是直接在模块的类中进行更改",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import tkinter as tk\nfrom tkinter import filedialog,simpledialog,messagebox\nfrom PIL import Image,ImageTk\nimport threading\nimport pystray as stray\nimport time\nimport sys\n\nclass StrayApp(object):\n    '''\n    别乱动self.start_icon()中的东西哈\n    窗口大小、窗口标题自己更改\n    托盘图标提供函数self.my_icon(icon_image)更改\n    '''\n    def __init__(self):\n        self.root = tk.Tk()\n        self.root.geometry(\"200x200\")\n        self.root.protocol(\"WM_DELETE_WINDOW\",self.close)\n\n    def run(self):\n        def hhhhh():\n            while True:\n                try:\n                    if self.root.state()=='iconic':\n                        self.start = False\n                        self.root.withdraw()\n                    self.root.update()\n                except:\n                    pass\n        threading.Thread(target=self.start_icon).start()\n        threading.Thread(target=hhhhh,daemon=True).start()\n        self.root.mainloop()\n\n    def close(self):\n        self.icon.stop()\n        self.root.destroy()\n\n    def start_icon(self):\n        self.start = True\n        def oqc():\n            self.root.destroy()\n            self.icon.stop()\n        def startapp():\n            if self.start == False:\n                self.start = True\n                self.root.deiconify()\n            else:\n                return 0\n\n        try:\n            self.iconimage\n        except AttributeError:\n            image = Image.open(\"./图标.png\")\n        else:\n            try:\n                image = Image.open(self.iconimage)\n            except:\n                image = Image.open(\"./图标.png\")\n        menu = (\n            stray.MenuItem(text=\"退出\",action=oqc),\n            stray.MenuItem(text=\"打开\",action=startapp,default=True),\n                )\n        self.icon = stray.Icon(\"name\",image,\"托盘\",menu)\n        self.icon.run()\n\n    def my_icon(self,iconimage):\n        self.iconimage = iconimage\n\n    def help(self):\n        print(self.__doc__)\n\nclass DIYApp(object):\n    '''\n    所有主窗口控件都尽量写在self.window这个框架中\n    '''\n    def __init__(self):\n        self.back_ground = \"grey\"\n        self.root = tk.Tk()\n        self.root.geometry(\"200x200+100+11\")\n        self.root.attributes('-topmost',True)\n        self.root.overrideredirect(True)\n        self.title_bar = tk.Frame(self.root, bg=self.back_ground, relief='ridge', bd=1, padx=0,\n                             highlightcolor=self.back_ground,\n                             highlightthickness=0)\n        \n        self.iconic_button = tk.Button(self.title_bar, text='—', # text='︾',\n                                  bg=self.back_ground, padx=5, pady=3,\n                                  bd=0, font='bold', fg='white',\n                                  activebackground='lightskyblue',\n                                  activeforeground='white',\n                                  highlightthickness=0,\n                                  cursor='hand2',\n                                  command=self.iconic_window)\n        \n        self.close_button = tk.Button(self.title_bar, text='×',\n                                 bg=self.back_ground, padx=5, pady=3, \n                                 bd=0, font='bold', fg='white',\n                                 activebackground='#ff1e5e',\n                                 activeforeground='white', \n                                 highlightthickness=0,\n                                 cursor='hand2',\n                                 command=self.root.destroy)\n        title = tk.Label(self.title_bar,text=\"测试\",bg=self.back_ground,fg=\"lightgreen\")\n        self.title_bar.pack(fill='x')\n        title.pack(side='left')\n        self.close_button.pack(side='right')\n        self.iconic_button.pack(side='right')\n        self.title_bar.bind('<B1-Motion>', self.move_window)\n        self.title_bar.bind('<Button-1>', self.get_pos)\n\n        self.window = tk.Frame(self.root)\n        self.window.pack(expand=True, fill='both')\n\n    def run(self):\n        def hhhh():\n            while True:\n                try:\n                    self.to_overrideredirect_window()\n                    self.root.update()\n                except:\n                    pass\n        threading.Thread(target=hhhh).start()\n        self.root.mainloop()\n\n    def get_pos(self,event):\n        self.xwin = event.x\n        self.ywin = event.y\n        \n    def move_window(self,event):\n        self.root.geometry(f'+{event.x_root - self.xwin}+{event.y_root - self.ywin}')\n\n    def iconic_window(self):\n        self.root.overrideredirect(False)\n        self.root.state('iconic')\n\n    def to_overrideredirect_window(self):\n        if self.root.state() == 'normal':\n            self.root.overrideredirect(True)\n        else:\n            self.root.overrideredirect(False)\n\n    def help(self):\n        print(self.__doc__)\n\nif __name__ == '__main__':\n    app = StrayApp()\n    app.run()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2023-12-28 21:04:02",
+    "modified_at": "2024-01-02 20:22:21",
+    "likes": 6,
+    "views": 24,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2023-12-28 20:50:06",
+    "updated_at": "2025-04-03 13:00:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 4,
+                "column": 23
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9df5e080cc402732a07b82e521f47fa4.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "教程",
+    "xml_path": "6530b68285b1caafb9970129b6a2c91d",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50142055"
+}

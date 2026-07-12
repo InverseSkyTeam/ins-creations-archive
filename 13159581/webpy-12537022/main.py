@@ -1,0 +1,11 @@
+from xes.motherDay2 import *
+go(400,300)
+fmid('skyblue','white')
+go(200,290)
+fmid('pink','tomato')
+go(350,450)
+fmid('orange','lightcyan')
+go(370,350)
+fsmall('yellow','red')
+go(200,170)
+wsmall('Mother,I love you.')

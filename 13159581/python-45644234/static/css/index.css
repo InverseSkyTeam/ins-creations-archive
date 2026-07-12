@@ -1,0 +1,43 @@
+body{
+    background:url(/static/images/bg2.jpg);
+    background-size:100%;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+}
+h3{
+    text-align: center;
+    color: white;
+    margin-top: 25px;
+}
+
+.banner{
+    background-color:rgba(36,82,175,0.83);
+    font-size:20px;
+    padding:10px;
+    text-align:center;
+}
+
+.banner-link{
+    margin-right:20px;
+    color:white;
+    text-decoration:none;
+}
+
+.lun{
+    margin-left: 5%;
+    width: 90%;
+    margin-top:3%;
+}
+
+.div_img{
+    text-align: center;
+    margin-top:3%;
+}
+
+.bgmusic{
+width:80px;
+height:80px;
+position:fixed;
+right:-1%;
+top:8%;
+}

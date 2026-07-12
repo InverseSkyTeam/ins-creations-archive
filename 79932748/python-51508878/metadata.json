@@ -1,0 +1,61 @@
+{
+    "id": 51508878,
+    "name": "pygame不能开多窗口？",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 79932748,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/2e1568b94f75a06d607da7fb782fefc4.jpg",
+    "xml": "from multiprocessing import Process\nimport pygame\npygame.init()\n\ndef open_window(title,size,color):\n    screen = pygame.display.set_mode(size)\n    pygame.display.set_caption(title)\n    print(f'{title}开启')\n    while 1:\n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                pygame.quit()\n                return\n        screen.fill(color)\n        pygame.display.flip()\n\nif __name__ == '__main__':\n    print('开进程')\n    w1 = Process(target=open_window,args=('window 1',(800,600),(255,255,255)))\n    w2 = Process(target=open_window,args=('window 2',(900,700),(0,255,255)))\n    w3 = Process(target=open_window,args=('window 3',(400,300),(0,0,0)))\n    print('启动')\n    w1.start()\n    print('等待1s')\n    pygame.time.delay(1000)\n    w2.start()\n    print('等待1s')\n    pygame.time.delay(1000)\n    w3.start()\n    w1.join()\n    w2.join()\n    w3.join()\n    print('<主进程结束>')\n\nprint(f'任意进程的标志: {__name__}')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-19 12:06:45",
+    "modified_at": "2024-02-19 12:06:45",
+    "likes": 3,
+    "views": 76,
+    "comments": 12,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-19 12:05:43",
+    "updated_at": "2026-06-19 23:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/5eec17a3373346d492c3562ae51d71d2.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "游戏 教程",
+    "xml_path": "df0184e6d19f070576bee1d777afeda5",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "实变函数",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20240219/Talzd7_uMAZmfn2jyKhnnEIn6Q1480.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51508878"
+}

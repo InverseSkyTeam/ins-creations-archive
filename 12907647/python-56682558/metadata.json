@@ -1,0 +1,60 @@
+{
+    "id": 56682558,
+    "name": "IDU的最终重写！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/d3ce4952e6e716cbfa246a4a496beddd.jpg",
+    "xml": "print('''IDU又要重写了。\n1900行代码将会作废，全部从0开始再重写。\n我以前从未对一个项目有如此毅力（笑。\n\n原因：\n1.有一些比较高级的知识（涉及不少高中的数学和物理知识），需要慢慢学\n2.代码有很多不完善的地方（目前的版本就是提供一些大概的框架）\n3.速度上可能要一些优化\n4.不方便维护，到时候会分多文件，并且添加一个专门的IDU_api类进行游戏api控制，学习黄羿杰优秀的代码风格\n5.材质包和属性要大量更新，有很多补丁和bug要清除，一些不必要的东西要删去。\n6.重写地形。\n7.写一些其他的东西（剧情、开始界面、游戏下载、加载界面、音乐、美术、关联小游戏等。）有大量情节和故事设定不完善。需要完善基础框架。\n8.学习先进的pygame-ce 2.5.1的一些技巧\n9.添加一些合适的装饰（2D光照等。）\n10.准备编写流体算法（浮力、摩擦力、空气阻力以后都要考虑）\n11.更好更实用的函数，方便main.py调用。\n\n这将会是25H1的大更新！\n* 24H4更新完成了，而25H1预计要到2025年暑假发布！\n\n接下来的重写分板块分文件，不会一起更新，而是每个文件各自分阶段更新。\n为了轻松些，接下来发布一些情节和预设游戏之类。\n另外，到时候要麻烦逆天的成员写一些pygame交互组件和IDU插件，引入较为新型的pygame-ce2.5+技术，使用python3.13 （懒加载以外部分、成就、进度之类可能使用多线程。）\n以及一些相关的mask和sprite之类的高级应用。谢谢观看。\n\n* 目前有一些画功或者编写音乐经验的，内部有executer和朱洺扬，但是一个没电脑一个没空，或许要和玻糖联动（？\n\n附：预计需要的pygame控件：\n类似于tk的Label Entry Text Button List，需要滚动条和容纳窗口(Page，类似于tk.Frame)\n\n以及，后期是打算设计一些黑科技的（雾），比如窗口内的人平滑地走到窗口外，不过这样的话或许只能兼容windows系统。\nthe end.''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-10-12 23:45:50",
+    "modified_at": "2024-10-12 23:45:50",
+    "likes": 4,
+    "views": 63,
+    "comments": 68,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-10 23:18:15",
+    "updated_at": "2025-10-25 20:10:03",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 31,
+                "column": 12
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "游戏 沙盒专区",
+    "xml_path": "17281eb4cf02233896e5d2af4dbc038f",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56682558"
+}

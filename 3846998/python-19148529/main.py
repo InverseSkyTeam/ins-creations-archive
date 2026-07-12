@@ -1,0 +1,10 @@
+def jttl(a1,a2,b1,b2,c,d):
+    return((d-a2*c)/b2,c-(d-a2*c)/b2)
+a1=input("腿数较少的动物的名称：")
+a2=int(input("腿数较少的动物的腿数："))
+b1=input("腿数较多的动物的名称：")
+b2=int(input("腿数较多的动物的腿数："))
+c=int(input("动物总数："))
+d=int(input("动物总腿数:"))
+ans1,ans2=jttl(a1,a2,b1,b2,c,d)
+print(a1,"的只数是",ans1,",",b1,"的只数是",ans2)

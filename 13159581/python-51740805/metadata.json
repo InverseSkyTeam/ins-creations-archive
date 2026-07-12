@@ -1,0 +1,65 @@
+{
+    "id": 51740805,
+    "name": "图片查看器 V1.0",
+    "category": 1,
+    "type": "normal",
+    "description": "修复了Beta版的问题\nPS 2025.2.12：一年前的东西哈，忘发了",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from PIL import Image,ImageTk\nfrom tkinter import filedialog\nimport tkinter as tk\nimport time\nimport sys\nimport os\n\nclass App(object):\n    def __init__(self):\n        a = tk.Tk()\n        self.path = filedialog.askdirectory(parent=a)\n        a.destroy()\n\n        self.root = tk.Tk()\n        self.root.geometry(\"500x573\")\n        self.f1 = tk.Frame(self.root)\n        image = Image.open(\"./files/NoFile.png\")\n        self.image_tk = ImageTk.PhotoImage(image=image)\n        self.button = tk.Button(self.f1,image=self.image_tk,height=500,command=self.next_photo)\n        self.button.pack(fill=tk.X)\n        self.f1.pack(fill=tk.BOTH)\n\n        image1 = Image.open(\"./files/left.png\")\n        self.image1 = ImageTk.PhotoImage(image=image1)\n        image2 = Image.open(\"./files/right.png\")\n        self.image2 = ImageTk.PhotoImage(image=image2)\n        self.f2 = tk.Frame(self.root)\n        self.b1 = tk.Button(self.f2,image=self.image1,command=self.last_photo,bd=0).pack(side=\"left\")\n        self.b2 = tk.Button(self.f2,image=self.image2,command=self.next_photo,bd=0).pack(side=\"left\")\n        self.f3 = tk.Frame(self.f2)\n        self.e1 = tk.Entry(self.f3)\n        self.e1.grid(row=0)\n        self.b2 = tk.Button(self.f3,text='跳转',command=self.page,bd=10).grid(row=1)\n        self.f3.pack(side=\"left\")\n        self.label = tk.Label(self.f2,text=\"照片0\",bg=\"lightskyblue\",width=8)\n        self.label.place(x=440,y=45)\n        # self.b1.image = image1\n        # self.b2.image = image2\n        self.f2.pack(fill=tk.BOTH)\n        self.root.protocol(\"WM_DELETE_WINDOW\",self.close)\n    \n    def run(self):\n        self.hhh = self.load()\n        self.a = \"hhh\"\n        if self.hhh == 'NoFile':\n            self.root.mainloop()\n        else:\n            while self.a:\n                try:\n                    if self.pos == -1:\n                        self.pos = self.length - 1\n                    text = self.list[self.pos]\n                    if self.is_image(self.path+\"//\"+text) == False:\n                        self.list.remove(text)\n                    if len(self.list) == 0:\n                        self.close()\n                        self.button[\"image\"] = self.image_tk\n                        self.root.protocol(\"WM_DELETE_WINDOW\",self.root.destroy)\n                        self.root.mainloop()\n                    self.label[\"text\"] = \"照片\"+str(self.pos)\n                    photo = Image.open(self.path+\"/\"+self.list[self.pos])\n                    photo = photo.resize((500,500))\n                    img = ImageTk.PhotoImage(photo)\n                    self.button[\"image\"] = img\n                    self.root.update()\n                except:\n                    self.pos = 0\n                # time.sleep(0.5)\n                # self.next_photo()\n\n    def load(self):\n        try:\n            self.list = os.listdir(self.path)\n        except FileNotFoundError:\n            os.mkdir(\"images\")\n            self.list = os.listdir('./images')\n        if len(self.list) == 0:\n            self.button[\"image\"] = self.image_tk\n            return 'NoFile'\n        self.pos = 0\n        self.length = len(self.list)\n    \n    def next_photo(self):\n        try:\n            self.pos += 1\n            Image.open(self.path+\"/\"+self.list[self.pos])\n        except:\n            pass\n        else:\n            photo = Image.open(self.path+\"/\"+self.list[self.pos])\n            photo = photo.resize((500,500))\n            img = ImageTk.PhotoImage(photo)\n            self.button.config(image=img)\n            self.button.update()\n    \n    def last_photo(self):\n        try:\n            self.pos -= 1\n            Image.open(self.path+\"/\"+self.list[self.pos])\n        except:\n            pass\n        else:\n            photo = Image.open(self.path+\"/\"+self.list[self.pos])\n            photo = photo.resize((500,500))\n            img = ImageTk.PhotoImage(photo)\n            self.button.config(image=img)\n            self.button.update()\n    \n    def page(self):\n        page = self.e1.get()\n        try:\n            self.pos = int(page)\n            Image.open(self.path+\"/\"+self.list[self.pos])\n        except:\n            pass\n        else:\n            photo = Image.open(self.path+\"/\"+self.list[self.pos])\n            photo = photo.resize((500,500))\n            img = ImageTk.PhotoImage(photo)\n            self.button.config(image=img)\n            self.button.update()\n    \n    def is_image(self,file_path):\n        try:\n            img = Image.open(file_path)\n            img.verify()\n            return True\n        except:\n            return False\n    \n    def close(self):\n        if self.hhh == 'NoFile':\n            self.root.destroy()\n        else:\n            self.a = None\n\nif __name__ == '__main__':\n    app = App()\n    app.run()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-02 19:15:16",
+    "modified_at": "2025-02-12 14:45:04",
+    "likes": 6,
+    "views": 15,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-02 19:14:26",
+    "updated_at": "2025-02-18 12:55:04",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "1583fede-736b-c470-3c2a-5f3a2b54ce9e": {
+                "row": 139,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 11
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/6083f373e565dfeb107270c62831fcd3.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他 模拟",
+    "xml_path": "7ab228593611a1752f64fc4e174f76fd",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51740805"
+}

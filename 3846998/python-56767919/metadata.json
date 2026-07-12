@@ -1,0 +1,61 @@
+{
+    "id": 56767919,
+    "name": "TermEd 0.0.0 pre r1",
+    "category": 1,
+    "type": "normal",
+    "description": "加入终端真色支持，消除了一些Bug\n封面展示的是TermEd上的Gruvbox主题，虽然并不完善但至少能看",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/3fecfafd8fd18c6063165f0a1ae78b2f.jpg",
+    "xml": "print(\"https://github.com/FkjAccount123456/TermEd-r1\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-10-15 22:30:41",
+    "modified_at": "2024-10-15 22:30:41",
+    "likes": 7,
+    "views": 53,
+    "comments": 15,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 55796070,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-15 22:27:57",
+    "updated_at": "2026-06-29 04:55:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/d33248708b71a26d629cfc6b03c6aa3a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "b4354a9da558cac04ed6dba7e75c5ded",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56767919"
+}

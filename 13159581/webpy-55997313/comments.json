@@ -1,0 +1,367 @@
+[
+    {
+        "id": 6110573,
+        "topic_id": "CP_55997313",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "78448055",
+        "reply_user_id": "13159581",
+        "content": "加油，我下星期开始要课后延时（六年级强制要求），下课6点多（平时5点整）[略略][略略][略略][略略][略略][略略][略略][略略][略略][略略]我周五6：15上C++，回来的路上就得上课",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 4,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2024-09-14 19:53:35",
+        "comment_from": "topic",
+        "username": "林仁昊",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250524/11/TalzK5WOsZIefKL1wTgfJyVtaA_000d5c47df236fee.PNG",
+        "reply_username": "陈锦奕",
+        "emojis": [
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            },
+            {
+                "id": "[略略]",
+                "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/略略.png",
+                "content": null,
+                "type": "image",
+                "size": "small"
+            }
+        ],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": true,
+            "total": 4,
+            "data": [
+                {
+                    "id": 6110588,
+                    "topic_id": "CP_55997313",
+                    "parent_id": 6110573,
+                    "target_id": 6110573,
+                    "user_id": "13159581",
+                    "reply_user_id": "78448055",
+                    "content": "晚自习老烦了，每天9点到家[哭][哭]，不过重点班氛围不错[眼镜]",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": null,
+                    "created_at": "2024-09-14 19:55:26",
+                    "comment_from": "message",
+                    "username": "陈锦奕",
+                    "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+                    "reply_username": "林仁昊",
+                    "emojis": [
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[眼镜]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/眼镜.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        }
+                    ],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": true,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                },
+                {
+                    "id": 6110648,
+                    "topic_id": "CP_55997313",
+                    "parent_id": 6110573,
+                    "target_id": 6110588,
+                    "user_id": "78448055",
+                    "reply_user_id": "13159581",
+                    "content": "我以后中学7：25早读中午12：35下课（作业没写完留下补）吃饭40多分钟没午休13：25考试21：25下课，我好崩溃[哭][哭][哭][哭][哭][哭][哭][哭][哭][哭][哭]",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": null,
+                    "created_at": "2024-09-14 20:02:51",
+                    "comment_from": "message",
+                    "username": "林仁昊",
+                    "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250524/11/TalzK5WOsZIefKL1wTgfJyVtaA_000d5c47df236fee.PNG",
+                    "reply_username": "陈锦奕",
+                    "emojis": [
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[哭]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/哭.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        }
+                    ],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": false,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                },
+                {
+                    "id": 6110673,
+                    "topic_id": "CP_55997313",
+                    "parent_id": 6110573,
+                    "target_id": 6110648,
+                    "user_id": "13159581",
+                    "reply_user_id": "78448055",
+                    "content": "还行吧，习惯就好[微笑2][微笑2]",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": null,
+                    "created_at": "2024-09-14 20:06:01",
+                    "comment_from": "message",
+                    "username": "陈锦奕",
+                    "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+                    "reply_username": "林仁昊",
+                    "emojis": [
+                        {
+                            "id": "[微笑2]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/微笑2.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        },
+                        {
+                            "id": "[微笑2]",
+                            "url": "https://icourse.xesimg.com/programme/static/images/comments/emoji/微笑2.png",
+                            "content": null,
+                            "type": "image",
+                            "size": "small"
+                        }
+                    ],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": true,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                },
+                {
+                    "id": 6110679,
+                    "topic_id": "CP_55997313",
+                    "parent_id": 6110573,
+                    "target_id": 6110673,
+                    "user_id": "78448055",
+                    "reply_user_id": "13159581",
+                    "content": "才六年级，想想都崩溃",
+                    "likes": 0,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": null,
+                    "created_at": "2024-09-14 20:07:08",
+                    "comment_from": "message",
+                    "username": "林仁昊",
+                    "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250524/11/TalzK5WOsZIefKL1wTgfJyVtaA_000d5c47df236fee.PNG",
+                    "reply_username": "陈锦奕",
+                    "emojis": [],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": false,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                }
+            ]
+        },
+        "user_profile": null
+    },
+    {
+        "id": 6091258,
+        "topic_id": "CP_55997313",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "59258",
+        "reply_user_id": "13159581",
+        "content": "在你发布的作品中，我发现了你编程的无限潜力，充分挖掘自己的潜力会收到意想不到的效果哦",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2024-09-07 21:04:01",
+        "comment_from": "topic",
+        "username": "智能艾克",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20210816/TallFDMU0qtnyXVOImbb1cCoLg1999.png",
+        "reply_username": "陈锦奕",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

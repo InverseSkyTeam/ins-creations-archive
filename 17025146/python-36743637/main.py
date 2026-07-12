@@ -1,0 +1,1 @@
+print("进改编,将所有文件复制到本地,同时运行server.py和client.py,server.py会输出数字,当数字到达30的时候,server.py运行完成,同时client.py也会检测到,并输出quit.")

@@ -1,0 +1,61 @@
+{
+    "id": 55867969,
+    "name": "Rusp设想与设计",
+    "category": 1,
+    "type": "normal",
+    "description": "高中了，这是最后的——狂欢\n也许高中三年所有空闲时间都要拿来写这个",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from time import sleep\n\nprint(\"\"\"准备好，这是绝对的、设计的、付式的——抽象\n\"\"\")\n\nsleep(3)\n\nprint(\"\"\"ideas.md如下\n# Rusp\nRusp是一种名字混合Rust和Lisp的语言，然而并没有Rust的内存管理机制，也没有Lisp的灵活性\nRusp的语法类似Lisp而语义类似于C，当然不可缺少的是Lisp伟大的宏支持（静态展开，不支持递归）\n采用等价类型系统（标记类型系统和结构类型系统的折中设计，目的是方便宏生成类型）\n没有自带GC，进而也没有闭包，只有全局作用域和当前作用域\n当然，也没有伟大的call/cc\n## 最终目标\n- 自举，且代码行数是原来的1/2\n- 编译到机器码\n- 速度和C相同\n- 通过宏实现C++/Rust的全部语义（抽象但是这是Lisp）\n- 拥有和C++/Rust相当的标准库\n- 实现GUI库\n- 实现IDE\n## Rusp-py\n这是Rusp的一个实验版本，先用Python验证可行性\n当然必不可少的-编译到字节码\n\"\"\")\n\nsleep(3)\n\nprint(\"\"\"syntax.txt如下\n(defun fac ([num number]) number\n  (if (= num 0)\n      1\n    (* (fac (- num 1)) num)))\n\n(defun main () number\n  (define num 10)\n  (put-int (fac num))\n  (puts)\n  0\n  )\n\n\n; macro确实是静态展开且允许运算，但是只允许访问局部变量\n(defmacro hello (name)\n  ; puts会对传参做类型检查，保证其全部是字符串（(list number)）类型\n  ; 好吧只有number，不要紧以后会改的（\n  '(puts \"Hello, \" ,name \"!\"))\n\n(defun main () number\n  (hello \"world\")\n  0\n  )\n\n\n; 结构体定义\n(defstruct A [a b number])\n\n(defun main () number\n  (define a (A 1 2))\n  (print-int (A-a a))\n  (puts)\n  (print-int (A-b b))\n  (puts)\n  0\n  )\n\n\n; 好吧抽象的要来了\n; 所以目标中我写到可以通过泛型实现C++的语义\n; 薄纱全社区！！！全社区第一个实现泛型！！！（\n; 编译：你要耗多少资源（\n; 关键这些是全部可编译的\n(defmacro vec (T)\n  '(struct [size max number] [val (list ,T)]))\n\n(defmacro vec-init (T)\n  '((vec ,T) 0 8 (malloc 8)))\n\n; 没错一个不支持闭包的语言有匿名函数\n; 这个get-attr/set-attr的设计更是抽象到极致\n(defmacro vec-push (T)\n  '(lambda ([v (vec ,T)] [i ,T]) void\n           (when (= (get-attr size v) (get-attr max v))\n             (set-attr max v (* 2 (get-attr max v)))\n             (set-attr val v (realloc (get-attr val v) (get-attr max v))))\n           (set-nth (get-attr val v) (get-attr size v) i)\n           (set-attr size v (+ 1 (get-attr size v)))))\n\n(defmacro vec-get (T)\n  '(lambda ([v (vec ,T)] [n number]) ,T\n           (get-nth (get-attr val v) n)))\n\n(defun main () number\n  (define v (vec-init number)) ; vec<number> v\n  ((vec-push number) v 1) ; v.push<number>(1)\n  ((vec-push number) v 2) ; v.push<number>(2)\n  (print-int ((vec-get number) v 0)) ; v[0]\n  (puts)\n  ; 一定要平安无事啊（\n  0\n  )\n\n; 说实话很难想象这玩意成为主流语言\n\"\"\")\n\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-01 21:04:09",
+    "modified_at": "2024-09-01 21:04:09",
+    "likes": 5,
+    "views": 21,
+    "comments": 53,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-01 20:59:36",
+    "updated_at": "2026-07-12 08:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 103,
+                "column": 18
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/b3f9d2c97d4bd3c4c6ccb4945312d547.json",
+        "hide_filelist": true
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 2,
+    "favorites": 3,
+    "tags": "艺术",
+    "xml_path": "f1c73290f2e93b7fef45b25880b11114",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55867969"
+}

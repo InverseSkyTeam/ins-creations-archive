@@ -1,0 +1,5 @@
+print("最近搞了一个js脚本，greasyfork始终发布不了，就发GitHub上了哈")
+print("Github链接:https://github.com/chen3283891376/xes-helper")
+print("油猴下载地址:https://www.tampermonkey.net/")
+print("Github加速软件：https://steampp.net/")
+print("脚本也可以改编获取")

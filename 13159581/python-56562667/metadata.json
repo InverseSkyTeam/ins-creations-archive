@@ -1,0 +1,61 @@
+{
+    "id": 56562667,
+    "name": "一个不大完善的python跑酷",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import pygame,sys\nfrom pygame.locals import *\npygame.init()\n\nx=0\ny=0\ndef collide_color(aSurface,aRect,aColor):\n    pixel=pygame.PixelArray(aSurface)#锁定aSurface,将各点颜色保存在2维数组\n    aPixel=pixel[aRect.x:aRect.x+aRect.width,aRect.y:aRect.y+aRect.height]\n    pygame.PixelArray.close(pixel) #解锁aSurface并删除数组,上句得到数组切片\n    try:\n        return aColor in aPixel#指定颜色在切片中返回真,两者颜色应同为rgb或rgba\n    except:\n        sys.exit()\n\nsize = width,height = 600,400\nbg = (255,255,255)\nscreen = pygame.display.set_mode(size)\npygame.display.set_caption(\"demo\")\nspeed = [0,0]\n\nclock = pygame.time.Clock()\nbackground_image = pygame.image.load('./地图/1.png').convert()\nover = pygame.image.load(\"over.png\").convert()\nxuan = pygame.image.load(\"xuan.svg\").convert()\nposition = xuan.get_rect()\nl_head = pygame.transform.flip(xuan,True,False)\nr_head = xuan\n#screen.blit(xuan,xuan.get_rect().move([0,300]))\n\nwhile True:\n    x = False\n    event_list = pygame.event.get()\n    for event in event_list:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    key_pressed = pygame.key.get_pressed()\n    if key_pressed[K_a] or key_pressed[K_LEFT]:\n        x -= 5\n        xuan=l_head\n    if key_pressed[K_d] or key_pressed[K_RIGHT]:\n        x += 5\n        xuan=r_head\n    x = 0.9*x\n    position = position.move([x,0])\n\n    if collide_color(background_image,position,(0,0,0)):\n        position = position.move([0,-1])\n        if collide_color(background_image,position,(0,0,0)):\n            position = position.move([0,-1])\n            if collide_color(background_image,position,(0,0,0)):\n                position = position.move([0,-1])\n                if collide_color(background_image,position,(0,0,0)):\n                    position = position.move([0,-1])\n                    if collide_color(background_image,position,(0,0,0)):\n                        position = position.move([0,-1])\n                        if collide_color(background_image,position,(0,0,0)):\n                            position = position.move([x*-1,5])\n                            if key_pressed[K_w] or key_pressed[K_UP]:\n                                if x>0:\n                                    x = -8\n                                else:\n                                    x = 8\n                                y = -12\n                            else:\n                                x = 0\n    position = position.move([0,1])\n    if collide_color(background_image,position,(0,0,0)):\n        if key_pressed[K_w] or key_pressed[K_UP]:\n            y = -13\n    position = position.move([0,-1])\n    y+=1\n    position = position.move([0,y])\n    if collide_color(background_image,position,(0,0,0)):\n        position = position.move([0,y*-1])\n        y=0\n\n    screen.blit(background_image, (0, 0))\n    #screen.fill(bg)\n    if collide_color(background_image,position,(255,255,128)):\n        position.top,position.left = (0,0)\n    screen.blit(xuan,position)\n    pygame.display.flip()\n    #print(collide_color(background_image,position,pygame.Color('black')))\n\n    clock.tick(30)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-10-04 20:01:13",
+    "modified_at": "2024-10-04 20:01:13",
+    "likes": 5,
+    "views": 21,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-04 20:00:48",
+    "updated_at": "2026-05-27 05:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 24,
+                "column": 46
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/aea40bc222b637478ede75c4b0180d8b.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "游戏",
+    "xml_path": "aaded275f09c4264ca6af60d67335f35",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56562667"
+}

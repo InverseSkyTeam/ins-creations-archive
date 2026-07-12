@@ -1,0 +1,73 @@
+{
+    "id": 56547440,
+    "name": "pygame 毛玻璃特效",
+    "category": 1,
+    "type": "normal",
+    "description": "均值模糊和高斯模糊函数都是基于pygame-ce源码中的高斯模糊实现的，使用numba制作\n经测试，numba版本与原版速度相差无几\n\n注意：此作品成功运行依靠numba特性，去掉numba的jit装饰器可能会导致意外的结果",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/0ac09fa70a2371008851fc6f994091cf.jpg",
+    "xml": "import pygame\nimport sys\n\ndef get_py_path():\n    return sys.executable\n\n\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\n\n\ninstall_library()\n\n\nimport blur\n\npygame.transform.box_blur = blur.box_blur  # 逆天团队实现的 pygame-ce 均值模糊\npygame.transform.gaussian_blur = blur.gaussian_blur  # 逆天团队实现的 pygame-ce 高斯模糊\n# 经测试，逆天团队实现版的速度已经和pygame-ce原版速度相差无几\n\npygame.init()\nw, h = 700, 500\nscreen = pygame.display.set_mode((w, h))\npygame.display.set_caption(\"pygame 毛玻璃特效\")\n\nclock = pygame.time.Clock()\n\nscreen.fill((0x09, 0x19, 0x21))\npygame.draw.circle(screen, (0xff, 0xc1, 0x07), (int(w * 0.3), int(h * 0.2)), int(w * 0.2))\npygame.draw.circle(screen, (0xda, 0x00, 0xff), (int(w * 0.7), int(h * 0.9)), int(w * 0.2))\n\nrect_surface = pygame.Surface((500, 400), pygame.SRCALPHA)\npygame.draw.rect(rect_surface, (255, 255, 255, int(255 * 0.05)), rect_surface.get_rect(), border_radius=6)\nrect_surface_rect = rect_surface.get_rect(center=screen.get_rect().center)\nscreen.blit(rect_surface, rect_surface_rect)\n\nblur_surface = pygame.transform.gaussian_blur(screen, 15).convert_alpha()\nmask_surface = pygame.Surface(blur_surface.get_size(), pygame.SRCALPHA)\npygame.draw.rect(mask_surface, (255,) * 3, rect_surface_rect, border_radius=6)\nblur_surface.blit(mask_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MIN)\n\nscreen.blit(blur_surface, (0, 0))\n\nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    pygame.display.update()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-10-02 15:50:11",
+    "modified_at": "2024-10-02 15:50:11",
+    "likes": 10,
+    "views": 83,
+    "comments": 10,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-01 20:20:41",
+    "updated_at": "2026-06-07 16:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "4ac0f30b-406d-108a-d4c4-dcef86e59ce3": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 11,
+                "column": 21
+            },
+            "6a5440b9-cab3-b4b7-62db-19e89e19782a": {
+                "row": 151,
+                "column": 29
+            },
+            "f9ab57b8-af8d-c19e-ff0f-f73417f19aa2": {
+                "row": 21,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/50306485e4f31062130eb99233118741.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 1,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "游戏 沙盒专区 艺术",
+    "xml_path": "5efd09f05647f291e1205a5a98e27623",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56547440"
+}

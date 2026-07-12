@@ -1,0 +1,61 @@
+{
+    "id": 59902516,
+    "name": "【千粉1】破千粉，有点想聊的。",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/7549b14af981b383b28e504080488a8f.jpg",
+    "xml": "from PIL import Image, ImageTk\nimport tkinter as tk\nimport pygame\nimport sys\npygame.mixer.init()\npygame.mixer.music.load('./opus.mp3')\npygame.mixer.music.play(-1)\n\nroot = tk.Tk()\nroot.attributes('-topmost', 1)\nroot.attributes('-transparentcolor', '#f0f0f0')\nroot.overrideredirect(1)\nroot.geometry('+350+250')\n\ntext_list = [\n    '你好呀！我是小轩（有思想的不定积分）。\\n好久不见，现在我破1000粉了呢！\\n想不到啥，就做一个【千粉】系列作为粉福吧。\\n今天先聊一聊我的现状。',\n    '''最近我们情况还是很糟糕呢\n我们学校又搞“减负”，现在每天要跑步3.4km，然后中午作业时间没了只能占下课的了\n现在九下了，又进入早7晚9的状态了，算上回家背书洗漱休息睡觉时间又是5-6小时左右\n周末是单休，周日要上大半天课，作业老多了，玩的时间不多呀。\n''',\n    '''主要是情绪和思维上似乎又变差了。\n最近弃坑了很多作品，我发现我的创意越来越少了，想象力逐渐消失了。\n现在没有任何灵感来驱动我做任何作品了，渐渐地我都不知道我要干什么。\n我似乎失去了很多爱好，现在只能靠刷b站和聊天等方法进行短暂快乐了。\n其他就是写作业背书上课上学。\n''',\n    '''所以最近都不太开心。\n另外，上周周五在学校和几个朋友聊天，他们都说我太单纯了。\n原来班里是什么“暗藏玄机”“口蜜腹剑”“笑里藏刀”“牛鬼蛇神”“社交手腕”。\n但是我都不认可。因为我小学就经历过了，这些对我来说很无聊。\n但是竟然被他们冠以“单纯”的称号。\n说白了，我觉得这样挺好，不过唯一不好的是他们说大家都不用费力打探我，因为我已经单向透明了。\n所以大家都用不着来跟我交流这个那个的。这导致了我很难和别人聊到真心话。\n于是一种恶劣的情况就开始形成了，我并不知道，但我的朋友认为这也是一种“孤立”。\n我不知道该做什么，他们叫我维持原状不掺和就行了。\n想来也是。\n''',\n    '''我是一个理想主义者，但是做什么现在似乎都实现不了什么了，没什么回报。\n身边也缺少真正的朋友，大多还是这样聊两句。听我和懂我内心的人已经几乎没有了。\n相反，我身边的朋友才是那“诸子百家”，引导我接触这个那个，向我大肆灌输他们的“科学理论”。\n同时在多方的压力下，我的人格和能力似乎已经完全发生了转变。\n一切原本的特点，都失去了。\n乡为身死而不受，今为所识穷乏者得我而为之！失其本心！\n''',\n    '''最近还不知道应该交流什么，然后我觉得我已经开始脱离自己的内心了，不知道想要什么。\n但是，在这样的情况下，我仍然坚持学习，希望撑过中考。（悲哀的是，我暑假都不知道该玩什么，可能都没力气玩了。）\n我也不知道这是否好，但只能做下去。\n以及，我发现我没空研究音乐，刚用musescore，写出来的东西都不怎么样\n绘画也没时间，只能搞抽象画发泄发泄\n编程的话现在是最缺少灵感的时候，观摩了各大震撼作品现在感觉已经没什么好超越的了。一味只是借鉴，没有新奇。\n看到这个世界发展得这么迅速，似乎我以前的那些幻想都被实现了，实在想不出什么新的东西来。\n小说也停滞不前，因为编不出剧情线了。\n''',\n    '''希望大家可以给我一些帮助。\n另外，也可以给我指明方向，提供一些灵感，或许【千粉】系列不会再只有一些文字，而能够拥有自己的作品内容。\n祝你比我开心！\n——有思想的不定积分在小轩 2025/3/1.\n''',\n]\n\nidx = 0\ndef say_next(e):\n    global idx\n    if idx == len(text_list):\n        print('说完啦！')\n        sys.exit()\n    text['text'] = text_list[idx] + ('\\n[继续点击此按钮继续查看]' if idx < len(text_list) - 1 else '')\n    idx += 1\n\nimg = Image.open('./actor.png')\nimg = ImageTk.PhotoImage(img)\nlabel = tk.Label(root, image=img)\nlabel.pack(side='left')\ntext = tk.Label(root, text='[请点击此按钮，每次点击可以下一个对话]', font=('楷体', 20), bg='black', fg='white')\ntext.pack(side='right')\ntext.bind('<Button-1>', say_next)\n\ntk.mainloop()",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-03-01 22:29:08",
+    "modified_at": "2025-03-01 22:29:08",
+    "likes": 15,
+    "views": 95,
+    "comments": 82,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-03-01 22:28:13",
+    "updated_at": "2026-05-08 01:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 6,
+                "column": 27
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/e8d4ccacf7edb4b34a99a7db10512b80.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 10,
+    "tags": "其他",
+    "xml_path": "c2ece6799451850d0bc2a8182643f919",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59902516"
+}

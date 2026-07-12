@@ -1,0 +1,60 @@
+{
+    "id": 55570879,
+    "name": "我对鬼畜、技术区的看法（学习机试试能不能看）",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/98026a8b3130136c9bda27d8f1ed0dc3.jpg",
+    "xml": "print('''鬼畜区是目前主导地位。基于硬件设施的限制，大多人根本看不了py作品，也就看不了这些游戏。\n（提一嘴，最近黄羿杰和何嘉晨在搞着python的3d联机fps游戏玩呢，但是缺少人物建模，而且联机云变量没有找到速度高的服务器/doge）\n技术区的话，我想说真的没什么人看，做出来的主要还是游戏（\n真正的技术区基本上我也看不懂，比如吴宇航的PGPL分析器，GLR语法分析之类\n\n我认为鬼畜区应该和技术区结合起来，而不是两方互相发布无建设性的锐评。\n这样可以让限流的或者是不火的技术区火起来，也可以为鬼畜添加一些技术性的生机。\n它们结合起来，会是新的篇章。\n非常感谢刘元序能和我合作。\n\n我觉得目前的鬼畜区不足以描写C站，应该说是整活区罢（\n\n现在学而思并不会出现最后一道极光。（这句话被发言者禁止随意引用了，这里就不是引用）\n我们可以认为，学而思还会发出炽热的持续的亮光。\n\n我们可以看到整活区宣传出来的活力，就是兴盛的依据。\n这同样代表技术区也可以通过鬼畜的宣传一同兴旺发达。\n这同样代表C站的整个未来仍然有无限可能，说不定能挖出一些新人才。\n当然，现在不管是整活还是技术，人手都是不缺的。\n\n如你所见，我是一个乐观主义者。\n而大多人还处在【C站已死】的悲观之中。\n不，你们要看到年轻人的活力！\n*注：这个作品使用py基础模版是为了学习机。\n     祝愿学习机用户可以早日同时拥有电脑。\n     欢迎来到pygame/tkinter的世界。''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-20 15:02:24",
+    "modified_at": "2024-08-21 11:56:45",
+    "likes": 12,
+    "views": 77,
+    "comments": 77,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-20 15:00:40",
+    "updated_at": "2026-06-11 00:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 13,
+                "column": 23
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "其他",
+    "xml_path": "18a5c2b0754ac38703b58c6109ec747d",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55570879"
+}

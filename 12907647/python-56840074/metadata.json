@@ -1,0 +1,61 @@
+{
+    "id": 56840074,
+    "name": "匆忙的。声明，一个。",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/4a423edd11270a5162e33f2d00466192.jpg",
+    "xml": "print('''同志们，如果我慢慢地少上线了，你们应该不会怪我吧？\n环境所迫，有些事情不是那么好解决的。\n感谢你们对我的支持。\nIDU永远不会停的。\n\n无论如何，保持决心。同志们，让我们后会有期！\n捏嘿嘿嘿嘿。\n\nby 「有思想的不定积分」 2024/10/19''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-10-19 14:55:21",
+    "modified_at": "2024-10-19 14:55:21",
+    "likes": 8,
+    "views": 97,
+    "comments": 66,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-19 14:54:39",
+    "updated_at": "2026-06-16 12:30:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 8,
+                "column": 28
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/453562365d1d4d143f6e3ca97ac46862.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 3,
+    "tags": "其他",
+    "xml_path": "a162ffc760f1c470933a7283b42f6cb0",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56840074"
+}

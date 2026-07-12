@@ -1,0 +1,61 @@
+{
+    "id": 62501502,
+    "name": "中考，结束了。",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/380f57427c33f75fe33c75f060256505.jpg",
+    "xml": "print('''我也是三个月没更新作品了，都快忘了C站了。\n这次中考出分了，发个作品记录一下。\n\n语文 130/150 （考前生病，这个时候腹泻，不过扛下来了，成绩也还行）\n数学 143.5/150 （尺规作图两解漏解）\n英语 116/130 （整个初中发挥最差之一）\n物理 96/100 （后面急了，不过还可以，前面全对）\n化学 75/80 （不知道哪错了）\n政治 45/50 （正常）\n历史 47/50 （看错一题，可以接受）\n体育 40/40 （不评价）\n总分 692.5/750 （正常发挥）\n\n分数应该比省重点分数线高个20分左右。和同学互相分享了一下，感觉不算高，也不低。\n700+的人也有些，我这次班级第4，是这个学期排名最靠后的一次。\n可能考前生病有一些影响。\n不过现在基本上进重高就可以了。唯一的遗憾是不足够保送强化班。\n\n新的旅途又要开始了，过去的都过去了。\n我可能要忘掉一些旧的观念，学习新的东西了。\n初中确实多彩，给我带来了很多。\n但我说实话，这三年也是混着过来的。没补课，没刷题，没看一本课外书，周末刷视频到作业来不及补。能这样也是很有运气。\n\n接下来，我打算列一个愿望单，暑假能实现几个是几个。\n我还要扩展一下团队，然后在B站尝试火一下（靠我的作品《打破窗口》，之后在C站和github都会发布）。\n待进入高中，我的眼界应该提高一些。我需要找回我的勇气和探索精神，在实践中取得成长，寻找曾经的、现在的、未来的同伴，一起奔向这个多彩的世界，搞出新花样。\n\n这几天我熬夜玩mc，刷视频，和人唠嗑，出去吃东西，也是很累了。\n玩得差不多了就正式开始我的暑假生活。\n希望C站还有活跃的人。\n\n有思想的不定积分(小轩)\n2025/6/28''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-06-28 18:28:51",
+    "modified_at": "2025-06-28 18:28:51",
+    "likes": 13,
+    "views": 173,
+    "comments": 101,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-06-28 18:26:04",
+    "updated_at": "2026-07-06 23:13:14",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 9,
+                "column": 20
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/bbdefbf34f87c096bcfb09f3784f5647.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "其他",
+    "xml_path": "6c4a63674a81db1f4d32d19b651d68cb",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_62501502"
+}

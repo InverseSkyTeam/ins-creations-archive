@@ -1,0 +1,69 @@
+[
+    {
+        "id": 4138682,
+        "topic_id": "CP_44480779",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "13159581",
+        "reply_user_id": "13159581",
+        "content": "二维码制造机来自https://code.xueersi.com/home/project/detail?lang=code&pid=33070581&version=offline&form=python&langType=python",
+        "likes": 2,
+        "unlikes": 0,
+        "replies": 1,
+        "top": 0,
+        "removed": 0,
+        "links": [
+            {
+                "link": "https://code.xueersi.com/home/project/detail?lang=code&pid=33070581&version=offline&form=python&langType=python",
+                "text": "二维码生成器"
+            }
+        ],
+        "created_at": "2023-05-21 13:41:40",
+        "comment_from": "topic",
+        "username": "陈锦奕",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+        "reply_username": "陈锦奕",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": true,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 1,
+            "data": [
+                {
+                    "id": 4138712,
+                    "topic_id": "CP_44480779",
+                    "parent_id": 4138682,
+                    "target_id": 4138682,
+                    "user_id": "13159581",
+                    "reply_user_id": "13159581",
+                    "content": "今天双更",
+                    "likes": 2,
+                    "unlikes": 0,
+                    "replies": 0,
+                    "top": 0,
+                    "removed": 0,
+                    "links": null,
+                    "created_at": "2023-05-21 13:47:55",
+                    "comment_from": "topic",
+                    "username": "陈锦奕",
+                    "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+                    "reply_username": "陈锦奕",
+                    "emojis": [],
+                    "is_like": false,
+                    "is_unlike": false,
+                    "is_topic_author_like": false,
+                    "is_topic_author_reply": true,
+                    "can_delete": false,
+                    "can_top": false,
+                    "user_profile": null
+                }
+            ]
+        },
+        "user_profile": null
+    }
+]

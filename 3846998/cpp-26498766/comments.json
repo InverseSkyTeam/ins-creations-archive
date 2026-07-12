@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1863866,
+        "topic_id": "CC_26498766",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "59258",
+        "reply_user_id": "3846998",
+        "content": "编程小能手就是你，你就是编程小能手",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2021-10-30 12:37:01",
+        "comment_from": "topic",
+        "username": "智能艾克",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20210816/TallFDMU0qtnyXVOImbb1cCoLg1999.png",
+        "reply_username": "付开霁",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

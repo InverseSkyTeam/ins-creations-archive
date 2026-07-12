@@ -1,0 +1,61 @@
+{
+    "id": 54143489,
+    "name": "关于新博客",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "print(\"新搭建了一个博客，发了篇文章概括了一下搭建过程\")\nprint(\"有兴趣就去看下这个网址里的文章https://chen3283891376.github.io/2024/07/09/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%E5%85%A8%E8%A7%A3/\")",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2024-07-09 19:05:20",
+    "modified_at": "2024-07-09 19:05:28",
+    "likes": 4,
+    "views": 17,
+    "comments": 12,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 3,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-07-09 19:05:12",
+    "updated_at": "2025-05-17 16:15:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 141
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9ad83bda3691456c7c8e84ea266979f1.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他 其他",
+    "xml_path": "b533d43b5bedbe0471d1ce825980c430",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54143489"
+}

@@ -1,0 +1,63 @@
+func readline() {
+    var s = "";
+    var ch = getchar();
+    while ch != 10 {
+        append(s, ch);
+        ch = getchar();
+    }
+    return s;
+}
+
+func putchar(ch) {
+    var s = "";
+    append(s, ch);
+    print(s);
+    return none;
+}
+
+var data = [];
+var i = 0;
+var ptr = 32, pc = 0;
+print("BrainFuck: ");
+var code = readline();
+var x = 0;
+while i < 64 {
+    append(data, 0);
+    i = i + 1;
+}
+
+while pc < len(code) {
+    if        code[pc] == 60 { # <
+        if ptr > 0  { ptr = ptr - 1; }
+    } else if code[pc] == 62 { # >
+        if ptr < 63 { ptr = ptr + 1; }
+    } else if code[pc] == 43 { # +
+        data[ptr] = data[ptr] + 1;
+    } else if code[pc] == 45 { # -
+        data[ptr] = data[ptr] - 1;
+    } else if code[pc] == 44 { # ,
+        data[ptr] = getchar();
+    } else if code[pc] == 46 { # .
+        putchar(data[ptr]);
+    } else if code[pc] == 91 { # [
+        if data[ptr] == 0 {
+            x = 1;
+            pc = pc + 1;
+            while x and pc < len(code) {
+                if      code[pc] == 91 { x = x + 1; }
+                else if code[pc] == 93 { x = x - 1; }
+                pc = pc + 1;
+            }
+            continue;
+        }
+    } else if code[pc] == 93 { # ]
+        x = 1;
+        pc = pc - 1;
+        while x and pc > 0 {
+            if      code[pc] == 93 { x = x + 1 ; }
+            else if code[pc] == 91 { x = x - 1 ; }
+            pc = pc - 1;
+        }
+    }
+    pc = pc + 1;
+}

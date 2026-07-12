@@ -1,0 +1,1 @@
+print("Python Editor0.27\n去掉了SELECT模式删除的bug")

@@ -1,0 +1,65 @@
+{
+    "id": 61113661,
+    "name": "JS模态窗口封装",
+    "category": 1,
+    "type": "normal",
+    "description": "没有图了，放只猫吧（",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/a681c5a0bfad3ba7c15ffd5851687482.jpg",
+    "xml": "print(\"瞎写了个模态窗口封装，顺手存云下\")\nprint(\"代码写的很乱，只是为了copy方便（\")\nprint(\"源码在素材区，有需要改编看\")\nprint()\nprint(\"A modal window encapsulation was written hastily and saved to the cloud.\")\nprint(\"The code is messy, just for easy copying.\")\nprint(\"The source code is in the resources area so you need to adapt it.\")",
+    "lang": "webpy",
+    "published": 1,
+    "published_at": "2025-04-20 20:23:32",
+    "modified_at": "2025-04-22 21:05:25",
+    "likes": 0,
+    "views": 18,
+    "comments": 4,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 28794690,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-04-20 20:21:06",
+    "updated_at": "2026-04-28 12:35:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 6
+            },
+            "ee5a0802-640c-4319-7607-b33740e77db4": {
+                "row": 69,
+                "column": 1
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/99c75597dc778e76a1dd3f6ef8992fdf.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他",
+    "xml_path": "3f1212520fd451a1fce21d6c1f6dcde7",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_61113661"
+}

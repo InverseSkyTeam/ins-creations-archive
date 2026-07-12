@@ -1,0 +1,11 @@
+def ends(){
+    Sout << endl;
+}
+var n:int;
+var m:str;
+Srin >> n;
+m=tostr(n);
+Sout << len(m);
+//ends();
+Sout << tochr(n);
+//ends();

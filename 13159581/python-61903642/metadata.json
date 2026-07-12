@@ -1,0 +1,65 @@
+{
+    "id": 61903642,
+    "name": "小图床",
+    "category": 1,
+    "type": "normal",
+    "description": "写博客，顺便搞个小图床",
+    "user_id": 13159581,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/1ce6df34c8af6e415b8f8d8c660b38da.jpg",
+    "xml": "import loader\n\nloader.load_runtime()\nloader.load_packages(\"https://livefile.xesimg.com/programme/python_assets/6da30a2ede21fc602cffb57bc09ae242.zip\")\nloader.run()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-06-03 22:31:15",
+    "modified_at": "2025-06-03 22:31:15",
+    "likes": 2,
+    "views": 19,
+    "comments": 11,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-06-03 22:19:16",
+    "updated_at": "2026-05-22 22:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 3,
+                "column": 106
+            },
+            "4d995204-5ad6-a501-53b4-6be5dd94d618": {
+                "row": 5,
+                "column": 44
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/dab07cbec229b5e72822e599d1fde49f.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "其他 模拟",
+    "xml_path": "c3487764c034f4ee3e402cd20a7ed50e",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈锦奕",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20250728/Talz-uTYQ3-MnCE65HgKbIYaaw_da6bc59b8131fe20.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_61903642"
+}

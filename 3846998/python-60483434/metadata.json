@@ -1,0 +1,61 @@
+{
+    "id": 60483434,
+    "name": "TermEd 0.0.0 pre r3",
+    "category": 1,
+    "type": "normal",
+    "description": "超大规模更新\n重写drawer，新增分屏（导致几乎重写了整个编辑器主逻辑），修改bug\n（没有分屏怎么能叫编辑器）（doge",
+    "user_id": 3846998,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/7694abaa0c70ee4316352cb93f1d3c30.jpg",
+    "xml": "print(\"见FkjAccount123456/TermEd-r1/，clone到本地运行\")\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2025-03-25 21:06:29",
+    "modified_at": "2025-03-25 21:06:29",
+    "likes": 5,
+    "views": 31,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 59180295,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-03-25 20:55:47",
+    "updated_at": "2026-03-10 20:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 1,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/97dfa076f0937e53868cd47817e9e351.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "算法 模拟 艺术",
+    "xml_path": "5331c762f2311d2d75367d015c4a2a9f",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "付开霁",
+    "user_avatar": "https://t.100tal.com/avatar/%E4%BB%98%E5%BC%80%E9%9C%81",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_60483434"
+}

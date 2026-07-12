@@ -1,0 +1,35 @@
+[
+    {
+        "id": 4081329,
+        "topic_id": "CP_43528695",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "23609084",
+        "reply_user_id": "10583579",
+        "content": "沙发",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2023-04-15 18:40:15",
+        "comment_from": "topic",
+        "username": "吕东麟",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20221015/TalzUxQeX83OoLjw1E7So8fWPw1764.gif",
+        "reply_username": "何嘉晨",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

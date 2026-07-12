@@ -1,0 +1,1 @@
+print("integer3.2.3修正版以前的所有integer3版本全部停用")

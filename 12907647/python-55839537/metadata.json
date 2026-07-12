@@ -1,0 +1,60 @@
+{
+    "id": 55839537,
+    "name": "开学了，再见",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/d14de99c5c8f6579a158ab4dcd68a0eb.jpg",
+    "xml": "print('作业还是写完了！明天上学，大家再见，我初三了，时间忙，还得是潜水状态。到时候周末都不能玩多久，听说初三的学长说作业很多。另外，周日只放半天。但是作品和消息我都会看的，谢谢支持！有缘再会！')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-31 22:52:10",
+    "modified_at": "2024-08-31 22:52:10",
+    "likes": 7,
+    "views": 60,
+    "comments": 29,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 28990784,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-31 22:51:50",
+    "updated_at": "2026-01-10 20:25:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 0,
+                "column": 80
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 5,
+    "tags": "其他",
+    "xml_path": "be95d631051c759eb3fe81759394b523",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55839537"
+}

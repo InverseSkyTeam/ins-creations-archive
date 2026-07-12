@@ -1,0 +1,61 @@
+{
+    "id": 53904879,
+    "name": "C 站 是 个 轮 回",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 79932748,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/08d76b4464c796f8ab18630dcb7e4c0c.jpg",
+    "xml": "print('''呵，python做的，一片烂文稿，不会火。\n无论如何，这最终还是发生了。\n听说前辈们提过2019年C站盛行的抄袭骗赞。\n在2020-2021年经过了相对的兴盛，2022年的沉淀，2023年的不变，C站似乎已经回到了2019年那个时代。\n2020年那段时间称霸一方的大佬们，如今都在哪里了呢？\n现在他们大多已经退站了。他们现在都在读初高中，离开了C站，这里注定是小学生的乐园了。\n虽然这里还有几个为数不多的大佬、中佬，可他们又能创造什么呢？\n过去了，留下了。时间就这样默默离去了。\n我再看热度榜，一群赞比浏览多（非唯c被骗赞的结果）。这就是盲目点赞被骗。所谓的“点赞才能玩”？不存在的！\n前辈曾经说过，自从2019-2020更新了取消点赞的功能之后，再也不会有人被骗赞了。现在看，何如呢，何如呢？\n\n没错，C站简直是个轮回。\n如果最近没什么事，那就也没有什么可说的了，或许又是一次新生力量，要重现体验一遍的。\n我们就做默默的观察者，观察着不同的时代，不同的情况，不同的技术，一样的结果重演。\n值得安慰的是，我们已经看淡了这些。所以我们只把这里当做互相交流学习的安逸的地方得了。\n我们的作品有没有人看也都一样了，这不过是我们之间的回忆罢了。\n别人看了也没有价值。\n很多人的鉴赏能力未达标。\n算了，不会有多少人看懂的，自称看懂的也不一定真的懂。阳春白雪罢了。或许，总有一天有人明白。\n\n好了，谢谢。少年们，C站是属于你们的，好好享受你们的童年乐趣吧，这样的时光不可多得的。\n我们就做默默的观察者，不会影响你们的。我们各做各的事情，都能够开心。\n感谢阅读。就让其他观察者们看看吧。\n\n（本文不带有任何年龄和学识歧视，只是表达一种观点，懂的自然懂，不懂的也罢。或许说得不够深刻。）''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-06-21 20:11:42",
+    "modified_at": "2024-06-21 20:11:42",
+    "likes": 17,
+    "views": 187,
+    "comments": 126,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-06-21 20:03:25",
+    "updated_at": "2026-07-10 17:15:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 10,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/ef9e857949687fc2b521b3e6871e28e7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 10,
+    "tags": "其他",
+    "xml_path": "c9637893bc12dd76825c1a4b7da1dce9",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "实变函数",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20240219/Talzd7_uMAZmfn2jyKhnnEIn6Q1480.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_53904879"
+}

@@ -1,0 +1,61 @@
+{
+    "id": 51566263,
+    "name": "LiteVM",
+    "category": 1,
+    "type": "normal",
+    "description": "新写的，似乎有bug，但是也能跑....\n嗯，起码有递归优化...且效果显著...\n速度...不敢想...",
+    "user_id": 32273536,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from __future__ import annotations\nimport enum\nimport sys\nfrom typing import Any\n\nsys.setrecursionlimit(10)\n\n\nclass VMError(Exception):\n    \"\"\"The exception raised when an error occurs in the VM.\"\"\"\n\n    ...\n\n\nclass OpCode(enum.Enum):\n    \"\"\"The opcodes for the bytecode.\"\"\"\n\n    POP = 0  # Pop the top of the stack.\n    LOAD_CONST = 1  # Load a value onto the stack.\n    LOAD_VAR = 2  # Load a variable onto the stack.\n\n    NEW_VAR = 3  # Create a new variable.\n    STORE_VAR = 4  # Store a value in a variable.\n    DEL_VAR = 5\n\n    CALL = 6  # Call a function.\n    RET = 7  # Return from a function.\n\n    FN = 8  # Define a function.\n    END_FN = 9  # End a function.\n\n    JMP = 10\n    JN = 11\n    JNZ = 12\n\n    LABEL = 13\n\n    ADD = 14\n    SUB = 15\n    MUL = 16\n    DIV = 17\n\n    CMP_GT = 18\n    CMP_LT = 19\n    CMP_EQ = 20\n    CMP_NEQ = 21\n    CMP_GTE = 22\n    CMP_LTE = 23\n\n    TRACE = 24\n    EXIT = 25\n\n    PRINT = 26\n\n\ndef exec_(code: list[tuple[Any, ...]]) -> None:\n    NIL = object()\n    code = code.copy()\n    v_stack = []\n    # fn_name fn_begin fn_end\n    call_frame = [(\"__global__\", NIL, NIL)]\n    env = [{}]\n    cur_pos = 0\n    while cur_pos < len(code):\n        inst = code[cur_pos]\n        inst_name: OpCode = inst[0]\n        inst_args = inst[1:] if len(inst) > 1 else []\n        if call_frame[-1][-1] is not NIL and cur_pos > call_frame[-1][-1]:  # type: ignore\n            raise VMError(\"Ret expected\")\n        match inst_name:\n            case OpCode.POP:\n                v_stack.pop()\n            case OpCode.LOAD_CONST:\n                v_stack.extend(inst_args)\n            case OpCode.LOAD_VAR:\n                v_stack.append(env[-1][inst_args[0]])\n            case OpCode.NEW_VAR:\n                env[-1][inst_args[0]] = NIL\n            case OpCode.STORE_VAR:\n                env[-1][inst_args[0]] = v_stack.pop()\n            case OpCode.DEL_VAR:\n                del env[-1][inst_args[0]]\n            case OpCode.CALL:\n                # load function body\n                fn_body = env[-1][inst_args[0]]\n                # insert fn body after this instruction\n                # TODO: too slow!\n                for index in range(len(fn_body)):\n                    code.insert(cur_pos + index + 1, fn_body[index])\n                # update call frame\n                call_frame.append((fn_name, cur_pos + 1, cur_pos + len(fn_body) + 1))\n                # update env\n                env.append({inst_args[0]: fn_body})\n                # print(code)\n\n            case OpCode.RET:\n                # pop call frame\n                cur_call = call_frame.pop()\n                # remove function body\n                del code[cur_call[1] : cur_call[2]]\n\n                # in the top frame already, can't return\n                # make linter happy\n                assert isinstance(cur_call[1], int), \"Unexpected RET\"\n                # restore cur_pos ptr\n                cur_pos: int = cur_call[1] - 1\n                # restore env\n                env.pop()\n                # print(code)\n\n            case OpCode.FN:\n                fn_name = inst_args[0]\n                fn_body = []\n                cur_pos += 1\n                while cur_pos < len(code):\n                    if code[cur_pos][0] == OpCode.END_FN:\n                        break\n                    else:\n                        fn_body.append(code[cur_pos])\n                    cur_pos += 1\n                env[-1][fn_name] = fn_body\n                # del code[cur_pos : cur_pos + len(fn_body)]\n                # cur_pos -= 1\n            case OpCode.END_FN:\n                raise VMError(\"Unexpected END_FN\")\n            case OpCode.JMP:\n                label_name = inst_args[0]\n                # TODO: too slow!\n                for index in range(len(code)):\n                    if code[index][0] == OpCode.LABEL and code[index][1] == label_name:\n                        cur_pos = index\n                        break\n            case OpCode.JN:\n                if not v_stack.pop():\n                    label_name = inst_args[0]\n                    # TODO: too slow!\n                    for index in range(len(code)):\n                        if (\n                            code[index][0] == OpCode.LABEL\n                            and code[index][1] == label_name\n                        ):\n                            cur_pos = index\n                            break\n            case OpCode.JNZ:\n                if v_stack.pop():\n                    label_name = inst_args[0]\n                    # TODO: too slow!\n                    for index in range(len(code)):\n                        if (\n                            code[index][0] == OpCode.LABEL\n                            and code[index][1] == label_name\n                        ):\n                            cur_pos = index\n                            break\n            case OpCode.LABEL:\n                # ignored\n                pass\n            case OpCode.CMP_GT:\n                v_stack.append(v_stack.pop() > v_stack.pop())\n            case OpCode.CMP_LT:\n                v_stack.append(v_stack.pop() < v_stack.pop())\n            case OpCode.CMP_EQ:\n                v_stack.append(v_stack.pop() == v_stack.pop())\n            case OpCode.CMP_NEQ:\n                v_stack.append(v_stack.pop() != v_stack.pop())\n            case OpCode.CMP_GTE:\n                v_stack.append(v_stack.pop() >= v_stack.pop())\n            case OpCode.CMP_LTE:\n                v_stack.append(v_stack.pop() <= v_stack.pop())\n            case OpCode.ADD:\n                v_stack.append(v_stack.pop() + v_stack.pop())\n            case OpCode.SUB:\n                v_stack.append(v_stack.pop() - v_stack.pop())\n            case OpCode.MUL:\n                v_stack.append(v_stack.pop() * v_stack.pop())\n            case OpCode.DIV:\n                v_stack.append(v_stack.pop() * v_stack.pop())\n            case OpCode.TRACE:\n                print(f\"***DEBUG*** CURRENT STACK: {v_stack}\")\n                # print(f\"***DEBUG*** CURRENT ENV: {env}\")\n                # print(f\"***DEBUG*** CURRENT CALL FRAME: {call_frame}\")\n            case OpCode.EXIT:\n                break\n            case OpCode.PRINT:\n                print(v_stack.pop())\n            case _:\n                raise VMError(f\"Unknown opcode: {inst_name} {inst_args}\")\n        cur_pos += 1\n\n\n# if __name__ == \"__main__\":\n# exec_(\n#     [\n#         (OpCode.FN, \"greet\"),\n#         (OpCode.LOAD_CONST, 1),\n#         (OpCode.LOAD_CONST, 2),\n#         (OpCode.ADD,),\n#         (OpCode.STORE_VAR, \"a\"),\n#         (OpCode.TRACE,),\n#         (OpCode.RET,),\n#         (OpCode.END_FN,),\n#         (OpCode.CALL, \"greet\"),\n#         (OpCode.TRACE,),\n#     ]\n# )\n\n# exec_([(OpCode.LABEL, \"begin\"), (OpCode.TRACE,), (OpCode.JMP, \"begin\")])\nexec_(\n    [\n        (OpCode.FN, \"add\"),\n        # (OpCode.TRACE,),\n        (OpCode.STORE_VAR, \"a\"),\n        (OpCode.LOAD_VAR, \"a\"),\n        (OpCode.LOAD_CONST, 0),\n        (OpCode.CMP_LT,),\n        (OpCode.JNZ, \"greater_than_zero\"),\n        (OpCode.LOAD_CONST, 0),\n        # (OpCode.TRACE,),\n        (OpCode.RET,),\n        (OpCode.LABEL, \"greater_than_zero\"),\n        (OpCode.LOAD_CONST, 1),\n        (OpCode.LOAD_VAR, \"a\"),\n        (OpCode.SUB,),\n        (OpCode.CALL, \"add\"),\n        (OpCode.LOAD_VAR, \"a\"),\n        (OpCode.ADD,),\n        (OpCode.RET,),\n        (OpCode.END_FN,),\n        (OpCode.LOAD_CONST, 1000),\n        (OpCode.CALL, \"add\"),\n        (OpCode.PRINT,),\n    ]\n)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-02-21 15:49:32",
+    "modified_at": "2024-02-21 15:49:32",
+    "likes": 3,
+    "views": 27,
+    "comments": 54,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-02-21 15:48:05",
+    "updated_at": "2024-12-22 16:25:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 233,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/68355f3aef1f22d72b57bf8a35e9da51.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他 算法",
+    "xml_path": "7a11f197d5e1e568686ef1e74907e7a8",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈祺嘉",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20220120/TalzvD9Osh1zkfxuHaoZegXvLQ1584.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51566263"
+}

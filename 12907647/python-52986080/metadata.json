@@ -1,0 +1,77 @@
+{
+    "id": 52986080,
+    "name": "在 3D程序 里玩 2D ！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/5d4b57a8fcd059d4d28196c8ee8aaed9.jpg",
+    "xml": "import os\nimport sys\ndef get_py_path():\n    return sys.executable\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\ninstall_library()\nimport numpy as np\nimport pygame\n\nscreen = pygame.display.set_mode((600, 600), pygame.RESIZABLE)\npygame.init()\n\nimport model\n\nclock = pygame.time.Clock()\nfont = pygame.font.SysFont('Arial', 11)\n\nwindow = model.Window(screen)\nimport IDU_undertale.main as IDU_undertale\npygame.key.stop_text_input()\n\nwhile 1:\n    FPS = str(round(clock.get_fps()))\n    pygame.display.set_caption('fps:' + FPS)\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n    screen.fill((round(0.5*255), round(0.69*255), round(1.0*255)))\n    IDU_undertale.next(pygame_events)\n    window.handle_event(pygame_events)\n    window.update()\n    window.on_draw(IDU_undertale.screen)\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-05-05 10:55:47",
+    "modified_at": "2024-05-05 10:55:47",
+    "likes": 12,
+    "views": 218,
+    "comments": 64,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 52939002,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-05-05 10:36:05",
+    "updated_at": "2026-03-29 23:50:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "7232aa15-d023-459a-1e78-4cf811c8196f": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 12,
+                "column": 35
+            },
+            "7c703051-59ce-b187-aca6-370b08b0bcc0": {
+                "row": 82,
+                "column": 0
+            },
+            "7df04c14-8f1d-25e2-7baf-b94fcfb9a714": {
+                "row": 1081,
+                "column": 67
+            },
+            "18af4e67-cb13-dcff-31ad-800c5bcd0eca": {
+                "row": 178,
+                "column": 17
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/fd90096b1a67f7c9d89fef355606fadc.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 2,
+    "favorites": 8,
+    "tags": "游戏 模拟 算法",
+    "xml_path": "f266ec0a7437e0fd5342c781b6b9db49",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_52986080"
+}

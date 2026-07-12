@@ -1,0 +1,35 @@
+[
+    {
+        "id": 673620,
+        "topic_id": "CP_13920557",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "9821869",
+        "reply_user_id": "13159581",
+        "content": "好厉害",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2021-02-02 17:32:23",
+        "comment_from": "topic",
+        "username": "王姝涵",
+        "user_avatar_path": "https://static1.xesimg.com/udc-o-user-avatar/20220602/Talzl1TN14scmkXIfA_esvc9LQ1786.jpg",
+        "reply_username": "陈锦奕",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": false,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

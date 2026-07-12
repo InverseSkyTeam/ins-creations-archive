@@ -1,0 +1,73 @@
+{
+    "id": 51709045,
+    "name": "pygame 3d万级渲染压力测试",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/f5c01c8a5000201bb94c14290d9ead25.jpg",
+    "xml": "import pygame\nimport sys\nimport numpy as np\n\nimport os\n#import sys\ndef get_py_path():\n    return sys.executable\ndef install_library():\n    try:\n        import numba\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"numba==0.56.4\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\ninstall_library()\nfrom render import render, Model, CubeModel, ModelNew\n\n\npygame.init()\nscreen = pygame.display.set_mode((600, 600))\nclock = pygame.time.Clock()\n\nmodel7 = Model(filename=\"data/pbr/backpack.obj\",\n               texture_filename=\"data/pbr/diffuse.jpg\")\n\nangle_x = 0.0\nangle_y = 0.0  # np.pi\nscale = 0.6\nmouse_dragging = False\nmode = 1  # 是否开启线框模式\nO2 = False  # 是否开启背面剔除\ntx, ty, tz = 0, 0, 0  # 0, -1.1, 0\n\nwhile 1:\n    pygame.display.set_caption('fps:' + str(round(clock.get_fps())))\n    pygame_events = pygame.event.get()\n    for event in pygame_events:\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                mouse_dragging = True\n            '''if event.button == 4:\n                scale += 0.1\n                scale = min(scale, 2.0)'''\n            if event.button == 5:\n                scale -= 0.1\n                scale = max(0.1, scale)\n        if event.type == pygame.MOUSEMOTION:\n            if mouse_dragging:\n                angle_x += event.rel[1]/300\n                angle_y += (-event.rel[0])/100\n        if event.type == pygame.MOUSEBUTTONUP:\n            if event.button == 1:\n                mouse_dragging = False\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_m:\n                mode = not mode\n            if event.key == pygame.K_o:\n                O2 = not O2\n            '''if event.key == pygame.K_w:\n                tz += 0.1\n                print(tz)'''\n\n    screen.fill((255, 255, 255))\n    z_buffer = np.full(screen.get_size(), np.inf, dtype=np.float64)\n    render(\n        model7,\n        height=600,\n        width=600,\n        screen=screen,\n        zbuffer=z_buffer,\n        angle_x=angle_x,\n        angle_y=angle_y,\n        mode=mode,\n        scale=scale,\n        O2=O2,\n        tx=tx,\n        ty=ty,\n        tz=tz\n    )\n\n    pygame.display.flip()\n    clock.tick(114514)\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-03-01 21:44:54",
+    "modified_at": "2024-03-04 21:14:59",
+    "likes": 12,
+    "views": 178,
+    "comments": 72,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-03-01 21:38:52",
+    "updated_at": "2026-05-28 20:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "f5bd9617-5c12-0206-e897-b6ab269e49c9": {
+                "row": 0,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 23,
+                "column": 0
+            },
+            "30d82221-dd6c-8fb7-2810-1945f74f9c97": {
+                "row": 80,
+                "column": 0
+            },
+            "b0cf7ff2-849d-9db3-e06f-8c42ea3049c4": {
+                "row": 182,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9ea98a88773a81a67265e5c030cce8a2.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 4,
+    "favorites": 8,
+    "tags": "沙盒专区 游戏 海龟",
+    "xml_path": "e576378971ae1540ca89f34462888323",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_51709045"
+}

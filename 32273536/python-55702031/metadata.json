@@ -1,0 +1,61 @@
+{
+    "id": 55702031,
+    "name": "llvm测试",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 32273536,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from llvmlite import ir\nfrom ctypes import CFUNCTYPE, c_double\nimport llvmlite.binding as llvm\n\nllvm.initialize()\nllvm.initialize_native_target()\nllvm.initialize_native_asmprinter()\n\n# Create some useful types\ndouble = ir.DoubleType()\nfnty = ir.FunctionType(double, (double, double))\n\n# Create an empty module...\nmodule = ir.Module(name=__file__)\n# and declare a function named \"fpadd\" inside it\nfunc = ir.Function(module, fnty, name=\"fpadd\")\n\n# Now implement the function\nblock = func.append_basic_block(name=\"entry\")\nbuilder = ir.IRBuilder(block)\na, b = func.args\nresult = builder.fadd(a, b, name=\"res\")\nbuilder.ret(result)\n\nllvm_ir = str(module)\nprint(llvm_ir)\n\ndef create_execution_engine():\n    # Create a target machine representing the host\n    target = llvm.Target.from_default_triple()\n    target_machine = target.create_target_machine()\n    # And an execution engine with an empty backing module\n    backing_mod = llvm.parse_assembly(\"\")\n    engine = llvm.create_mcjit_compiler(backing_mod, target_machine)\n    return engine\n    \nengine = create_execution_engine()\nmod = llvm.parse_assembly(llvm_ir)\nmod.verify()\n# Now add the module and make sure it is ready for execution\nengine.add_module(mod)\nengine.finalize_object()\nengine.run_static_constructors()\n\nfunc_ptr = engine.get_function_address(\"fpadd\")\ncfunc = CFUNCTYPE(c_double, c_double, c_double)(func_ptr)\nres = cfunc(1.0, 3.5)\nprint(\"fpadd(...) =\", res)",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-28 16:14:14",
+    "modified_at": "2024-08-28 16:14:14",
+    "likes": 5,
+    "views": 16,
+    "comments": 1,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-28 16:07:08",
+    "updated_at": "2025-08-31 08:45:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 29,
+                "column": 46
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/f13179f3051c194b3d0415e0373b08fb.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他 算法",
+    "xml_path": "5219f556ffa58d0ee8ec0cd3e1dae36d",
+    "created_source": "reprint",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "陈祺嘉",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20220120/TalzvD9Osh1zkfxuHaoZegXvLQ1584.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55702031"
+}

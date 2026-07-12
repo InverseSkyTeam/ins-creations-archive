@@ -1,0 +1,61 @@
+{
+    "id": 54964748,
+    "name": "孩子们，我回来了！",
+    "category": 1,
+    "type": "normal",
+    "description": "哈哈哈！我回来了！来吧，消灭那一切阻碍，哈哈哈哈！在朕的手下，就没有完不成的事，没有做不到的事！朕欲横扫天下，你可随我一同立志！",
+    "user_id": 12907647,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/54b15a308f770ecd11ecbdc91c7d11e7.jpg",
+    "xml": "print('''\\033[1;44m「有思想的不定积分」天子正式上号。\\033[0m\n\\033[1;34m「有动力的实变函数」优势の势力加持。\n「新时代的圆锥曲线」强势创新开拓。\n「回忆杀的苏格拉底」进行图腾整理。\n「破阵局的质能方程」前锋将领。\\033[0m\n\\033[1;32m「螳螂哥」和「老板」回归本职。\\033[0m\n\\033[1;36m「锐利的笔锋」批评家。\\033[0m\n\\033[1;35m「小丑」必不可少的角色。\\033[0m\n「终焉之师」天子的禁军。\n「联梦军团」天子的第一部队。\n「诸神黄昏」天子的第二部队。\n「天方夜谭」天子的第三部队。\n「逆天神力」天子的文武百官。\n\\033[1;32m「新智能」人机。\\033[0m\n\\033[1;36m「A字创造」包括「小鲤鱼」「立方体」等管理者。\\033[0m\n\\033[1;33m「虚幻之力」宝物。\n「伟大人民」中流砥柱。\\033[0m\n\\033[1;34m「创世神」创哥理赔+刷怪笼。\\033[0m\n\\033[1;31m「逆天小轩」旁观模式。\\033[0m\n\\033[1;33m(*注: 不是游戏！天子已经带领他的横扫大队回来力！awa)\\033[0m\n(**注: 显示有问题的终端（比如出现天子上面少了一横），请打开改编看文字，或者按住Ctrl和鼠标滚轮/+号进行浏览器页面放大)\n\n\n孩子们，我回来了！\n😅 😅 😅\n😈 😈 😈''')",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-08-02 10:47:07",
+    "modified_at": "2024-08-02 10:48:55",
+    "likes": 12,
+    "views": 82,
+    "comments": 71,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-08-01 23:59:49",
+    "updated_at": "2026-02-21 16:00:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 15,
+                "column": 19
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/483777192459cb7568eb275d61b3959a.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 6,
+    "tags": "其他",
+    "xml_path": "29c58e76012c0d3bfcf2a7f37adef2dc",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "小轩",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20240907/TalzonWMSyKikgD5ZEDafJ9YyA_d75edba0b573c72c.png",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_54964748"
+}

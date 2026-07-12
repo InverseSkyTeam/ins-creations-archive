@@ -1,0 +1,65 @@
+{
+    "id": 55971644,
+    "name": "一个代码优化的小小例子",
+    "category": 1,
+    "type": "normal",
+    "description": "事实证明，基于SSA的代码优化效果很不错",
+    "user_id": 17025146,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "from svm import *\n\ncode = [\n    Label(\"main\"),\n    Op(OpType.ASSIGN, Constant(1), None, Register(\"a\")),\n    Op(OpType.ASSIGN, Constant(2), None, Register(\"b\")),\n    Op(OpType.LE, Register(\"a\"), Register(\"b\"), Register(\"c\")),\n    Br(Register(\"c\"), \"then\", \"else\"),\n    Label(\"then\"),\n    Op(OpType.ASSIGN, Constant(3), None, Register(\"d\")),\n    Br(None, \"endif\", None),\n    Label(\"else\"),\n    Op(OpType.ASSIGN, Constant(4), None, Register(\"d\")),\n    Br(None, \"endif\", None),\n    Label(\"endif\"),\n    Call(\"print\", [Register(\"d\")], None)\n]\n\nprint(\"这是优化以前的IR:\")\nfor i in code:\n    print(i)\nprint(\"它等价于如下代码:\")\nprint(\"\"\"a = 1\nb = 2\nif a < b:\n    d = 3\nelse:\n    d = 4\nprint(d)\n\"\"\")\nprint(\"显然这是一大段废话,我们都知道最终结果一定是print(3),好在代码优化器也知道.\\n\")\nssa = build_ssa(code)\ndef_use_chain = build_def_use_chain(ssa)\noptimized = optimize(ssa, def_use_chain)\n\nprint(\"这是优化以后的IR:\")\nfor label, cfg in optimized.items():\n    for i in cfg.instructions:\n        print(i)\nprint(\"它等价于如下代码:\")\nprint(\"print(3)\\n\")\nprint(\"Amazing!优化器成功在不改变代码原意的前提下将代码优化到最短,从而去掉了大量冗余,这正是我们想要的.\")",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-09-07 20:03:47",
+    "modified_at": "2024-09-07 20:24:01",
+    "likes": 6,
+    "views": 44,
+    "comments": 44,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 28794692,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-09-07 19:17:08",
+    "updated_at": "2026-06-17 17:25:00",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 39,
+                "column": 18
+            },
+            "bc22078c-32db-5d90-71fa-e60c3345dcbd": {
+                "row": 462,
+                "column": 49
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/9f22e14d9fce2f43baaeabf9c16e737d.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "其他",
+    "xml_path": "e045dde1f34e138c4a7b2bf918914c15",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "吴宇航",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210418/Talz4LBDwc2k3lqGS74fz6CFrg1516.gif",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_55971644"
+}

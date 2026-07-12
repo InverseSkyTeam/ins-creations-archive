@@ -1,0 +1,69 @@
+{
+    "id": 50663556,
+    "name": "INS-WebView 测试",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 29968040,
+    "thumbnail": "https://static0.xesimg.com/talcode/assets/py/default-python-thumbnail.png",
+    "xml": "import os\nimport sys\ndef get_py_path():\n    return sys.executable\ndef install_library():\n    try:\n        import icu\n    except ImportError:\n        print(\"检测到环境尚未配置完全，正在自动配置（第一次运行常见）\")\n        import subprocess\n        try:\n            subprocess.check_call([get_py_path(), '-m', 'pip', 'install', \"PyICU-2.8.1-cp37-cp37m-win32.whl\"])\n            print(\"\\n环境配置成功！请重新运行程序\\033[8m;\")\n            sys.exit(0)\n        except subprocess.CalledProcessError:\n            print(\"\\n环境配置失败！\\033[8m;\")\n            sys.exit(1)\ninstall_library()\n\n\nimport text_break_iterator as text_break\nfrom icu import Locale\nfrom icu import BreakIterator\n# BreakIterator.createCharacterInstance()\nclass Test:\n    def __init__(self, string, Locale_ = Locale.getUS()):\n        self.string = string\n        self.Locale_ = Locale_\n        print('test:', repr(self.string))\n    def MatchLineBreaks(self, types, ans):\n        res = text_break.test(self.string, types, self.Locale_)\n        print(res == ans, res)\n        assert res == ans\n\n\ndef test_Basic():\n    test = Test(\"a b  c\");\n    test.MatchLineBreaks('kNormal', [2, 5, 6])\n    print('----------------------')\ndef test_Newline():\n    test = Test(\"a\\nb\\n\\nc\\n d\");\n    test.MatchLineBreaks('kNormal', [2, 5, 8, 9])\n    print('----------------------')\ndef test_Tab():\n    test = Test(\"a\\tb\\t\\tc\");\n    test.MatchLineBreaks('kNormal', [2, 5, 6])\n    print('----------------------')\ndef test_LatinPunctuation():\n    test = Test(\"(ab) cd.\");\n    test.MatchLineBreaks('kNormal', [5, 8])\n    test.MatchLineBreaks('kBreakAll', [2, 5, 6, 8])\n    test.MatchLineBreaks('kKeepAll', [5, 8])\n    print('----------------------')\ndef test_Chinese():\n    test = Test(\"標準萬國碼\");\n    test.MatchLineBreaks('kNormal', [1, 2, 3, 4, 5])\n    test.MatchLineBreaks('kBreakAll', [1, 2, 3, 4, 5])\n    test.MatchLineBreaks('kKeepAll', [5])\n    print('----------------------')\ndef test_ChineseMixed():\n    test = Test(\"標（準）萬ab國.碼\");\n    test.MatchLineBreaks('kNormal', [1, 4, 5, 7, 9, 10])\n    test.MatchLineBreaks('kBreakAll', [1, 4, 5, 6, 7, 9, 10])\n    test.MatchLineBreaks('kKeepAll', [1, 4, 9, 10])\n    print('----------------------')\ndef test_ChineseSpaces():\n    test = Test(\"標  萬  a  國\");\n    test.MatchLineBreaks('kNormal', [3, 6, 9, 10])\n    test.MatchLineBreaks('kBreakAll', [3, 6, 9, 10])\n    test.MatchLineBreaks('kKeepAll', [3, 6, 9, 10])\n    print('----------------------')\ndef test_KeepEmojiZWJFamilyIsolate():\n    test = Test(\"\\U0001F468\\u200D\\U0001F469\\u200D\\U0001F467\\u200D\\U0001F466\");\n    test.MatchLineBreaks('kNormal', [11])\n    test.MatchLineBreaks('kBreakAll', [11])\n    test.MatchLineBreaks('kKeepAll', [11])\n    print('----------------------')\ndef test_KeepEmojiModifierSequenceIsolate():\n    test = Test(\"\\u261D\\U0001F3FB\");\n    test.MatchLineBreaks('kNormal', [3])\n    test.MatchLineBreaks('kBreakAll', [3])\n    test.MatchLineBreaks('kKeepAll', [3])\n    print('----------------------')\ndef test_KeepEmojiZWJSequence():\n    test = Test(\"abc \\U0001F469\\u200D\\U0001F469\\u200D\\U0001F467\\u200D\\U0001F467 def\");\n    test.MatchLineBreaks('kNormal', [4, 16, 19])\n    test.MatchLineBreaks('kBreakAll', [1, 2, 4, 16, 17, 18, 19])\n    test.MatchLineBreaks('kKeepAll', [4, 16, 19])\n    print('----------------------')\ndef test_KeepEmojiModifierSequence():\n    test = Test(\"abc \\u261D\\U0001F3FB def\");\n    test.MatchLineBreaks('kNormal', [4, 8, 11])\n    test.MatchLineBreaks('kBreakAll', [1, 2, 4, 8, 9, 10, 11])\n    test.MatchLineBreaks('kKeepAll', [4, 8, 11])\n    print('----------------------')\n\ntest_Basic()\ntest_Newline()\ntest_Tab()\ntest_LatinPunctuation()\ntest_Chinese()\ntest_ChineseMixed()\ntest_ChineseSpaces()\ntest_KeepEmojiZWJFamilyIsolate()\ntest_KeepEmojiModifierSequenceIsolate()\ntest_KeepEmojiZWJSequence()\ntest_KeepEmojiModifierSequence()\n",
+    "lang": "python",
+    "published": 1,
+    "published_at": "2024-01-30 14:29:20",
+    "modified_at": "2024-11-30 13:08:16",
+    "likes": 3,
+    "views": 36,
+    "comments": 14,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 50625605,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-01-29 11:49:09",
+    "updated_at": "2026-07-04 10:40:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "1604f7c3-cfa9-592b-1a6a-91a1bba54b27": {
+                "row": 274,
+                "column": 33
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 95,
+                "column": 0
+            },
+            "432d4698-fbe8-7a19-03db-12e8a5712100": {
+                "row": 104,
+                "column": 15
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0c91b7b46a204f6889c3f726d463bf69.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "41118f01257ab16075f2ae8d41f9b923",
+    "created_source": "adapt",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "黄羿杰",
+    "user_avatar": "https://static0.xesimg.com/udc-o-user-avatar/20210410/TalzTGb2L3-6e1wkJImvuYvwEQ1154.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_50663556"
+}

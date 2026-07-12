@@ -1,0 +1,35 @@
+[
+    {
+        "id": 3535553,
+        "topic_id": "CP_39499314",
+        "parent_id": 0,
+        "target_id": 0,
+        "user_id": "32273536",
+        "reply_user_id": "32273536",
+        "content": "在弹出的窗口里输入脚本，按确定就会在终端里显示运行结果。语法类似python，支持到def，if,while三种语句，支持int，string两种类型，使用{}，{不允许换行书写。转载作品。",
+        "likes": 0,
+        "unlikes": 0,
+        "replies": 0,
+        "top": 0,
+        "removed": 0,
+        "links": null,
+        "created_at": "2022-12-08 19:11:18",
+        "comment_from": "topic",
+        "username": "陈祺嘉",
+        "user_avatar_path": "https://static0.xesimg.com/udc-o-user-avatar/20220120/TalzvD9Osh1zkfxuHaoZegXvLQ1584.jpg",
+        "reply_username": "陈祺嘉",
+        "emojis": [],
+        "is_like": false,
+        "is_unlike": false,
+        "is_topic_author_like": false,
+        "is_topic_author_reply": true,
+        "can_delete": false,
+        "can_top": false,
+        "reply_list": {
+            "hasMore": false,
+            "total": 0,
+            "data": []
+        },
+        "user_profile": null
+    }
+]

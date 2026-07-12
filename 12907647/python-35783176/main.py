@@ -1,0 +1,1 @@
+print("我团队https://www.luogu.com.cn/team/46415，如果你不是逆天团队的想进，可以先在评论区回复我，如果你已经是了，可以在洛谷加入我的团队:\nhttps://www.luogu.com.cn/team/46415\n右键复制")
