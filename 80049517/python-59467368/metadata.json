@@ -1,0 +1,59 @@
+{
+    "id": 59467368,
+    "name": "Styled Xueersi",
+    "category": 1,
+    "type": "normal",
+    "description": "cn-greasyfork.org/zh-CN/scripts/526434-styled-xueersi",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/8b89472c76361e1762f2589274f48046.jpg",
+    "lang": "python",
+    "published": 0,
+    "published_at": "2025-02-10 15:12:59",
+    "modified_at": "2025-02-10 15:12:59",
+    "likes": 2,
+    "views": 8,
+    "comments": 0,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 2,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-10 15:04:17",
+    "updated_at": "2026-07-12 13:30:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 7,
+                "column": 13
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "9c5ac9ba0f916163a5dc7970bcee5602",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59467368"
+}

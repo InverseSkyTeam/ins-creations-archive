@@ -1,0 +1,59 @@
+{
+    "id": 56553438,
+    "name": "XesCoding还有生机么？",
+    "category": 1,
+    "type": "normal",
+    "description": "哎，又是一个 “网校学员” 入站了。\n胡乱033的，见谅",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/3320eab6df74f3c334d1c7b439afff11.jpg",
+    "lang": "python",
+    "published": 0,
+    "published_at": "2024-10-02 21:01:14",
+    "modified_at": "2025-01-06 11:37:16",
+    "likes": 7,
+    "views": 40,
+    "comments": 20,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 2,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-10-02 19:30:03",
+    "updated_at": "2026-07-12 13:30:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 144,
+                "column": 0
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "3689fdbe78a284b22db9a2423a026b52",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_56553438"
+}

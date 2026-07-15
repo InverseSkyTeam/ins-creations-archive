@@ -1,0 +1,60 @@
+{
+    "id": 63299910,
+    "name": "C 站怀古",
+    "category": 1,
+    "type": "normal",
+    "description": "衰落的 Coding.",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/f20e2e567b21e1ebc9c300435365586b.png",
+    "lang": "webpy",
+    "published": 0,
+    "published_at": "2025-07-30 14:08:12",
+    "modified_at": "2026-03-15 12:55:34",
+    "likes": 1,
+    "views": 13,
+    "comments": 0,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 3,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-07-30 14:07:39",
+    "updated_at": "2026-07-10 15:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 54,
+                "column": 11
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/0e0c2a03f86342d73f71351a80566c22.json",
+        "hide_filelist": true
+    },
+    "removed": 1,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 1,
+    "tags": "其他",
+    "xml_path": "9fe5aa3ef5946e17976094f5b7c16a22",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_63299910"
+}

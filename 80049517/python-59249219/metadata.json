@@ -1,0 +1,59 @@
+{
+    "id": 59249219,
+    "name": "CGame 复刻（反正也不更新了）",
+    "category": 1,
+    "type": "normal",
+    "description": "操作方法：wasd控制黑色方块\n显示支持rgb真彩色（\n掉帧，0.25秒刷新一次屏幕（反正也不更新了）",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/19eed5009bbc32561b21cc8827b272de.jpg",
+    "lang": "python",
+    "published": 0,
+    "published_at": "2025-02-06 14:04:35",
+    "modified_at": "2025-02-06 14:04:35",
+    "likes": 3,
+    "views": 43,
+    "comments": 3,
+    "version": "python",
+    "source": "xes_live",
+    "original_id": 2,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-05 20:13:01",
+    "updated_at": "2026-07-10 19:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 243,
+                "column": 11
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "25af38e216bcc59aebda3934b9e452c8",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59249219"
+}

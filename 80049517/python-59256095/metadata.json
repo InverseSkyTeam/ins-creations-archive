@@ -1,0 +1,68 @@
+{
+    "id": 59256095,
+    "name": "Python 3.12.5 测试作品",
+    "category": 1,
+    "type": "normal",
+    "description": "Universal Loader\n带来了 Python 3.12.5\n示例作品使用了 Pygame-CE\n示例作品很菜（",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/7101e63fb96dfeaf273614effd6f4f8e.jpg",
+    "lang": "python",
+    "published": 0,
+    "published_at": "2025-02-05 22:38:18",
+    "modified_at": "2025-02-05 22:38:18",
+    "likes": 1,
+    "views": 15,
+    "comments": 14,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 6,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-05 22:34:53",
+    "updated_at": "2026-07-12 23:15:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 0
+            },
+            "2c65ab90-efc5-2623-52c9-ce7ce1fe9712": {
+                "row": 1,
+                "column": 4
+            },
+            "526b437f-7a62-0c64-a521-cb267d4f74c5": {
+                "row": 24,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/bd52f8bf264bf2f27d10710af7b76bf7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "de5171cb35172b218dde9f8ad8a4dc39",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59256095"
+}

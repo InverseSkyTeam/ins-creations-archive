@@ -1,0 +1,68 @@
+{
+    "id": 59318686,
+    "name": "Python 3.12.5 测试作品 v0.2",
+    "category": 1,
+    "type": "normal",
+    "description": "Universal Loader v0.2\n带来了 Python 3.12.5，示例作品使用了 Pygame-CE\nv0.2 修改日志：修复了忘记 encoding 导致无法导入 site-packages，天哪\n示例作品很菜（",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/f4d2d7a46abbee97449c7614c406c0e5.jpg",
+    "lang": "python",
+    "published": 0,
+    "published_at": "2025-02-07 16:59:17",
+    "modified_at": "2025-03-23 19:51:44",
+    "likes": 2,
+    "views": 51,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 6,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-07 16:57:32",
+    "updated_at": "2026-07-10 15:30:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 7,
+                "column": 0
+            },
+            "9ca6f1ec-f223-2541-44d8-0c28695b6793": {
+                "row": 137,
+                "column": 0
+            },
+            "10e87bce-11d7-19c4-3a73-16c37d794104": {
+                "row": 24,
+                "column": 0
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/95b7ed233bcada9eab69f542011b607f.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 1,
+    "favorites": 2,
+    "tags": "其他",
+    "xml_path": "9a2fabe0d2af35ad6c7132fd78bf0955",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59318686"
+}

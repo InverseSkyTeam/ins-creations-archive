@@ -1,0 +1,60 @@
+{
+    "id": 59693599,
+    "name": "Pygame 右键菜单 v0.2（",
+    "category": 1,
+    "type": "normal",
+    "description": "做菜单的风吹到了逆天团队（\n淡入淡出还没做。找时间做做\n哦对，选择菜单项目后记得看控制台输出\n\n为了这个菜单，甚至还写了个 Signal。。。\n对了，Signal 是 IDE 友好的哦，可以根据用法自动推导类型。\n话说 typing 太好用啦",
+    "user_id": 80049517,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/bba900fbe2bfba3b33f8d00e37ca81a2.png",
+    "lang": "python",
+    "published": 0,
+    "published_at": "2025-02-15 20:57:45",
+    "modified_at": "2025-02-15 20:57:45",
+    "likes": 4,
+    "views": 51,
+    "comments": 2,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 6,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-02-15 20:52:46",
+    "updated_at": "2026-07-12 13:55:02",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 13,
+                "column": 13
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/aea0c9d585cc50d7f1cc55e1026c81d7.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 4,
+    "tags": "其他",
+    "xml_path": "4159efdb1b6cb15ac5440baeede1a8d8",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_59693599"
+}

@@ -1,0 +1,68 @@
+{
+    "id": 60471964,
+    "name": "PyNa v0.2 α  加钠！！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 80049517,
+    "thumbnail": null,
+    "lang": "python",
+    "published": 0,
+    "published_at": "0000-00-00 00:00:00",
+    "modified_at": "2025-03-23 20:14:08",
+    "likes": 0,
+    "views": 4,
+    "comments": 0,
+    "version": "offline",
+    "source": "xes_live",
+    "original_id": 6,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-03-23 19:52:58",
+    "updated_at": "2026-05-21 15:55:01",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "65ed1348-aa2d-ce5f-ac93-83a615b5b910": {
+                "row": 137,
+                "column": 0
+            },
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 7,
+                "column": 0
+            },
+            "46b77dee-3733-2ca2-482d-6b2635394c7b": {
+                "row": 16,
+                "column": 60
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/ec31fb23ca930bcdde4569f28df637c9.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "",
+    "xml_path": "b23272b4839cb6bd52e573d78e4f85e1",
+    "created_source": "",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "网校学员",
+    "user_avatar": "https://t.100tal.com/avatar/%E5%AD%A6%E5%91%98",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_60471964"
+}
