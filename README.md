@@ -1,3 +1,6 @@
+本仓库包含以下逆天团队成员的**已发布作品备份**  
+包括全部作品信息以及**评论**
+
 | id | 昵称 | 头像 | 备份地址 | xes主页地址 | github空间地址 |
 | --- | --- | --- | --- | --- | --- |
 | 10583579 | Protactinium_ | ![10583579 的头像](/avatar/10583579.png) | [10583579 的备份](/10583579) | https://code.xueersi.com/space/10583579 | https://github.com/hejiachen23 |
@@ -12,3 +15,6 @@
 | 59842528 | Yzx's\-\|竹\| | ![59842528 的头像](/avatar/59842528.png) | [59842528 的备份](/59842528) | https://code.xueersi.com/space/59842528 | 暂无 |
 | 79932748 | 实变函数 | ![79932748 的头像](/avatar/79932748.png) | [79932748 的备份](/79932748) | https://code.xueersi.com/space/79932748 | https://github.com/insjhx |
 | 80049517 | lrs2187（新号） | ![80049517 的头像](/avatar/80049517.png) | [80049517 的备份](/80049517) | https://code.xueersi.com/space/80049517 | https://github.com/lrsgzs |
+
+使用 [CCDown](https://github.com/lrsgzs/ccdown) 实现备份
+可使用 [Pygame Comment Render](https://github.com/hyj1230/pygame-XES-comment-render) 读取并查看备份中的 `comments.json`
