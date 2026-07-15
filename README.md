@@ -12,7 +12,7 @@
 | 29968040 | Hdwyj | ![29968040 的头像](/avatar/29968040.png) | [29968040 的备份](/29968040) | https://code.xueersi.com/space/29968040 | https://github.com/hyj1230 |
 | 32273536 | 鱼翔浅底 | ![32273536 的头像](/avatar/32273536.png) | [32273536 的备份](/32273536) | https://code.xueersi.com/space/32273536 | https://github.com/Cassian824 |
 | 3846998 | 云开霁散 | ![3846998 的头像](/avatar/3846998.png) | [3846998 的备份](/3846998) | https://code.xueersi.com/space/3846998 | https://github.com/FkjAccount123456 |
-| 59842528 | Yzx's\-\|竹\| | ![59842528 的头像](/avatar/59842528.png) | [59842528 的备份](/59842528) | https://code.xueersi.com/space/59842528 | 暂无 |
+| 59842528 | Yzx's\-\|竹\| | ![59842528 的头像](/avatar/59842528.png) | [59842528 的备份](/59842528) | https://code.xueersi.com/space/59842528 | https://github.com/ZiXuanYuan |
 | 79932748 | 实变函数 | ![79932748 的头像](/avatar/79932748.png) | [79932748 的备份](/79932748) | https://code.xueersi.com/space/79932748 | https://github.com/insjhx |
 | 80049517 | lrs2187（新号） | ![80049517 的头像](/avatar/80049517.png) | [80049517 的备份](/80049517) | https://code.xueersi.com/space/80049517 | https://github.com/lrsgzs |
 
