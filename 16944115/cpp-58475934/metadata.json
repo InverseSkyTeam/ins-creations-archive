@@ -1,0 +1,59 @@
+{
+    "id": 58475934,
+    "name": "注意！此号已借出！",
+    "category": 1,
+    "type": "normal",
+    "description": "",
+    "user_id": 16944115,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/b9c32a0384320d451940c25604b033ce.jpg",
+    "lang": "cpp",
+    "published": 0,
+    "published_at": "2024-12-24 22:21:04",
+    "modified_at": "2024-12-24 22:24:08",
+    "likes": 0,
+    "views": 64,
+    "comments": 3,
+    "version": "cpp",
+    "source": "xes_live",
+    "original_id": 1,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2024-12-24 22:20:53",
+    "updated_at": "2026-05-20 22:51:22",
+    "adapter": "",
+    "hidden_code": 2,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 5,
+                "column": 41
+            }
+        },
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他",
+    "xml_path": "5ac10f1d325522de86dc889ee91f6283",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": null,
+    "live_id": null,
+    "template_project_id": null,
+    "username": "lrs",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20260412/TalzjsePOo_Fi0fjei2_L9FOnw_04942587b2df745a.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CC_58475934"
+}

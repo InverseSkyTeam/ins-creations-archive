@@ -1,0 +1,60 @@
+{
+    "id": 60199045,
+    "name": "匿名 - 国之殇，未敢忘",
+    "category": 1,
+    "type": "normal",
+    "description": "国之殇，未敢忘  ——ClassZheng",
+    "user_id": 16944115,
+    "thumbnail": "https://static0.xesimg.com/programme/assets/d229368b968b3c967b2bc0d869b724b1.jpg",
+    "lang": "webpy",
+    "published": 0,
+    "published_at": "2025-03-15 13:27:45",
+    "modified_at": "2025-03-15 14:19:55",
+    "likes": 3,
+    "views": 12,
+    "comments": 2,
+    "version": "webpy",
+    "source": "xes_live",
+    "original_id": 3,
+    "weight": 1,
+    "deleted_at": "",
+    "created_at": "2025-03-15 13:21:53",
+    "updated_at": "2026-07-10 15:40:01",
+    "adapter": "",
+    "hidden_code": 1,
+    "assets": {
+        "assets": [],
+        "cdns": [
+            "https://static0.xesimg.com",
+            "https://livefile.xesimg.com"
+        ],
+        "cursorsMap": {
+            "cb4b6868f9335d740486ea3b5cf928f0": {
+                "row": 10,
+                "column": 33
+            }
+        },
+        "assets_url": "https://static0.xesimg.com/programme/python_assets/fad2a7a2ee88a74ea14afec89fada159.json",
+        "hide_filelist": false
+    },
+    "removed": 0,
+    "video": "",
+    "audio": "",
+    "unlikes": 0,
+    "code_complete": 1,
+    "source_code_views": 0,
+    "favorites": 0,
+    "tags": "其他",
+    "xml_path": "2da6c54195247dbabfef2f5040b197fe",
+    "created_source": "original",
+    "popular_score": 0,
+    "is_cooperation": 0,
+    "code_complete_json": "https://static0.xesimg.com/programme/python_assets/dd0df7606df2cb6f03acdfd987cd08a6.json",
+    "live_id": null,
+    "template_project_id": null,
+    "username": "lrs",
+    "user_avatar": "https://static1.xesimg.com/udc-o-user-avatar/20260412/TalzjsePOo_Fi0fjei2_L9FOnw_04942587b2df745a.jpg",
+    "manual_weight": 1,
+    "project_type": "compiler",
+    "topic_id": "CP_60199045"
+}
